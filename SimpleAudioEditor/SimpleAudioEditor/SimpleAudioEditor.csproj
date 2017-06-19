@@ -33,6 +33,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CSCore, Version=1.2.1.1, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSCore.1.2.1.1\lib\net35-client\CSCore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MediaBase, Version=4.0.1433.0, Culture=neutral, PublicKeyToken=d264bf7150202654, processorArchitecture=AMD64">
+      <HintPath>..\packages\Streamcoders.MediaSuite.x64.4.0.1433.0\lib\net45\MediaBase.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MediaSuite, Version=4.0.1433.0, Culture=neutral, PublicKeyToken=d264bf7150202654, processorArchitecture=AMD64">
+      <HintPath>..\packages\Streamcoders.MediaSuite.x64.4.0.1433.0\lib\net45\MediaSuite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -66,6 +78,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
