@@ -32,12 +32,14 @@
             this.mEditor = new SimpleAudioEditor.Controller.WaveController.WaveEditor();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.samplesPanel = new System.Windows.Forms.Panel();
+            this.groupBoxSemples = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
+            this.groupBoxSemples.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(12, 53);
+            this.buttonStart.Location = new System.Drawing.Point(275, 78);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(75, 23);
             this.buttonStart.TabIndex = 0;
@@ -47,7 +49,7 @@
             // 
             // buttonPause
             // 
-            this.buttonPause.Location = new System.Drawing.Point(111, 53);
+            this.buttonPause.Location = new System.Drawing.Point(194, 78);
             this.buttonPause.Name = "buttonPause";
             this.buttonPause.Size = new System.Drawing.Size(75, 23);
             this.buttonPause.TabIndex = 2;
@@ -57,11 +59,11 @@
             // 
             // buttonLoadFile
             // 
-            this.buttonLoadFile.Location = new System.Drawing.Point(12, 11);
+            this.buttonLoadFile.Location = new System.Drawing.Point(356, 78);
             this.buttonLoadFile.Name = "buttonLoadFile";
             this.buttonLoadFile.Size = new System.Drawing.Size(174, 23);
             this.buttonLoadFile.TabIndex = 3;
-            this.buttonLoadFile.Text = "Выбрать файл";
+            this.buttonLoadFile.Text = "Выбрать файлы";
             this.buttonLoadFile.UseVisualStyleBackColor = true;
             this.buttonLoadFile.Click += new System.EventHandler(this.buttonLoadFile_Click);
             // 
@@ -72,7 +74,7 @@
             // 
             // trackBarVolume
             // 
-            this.trackBarVolume.Location = new System.Drawing.Point(46, 141);
+            this.trackBarVolume.Location = new System.Drawing.Point(536, 78);
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
             this.trackBarVolume.Size = new System.Drawing.Size(174, 45);
@@ -83,15 +85,15 @@
             // mEditor
             // 
             this.mEditor.BackColor = System.Drawing.Color.White;
-            this.mEditor.Location = new System.Drawing.Point(192, 11);
+            this.mEditor.Location = new System.Drawing.Point(12, 12);
             this.mEditor.Name = "mEditor";
-            this.mEditor.Size = new System.Drawing.Size(463, 60);
+            this.mEditor.Size = new System.Drawing.Size(713, 60);
             this.mEditor.TabIndex = 5;
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 114);
+            this.comboBox1.Location = new System.Drawing.Point(14, 80);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(174, 21);
             this.comboBox1.TabIndex = 6;
@@ -99,18 +101,28 @@
             // samplesPanel
             // 
             this.samplesPanel.AutoScroll = true;
-            this.samplesPanel.Location = new System.Drawing.Point(12, 179);
+            this.samplesPanel.Location = new System.Drawing.Point(6, 19);
             this.samplesPanel.Name = "samplesPanel";
-            this.samplesPanel.Size = new System.Drawing.Size(677, 313);
+            this.samplesPanel.Size = new System.Drawing.Size(700, 360);
             this.samplesPanel.TabIndex = 8;
+            // 
+            // groupBoxSemples
+            // 
+            this.groupBoxSemples.Controls.Add(this.samplesPanel);
+            this.groupBoxSemples.Location = new System.Drawing.Point(12, 107);
+            this.groupBoxSemples.Name = "groupBoxSemples";
+            this.groupBoxSemples.Size = new System.Drawing.Size(713, 385);
+            this.groupBoxSemples.TabIndex = 9;
+            this.groupBoxSemples.TabStop = false;
+            this.groupBoxSemples.Text = "Список сэмплов";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1240, 504);
+            this.ClientSize = new System.Drawing.Size(734, 504);
+            this.Controls.Add(this.groupBoxSemples);
             this.Controls.Add(this.mEditor);
-            this.Controls.Add(this.samplesPanel);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.trackBarVolume);
             this.Controls.Add(this.buttonLoadFile);
@@ -121,6 +133,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).EndInit();
+            this.groupBoxSemples.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,6 +149,7 @@
         private Controller.WaveController.WaveEditor mEditor;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Panel samplesPanel;
+        private System.Windows.Forms.GroupBox groupBoxSemples;
     }
 }
 

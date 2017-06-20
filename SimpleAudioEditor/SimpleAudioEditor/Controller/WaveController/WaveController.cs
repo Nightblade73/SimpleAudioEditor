@@ -191,6 +191,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
             rawFile.Close();
         }
 
+
         private void OpenWaveFileThread() {
             CreateOptimizedArray();
             mDrawWave = true;

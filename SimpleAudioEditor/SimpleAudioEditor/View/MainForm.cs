@@ -38,6 +38,7 @@ namespace SimpleAudioEditor
         List<string> fileSounds = new List<string>();
 
         public List<Controller.WaveController.WaveEditor> WiveEditorList = new List<Controller.WaveController.WaveEditor>();
+        List<Button> EditorDeleteButtons = new List<Button>();
 
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -71,6 +72,10 @@ namespace SimpleAudioEditor
             if (mEditor != null)
             {
                 mEditor.Dispose();
+                for (int i = 0; i < WiveEditorList.Count; i++)
+                {
+                    WiveEditorList[i].Dispose();
+                }
             }
         }
 
@@ -84,7 +89,6 @@ namespace SimpleAudioEditor
             openFileDialog.Filter = "Cursor Files|*.mp3";
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                fileSounds.Clear();
                 for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                 {
                     fileSounds.Add(openFileDialog.FileNames[i]);
@@ -92,18 +96,26 @@ namespace SimpleAudioEditor
                     if (WiveEditorList.Count <= 1)
                         WiveEditorList[WiveEditorList.Count - 1].Location = new Point(0, 0);
                     else
-                        WiveEditorList[WiveEditorList.Count - 1].Location = new Point(0, WiveEditorList[WiveEditorList.Count - 2].Location.Y + 60);
+                        WiveEditorList[WiveEditorList.Count - 1].Location = new Point(0, WiveEditorList[WiveEditorList.Count - 2].Location.Y + 66);
 
-                    WiveEditorList[WiveEditorList.Count - 1].Size = mEditor.Size;
-
+                    WiveEditorList[WiveEditorList.Count - 1].Size = new Size( new Point(600, mEditor.Size.Height));
+                    
                     this.Controls.Add(WiveEditorList[WiveEditorList.Count - 1]);
                     WiveEditorList[WiveEditorList.Count - 1].Parent = samplesPanel;
 
+                    EditorDeleteButtons.Add(new Button());
+                    EditorDeleteButtons[EditorDeleteButtons.Count - 1].Text = "удалить";
+                    this.Controls.Add(EditorDeleteButtons[EditorDeleteButtons.Count - 1]);
+                    EditorDeleteButtons[EditorDeleteButtons.Count - 1].Location = new Point(
+                        WiveEditorList[WiveEditorList.Count - 1].Size.Width + 6, WiveEditorList[WiveEditorList.Count - 1].Location.Y);
+                    EditorDeleteButtons[EditorDeleteButtons.Count - 1].Parent = samplesPanel;
+                    EditorDeleteButtons[EditorDeleteButtons.Count - 1].Click+= buttonEditorDelete_Click;
+                    this.Update();
                     //ресурс 1
-                    // soundSource1 = soundSource.InitializationWaveSource(fileSounds[fileSounds.Count-1]);
+                    soundSource1 = soundSource.InitializationWaveSource(fileSounds[fileSounds.Count-1]);
                     //теперь воспросизводить будем ресурс 1
-                    // soundSource.InitializationSoundOut(soundSource1);
-                    // soundOut.Volume = (float)0.3;
+                     soundSource.InitializationSoundOut(soundSource1);
+                     soundOut.Volume = (float)0.3;
                     try
                     {
                         WiveEditorList[WiveEditorList.Count - 1].OpenWaveFile(openFileDialog.FileNames[i], (MMDevice)comboBox1.SelectedItem);
@@ -116,14 +128,41 @@ namespace SimpleAudioEditor
                     }
                 }
                 MessageBox.Show("загружено");
-                
+                WiveEditorList[WiveEditorList.Count - 1].Focus();
             }
+        }
+
+        private void buttonEditorDelete_Click(object sender, EventArgs e)//метод по осуществлению события клика
+        {
+            int index = EditorDeleteButtons.IndexOf((Button)sender);
+            EditorDeleteButtons[index].Click -= buttonEditorDelete_Click;
+            EditorDeleteButtons[index].Dispose();
+            WiveEditorList[index].StopPlaying();
+            WiveEditorList[index].Dispose();
+            WiveEditorList.RemoveAt(index);
+            EditorDeleteButtons.RemoveAt(index);
+
+            RelocationEditorController();
         }
 
         private void trackBarVolume_Scroll(object sender, EventArgs e)
         {
             soundOut.Volume = (float)trackBarVolume.Value * 0.01f;
             mEditor.Player.Volume = trackBarVolume.Value;
+        }
+
+        private void RelocationEditorController()
+        {
+            for(int i=0;i< WiveEditorList.Count; i++) { 
+            if (i == 0)
+                WiveEditorList[i].Location = new Point(0, 0);
+            else
+                WiveEditorList[i].Location = new Point(0, WiveEditorList[i - 1].Location.Y + 66);
+
+            EditorDeleteButtons[i].Location = new Point(
+                WiveEditorList[i].Size.Width + 6, WiveEditorList[i].Location.Y);
+            }
+            this.Update();
         }
     }
 }
