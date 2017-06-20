@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.Controller
 {
-    class Initialization
+    class SoundSource
     {
-        public IWaveSource initializationWaveSource(string fname)
+        public IWaveSource InitializationWaveSource(string fname)
         {
             return GetSoundSource(fname);
         }
 
-        public void initializationSoundOut(IWaveSource soundSource)
+        public void InitializationSoundOut(IWaveSource soundSource)
         {
             MainForm.soundOut = GetSoundOut();
             MainForm.soundOut.Initialize(soundSource);

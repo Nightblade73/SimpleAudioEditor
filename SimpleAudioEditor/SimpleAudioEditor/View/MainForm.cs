@@ -24,7 +24,7 @@ namespace SimpleAudioEditor
         }
 
 
-        Initialization initializaton = new Initialization();
+        SoundSource soundSource = new SoundSource();
         IWaveSource soundSource1;
         //для загрузки ресурса(музыки) 2
         IWaveSource soundSource2;
@@ -60,9 +60,9 @@ namespace SimpleAudioEditor
             {
                 fileSound = openFileDialog1.FileName;
                 //ресурс 1
-                soundSource1 = initializaton.initializationWaveSource(fileSound);
+                soundSource1 = soundSource.InitializationWaveSource(fileSound);
                 //теперь воспросизводить будем ресурс 1
-                initializaton.initializationSoundOut(soundSource1);
+                soundSource.InitializationSoundOut(soundSource1);
                 soundOut.Volume = (float)0.3;
                 MessageBox.Show("загружено");
             }
