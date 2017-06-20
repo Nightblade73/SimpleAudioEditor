@@ -23,11 +23,6 @@ namespace SimpleAudioEditor
         public MainForm()
         {
             InitializeComponent();
-            
-            IntroForm introForm = new IntroForm(this);
-            introForm.ShowDialog();
-            this.Hide();
-
         }
 
         private readonly ObservableCollection<MMDevice> mDevices = new ObservableCollection<MMDevice>();
@@ -47,6 +42,11 @@ namespace SimpleAudioEditor
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            if((new IntroForm(this).ShowDialog()) != DialogResult.OK)
+            {
+                this.Close();
+            }
+
             trackBarVolume.Value = 30;
 
             //Find sound capture devices and fill the cmbInput combo

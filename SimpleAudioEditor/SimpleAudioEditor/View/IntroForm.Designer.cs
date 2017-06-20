@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {
             "Проект №1",
             "03.05.17"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
             "Проект №2",
             "31.06.17"}, -1);
             this.buttonToMain = new System.Windows.Forms.Button();
@@ -73,11 +73,11 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            listViewItem9.Tag = "";
-            listViewItem9.ToolTipText = "03.05.17";
+            listViewItem11.Tag = "";
+            listViewItem11.ToolTipText = "03.05.17";
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem9,
-            listViewItem10});
+            listViewItem11,
+            listViewItem12});
             this.listView1.Location = new System.Drawing.Point(6, 22);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(268, 199);
@@ -105,6 +105,7 @@
             this.Controls.Add(this.buttonToMain);
             this.Name = "IntroForm";
             this.Text = "IntroForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IntroForm_FormClosing);
             this.Load += new System.EventHandler(this.IntroForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

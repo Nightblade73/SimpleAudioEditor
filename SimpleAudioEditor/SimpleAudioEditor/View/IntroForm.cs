@@ -32,8 +32,14 @@ namespace SimpleAudioEditor
 
         private void buttonToMain_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
             main.Show();
             this.Dispose();
+        }
+
+        private void IntroForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
         }
     }
 }
