@@ -24,6 +24,10 @@ namespace SimpleAudioEditor
         {
             InitializeComponent();
             
+            IntroForm introForm = new IntroForm(this);
+            introForm.ShowDialog();
+            this.Hide();
+
         }
 
         private readonly ObservableCollection<MMDevice> mDevices = new ObservableCollection<MMDevice>();
