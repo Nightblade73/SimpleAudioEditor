@@ -114,7 +114,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lblSamplesPerPixel.Name = "lblSamplesPerPixel";
-            this.lblSamplesPerPixel.Size = new System.Drawing.Size(27, 19);
+            this.lblSamplesPerPixel.Size = new System.Drawing.Size(26, 19);
             this.lblSamplesPerPixel.Text = "1:1";
             // 
             // lblCursorPos
@@ -124,7 +124,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lblCursorPos.Name = "lblCursorPos";
-            this.lblCursorPos.Size = new System.Drawing.Size(71, 19);
+            this.lblCursorPos.Size = new System.Drawing.Size(68, 19);
             this.lblCursorPos.Text = "00:00:00.00";
             // 
             // lblSelectStartPos
@@ -134,14 +134,14 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lblSelectStartPos.Name = "lblSelectStartPos";
-            this.lblSelectStartPos.Size = new System.Drawing.Size(71, 19);
+            this.lblSelectStartPos.Size = new System.Drawing.Size(68, 19);
             this.lblSelectStartPos.Text = "00:00:00.00";
             // 
             // lblSep1
             // 
             this.lblSep1.BackColor = System.Drawing.SystemColors.Control;
             this.lblSep1.Name = "lblSep1";
-            this.lblSep1.Size = new System.Drawing.Size(11, 19);
+            this.lblSep1.Size = new System.Drawing.Size(12, 19);
             this.lblSep1.Text = "-";
             // 
             // lblSelectEndPos
@@ -151,7 +151,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lblSelectEndPos.Name = "lblSelectEndPos";
-            this.lblSelectEndPos.Size = new System.Drawing.Size(71, 19);
+            this.lblSelectEndPos.Size = new System.Drawing.Size(68, 19);
             this.lblSelectEndPos.Text = "00:00:00.00";
             // 
             // lblSep2
@@ -168,7 +168,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lblSelectLength.Name = "lblSelectLength";
-            this.lblSelectLength.Size = new System.Drawing.Size(71, 19);
+            this.lblSelectLength.Size = new System.Drawing.Size(68, 19);
             this.lblSelectLength.Text = "00:00:00.00";
             // 
             // progress

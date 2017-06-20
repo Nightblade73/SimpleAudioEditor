@@ -23,6 +23,7 @@ namespace SimpleAudioEditor
         public MainForm()
         {
             InitializeComponent();
+            
         }
 
         private readonly ObservableCollection<MMDevice> mDevices = new ObservableCollection<MMDevice>();
@@ -34,7 +35,9 @@ namespace SimpleAudioEditor
         IWaveSource soundSource2;
         public static ISoundOut soundOut;
         string fileSound;
+        List<string> fileSounds = new List<string>();
 
+        public List<Controller.WaveController.WaveEditor> WiveEditorList = new List<Controller.WaveController.WaveEditor>();
 
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -46,7 +49,8 @@ namespace SimpleAudioEditor
             //Find sound render devices and fill the cmbOutput combo
             MMDevice activeDevice = deviceEnum.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
             mOutputDevices = deviceEnum.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active);
-            foreach (MMDevice device in mOutputDevices) {
+            foreach (MMDevice device in mOutputDevices)
+            {
                 comboBox1.Items.Add(device);
                 if (device.DeviceID == activeDevice.DeviceID) comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
             }
@@ -60,10 +64,12 @@ namespace SimpleAudioEditor
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (soundOut != null) {
-                soundOut.Dispose();                
+            if (soundOut != null)
+            {
+                soundOut.Dispose();
             }
-            if(mEditor != null) {
+            if (mEditor != null)
+            {
                 mEditor.Dispose();
             }
         }
@@ -78,25 +84,45 @@ namespace SimpleAudioEditor
             openFileDialog.Filter = "Cursor Files|*.mp3";
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                fileSound = openFileDialog.FileName;
-                //ресурс 1
-                soundSource1 = soundSource.InitializationWaveSource(fileSound);
-                //теперь воспросизводить будем ресурс 1
-                soundSource.InitializationSoundOut(soundSource1);
-                soundOut.Volume = (float)0.3;
-                MessageBox.Show("загружено");
-                try {
-                    mEditor.OpenWaveFile(openFileDialog.FileName, (MMDevice)comboBox1.SelectedItem);
-                    trackBarVolume.Value = mEditor.Player.Volume;
-                    mEditor.Focus();
-                } catch (Exception ex) {
-                    MessageBox.Show("Could not open file: " + ex.Message);
+                fileSounds.Clear();
+                for (int i = 0; i < openFileDialog.FileNames.Length; i++)
+                {
+                    fileSounds.Add(openFileDialog.FileNames[i]);
+                    WiveEditorList.Add(new Controller.WaveController.WaveEditor());
+                    if (WiveEditorList.Count <= 1)
+                        WiveEditorList[WiveEditorList.Count - 1].Location = new Point(0, 0);
+                    else
+                        WiveEditorList[WiveEditorList.Count - 1].Location = new Point(0, WiveEditorList[WiveEditorList.Count - 2].Location.Y + 60);
+
+                    WiveEditorList[WiveEditorList.Count - 1].Size = mEditor.Size;
+
+                    this.Controls.Add(WiveEditorList[WiveEditorList.Count - 1]);
+                    WiveEditorList[WiveEditorList.Count - 1].Parent = samplesPanel;
+
+                    //ресурс 1
+                    // soundSource1 = soundSource.InitializationWaveSource(fileSounds[fileSounds.Count-1]);
+                    //теперь воспросизводить будем ресурс 1
+                    // soundSource.InitializationSoundOut(soundSource1);
+                    // soundOut.Volume = (float)0.3;
+                    try
+                    {
+                        WiveEditorList[WiveEditorList.Count - 1].OpenWaveFile(openFileDialog.FileNames[i], (MMDevice)comboBox1.SelectedItem);
+                        trackBarVolume.Value = WiveEditorList[WiveEditorList.Count - 1].Player.Volume;
+                        WiveEditorList[WiveEditorList.Count - 1].Focus();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Could not open file: " + ex.Message);
+                    }
                 }
+                MessageBox.Show("загружено");
+                
             }
         }
 
-        private void trackBarVolume_Scroll(object sender, EventArgs e) {
-            soundOut.Volume = (float)trackBarVolume.Value / 100;
+        private void trackBarVolume_Scroll(object sender, EventArgs e)
+        {
+            soundOut.Volume = (float)trackBarVolume.Value * 0.01f;
             mEditor.Player.Volume = trackBarVolume.Value;
         }
     }
