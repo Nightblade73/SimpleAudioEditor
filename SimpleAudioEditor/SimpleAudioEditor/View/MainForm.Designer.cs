@@ -120,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 504);
+            this.ClientSize = new System.Drawing.Size(734, 501);
             this.Controls.Add(this.groupBoxSemples);
             this.Controls.Add(this.mEditor);
             this.Controls.Add(this.comboBox1);
