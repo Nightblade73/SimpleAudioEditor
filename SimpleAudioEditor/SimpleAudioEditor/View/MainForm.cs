@@ -64,8 +64,11 @@ namespace SimpleAudioEditor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FileStream fs = new FileStream("E:\\output.mp3", FileMode.Create);
+            FileStream fs = new FileStream("E:\\output.mp3", FileMode.Create);     
             Combine(fs);
+            TimeSpan start = new TimeSpan(0, 0, 30);
+            TimeSpan stop = new TimeSpan(0, 2, 15);
+            TrimWavFile(inputFiles[0], "E:\\cut1.wav",start,stop);
         }
 
         public void Combine(Stream output)
@@ -84,6 +87,46 @@ namespace SimpleAudioEditor
                 }
             }
         }
+
+        public static void TrimWavFile(string inPath, string outPath, TimeSpan cutFromStart, TimeSpan cutFromEnd)
+        {
+            using (Mp3FileReader reader = new Mp3FileReader(inPath))
+            {
+                using (WaveFileWriter writer = new WaveFileWriter(outPath, reader.WaveFormat))
+                {
+                    int bytesPerMillisecond = reader.WaveFormat.AverageBytesPerSecond / 1000;
+
+                    int startPos = (int)cutFromStart.TotalMilliseconds * bytesPerMillisecond;
+                    startPos = startPos - startPos % reader.WaveFormat.BlockAlign;
+
+                    int endBytes = (int)cutFromEnd.TotalMilliseconds * bytesPerMillisecond;
+                    endBytes = endBytes - endBytes % reader.WaveFormat.BlockAlign;
+                    int endPos = (int)reader.Length - endBytes;
+
+                    TrimWavFile(reader, writer, startPos, endPos);
+                }
+            }
+        }
+
+        private static void TrimWavFile(Mp3FileReader reader, WaveFileWriter writer, int startPos, int endPos)
+        {
+            reader.Position = startPos;
+            byte[] buffer = new byte[1024];
+            while (reader.Position < endPos)
+            {
+                int bytesRequired = (int)(endPos - reader.Position);
+                if (bytesRequired > 0)
+                {
+                    int bytesToRead = Math.Min(bytesRequired, buffer.Length);
+                    int bytesRead = reader.Read(buffer, 0, bytesToRead);
+                    if (bytesRead > 0)
+                    {
+                        writer.Write(buffer, 0, bytesRead);
+                    }
+                }
+            }
+        }
+
 
         public static MemoryStream ConvertWavToMp3(Wave32To16Stream wavFile)
         {
