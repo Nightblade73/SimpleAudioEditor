@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using NAudio.Wave;
+using System;
 using System.Windows.Forms;
-using SimpleAudioEditor.Controller;
-using System.Collections.ObjectModel;
 
 namespace SimpleAudioEditor
 {
@@ -24,13 +15,9 @@ namespace SimpleAudioEditor
        
         private void MainForm_Load(object sender, EventArgs e)
         {
-           
+
         }
 
-        private void buttonStart_Click(object sender, EventArgs e)
-        {
-            
-        }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -60,6 +47,17 @@ namespace SimpleAudioEditor
         private void RelocationEditorController()
         {
             
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                waveViewer1.SamplesPerPixel = 400;
+                waveViewer1.BackColor = System.Drawing.Color.OrangeRed;
+                waveViewer1.WaveStream = new WaveFileReader(open.FileName);
+            }
         }
     }
 }

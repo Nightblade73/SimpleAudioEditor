@@ -55,20 +55,13 @@
     <ApplicationIcon>icons8-Music_Record-48.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CSCore, Version=1.2.1.1, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
-      <HintPath>..\packages\CSCore.1.2.1.1\lib\net35-client\CSCore.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MediaBase, Version=4.0.1433.0, Culture=neutral, PublicKeyToken=d264bf7150202654, processorArchitecture=AMD64">
-      <HintPath>..\packages\Streamcoders.MediaSuite.x64.4.0.1433.0\lib\net45\MediaBase.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MediaSuite, Version=4.0.1433.0, Culture=neutral, PublicKeyToken=d264bf7150202654, processorArchitecture=AMD64">
-      <HintPath>..\packages\Streamcoders.MediaSuite.x64.4.0.1433.0\lib\net45\MediaSuite.dll</HintPath>
+    <Reference Include="NAudio, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -81,16 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\SoundSource.cs" />
-    <Compile Include="Controller\WaveController\MusicPlayer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controller\WaveController\RawDataReader.cs" />
-    <Compile Include="Controller\WaveController\WaveController.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controller\WaveController\WaveController.Designer.cs">
-      <DependentUpon>WaveController.cs</DependentUpon>
-    </Compile>
     <Compile Include="View\IntroForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,9 +88,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Controller\WaveController\WaveController.resx">
-      <DependentUpon>WaveController.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\IntroForm.resx">
       <DependentUpon>IntroForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,6 +119,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controller\WaveController\" />
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>

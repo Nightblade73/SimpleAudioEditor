@@ -11,8 +11,6 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing) {
             if (disposing && (components != null)) {
-                components.Dispose();
-                mEditor.CloseWaveFile();
             }
             base.Dispose(disposing);
         }
@@ -24,132 +22,79 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.buttonStart = new System.Windows.Forms.Button();
-            this.buttonPause = new System.Windows.Forms.Button();
-            this.buttonLoadFile = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.trackBarVolume = new System.Windows.Forms.TrackBar();
-            this.mEditor = new SimpleAudioEditor.Controller.WaveController.WaveEditor();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.samplesPanel = new System.Windows.Forms.Panel();
-            this.groupBoxSemples = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
-            this.groupBoxSemples.SuspendLayout();
+            this.waveViewer1 = new NAudio.Gui.WaveViewer();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // buttonStart
-            // 
-            this.buttonStart.Location = new System.Drawing.Point(275, 78);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(75, 23);
-            this.buttonStart.TabIndex = 0;
-            this.buttonStart.Text = "старт";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
-            // 
-            // buttonPause
-            // 
-            this.buttonPause.Location = new System.Drawing.Point(194, 78);
-            this.buttonPause.Name = "buttonPause";
-            this.buttonPause.Size = new System.Drawing.Size(75, 23);
-            this.buttonPause.TabIndex = 2;
-            this.buttonPause.Text = "пауза";
-            this.buttonPause.UseVisualStyleBackColor = true;
-            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
-            // 
-            // buttonLoadFile
-            // 
-            this.buttonLoadFile.Location = new System.Drawing.Point(356, 78);
-            this.buttonLoadFile.Name = "buttonLoadFile";
-            this.buttonLoadFile.Size = new System.Drawing.Size(174, 23);
-            this.buttonLoadFile.TabIndex = 3;
-            this.buttonLoadFile.Text = "Выбрать файлы";
-            this.buttonLoadFile.UseVisualStyleBackColor = true;
-            this.buttonLoadFile.Click += new System.EventHandler(this.buttonLoadFile_Click);
             // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "fileDialogOpenSound";
             this.openFileDialog.Multiselect = true;
             // 
-            // trackBarVolume
+            // waveViewer1
             // 
-            this.trackBarVolume.Location = new System.Drawing.Point(536, 78);
-            this.trackBarVolume.Maximum = 100;
-            this.trackBarVolume.Name = "trackBarVolume";
-            this.trackBarVolume.Size = new System.Drawing.Size(174, 45);
-            this.trackBarVolume.TabIndex = 4;
-            this.trackBarVolume.TickFrequency = 10;
-            this.trackBarVolume.Scroll += new System.EventHandler(this.trackBarVolume_Scroll);
+            this.waveViewer1.Location = new System.Drawing.Point(136, 184);
+            this.waveViewer1.Name = "waveViewer1";
+            this.waveViewer1.SamplesPerPixel = 128;
+            this.waveViewer1.Size = new System.Drawing.Size(349, 160);
+            this.waveViewer1.StartPosition = ((long)(0));
+            this.waveViewer1.TabIndex = 0;
+            this.waveViewer1.WaveStream = null;
             // 
-            // mEditor
+            // menuStrip1
             // 
-            this.mEditor.BackColor = System.Drawing.Color.White;
-            this.mEditor.Location = new System.Drawing.Point(12, 12);
-            this.mEditor.Name = "mEditor";
-            this.mEditor.Size = new System.Drawing.Size(713, 60);
-            this.mEditor.TabIndex = 5;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.файлToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(669, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // comboBox1
+            // файлToolStripMenuItem
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(14, 80);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(174, 21);
-            this.comboBox1.TabIndex = 6;
+            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьToolStripMenuItem});
+            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Text = "Файл";
             // 
-            // samplesPanel
+            // открытьToolStripMenuItem
             // 
-            this.samplesPanel.AutoScroll = true;
-            this.samplesPanel.Location = new System.Drawing.Point(6, 19);
-            this.samplesPanel.Name = "samplesPanel";
-            this.samplesPanel.Size = new System.Drawing.Size(700, 360);
-            this.samplesPanel.TabIndex = 8;
-            // 
-            // groupBoxSemples
-            // 
-            this.groupBoxSemples.Controls.Add(this.samplesPanel);
-            this.groupBoxSemples.Location = new System.Drawing.Point(12, 107);
-            this.groupBoxSemples.Name = "groupBoxSemples";
-            this.groupBoxSemples.Size = new System.Drawing.Size(713, 385);
-            this.groupBoxSemples.TabIndex = 9;
-            this.groupBoxSemples.TabStop = false;
-            this.groupBoxSemples.Text = "Список сэмплов";
+            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.открытьToolStripMenuItem.Text = "Открыть";
+            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 501);
-            this.Controls.Add(this.groupBoxSemples);
-            this.Controls.Add(this.mEditor);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.trackBarVolume);
-            this.Controls.Add(this.buttonLoadFile);
-            this.Controls.Add(this.buttonPause);
-            this.Controls.Add(this.buttonStart);
+            this.ClientSize = new System.Drawing.Size(669, 435);
+            this.Controls.Add(this.waveViewer1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).EndInit();
-            this.groupBoxSemples.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.Button buttonPause;
-        private System.Windows.Forms.Button buttonLoadFile;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.TrackBar trackBarVolume;
-        private Controller.WaveController.WaveEditor mEditor;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Panel samplesPanel;
-        private System.Windows.Forms.GroupBox groupBoxSemples;
+        private NAudio.Gui.WaveViewer waveViewer1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
     }
 }
 
