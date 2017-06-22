@@ -29,10 +29,10 @@
             this.buttonLoadFile = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.trackBarVolume = new System.Windows.Forms.TrackBar();
-            this.mEditor = new SimpleAudioEditor.Controller.WaveController.WaveEditor();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.samplesPanel = new System.Windows.Forms.Panel();
             this.groupBoxSemples = new System.Windows.Forms.GroupBox();
+            this.mEditor = new SimpleAudioEditor.Controller.WaveController.WaveEditor();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
             this.groupBoxSemples.SuspendLayout();
             this.SuspendLayout();
@@ -77,18 +77,10 @@
             this.trackBarVolume.Location = new System.Drawing.Point(536, 78);
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
-            this.trackBarVolume.Size = new System.Drawing.Size(174, 45);
+            this.trackBarVolume.Size = new System.Drawing.Size(174, 42);
             this.trackBarVolume.TabIndex = 4;
             this.trackBarVolume.TickFrequency = 10;
             this.trackBarVolume.Scroll += new System.EventHandler(this.trackBarVolume_Scroll);
-            // 
-            // mEditor
-            // 
-            this.mEditor.BackColor = System.Drawing.Color.White;
-            this.mEditor.Location = new System.Drawing.Point(12, 12);
-            this.mEditor.Name = "mEditor";
-            this.mEditor.Size = new System.Drawing.Size(713, 60);
-            this.mEditor.TabIndex = 5;
             // 
             // comboBox1
             // 
@@ -115,6 +107,16 @@
             this.groupBoxSemples.TabIndex = 9;
             this.groupBoxSemples.TabStop = false;
             this.groupBoxSemples.Text = "Список сэмплов";
+            // 
+            // mEditor
+            // 
+            this.mEditor.AddAndDeleteButtonsVisibility = false;
+            this.mEditor.BackColor = System.Drawing.Color.White;
+            this.mEditor.Location = new System.Drawing.Point(12, 12);
+            this.mEditor.MinimumSize = new System.Drawing.Size(675, 0);
+            this.mEditor.Name = "mEditor";
+            this.mEditor.Size = new System.Drawing.Size(713, 60);
+            this.mEditor.TabIndex = 5;
             // 
             // MainForm
             // 
