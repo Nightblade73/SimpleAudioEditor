@@ -182,7 +182,9 @@ namespace SimpleAudioEditor
             ///не знаю что делает
             sc.TrimWavFile(fileSounds[index].ToString(), "Results\\cut" + indexOfCut + ".mp3", TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
             FileStream fs = new FileStream("Results\\result.mp3", FileMode.Append);
-            sc.Combine("Results\\cut" + indexOfCut + ".mp3",fs);
+           // sc.Combine("Results\\cut" + indexOfCut + ".mp3",fs);
+            sc.Combine("Results\\cut" + indexOfCut + ".mp3", fs);
+            fs.Close();
             indexOfCut++;
             RelocationEditorController();
         }
