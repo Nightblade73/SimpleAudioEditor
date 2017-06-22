@@ -151,7 +151,14 @@ namespace SimpleAudioEditor
 
         //обработчик события ControlClickEvent
         void ControlClickEventHandler() {
-
+            try {
+                mEditor.OpenWaveFile(Model.Params.ResultSoundsPath + "\\" + Model.Params.ResultFileName, (MMDevice)comboBox1.SelectedItem);
+                trackBarVolume.Value = mEditor.Player.Volume;
+                mEditor.Focus();
+            } catch(Exception ex)
+            {
+                MessageBox.Show("Could not open file: " + ex.Message);
+            }
         }
     }
 }
