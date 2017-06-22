@@ -33,11 +33,17 @@ namespace SimpleAudioEditor
         //для загрузки ресурса(музыки) 2
         IWaveSource soundSource2;
         public static ISoundOut soundOut;
-        string fileSound;
+
+        /// <summary>
+        /// результирующий файл. НУЖНО ОБЯЗАТЕЛЬНО ИНИЦИАЛИЗИРОВАТЬ ГДЕ-НИБУДЬ
+        /// </summary>
+        string fileResult;
+
         List<string> fileSounds = new List<string>();
 
         public List<Controller.WaveController.WaveEditor> WiveEditorList = new List<Controller.WaveController.WaveEditor>();
         List<Button> EditorDeleteButtons = new List<Button>();
+        List<Button> EditorAddTrackButtons = new List<Button>();
 
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -114,6 +120,15 @@ namespace SimpleAudioEditor
                         WiveEditorList[WiveEditorList.Count - 1].Size.Width + 6, WiveEditorList[WiveEditorList.Count - 1].Location.Y);
                     EditorDeleteButtons[EditorDeleteButtons.Count - 1].Parent = samplesPanel;
                     EditorDeleteButtons[EditorDeleteButtons.Count - 1].Click+= buttonEditorDelete_Click;
+
+                    EditorAddTrackButtons.Add(new Button());
+                    EditorAddTrackButtons[EditorAddTrackButtons.Count - 1].Text = "добавить";
+                    this.Controls.Add(EditorAddTrackButtons[EditorAddTrackButtons.Count - 1]);
+                    EditorAddTrackButtons[EditorAddTrackButtons.Count - 1].Location = new Point(
+                        WiveEditorList[WiveEditorList.Count - 1].Size.Width + 6, WiveEditorList[WiveEditorList.Count - 1].Location.Y+30);
+                    EditorAddTrackButtons[EditorAddTrackButtons.Count - 1].Parent = samplesPanel;
+                    EditorAddTrackButtons[EditorAddTrackButtons.Count - 1].Click += buttonEditorAddTrack_Click;
+
                     this.Update();
                     //ресурс 1
                     soundSource1 = soundSource.InitializationWaveSource(fileSounds[fileSounds.Count-1]);
@@ -134,6 +149,39 @@ namespace SimpleAudioEditor
                 MessageBox.Show("загружено");
                 WiveEditorList[WiveEditorList.Count - 1].Focus();
             }
+        }
+        /// <summary>
+        /// /ВОВА, ТЕБЕ СЮДА
+        /// обработчик события кнопки добавления
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonEditorAddTrack_Click(object sender, EventArgs e)//метод по осуществлению события клика
+        {
+            int index = EditorAddTrackButtons.IndexOf((Button)sender);
+            WiveEditorList[index].StopPlaying();
+
+            /// путь к файлу с выбранным треком
+            /// fileSounds[index].ToString();
+
+            /// путь к рещзультирующему
+            /// fileResult
+            
+            //длина отрезка в мидисекундах
+            //тоже пока не то
+            //int timeMilisec = WiveEditorList[index].SamplesPerMilisecond;
+            //TimeSpan timeSample = new TimeSpan(0, 0, 0, 0, timeMilisec);
+            //начальная позиция
+            //пока не работает
+            //long startPosSample = WiveEditorList[index].getMCursorPosSample();
+            //TimeSpan timeStartPosSample = new TimeSpan(startPosSample);
+
+            //длинна всей песни
+            TimeSpan allTime = WiveEditorList[index].getmMWaveSourceLength();
+
+
+            ///не знаю что делает
+            RelocationEditorController();
         }
 
         private void buttonEditorDelete_Click(object sender, EventArgs e)//метод по осуществлению события клика

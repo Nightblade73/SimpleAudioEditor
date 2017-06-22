@@ -13,6 +13,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
         private ISampleSource mDrawSource;
         private ISampleSource mPlaySource;
         private IWaveSource mWaveSource;
+
         private readonly MusicPlayer mMusicPlayer = new MusicPlayer();
 
         private long mStreamStart;
@@ -38,8 +39,10 @@ namespace SimpleAudioEditor.Controller.WaveController {
         // Offset from the beginning of the wave for where to start drawing 
         private long mDrawingStartOffset = 0;
         private int mLastDrawnPixel = 0;
+        
         private int mCursorPosX = 0;
         private long mCursorPosSample = 0;
+
         private bool mDrawing = false;
 
         private bool mSelecting = false;
@@ -82,6 +85,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
         private void WaveEditor_KeyPress(object sender, KeyPressEventArgs e) {
         }
+
+        public TimeSpan getmMWaveSourceLength() { return mWaveSource.GetLength(); }
 
         public string Filename {
             get { return mFilename; }
@@ -460,7 +465,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
             }
         }
 
-        private int SamplesPerMilisecond {
+        public int SamplesPerMilisecond {
             get {
                 if (mDrawWave) {
                     int samplesPerSecond = mDrawSource.WaveFormat.BytesPerSecond / mDrawSource.WaveFormat.BytesPerSample;
