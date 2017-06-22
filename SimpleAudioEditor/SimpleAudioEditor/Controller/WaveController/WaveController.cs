@@ -876,6 +876,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
                 sc.Combine(Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), fs);
             }
             indexOfCut++;
+            MainForm.ControlClickEvent();
         }
 
         private void bDelete_Click(object sender, EventArgs e) {

@@ -21,6 +21,8 @@ namespace SimpleAudioEditor
             InitializeComponent();
         }
 
+        public static Action ControlClickEvent = delegate(){};
+
         private readonly ObservableCollection<MMDevice> mDevices = new ObservableCollection<MMDevice>();
         private MMDeviceCollection mOutputDevices;        
 
@@ -43,7 +45,7 @@ namespace SimpleAudioEditor
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
+            ControlClickEvent += ControlClickEventHandler;
 
             if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
             {
@@ -80,6 +82,7 @@ namespace SimpleAudioEditor
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            ControlClickEvent -= ControlClickEventHandler;
             if (soundOut != null)
             {
                 soundOut.Dispose();
@@ -144,6 +147,11 @@ namespace SimpleAudioEditor
         {
             soundOut.Volume = (float)trackBarVolume.Value * 0.01f;
             mEditor.Player.Volume = trackBarVolume.Value;
-        }        
+        }
+
+        //обработчик события ControlClickEvent
+        void ControlClickEventHandler() {
+
+        }
     }
 }
