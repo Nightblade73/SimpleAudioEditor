@@ -100,6 +100,7 @@
     <Compile Include="Controller\WaveController\WaveController.Designer.cs">
       <DependentUpon>WaveController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Params.cs" />
     <Compile Include="View\IntroForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,9 +148,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Bitmaps\media_play_green.png" />
   </ItemGroup>
