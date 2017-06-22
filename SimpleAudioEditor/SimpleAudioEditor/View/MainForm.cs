@@ -85,16 +85,19 @@ namespace SimpleAudioEditor
             ControlClickEvent -= ControlClickEventHandler;
             if (soundOut != null)
             {
+                soundOut.Stop();
                 soundOut.Dispose();
             }
             if (mEditor != null)
             {
+                mEditor.Player.Stop();
                 mEditor.Dispose();
-                for (int i = 0; i < WiveEditorList.Count; i++)
-                {
+                for (int i = 0; i < WiveEditorList.Count; i++) {
+                    WiveEditorList[i].Player.Stop();
                     WiveEditorList[i].Dispose();
                 }
             }
+            WiveEditorList.Clear();
         }
 
         private void buttonPause_Click(object sender, EventArgs e)
@@ -147,6 +150,9 @@ namespace SimpleAudioEditor
         {
             soundOut.Volume = (float)trackBarVolume.Value * 0.01f;
             mEditor.Player.Volume = trackBarVolume.Value;
+            foreach (var i in WiveEditorList) {
+                i.Player.Volume = trackBarVolume.Value;
+            }
         }
 
         //обработчик события ControlClickEvent
@@ -159,6 +165,7 @@ namespace SimpleAudioEditor
             {
                 MessageBox.Show("Could not open file: " + ex.Message);
             }
+
         }
     }
 }
