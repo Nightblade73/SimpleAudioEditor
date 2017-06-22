@@ -77,7 +77,7 @@
             this.trackBarVolume.Location = new System.Drawing.Point(537, 94);
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
-            this.trackBarVolume.Size = new System.Drawing.Size(174, 45);
+            this.trackBarVolume.Size = new System.Drawing.Size(174, 42);
             this.trackBarVolume.TabIndex = 4;
             this.trackBarVolume.TickFrequency = 10;
             this.trackBarVolume.Scroll += new System.EventHandler(this.trackBarVolume_Scroll);
@@ -103,7 +103,7 @@
             this.groupBoxSemples.Controls.Add(this.samplesPanel);
             this.groupBoxSemples.Location = new System.Drawing.Point(12, 123);
             this.groupBoxSemples.Name = "groupBoxSemples";
-            this.groupBoxSemples.Size = new System.Drawing.Size(713, 385);
+            this.groupBoxSemples.Size = new System.Drawing.Size(713, 392);
             this.groupBoxSemples.TabIndex = 9;
             this.groupBoxSemples.TabStop = false;
             this.groupBoxSemples.Text = "Список сэмплов";
@@ -122,7 +122,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 501);
+            this.ClientSize = new System.Drawing.Size(734, 518);
             this.Controls.Add(this.groupBoxSemples);
             this.Controls.Add(this.mEditor);
             this.Controls.Add(this.comboBox1);

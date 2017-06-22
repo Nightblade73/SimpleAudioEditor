@@ -171,20 +171,12 @@ namespace SimpleAudioEditor
 
         //обработчик события ControlClickEvent
         void ControlClickEventHandler() {
-            try
-            {
-                //Task nt = Task.Run(() =>
-                //{
-                
-                    mEditor.OpenWaveFile(Model.Params.ResultSoundsPath + "\\" + Model.Params.ResultFileName, (MMDevice)comboBox1.SelectedItem);
-                    trackBarVolume.Value = mEditor.Player.Volume;
-                    mEditor.Focus();
-                //});
-                // MainForm.ThreadStartEvent();
-                //var divisionawaiter = nt.GetAwaiter();
-                //divisionawaiter.OnCompleted(MainForm.ThreadFinishEvent);
-            } catch(Exception ex)
-            {
+            try {
+                mEditor.Player.Stop();
+                mEditor.OpenWaveFile(Params.ResultSoundsPath + "\\" + Params.ResultFileName, (MMDevice)comboBox1.SelectedItem);
+                trackBarVolume.Value = mEditor.Player.Volume;
+                mEditor.Focus();
+            } catch (Exception ex) {
                 MessageBox.Show("Could not open file: " + ex.Message);
             }
 

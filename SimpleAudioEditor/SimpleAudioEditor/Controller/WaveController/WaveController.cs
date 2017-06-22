@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Threading;
 using CSCore;
 using CSCore.Codecs;
 using CSCore.CoreAudioAPI;
 using CSCore.Streams;
 using System.IO;
-using SimpleAudioEditor.Controller.WaveController;
 using TagLib;
 using TagLib.Mpeg;
 using System.Threading.Tasks;
@@ -217,7 +215,6 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
 
         private void OpenWaveFileThread() {
-            
 
             CreateOptimizedArray();
             mDrawWave = true;
@@ -225,9 +222,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
             WaveFormat fmt = mDrawSource.WaveFormat;
             mRawDrawReader = new FileStream(mRawFileName, FileMode.Open, FileAccess.Read);
             mDrawSource = new RawDataReader(mRawDrawReader, fmt).ToSampleSource();
-
             SamplesPerPixel = (int)(mDrawSource.Length / CWidth);
-
             mRawPlayReader = new FileStream(mRawFileName, FileMode.Open, FileAccess.Read);
             mPlaySource = new RawDataReader(mRawPlayReader, fmt).ToSampleSource();
             PeakMeter peakMeter = new PeakMeter(mPlaySource) { Interval = 50 };
@@ -242,7 +237,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
                 hrScroll.Enabled = true;
                 Refresh();
             });
-            
+
         }
 
         public void CloseWaveFile() {
@@ -316,7 +311,9 @@ namespace SimpleAudioEditor.Controller.WaveController {
             
             var divisionawaiter = nt.GetAwaiter();
 
-            divisionawaiter.OnCompleted(MainForm.ThreadFinishEvent);
+            divisionawaiter.OnCompleted(() => {
+                MainForm.ThreadFinishEvent();
+            });
         }
 
         private void PeakMeter_PeakCalculated(object sender, PeakEventArgs e) {
@@ -891,24 +888,21 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
         private void bCut_Click(object sender, EventArgs e) {
             MainForm.ThreadStartEvent();
+
             this.StopPlaying();
             SampleController sc = new SampleController();
             TimeSpan allTime = this.getmMWaveSourceLength();
             string startPosSample = this.lblSelectStartPos.Text;
             string endPosSample = this.lblSelectEndPos.Text;
-            if (Filename.ToString().Contains(".wav"))
-            {
-                sc.TrimWavFile(sc.Converter(Filename.ToString()), Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+            if (Filename.ToString().Contains(".wav")) {
+                sc.TrimWavFile(sc.Converter(Filename.ToString()), Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+            } else {
+                sc.TrimWavFile(Filename.ToString(), Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
             }
-            else
-            {
-                sc.TrimWavFile(Filename.ToString(), Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
-            }
-            try
-            {
-                using (FileStream fs = new FileStream(Model.Params.ResultSoundsPath + "\\" + Model.Params.ResultFileName, FileMode.Append))
-                {
-                    sc.Combine(Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), fs);
+            try {
+                StopPlaying();
+                using (FileStream fs = new FileStream(Params.ResultSoundsPath + "\\" + Params.ResultFileName, FileMode.Append)) {
+                    sc.Combine(Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), fs);
                 }
             } catch (Exception ex) {
                 MessageBox.Show(Params.ExceptionError);
