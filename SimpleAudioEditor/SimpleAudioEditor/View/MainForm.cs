@@ -167,19 +167,15 @@ namespace SimpleAudioEditor
             /// путь к рещзультирующему
             /// fileResult
             
-            //длина отрезка в мидисекундах
-            //тоже пока не то
-            //int timeMilisec = WiveEditorList[index].SamplesPerMilisecond;
-            //TimeSpan timeSample = new TimeSpan(0, 0, 0, 0, timeMilisec);
-            //начальная позиция
-            //пока не работает
-            //long startPosSample = WiveEditorList[index].getMCursorPosSample();
-            //TimeSpan timeStartPosSample = new TimeSpan(startPosSample);
-
             //длинна всей песни
             TimeSpan allTime = WiveEditorList[index].getmMWaveSourceLength();
 
-
+            ///длинна отрезка
+            string lengthSample = WiveEditorList[index].lblSelectLength.Text;
+            ///начальная позиция отрезка
+            string startPosSample = WiveEditorList[index].lblSelectStartPos.Text;
+            ///конечная позиция отрезка
+            string endPosSample = WiveEditorList[index].lblSelectEndPos.Text;
             ///не знаю что делает
             RelocationEditorController();
         }
