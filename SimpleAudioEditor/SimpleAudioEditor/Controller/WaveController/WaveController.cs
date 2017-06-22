@@ -12,6 +12,16 @@ using SimpleAudioEditor.Controller.WaveController;
 namespace SimpleAudioEditor.Controller.WaveController {
     public partial class WaveEditor : UserControl {
 
+        private bool addAndDeleteButtonsVisibility = true;
+        public bool AddAndDeleteButtonsVisibility {
+            get { return addAndDeleteButtonsVisibility; }
+            set {
+                addAndDeleteButtonsVisibility = value;
+                this.bCut.Visible = addAndDeleteButtonsVisibility;
+                this.bDelete.Visible = addAndDeleteButtonsVisibility;
+            }
+        }
+
         private int indexOfCut = 0;
 
         private ISampleSource mDrawSource;
