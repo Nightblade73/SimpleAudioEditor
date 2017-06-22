@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,14 @@ namespace SimpleAudioEditor
 
         private void IntroForm_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                File.Delete(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoundFactory");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("не удалось удалить папку SoundFactory. " + ex.ToString());
+            }
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)

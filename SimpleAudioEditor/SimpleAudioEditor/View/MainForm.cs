@@ -50,10 +50,13 @@ namespace SimpleAudioEditor
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if((new IntroForm(this).ShowDialog()) != DialogResult.OK)
+            
+
+            if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
             {
                 this.Close();
             }
+            
 
             trackBarVolume.Value = 30;
 
