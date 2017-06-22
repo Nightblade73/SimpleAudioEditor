@@ -14,6 +14,7 @@ namespace SimpleAudioEditor.Controller.WaveController
         public void Combine(string inPath, Stream output)
         {
             inPath = Converter(inPath);
+            File.Delete(inPath.Split('.')[0] + ".wav");
             using (Mp3FileReader reader = new Mp3FileReader(inPath))
             {
                 if ((output.Position == 0) && (reader.Id3v2Tag != null))
