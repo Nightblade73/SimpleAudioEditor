@@ -12,12 +12,12 @@ namespace SimpleAudioEditor.Controller.WaveController
     {
         public void Combine(string inPath, Stream output)
         {
-            List<string> inputFiles = new List<string>();
-            inputFiles.Add("Results\result.mp3");
-            inputFiles.Add(inPath);
-            foreach (string file in inputFiles)
-            {
-                Mp3FileReader reader = new Mp3FileReader(file);
+            //List<string> inputFiles = new List<string>();
+            //inputFiles.Add("Results\result.mp3");
+            //inputFiles.Add(inPath);
+            //foreach (string file in inputFiles)
+            //{
+                Mp3FileReader reader = new Mp3FileReader(inPath);
                 if ((output.Position == 0) && (reader.Id3v2Tag != null))
                 {
                     output.Write(reader.Id3v2Tag.RawData, 0, reader.Id3v2Tag.RawData.Length);
@@ -27,7 +27,7 @@ namespace SimpleAudioEditor.Controller.WaveController
                 {
                     output.Write(frame.RawData, 0, frame.RawData.Length);
                 }
-            }
+            //}
         }
 
         public void TrimWavFile(string inPath, string outPath, TimeSpan cutFromStart, TimeSpan cutFromEnd)

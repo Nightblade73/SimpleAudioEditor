@@ -15,6 +15,7 @@ using SimpleAudioEditor.Controller;
 using CSCore.CoreAudioAPI;
 using System.Collections.ObjectModel;
 using SimpleAudioEditor.Controller.WaveController;
+using System.IO;
 
 namespace SimpleAudioEditor
 {
@@ -39,7 +40,7 @@ namespace SimpleAudioEditor
         /// результирующий файл. НУЖНО ОБЯЗАТЕЛЬНО ИНИЦИАЛИЗИРОВАТЬ ГДЕ-НИБУДЬ
         /// </summary>
         string fileResult;
-
+        int indexOfCut = 0;
         List<string> fileSounds = new List<string>();
 
         public List<Controller.WaveController.WaveEditor> WiveEditorList = new List<Controller.WaveController.WaveEditor>();
@@ -164,14 +165,14 @@ namespace SimpleAudioEditor
             SampleController sc = new SampleController();
             
             /// путь к файлу с выбранным треком
-             fileSounds[index].ToString();
+          //   fileSounds[index].ToString();
        //     sc.TrimWavFile();
             /// путь к рещзультирующему
             // fileResult
             
             //длинна всей песни
             TimeSpan allTime = WiveEditorList[index].getmMWaveSourceLength();
-
+            
             ///длинна отрезка
             string lengthSample = WiveEditorList[index].lblSelectLength.Text;
             ///начальная позиция отрезка
@@ -179,6 +180,10 @@ namespace SimpleAudioEditor
             ///конечная позиция отрезка
             string endPosSample = WiveEditorList[index].lblSelectEndPos.Text;
             ///не знаю что делает
+            sc.TrimWavFile(fileSounds[index].ToString(), "Results\\cut" + indexOfCut + ".mp3", TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+            FileStream fs = new FileStream("Results\\result.mp3", FileMode.Append);
+            sc.Combine("Results\\cut" + indexOfCut + ".mp3",fs);
+            indexOfCut++;
             RelocationEditorController();
         }
 
