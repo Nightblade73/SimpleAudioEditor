@@ -1,17 +1,11 @@
 ﻿using CSCore;
-using CSCore.Codecs;
 using CSCore.SoundOut;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SimpleAudioEditor.Controller;
+using SimpleAudioEditor.Model;
 using CSCore.CoreAudioAPI;
 using System.Collections.ObjectModel;
 using SimpleAudioEditor.Controller.WaveController;
@@ -28,7 +22,7 @@ namespace SimpleAudioEditor
         }
 
         private readonly ObservableCollection<MMDevice> mDevices = new ObservableCollection<MMDevice>();
-        private MMDeviceCollection mOutputDevices;
+        private MMDeviceCollection mOutputDevices;        
 
         SoundSource soundSource = new SoundSource();
         IWaveSource soundSource1;
@@ -71,6 +65,13 @@ namespace SimpleAudioEditor
                 if (device.DeviceID == activeDevice.DeviceID) comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
             }
             comboBox1.DisplayMember = "FriendlyName";
+
+            if (Directory.Exists(Params.ResultSoundsPath)) {
+                Console.WriteLine("That path exists already.");
+                return;
+            } else {
+                DirectoryInfo di = Directory.CreateDirectory(Params.ResultSoundsPath);
+            }
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -171,6 +172,7 @@ namespace SimpleAudioEditor
         /// <param name="e"></param>
         private void buttonEditorAddTrack_Click(object sender, EventArgs e)//метод по осуществлению события клика
         {
+
             int index = EditorAddTrackButtons.IndexOf((Button)sender);
             WiveEditorList[index].StopPlaying();
             SampleController sc = new SampleController();
@@ -191,10 +193,10 @@ namespace SimpleAudioEditor
             ///конечная позиция отрезка
             string endPosSample = WiveEditorList[index].lblSelectEndPos.Text;
             ///не знаю что делает
-            sc.TrimWavFile(fileSounds[index].ToString(), "Results\\cut" + indexOfCut + ".wav", TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
-            FileStream fs = new FileStream("Results\\result.mp3", FileMode.Append);
+            sc.TrimWavFile(fileSounds[index].ToString(), Params.GetResultCuttedIndexedSoundsPathMP3(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+            FileStream fs = new FileStream(Params.ResultSoundsPath + "\\" + Params.ResultFileName, FileMode.Append);
            // sc.Combine("Results\\cut" + indexOfCut + ".mp3",fs);
-            sc.Combine("Results\\cut" + indexOfCut + ".wav", fs);
+            sc.Combine(Params.GetResultCuttedIndexedSoundsPathMP3(indexOfCut), fs);
             fs.Close();
             indexOfCut++;
             RelocationEditorController();
