@@ -10,6 +10,7 @@ using CSCore.CoreAudioAPI;
 using System.Collections.ObjectModel;
 using SimpleAudioEditor.Controller.WaveController;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace SimpleAudioEditor
 {
@@ -22,6 +23,8 @@ namespace SimpleAudioEditor
         }
 
         public static Action ControlClickEvent = delegate(){};
+        public static Action ThreadStartEvent = delegate (){};
+        public static Action ThreadFinishEvent = delegate (){};
 
         private readonly ObservableCollection<MMDevice> mDevices = new ObservableCollection<MMDevice>();
         private MMDeviceCollection mOutputDevices;        
@@ -46,7 +49,8 @@ namespace SimpleAudioEditor
         private void MainForm_Load(object sender, EventArgs e)
         {
             ControlClickEvent += ControlClickEventHandler;
-
+            ThreadStartEvent += ThreadStartEventHandler;
+            ThreadFinishEvent += ThreadFinishEventHandler;
             if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
             {
                 this.Close();
@@ -73,6 +77,16 @@ namespace SimpleAudioEditor
             } else {
                 DirectoryInfo di = Directory.CreateDirectory(Params.ResultSoundsPath);
             }
+        }
+
+        private void ThreadFinishEventHandler()
+        {
+            samplesPanel.Enabled = true;
+        }
+
+        private void ThreadStartEventHandler()
+        {
+            samplesPanel.Enabled = false;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -157,10 +171,18 @@ namespace SimpleAudioEditor
 
         //обработчик события ControlClickEvent
         void ControlClickEventHandler() {
-            try {
-                mEditor.OpenWaveFile(Model.Params.ResultSoundsPath + "\\" + Model.Params.ResultFileName, (MMDevice)comboBox1.SelectedItem);
-                trackBarVolume.Value = mEditor.Player.Volume;
-                mEditor.Focus();
+            try
+            {
+                //Task nt = Task.Run(() =>
+                //{
+                
+                    mEditor.OpenWaveFile(Model.Params.ResultSoundsPath + "\\" + Model.Params.ResultFileName, (MMDevice)comboBox1.SelectedItem);
+                    trackBarVolume.Value = mEditor.Player.Volume;
+                    mEditor.Focus();
+                //});
+                // MainForm.ThreadStartEvent();
+                //var divisionawaiter = nt.GetAwaiter();
+                //divisionawaiter.OnCompleted(MainForm.ThreadFinishEvent);
             } catch(Exception ex)
             {
                 MessageBox.Show("Could not open file: " + ex.Message);

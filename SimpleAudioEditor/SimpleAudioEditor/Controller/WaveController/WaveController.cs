@@ -10,6 +10,8 @@ using System.IO;
 using SimpleAudioEditor.Controller.WaveController;
 using TagLib;
 using TagLib.Mpeg;
+using System.Threading.Tasks;
+using SimpleAudioEditor.Model;
 
 namespace SimpleAudioEditor.Controller.WaveController {
     public partial class WaveEditor : UserControl {
@@ -215,6 +217,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
 
         private void OpenWaveFileThread() {
+            
+
             CreateOptimizedArray();
             mDrawWave = true;
 
@@ -238,6 +242,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
                 hrScroll.Enabled = true;
                 Refresh();
             });
+            
         }
 
         public void CloseWaveFile() {
@@ -277,6 +282,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
             if (mRawDrawReader != null) mRawDrawReader.Dispose();
             if (mRawPlayReader != null) mRawPlayReader.Dispose();
             if (System.IO.File.Exists(mRawFileName)) System.IO.File.Delete(mRawFileName);
+
         }
 
         public void OpenWaveFile(string fileName, MMDevice device) {
@@ -287,10 +293,30 @@ namespace SimpleAudioEditor.Controller.WaveController {
             mFilename = fileName;
 
             AudioFile file = new AudioFile(fileName, ReadStyle.Average);
-            label1.Text = file.Tag.Performers[0] + " - " + file.Tag.Title;
+            if (file.Tag.Performers != null && file.Tag.Title != null)
+            {
+                label1.Text = file.Tag.Performers[0] + " - " + file.Tag.Title;
+            }
+            else {
+                label1.Text = Filename;
+            }
+            file.Dispose();
 
-            Thread fileOpenThread = new Thread(new ThreadStart(OpenWaveFileThread));
-            fileOpenThread.Start();
+            //ThreadStart starter = OpenWaveFileThread;d
+            //starter += () =>
+            //{
+            //    //комментарий
+            //};
+            //Thread thread = new Thread(starter) { IsBackground = true };
+            ////MainForm.ThreadStartEvent();
+            //thread.Start();
+
+
+            Task nt = Task.Run(() => OpenWaveFileThread());
+            
+            var divisionawaiter = nt.GetAwaiter();
+
+            divisionawaiter.OnCompleted(MainForm.ThreadFinishEvent);
         }
 
         private void PeakMeter_PeakCalculated(object sender, PeakEventArgs e) {
@@ -301,7 +327,6 @@ namespace SimpleAudioEditor.Controller.WaveController {
             if (args.Delta * SystemInformation.MouseWheelScrollLines / 120 > 0) {
                 if (mCtrlKeyDown) ZoomIn();
                 else {
-
                     ScrollView((int)(mDrawingStartOffset + hrScroll.LargeChange));
                 }
             } else {
@@ -865,6 +890,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
         }
 
         private void bCut_Click(object sender, EventArgs e) {
+            MainForm.ThreadStartEvent();
             this.StopPlaying();
             SampleController sc = new SampleController();
             TimeSpan allTime = this.getmMWaveSourceLength();
@@ -878,9 +904,14 @@ namespace SimpleAudioEditor.Controller.WaveController {
             {
                 sc.TrimWavFile(Filename.ToString(), Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
             }
-            using (FileStream fs = new FileStream(Model.Params.ResultSoundsPath + "\\" + Model.Params.ResultFileName, FileMode.Append))
+            try
             {
-                sc.Combine(Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), fs);
+                using (FileStream fs = new FileStream(Model.Params.ResultSoundsPath + "\\" + Model.Params.ResultFileName, FileMode.Append))
+                {
+                    sc.Combine(Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), fs);
+                }
+            } catch (Exception ex) {
+                MessageBox.Show(Params.ExceptionError);
             }
             indexOfCut++;
             MainForm.ControlClickEvent();
