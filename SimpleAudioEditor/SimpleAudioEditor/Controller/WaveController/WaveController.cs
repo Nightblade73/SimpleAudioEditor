@@ -850,18 +850,17 @@ namespace SimpleAudioEditor.Controller.WaveController {
         private void bCut_Click(object sender, EventArgs e) {
             this.StopPlaying();
             SampleController sc = new SampleController();
-            
-            //длинна всей песни
             TimeSpan allTime = this.getmMWaveSourceLength();
-
-            ///длинна отрезка
-            string lengthSample = this.lblSelectLength.Text;
-            ///начальная позиция отрезка
             string startPosSample = this.lblSelectStartPos.Text;
-            ///конечная позиция отрезка
             string endPosSample = this.lblSelectEndPos.Text;
-            ///не знаю что делает
-            sc.TrimWavFile(Filename.ToString(), Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+            if (Filename.ToString().Contains(".wav"))
+            {
+                sc.TrimWavFile(sc.Converter(Filename.ToString()), Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+            }
+            else
+            {
+                sc.TrimWavFile(Filename.ToString(), Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+            }
             using (FileStream fs = new FileStream(Model.Params.ResultSoundsPath + "\\" + Model.Params.ResultFileName, FileMode.Append))
             {
                 sc.Combine(Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), fs);

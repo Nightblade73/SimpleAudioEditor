@@ -101,7 +101,7 @@ namespace SimpleAudioEditor
 
         private void buttonLoadFile_Click(object sender, EventArgs e)
         {
-            openFileDialog.Filter = "Cursor Files|*.mp3";
+            openFileDialog.Filter = "Cursor Files|*.mp3;*.wav";
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 for (int i = 0; i < openFileDialog.FileNames.Length; i++)
