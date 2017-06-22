@@ -180,10 +180,10 @@ namespace SimpleAudioEditor
             ///конечная позиция отрезка
             string endPosSample = WiveEditorList[index].lblSelectEndPos.Text;
             ///не знаю что делает
-            sc.TrimWavFile(fileSounds[index].ToString(), "Results\\cut" + indexOfCut + ".mp3", TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+            sc.TrimWavFile(fileSounds[index].ToString(), "Results\\cut" + indexOfCut + ".wav", TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
             FileStream fs = new FileStream("Results\\result.mp3", FileMode.Append);
            // sc.Combine("Results\\cut" + indexOfCut + ".mp3",fs);
-            sc.Combine("Results\\cut" + indexOfCut + ".mp3", fs);
+            sc.Combine("Results\\cut" + indexOfCut + ".wav", fs);
             fs.Close();
             indexOfCut++;
             RelocationEditorController();
