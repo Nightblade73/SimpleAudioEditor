@@ -89,6 +89,14 @@ namespace SimpleAudioEditor
                     WiveEditorList[i].Dispose();
                 }
             }
+
+            try {
+                File.Delete(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\SoundFactory");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("не удалось удалить папку SoundFactory. " + ex.ToString());
+            }
         }
 
         private void buttonPause_Click(object sender, EventArgs e)
