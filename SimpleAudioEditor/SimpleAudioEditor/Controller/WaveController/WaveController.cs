@@ -7,9 +7,13 @@ using CSCore.Codecs;
 using CSCore.CoreAudioAPI;
 using CSCore.Streams;
 using System.IO;
+using SimpleAudioEditor.Controller.WaveController;
 
 namespace SimpleAudioEditor.Controller.WaveController {
     public partial class WaveEditor : UserControl {
+
+        private int indexOfCut = 0;
+
         private ISampleSource mDrawSource;
         private ISampleSource mPlaySource;
         private IWaveSource mWaveSource;
@@ -423,7 +427,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
             grfx.DrawImage(mBitmap, 0, 0);
             if (mLastPlayCursorX >= 0 && mLastPlayCursorX < mLastDrawnPixel) {
                 grfx.DrawLine(new Pen(Color.Blue), mLastPlayCursorX, 0, mLastPlayCursorX, h);
-            }
+            }            
             grfx.DrawLine(pen, 0, (int)(CHeight / 2), CWidth, (int)(CHeight / 2));
             int regionStartX = Math.Max(0, Math.Min(SelectionStartX, SelectionEndX));
             int regionEndX = Math.Min(mLastDrawnPixel, Math.Max(SelectionStartX, SelectionEndX));
@@ -431,6 +435,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
                 SolidBrush brs = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
                 grfx.FillRectangle(brs, regionStartX, 0, regionEndX - regionStartX + 1, CHeight);
             }
+            //курсор
+            grfx.DrawLine(new Pen(Color.Green), CursorPositionX, 0, CursorPositionX, h);
         }
 
         private void ZoomIn() {
@@ -795,7 +801,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
         private void cursorTimer_Tick(System.Object sender, System.EventArgs e) {
             if ((ParentForm.ContainsFocus && (mDrawWave && (!mDrawing && !mSelecting) && !(mMusicPlayer.PlaybackState == CSCore.SoundOut.PlaybackState.Playing)))) {
                 if (((CursorPositionX < CWidth) && (CursorPositionX >= 0))) {
-                    ControlPaint.DrawReversibleLine(this.PointToScreen(new Point(CursorPositionX, 0)), this.PointToScreen(new Point(CursorPositionX, CHeight)), Color.Gray);
+                    //ControlPaint.DrawReversibleLine(this.PointToScreen(new Point(CursorPositionX, 0)), this.PointToScreen(new Point(CursorPositionX, CHeight)), Color.Gray);
                 }
             }
         }
@@ -839,6 +845,33 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
         public MusicPlayer Player {
             get { return mMusicPlayer; }
+        }
+
+        private void bCut_Click(object sender, EventArgs e) {
+            this.StopPlaying();
+            SampleController sc = new SampleController();
+            
+            //длинна всей песни
+            TimeSpan allTime = this.getmMWaveSourceLength();
+
+            ///длинна отрезка
+            string lengthSample = this.lblSelectLength.Text;
+            ///начальная позиция отрезка
+            string startPosSample = this.lblSelectStartPos.Text;
+            ///конечная позиция отрезка
+            string endPosSample = this.lblSelectEndPos.Text;
+            ///не знаю что делает
+            sc.TrimWavFile(Filename.ToString(), Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+            using (FileStream fs = new FileStream(Model.Params.ResultSoundsPath + "\\" + Model.Params.ResultFileName, FileMode.Append))
+            {
+                sc.Combine(Model.Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), fs);
+            }
+            indexOfCut++;
+        }
+
+        private void bDelete_Click(object sender, EventArgs e) {
+            this.StopPlaying();
+            this.Dispose();
         }
     }
 }

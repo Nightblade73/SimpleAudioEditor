@@ -69,7 +69,6 @@ namespace SimpleAudioEditor.Controller.WaveController
                         writer.Write(buffer, 0, bytesRead);
                     }
                 }
-
             }
         }
 

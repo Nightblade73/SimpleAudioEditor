@@ -34,7 +34,6 @@ namespace SimpleAudioEditor
         /// результирующий файл. НУЖНО ОБЯЗАТЕЛЬНО ИНИЦИАЛИЗИРОВАТЬ ГДЕ-НИБУДЬ
         /// </summary>
         string fileResult;
-        int indexOfCut = 0;
         List<string> fileSounds = new List<string>();
 
         public List<Controller.WaveController.WaveEditor> WiveEditorList = new List<Controller.WaveController.WaveEditor>();
@@ -108,39 +107,23 @@ namespace SimpleAudioEditor
                 for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                 {
                     fileSounds.Add(openFileDialog.FileNames[i]);
-                    WiveEditorList.Add(new Controller.WaveController.WaveEditor());
+                    WiveEditorList.Add(new WaveEditor());
                     if (WiveEditorList.Count <= 1)
                         WiveEditorList[WiveEditorList.Count - 1].Location = new Point(0, 0);
                     else
-                        WiveEditorList[WiveEditorList.Count - 1].Location = new Point(0, WiveEditorList[WiveEditorList.Count - 2].Location.Y + 66);
+                        WiveEditorList[WiveEditorList.Count - 1].Location = new Point(0, WiveEditorList[WiveEditorList.Count - 2].Location.Y + WiveEditorList[WiveEditorList.Count - 2].Height);
 
-                    WiveEditorList[WiveEditorList.Count - 1].Size = new Size( new Point(600, mEditor.Size.Height));
+                    WiveEditorList[WiveEditorList.Count - 1].Size = new Size(new Point(Params.NewSamplesWidth, mEditor.Size.Height * Params.CoefNewSamplesToMainSample));
                     
                     this.Controls.Add(WiveEditorList[WiveEditorList.Count - 1]);
-                    WiveEditorList[WiveEditorList.Count - 1].Parent = samplesPanel;
-
-                    EditorDeleteButtons.Add(new Button());
-                    EditorDeleteButtons[EditorDeleteButtons.Count - 1].Text = "удалить";
-                    this.Controls.Add(EditorDeleteButtons[EditorDeleteButtons.Count - 1]);
-                    EditorDeleteButtons[EditorDeleteButtons.Count - 1].Location = new Point(
-                        WiveEditorList[WiveEditorList.Count - 1].Size.Width + 6, WiveEditorList[WiveEditorList.Count - 1].Location.Y);
-                    EditorDeleteButtons[EditorDeleteButtons.Count - 1].Parent = samplesPanel;
-                    EditorDeleteButtons[EditorDeleteButtons.Count - 1].Click+= buttonEditorDelete_Click;
-
-                    EditorAddTrackButtons.Add(new Button());
-                    EditorAddTrackButtons[EditorAddTrackButtons.Count - 1].Text = "добавить";
-                    this.Controls.Add(EditorAddTrackButtons[EditorAddTrackButtons.Count - 1]);
-                    EditorAddTrackButtons[EditorAddTrackButtons.Count - 1].Location = new Point(
-                        WiveEditorList[WiveEditorList.Count - 1].Size.Width + 6, WiveEditorList[WiveEditorList.Count - 1].Location.Y+30);
-                    EditorAddTrackButtons[EditorAddTrackButtons.Count - 1].Parent = samplesPanel;
-                    EditorAddTrackButtons[EditorAddTrackButtons.Count - 1].Click += buttonEditorAddTrack_Click;
+                    WiveEditorList[WiveEditorList.Count - 1].Parent = samplesPanel;                    
 
                     this.Update();
                     //ресурс 1
                     soundSource1 = soundSource.InitializationWaveSource(fileSounds[fileSounds.Count-1]);
                     //теперь воспросизводить будем ресурс 1
-                     soundSource.InitializationSoundOut(soundSource1);
-                     soundOut.Volume = (float)0.3;
+                    soundSource.InitializationSoundOut(soundSource1);
+                    soundOut.Volume = (float)0.3;
                     try
                     {
                         WiveEditorList[WiveEditorList.Count - 1].OpenWaveFile(openFileDialog.FileNames[i], (MMDevice)comboBox1.SelectedItem);
@@ -156,75 +139,11 @@ namespace SimpleAudioEditor
                 WiveEditorList[WiveEditorList.Count - 1].Focus();
             }
         }
-        /// <summary>
-        /// /ВОВА, ТЕБЕ СЮДА
-        /// обработчик события кнопки добавления
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonEditorAddTrack_Click(object sender, EventArgs e)//метод по осуществлению события клика
-        {
-
-            int index = EditorAddTrackButtons.IndexOf((Button)sender);
-            WiveEditorList[index].StopPlaying();
-            SampleController sc = new SampleController();
-            
-            /// путь к файлу с выбранным треком
-          //   fileSounds[index].ToString();
-       //     sc.TrimWavFile();
-            /// путь к рещзультирующему
-            // fileResult
-            
-            //длинна всей песни
-            TimeSpan allTime = WiveEditorList[index].getmMWaveSourceLength();
-            
-            ///длинна отрезка
-            string lengthSample = WiveEditorList[index].lblSelectLength.Text;
-            ///начальная позиция отрезка
-            string startPosSample = WiveEditorList[index].lblSelectStartPos.Text;
-            ///конечная позиция отрезка
-            string endPosSample = WiveEditorList[index].lblSelectEndPos.Text;
-            ///не знаю что делает
-            sc.TrimWavFile(fileSounds[index].ToString(), Params.GetResultCuttedIndexedSoundsPathMP3(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
-            FileStream fs = new FileStream(Params.ResultSoundsPath + "\\" + Params.ResultFileName, FileMode.Append);
-           // sc.Combine("Results\\cut" + indexOfCut + ".mp3",fs);
-            sc.Combine(Params.GetResultCuttedIndexedSoundsPathMP3(indexOfCut), fs);
-            fs.Close();
-            indexOfCut++;
-            RelocationEditorController();
-        }
-
-        private void buttonEditorDelete_Click(object sender, EventArgs e)//метод по осуществлению события клика
-        {
-            int index = EditorDeleteButtons.IndexOf((Button)sender);
-            EditorDeleteButtons[index].Click -= buttonEditorDelete_Click;
-            EditorDeleteButtons[index].Dispose();
-            WiveEditorList[index].StopPlaying();
-            WiveEditorList[index].Dispose();
-            WiveEditorList.RemoveAt(index);
-            EditorDeleteButtons.RemoveAt(index);
-
-            RelocationEditorController();
-        }
 
         private void trackBarVolume_Scroll(object sender, EventArgs e)
         {
             soundOut.Volume = (float)trackBarVolume.Value * 0.01f;
             mEditor.Player.Volume = trackBarVolume.Value;
-        }
-
-        private void RelocationEditorController()
-        {
-            for(int i=0;i< WiveEditorList.Count; i++) { 
-            if (i == 0)
-                WiveEditorList[i].Location = new Point(0, 0);
-            else
-                WiveEditorList[i].Location = new Point(0, WiveEditorList[i - 1].Location.Y + 66);
-
-            EditorDeleteButtons[i].Location = new Point(
-                WiveEditorList[i].Size.Width + 6, WiveEditorList[i].Location.Y);
-            }
-            this.Update();
-        }
+        }        
     }
 }
