@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "Проект №1",
             "03.05.17"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "Проект №2",
             "31.06.17"}, -1);
             this.buttonToMain = new System.Windows.Forms.Button();
@@ -45,7 +45,7 @@
             // buttonToMain
             // 
             this.buttonToMain.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.buttonToMain.Font = new System.Drawing.Font("Microsoft YaHei Light", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonToMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonToMain.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.buttonToMain.Location = new System.Drawing.Point(226, 107);
             this.buttonToMain.Name = "buttonToMain";
@@ -73,11 +73,11 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            listViewItem11.Tag = "";
-            listViewItem11.ToolTipText = "03.05.17";
+            listViewItem1.Tag = "";
+            listViewItem1.ToolTipText = "03.05.17";
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem11,
-            listViewItem12});
+            listViewItem1,
+            listViewItem2});
             this.listView1.Location = new System.Drawing.Point(6, 22);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(268, 199);

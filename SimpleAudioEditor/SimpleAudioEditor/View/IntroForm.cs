@@ -21,18 +21,6 @@ namespace SimpleAudioEditor
             InitializeComponent();
         }
 
-        private void IntroForm_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                File.Delete(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoundFactory");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("не удалось удалить папку SoundFactory. " + ex.ToString());
-            }
-        }
-
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             
@@ -48,6 +36,18 @@ namespace SimpleAudioEditor
         private void IntroForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             
+        }
+
+        private void IntroForm_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                Directory.Delete(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\SoundFactory", true);
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
     }
 }
