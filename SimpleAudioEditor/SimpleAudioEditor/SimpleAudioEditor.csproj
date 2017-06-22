@@ -67,6 +67,10 @@
       <HintPath>..\packages\Streamcoders.MediaSuite.x64.4.0.1433.0\lib\net45\MediaSuite.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NAudio, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -85,6 +89,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controller\WaveController\RawDataReader.cs" />
+    <Compile Include="Controller\WaveController\SampleController.cs" />
     <Compile Include="Controller\WaveController\WaveController.cs">
       <SubType>UserControl</SubType>
     </Compile>
