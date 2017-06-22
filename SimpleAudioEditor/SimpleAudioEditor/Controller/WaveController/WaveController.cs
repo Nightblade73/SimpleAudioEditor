@@ -8,6 +8,8 @@ using CSCore.CoreAudioAPI;
 using CSCore.Streams;
 using System.IO;
 using SimpleAudioEditor.Controller.WaveController;
+using TagLib;
+using TagLib.Mpeg;
 
 namespace SimpleAudioEditor.Controller.WaveController {
     public partial class WaveEditor : UserControl {
@@ -64,7 +66,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
         private int mPrevWidth = 0;
         private int mPrevHeight = 0;
         private long mPrevOffset = 0;
-        private long mPrevSamplesPerPixel = 0;
+         private long mPrevSamplesPerPixel = 0;
 
         private Bitmap mBitmap = null;
         //Variables for selection
@@ -92,6 +94,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
             MouseMove += WaveControl_MouseMove;
             MouseDown += WaveControl_MouseDown;
             Paint += WaveControl_Paint;
+            
             hrScroll.Scroll += hrScroll_Scroll;
             // Sets up double buffering IMPORTANT !!!
             SetStyle(System.Windows.Forms.ControlStyles.UserPaint | System.Windows.Forms.ControlStyles.AllPaintingInWmPaint | System.Windows.Forms.ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
@@ -273,7 +276,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
             lblSelectLength.Text = timeZero;
             if (mRawDrawReader != null) mRawDrawReader.Dispose();
             if (mRawPlayReader != null) mRawPlayReader.Dispose();
-            if (File.Exists(mRawFileName)) File.Delete(mRawFileName);
+            if (System.IO.File.Exists(mRawFileName)) System.IO.File.Delete(mRawFileName);
         }
 
         public void OpenWaveFile(string fileName, MMDevice device) {
@@ -282,6 +285,10 @@ namespace SimpleAudioEditor.Controller.WaveController {
             mDevice = device;
 
             mFilename = fileName;
+
+            AudioFile file = new AudioFile(fileName, ReadStyle.Average);
+            label1.Text = file.Tag.Performers[0] + " - " + file.Tag.Title;
+
             Thread fileOpenThread = new Thread(new ThreadStart(OpenWaveFileThread));
             fileOpenThread.Start();
         }

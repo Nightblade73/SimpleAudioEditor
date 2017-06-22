@@ -5,6 +5,9 @@ using CSCore.Codecs;
 using CSCore.CoreAudioAPI;
 using CSCore.SoundOut;
 
+/// <summary>
+/// Включать выключать поток воспроизведения
+/// </summary>
 namespace SimpleAudioEditor.Controller.WaveController {
     public class MusicPlayer : Component {
         private ISoundOut mSoundOut;
@@ -77,6 +80,9 @@ namespace SimpleAudioEditor.Controller.WaveController {
                 mSoundOut.Stop();
         }
 
+        /// <summary>
+        /// Освобождает ресурсы
+        /// </summary>
         private void CleanupPlayback() {
             if (mSoundOut != null) {
                 mSoundOut.Dispose();

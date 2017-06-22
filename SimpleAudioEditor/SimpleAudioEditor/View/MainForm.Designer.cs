@@ -39,7 +39,7 @@
             // 
             // buttonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(275, 78);
+            this.buttonStart.Location = new System.Drawing.Point(276, 94);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(75, 23);
             this.buttonStart.TabIndex = 0;
@@ -49,7 +49,7 @@
             // 
             // buttonPause
             // 
-            this.buttonPause.Location = new System.Drawing.Point(194, 78);
+            this.buttonPause.Location = new System.Drawing.Point(195, 94);
             this.buttonPause.Name = "buttonPause";
             this.buttonPause.Size = new System.Drawing.Size(75, 23);
             this.buttonPause.TabIndex = 2;
@@ -59,7 +59,7 @@
             // 
             // buttonLoadFile
             // 
-            this.buttonLoadFile.Location = new System.Drawing.Point(356, 78);
+            this.buttonLoadFile.Location = new System.Drawing.Point(357, 94);
             this.buttonLoadFile.Name = "buttonLoadFile";
             this.buttonLoadFile.Size = new System.Drawing.Size(174, 23);
             this.buttonLoadFile.TabIndex = 3;
@@ -74,10 +74,10 @@
             // 
             // trackBarVolume
             // 
-            this.trackBarVolume.Location = new System.Drawing.Point(536, 78);
+            this.trackBarVolume.Location = new System.Drawing.Point(537, 94);
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
-            this.trackBarVolume.Size = new System.Drawing.Size(174, 42);
+            this.trackBarVolume.Size = new System.Drawing.Size(174, 45);
             this.trackBarVolume.TabIndex = 4;
             this.trackBarVolume.TickFrequency = 10;
             this.trackBarVolume.Scroll += new System.EventHandler(this.trackBarVolume_Scroll);
@@ -85,7 +85,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(14, 80);
+            this.comboBox1.Location = new System.Drawing.Point(15, 96);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(174, 21);
             this.comboBox1.TabIndex = 6;
@@ -93,7 +93,7 @@
             // samplesPanel
             // 
             this.samplesPanel.AutoScroll = true;
-            this.samplesPanel.Location = new System.Drawing.Point(6, 19);
+            this.samplesPanel.Location = new System.Drawing.Point(6, 22);
             this.samplesPanel.Name = "samplesPanel";
             this.samplesPanel.Size = new System.Drawing.Size(700, 360);
             this.samplesPanel.TabIndex = 8;
@@ -101,7 +101,7 @@
             // groupBoxSemples
             // 
             this.groupBoxSemples.Controls.Add(this.samplesPanel);
-            this.groupBoxSemples.Location = new System.Drawing.Point(12, 107);
+            this.groupBoxSemples.Location = new System.Drawing.Point(12, 123);
             this.groupBoxSemples.Name = "groupBoxSemples";
             this.groupBoxSemples.Size = new System.Drawing.Size(713, 385);
             this.groupBoxSemples.TabIndex = 9;
@@ -115,7 +115,7 @@
             this.mEditor.Location = new System.Drawing.Point(12, 12);
             this.mEditor.MinimumSize = new System.Drawing.Size(675, 0);
             this.mEditor.Name = "mEditor";
-            this.mEditor.Size = new System.Drawing.Size(713, 60);
+            this.mEditor.Size = new System.Drawing.Size(713, 76);
             this.mEditor.TabIndex = 5;
             // 
             // MainForm
