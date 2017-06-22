@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using SimpleAudioEditor.Controller;
 using CSCore.CoreAudioAPI;
 using System.Collections.ObjectModel;
+using SimpleAudioEditor.Controller.WaveController;
 
 namespace SimpleAudioEditor
 {
@@ -160,12 +161,13 @@ namespace SimpleAudioEditor
         {
             int index = EditorAddTrackButtons.IndexOf((Button)sender);
             WiveEditorList[index].StopPlaying();
-
+            SampleController sc = new SampleController();
+            
             /// путь к файлу с выбранным треком
-            /// fileSounds[index].ToString();
-
+             fileSounds[index].ToString();
+       //     sc.TrimWavFile();
             /// путь к рещзультирующему
-            /// fileResult
+            // fileResult
             
             //длинна всей песни
             TimeSpan allTime = WiveEditorList[index].getmMWaveSourceLength();
