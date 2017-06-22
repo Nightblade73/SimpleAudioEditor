@@ -75,22 +75,26 @@ namespace SimpleAudioEditor.Controller.WaveController
 
         public string Converter(string inPath)
         {
-            WaveFileReader mpbacground = new WaveFileReader(inPath);
-            //convert them into wave stream or decode the mp3 file
-            WaveStream background = WaveFormatConversionStream.CreatePcmStream(mpbacground);
-            var mixer = new WaveMixerStream32();
-            mixer.AutoStop = true;
-            var messageOffset = background.TotalTime;
-            var background32 = new WaveChannel32(background);
-            background32.PadWithZeroes = false;
-            //add stream into the mixer
-            mixer.AddInputStream(background32);
-            var wave32 = new Wave32To16Stream(mixer);
-            //encode the wave stream into mp3
-            var mp3Stream = ConvertWavToMp3(wave32);
-            // write mp3 on the disk
-            inPath = inPath.Split('.')[0] + ".mp3";
-            File.WriteAllBytes(inPath, mp3Stream.ToArray());
+            using (WaveFileReader mpbacground = new WaveFileReader(inPath))
+            {
+                using (WaveStream background = WaveFormatConversionStream.CreatePcmStream(mpbacground))
+                {
+                    using (var mixer = new WaveMixerStream32())
+                    {
+                        mixer.AutoStop = true;
+                        var messageOffset = background.TotalTime;
+                        var background32 = new WaveChannel32(background);
+                        background32.PadWithZeroes = false;
+                        mixer.AddInputStream(background32);
+                        using (var wave32 = new Wave32To16Stream(mixer))
+                        {
+                            var mp3Stream = ConvertWavToMp3(wave32);
+                            inPath = inPath.Split('.')[0] + ".mp3";
+                            File.WriteAllBytes(inPath, mp3Stream.ToArray());
+                        }
+                    }
+                }
+            }
             return inPath;
         }
 
