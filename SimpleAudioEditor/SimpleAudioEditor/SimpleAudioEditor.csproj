@@ -171,6 +171,12 @@
     <Content Include="libmp3lame.64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\icons8-Peach-48.png" />
+    <None Include="Resources\icons8-Error-104.png" />
+    <None Include="Resources\icons8-Pause-48.png" />
+    <None Include="Resources\icons8-Play-26.png" />
+    <None Include="Resources\icons8-Audio Wave-26.png" />
+    <None Include="Resources\icons8-Add Folder-104.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
