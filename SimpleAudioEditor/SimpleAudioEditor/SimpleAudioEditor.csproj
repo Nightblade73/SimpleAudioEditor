@@ -52,7 +52,7 @@
     <StartupObject>SimpleAudioEditor.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icons8-Music_Record-48.ico</ApplicationIcon>
+    <ApplicationIcon>icons8-Peach-48.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CSCore, Version=1.2.1.1, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8-Music_Record-48.ico" />
+    <Content Include="icons8-Peach-48.ico" />
     <Content Include="libmp3lame.32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
