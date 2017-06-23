@@ -24,7 +24,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
             }
         }
 
-        private int indexOfCut = 0;
+        //private int indexOfCut = 0;
 
         private ISampleSource mDrawSource;
         private ISampleSource mPlaySource;
@@ -895,19 +895,19 @@ namespace SimpleAudioEditor.Controller.WaveController {
             string startPosSample = this.lblSelectStartPos.Text;
             string endPosSample = this.lblSelectEndPos.Text;
             if (Filename.ToString().Contains(".wav")) {
-                sc.TrimWavFile(sc.Converter(Filename.ToString()), Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+                sc.TrimWavFile(sc.Converter(Filename.ToString()), Params.GetResultCuttedIndexedSoundsPathWAV(), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
             } else {
-                sc.TrimWavFile(Filename.ToString(), Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+                sc.TrimWavFile(Filename.ToString(), Params.GetResultCuttedIndexedSoundsPathWAV(), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
             }
             try {
-                StopPlaying();
+                //StopPlaying();
                 using (FileStream fs = new FileStream(Params.ResultSoundsPath + "\\" + Params.ResultFileName, FileMode.Append)) {
-                    sc.Combine(Params.GetResultCuttedIndexedSoundsPathWAV(indexOfCut), fs);
+                    sc.Combine(Params.GetResultCuttedIndexedSoundsPathWAV(), fs);
                 }
             } catch (Exception ex) {
                 MessageBox.Show(Params.ExceptionError);
             }
-            indexOfCut++;
+            Params.IndexCutFilePlus();
             MainForm.ControlClickEvent();
         }
 

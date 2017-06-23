@@ -14,6 +14,7 @@ namespace SimpleAudioEditor.Model {
         public static readonly string FileFormatWAV = ".wav";
         public static readonly int CoefNewSamplesToMainSample = 2;
         public static readonly int NewSamplesWidth = 600;
+        private static int indexCutFile = 0;
         public static readonly string ExceptionError = "Вы не можете получить доступ к файлу, " +
             "попробуйте через 5 секунд";
 
@@ -21,8 +22,13 @@ namespace SimpleAudioEditor.Model {
             return ResultCuttedSoundsPath + index + FileFormatMP3;
         }
 
-        public static string GetResultCuttedIndexedSoundsPathWAV(int index) {
-            return ResultCuttedSoundsPath + index + FileFormatWAV;
+        public static string GetResultCuttedIndexedSoundsPathWAV() {
+            return ResultCuttedSoundsPath + (indexCutFile) + FileFormatWAV;
+        }
+
+        public static void IndexCutFilePlus()
+        {
+            indexCutFile++;
         }
 
     }
