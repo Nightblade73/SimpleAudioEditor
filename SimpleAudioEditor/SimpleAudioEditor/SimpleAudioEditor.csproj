@@ -96,6 +96,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Project.cs" />
+    <Compile Include="Controller\Sample.cs" />
     <Compile Include="Controller\SoundSource.cs" />
     <Compile Include="Controller\WaveController\MusicPlayer.cs">
       <SubType>Component</SubType>
