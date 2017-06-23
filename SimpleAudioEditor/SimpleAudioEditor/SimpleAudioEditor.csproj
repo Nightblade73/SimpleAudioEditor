@@ -52,7 +52,7 @@
     <StartupObject>SimpleAudioEditor.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icons8-Music_Record-48.ico</ApplicationIcon>
+    <ApplicationIcon>icons8-Peach-48.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CSCore, Version=1.2.1.1, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
@@ -96,6 +96,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Project.cs" />
+    <Compile Include="Controller\Sample.cs" />
     <Compile Include="Controller\SoundSource.cs" />
     <Compile Include="Controller\WaveController\MusicPlayer.cs">
       <SubType>Component</SubType>
@@ -165,12 +167,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8-Music_Record-48.ico" />
+    <Content Include="icons8-Peach-48.ico" />
     <Content Include="libmp3lame.32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="libmp3lame.64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\icons8-Peach-48.png" />
+    <None Include="Resources\icons8-Error-104.png" />
+    <None Include="Resources\icons8-Pause-48.png" />
+    <None Include="Resources\icons8-Play-26.png" />
+    <None Include="Resources\icons8-Audio Wave-26.png" />
+    <None Include="Resources\icons8-Add Folder-104.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
