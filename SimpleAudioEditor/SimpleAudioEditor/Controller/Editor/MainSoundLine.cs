@@ -61,7 +61,7 @@ namespace SimpleAudioEditor.Controller.Editor
             buttonOK = new Button();
             buttonOK.Size = buttonPlay.Size;
             buttonOK.Location = new Point(buttonStop.Location.X + buttonPlay.Size.Width + pictureBox.Size.Width + 20, buttonPlay.Location.Y);
-            // buttonStop.Click += buttonOK_Click;
+            buttonOK.Click += buttonOK_Click;
             buttonOK.Parent = parent;
             buttonOK.Text = "✔";
             buttonOK.BackColor = Color.OrangeRed;
@@ -155,7 +155,7 @@ namespace SimpleAudioEditor.Controller.Editor
             return sum;
         }
 
-        protected void buttonOK_Click(object sender, DragEventArgs e)
+        protected void buttonOK_Click(object sender, EventArgs e)
         {
             foreach (var s in listSegment)
             {
