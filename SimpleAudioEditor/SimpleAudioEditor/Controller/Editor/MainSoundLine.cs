@@ -22,11 +22,13 @@ namespace SimpleAudioEditor.Controller.Editor
         double maxLeghtOutFromSecond = 300;
         Button buttonPlay;
         Button buttonStop;
+        Button buttonOK;
+        Button buttonDelete;
         Random r = new Random();
         public MainSoundLine(int width, int height, Control parent, Point location)
         {
             pictureBox = new PictureBox();            
-            pictureBox.Size = new Size(width- height * 2-10, height);
+            pictureBox.Size = new Size(width- height * 3- 10 -10, height);
 
             pictureBox.Parent = parent;
             pictureBox.Paint += pictureBox_Paint;
@@ -55,6 +57,24 @@ namespace SimpleAudioEditor.Controller.Editor
             buttonStop.Text = "■";
             buttonStop.BackColor = Color.OrangeRed;
             buttonStop.FlatStyle = FlatStyle.Flat;
+
+            buttonOK = new Button();
+            buttonOK.Size = buttonPlay.Size;
+            buttonOK.Location = new Point(buttonStop.Location.X + buttonPlay.Size.Width + pictureBox.Size.Width + 20, buttonPlay.Location.Y);
+            // buttonStop.Click += buttonOK_Click;
+            buttonOK.Parent = parent;
+            buttonOK.Text = "✔";
+            buttonOK.BackColor = Color.OrangeRed;
+            buttonOK.FlatStyle = FlatStyle.Flat;
+
+            buttonDelete = new Button();
+            buttonDelete.Size = buttonPlay.Size;
+            buttonDelete.Location = new Point(buttonOK.Location.X + buttonPlay.Size.Width, buttonPlay.Location.Y);
+            // buttonStop.Click += buttonDelete_Click;
+            buttonDelete.Parent = parent;
+            buttonDelete.Text = "×";
+            buttonDelete.BackColor = Color.OrangeRed;
+            buttonDelete.FlatStyle = FlatStyle.Flat;
 
             pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width + 10, location.Y);
 
