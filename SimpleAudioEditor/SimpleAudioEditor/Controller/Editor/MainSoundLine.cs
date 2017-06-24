@@ -155,6 +155,21 @@ namespace SimpleAudioEditor.Controller.Editor
             return sum;
         }
 
+        protected void buttonOK_Click(object sender, DragEventArgs e)
+        {
+            foreach (var s in listSegment)
+            {
+                try
+                {
+                    CreateSampleFile(s.getFilePath, s.SplitStartTimeFromSecond, s.SplitEndTimeFromSecond, s.getAllTimeFromSecond);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Не удалось создать файл-отрезок./n" + ex.ToString());
+                }
+            }
+        }
+
         protected void pictureBox_DragDrop(object sender, DragEventArgs e)
         {
             SetSegmentEndPoints();
@@ -167,14 +182,7 @@ namespace SimpleAudioEditor.Controller.Editor
                 listSegment.Add(s);
                 s.indexQueue = index;
                 SetSegmentEndPoints();
-                try
-                {
-                    CreateSampleFile(s.getFilePath, s.SplitStartTimeFromSecond, s.SplitEndTimeFromSecond, s.getAllTimeFromSecond);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Не удалось создать файл-отрезок./n" + ex.ToString());
-                }
+                
             }
             else
             {
