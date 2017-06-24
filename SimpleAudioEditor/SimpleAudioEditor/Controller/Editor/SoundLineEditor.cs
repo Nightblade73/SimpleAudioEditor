@@ -130,19 +130,14 @@ namespace SimpleAudioEditor.Controller.Editor
                     double skipTimeFromSecond = ((markerPoint.X - soundLineStartPoint.X) * 1.0 / lineLeght) * soundTotalTime;
                     //  MessageBox.Show(String.Format( "{0} - {1} - {2}", (markerPoint.X - soundLineStartPoint.X) * 1.0 / lineLeght,soundTotalTime, skipTimeFromSecond));
                     mp3Reader.CurrentTime = TimeSpan.FromSeconds(skipTimeFromSecond);
-
                 }
                 else
                 {
                     mp3Reader.CurrentTime = TimeSpan.FromSeconds(SplitStartTimeFromSecond());
-
                 }
                 button.Text = "||";
-
                 timer.Start();
-
                 player.Play();
-
             }
             else
             {
@@ -303,7 +298,7 @@ namespace SimpleAudioEditor.Controller.Editor
             e.Graphics.DrawLine(orangeDarkPen, splitP1, splitP2);
 
 
-            
+
             //Рисуем маркер
             e.Graphics.DrawPolygon(orangePen, new Point[] {
                 new Point(markerPoint.X - object_radius, markerPoint.Y - object_radius),

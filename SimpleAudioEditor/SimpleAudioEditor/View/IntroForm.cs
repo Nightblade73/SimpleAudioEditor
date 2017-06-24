@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using SimpleAudioEditor.Properties;
+using SimpleAudioEditor.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,10 +16,10 @@ namespace SimpleAudioEditor
 {
     public partial class IntroForm : Form
     {
-        public MainForm main;
+        public NewPlayerForm main;
         private bool btnSampleState = false;
 
-        public IntroForm(MainForm main)
+        public IntroForm(NewPlayerForm main)
         {
             this.main = main;
             InitializeComponent();

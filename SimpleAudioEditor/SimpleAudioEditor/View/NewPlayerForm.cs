@@ -29,11 +29,18 @@ namespace SimpleAudioEditor.View
             {
                 for (int i = 0; i < ofd.FileNames.Length; i++)
                 {
-                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i] , panelSamples, new Point(6, x), 500);
+                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 500);
                     x += 46;
                 }
                 MessageBox.Show("загружено");
-                
+
+            }
+        }
+        private void Form_Load(object sender, EventArgs e)
+        {
+            if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
+            {
+                this.Close();
             }
         }
     }

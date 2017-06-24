@@ -51,10 +51,10 @@ namespace SimpleAudioEditor
             ControlClickEvent += ControlClickEventHandler;
             ThreadStartEvent += ThreadStartEventHandler;
             ThreadFinishEvent += ThreadFinishEventHandler;
-            if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
-            {
-                this.Close();
-            }
+            //if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
+            //{
+            //    this.Close();
+            //}
             
 
             trackBarVolume.Value = 30;
