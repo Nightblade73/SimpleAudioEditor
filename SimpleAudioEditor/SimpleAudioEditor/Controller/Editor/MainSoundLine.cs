@@ -174,6 +174,7 @@ namespace SimpleAudioEditor.Controller.Editor
         protected void buttonDelete_Click(object sender, EventArgs e)
         {
             listSegment.Clear();
+            pictureBox.Invalidate();
         }
 
         protected void pictureBox_DragDrop(object sender, DragEventArgs e)
