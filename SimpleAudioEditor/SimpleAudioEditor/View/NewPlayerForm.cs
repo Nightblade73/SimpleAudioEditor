@@ -23,11 +23,17 @@ namespace SimpleAudioEditor.View
         private void buttonAddSample_Click(object sender, EventArgs e)
         {
             var ofd = new OpenFileDialog();
-            ofd.Filter = "MP3 Files|*.mp3";
-            if (ofd.ShowDialog() == DialogResult.OK)
+            ofd.Filter = "Cursor Files|*.mp3;*.wav";
+            ofd.Multiselect = true;
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                SoundLineEditor s = new SoundLineEditor(ofd.FileName, panelSamples, new Point(6, x), 500);
-                x += 46;
+                for (int i = 0; i < ofd.FileNames.Length; i++)
+                {
+                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i] , panelSamples, new Point(6, x), 500);
+                    x += 46;
+                }
+                MessageBox.Show("загружено");
+                
             }
         }
     }
