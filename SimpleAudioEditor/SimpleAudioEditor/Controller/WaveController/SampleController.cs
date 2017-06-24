@@ -1,5 +1,6 @@
 ﻿using NAudio.Lame;
 using NAudio.Wave;
+using SimpleAudioEditor.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,20 +12,25 @@ namespace SimpleAudioEditor.Controller.WaveController
 {
     class SampleController
     {
-        public void Combine(string inPath, Stream output)
+        public void Combine(string inPath)
         {
-            inPath = Converter(inPath);
-            File.Delete(inPath.Split('.')[0] + ".wav");
-            using (Mp3FileReader reader = new Mp3FileReader(inPath))
+            using (FileStream fs = new FileStream(Params.ResultSoundsPath + "\\" + Params.ResultFileName, FileMode.Append))
             {
-                if ((output.Position == 0) && (reader.Id3v2Tag != null))
+
+
+                inPath = Converter(inPath);
+                File.Delete(inPath.Split('.')[0] + ".wav");
+                using (Mp3FileReader reader = new Mp3FileReader(inPath))
                 {
-                    output.Write(reader.Id3v2Tag.RawData, 0, reader.Id3v2Tag.RawData.Length);
-                }
-                Mp3Frame frame;
-                while ((frame = reader.ReadNextFrame()) != null)
-                {
-                    output.Write(frame.RawData, 0, frame.RawData.Length);
+                    if ((fs.Position == 0) && (reader.Id3v2Tag != null))
+                    {
+                        fs.Write(reader.Id3v2Tag.RawData, 0, reader.Id3v2Tag.RawData.Length);
+                    }
+                    Mp3Frame frame;
+                    while ((frame = reader.ReadNextFrame()) != null)
+                    {
+                        fs.Write(frame.RawData, 0, frame.RawData.Length);
+                    }
                 }
             }
         }
