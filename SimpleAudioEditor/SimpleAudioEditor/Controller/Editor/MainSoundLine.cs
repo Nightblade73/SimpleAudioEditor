@@ -153,6 +153,7 @@ namespace SimpleAudioEditor.Controller.Editor
             {
                 sc.TrimWavFile(fileName.ToString(), Params.GetResultCuttedIndexedSoundsPathWAV(), start, all - end);
             }
+            Params.IndexCutFilePlus();
         }
 
         private void SetSegmentEndPoints()
