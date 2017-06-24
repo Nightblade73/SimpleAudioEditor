@@ -301,6 +301,8 @@ namespace SimpleAudioEditor.Controller.Editor
             // Нарисуем сегмент.
             e.Graphics.DrawLine(orangeDarkPen, splitP1, splitP2);
 
+
+            
             //Рисуем маркер
             e.Graphics.DrawPolygon(orangePen, new Point[] {
                 new Point(markerPoint.X - object_radius, markerPoint.Y - object_radius),
@@ -308,16 +310,17 @@ namespace SimpleAudioEditor.Controller.Editor
                 new Point(markerPoint.X, soundLineStartPoint.Y)});
 
             //Рисуем точки обрезки 
+            int object_radius_point = object_radius / 3;
             Rectangle rect = new Rectangle(
-                splitP1.X - object_radius, splitP1.Y - object_radius,
-                   2 * object_radius + 1, 2 * object_radius + 1);
+                    splitP1.X - object_radius_point, splitP1.Y - object_radius_point,
+                       2 * object_radius_point + 1, 2 * object_radius_point + 1);
             e.Graphics.FillEllipse(Brushes.Orange, rect);
             e.Graphics.DrawEllipse(Pens.Black, rect);
 
 
             rect = new Rectangle(
-            splitP2.X - object_radius, splitP2.Y - object_radius,
-            2 * object_radius + 1, 2 * object_radius + 1);
+            splitP2.X - object_radius_point, splitP2.Y - object_radius_point,
+            2 * object_radius_point + 1, 2 * object_radius_point + 1);
             e.Graphics.FillEllipse(Brushes.Orange, rect);
             e.Graphics.DrawEllipse(Pens.Black, rect);
 
@@ -352,14 +355,14 @@ namespace SimpleAudioEditor.Controller.Editor
         private bool MouseIsOverSplitPoint(Point mouse_pt, out Point hit_pt)
         {
             // Проверьте начальную точку.
-            if (FindDistanceToPointSquared(mouse_pt, splitP1) < over_dist_squared)
+            if (FindDistanceToPointSquared(mouse_pt, splitP1) < Math.Sqrt(over_dist_squared))
             {
                 hit_pt = splitP1;
                 return true;
             }
 
             // Проверьте конечную точку.
-            if (FindDistanceToPointSquared(mouse_pt, splitP2) < over_dist_squared)
+            if (FindDistanceToPointSquared(mouse_pt, splitP2) < Math.Sqrt(over_dist_squared))
             {
                 hit_pt = splitP2;
                 return true;
