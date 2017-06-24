@@ -14,6 +14,7 @@ namespace SimpleAudioEditor.Model {
         public static readonly string FileFormatWAV = ".wav";
         public static readonly int CoefNewSamplesToMainSample = 2;
         public static readonly int NewSamplesWidth = 600;
+        public static string ProjectName = "Name";
         private static int indexCutFile = 0;
         public static readonly string ExceptionError = "Вы не можете получить доступ к файлу, " +
             "попробуйте через 5 секунд";
@@ -26,10 +27,14 @@ namespace SimpleAudioEditor.Model {
             return ResultCuttedSoundsPath + (indexCutFile) + FileFormatWAV;
         }
 
+        public static void SetProjectName(string name)
+        {
+            ProjectName = name;
+        }
+
         public static void IndexCutFilePlus()
         {
             indexCutFile++;
         }
-
     }
 }

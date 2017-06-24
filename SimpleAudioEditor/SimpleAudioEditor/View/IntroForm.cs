@@ -38,7 +38,7 @@ namespace SimpleAudioEditor
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void buttonToMain_Click(object sender, EventArgs e)
@@ -50,7 +50,7 @@ namespace SimpleAudioEditor
 
         private void IntroForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+
         }
 
         private void IntroForm_Load(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace SimpleAudioEditor
             }
             catch (Exception ex)
             {
-                
+
             }
         }
 
@@ -79,9 +79,12 @@ namespace SimpleAudioEditor
 
         private void btnNewProject_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            main.Show();
-            this.Dispose();
+            if ((new WriteProjectNameForm().ShowDialog()) == DialogResult.OK)
+            {
+                this.DialogResult = DialogResult.OK;
+                main.Show();
+                this.Dispose();
+            }
         }
 
         private void btnPlaySample_Click(object sender, EventArgs e)
