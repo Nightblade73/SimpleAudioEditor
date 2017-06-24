@@ -159,7 +159,7 @@ namespace SimpleAudioEditor.Controller.Editor
 
         public Segment GetSegment()
         {
-            return new Segment(SplitStartTimeFromSecond(), SplitEndTimeFromSecond());
+            return new Segment(SplitStartTimeFromSecond(), SplitEndTimeFromSecond(), soundTotalTime, filePath);
         }
 
         protected void pictureBox_MouseDown(object sender, MouseEventArgs e)

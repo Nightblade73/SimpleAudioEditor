@@ -7,13 +7,22 @@ namespace SimpleAudioEditor.Controller.Editor
     public class Segment : IComparable<Segment>
     {
         public Point segmentStartPos, segmentEndPos;
-        public string filePath;
+        private string filePath;
         double splitEndTimeFromSecond;
         double splitStartTimeFromSecond;
+        double allTimeFromSecond;
 
         public int indexQueue;
 
+        public string getFilePath
+        {
+            get { return filePath; }
+        }
 
+        public double getAllTimeFromSecond
+        {
+            get { return allTimeFromSecond; }
+        }
         public double LeghtFromSecond
         {
             get { return splitEndTimeFromSecond - splitStartTimeFromSecond; }
@@ -29,10 +38,12 @@ namespace SimpleAudioEditor.Controller.Editor
             get { return splitStartTimeFromSecond; }
         }
 
-        public Segment(double _splitStartTimeFromSecond, double _splitEndTimeFromSecond)
+        public Segment(double _splitStartTimeFromSecond, double _splitEndTimeFromSecond, double _allTimeFromSecond, string _filePath)
         {
             splitStartTimeFromSecond = _splitStartTimeFromSecond;
             splitEndTimeFromSecond = _splitEndTimeFromSecond;
+            allTimeFromSecond = _allTimeFromSecond;
+            filePath = _filePath;
         }
 
         public int CompareTo(Segment other)
@@ -45,5 +56,7 @@ namespace SimpleAudioEditor.Controller.Editor
             else
                 return this.indexQueue.CompareTo(other.indexQueue);
         }
+
+        
     }
 }

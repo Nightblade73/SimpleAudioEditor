@@ -7,7 +7,8 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System.Windows.Forms;
 using System.Drawing;
-
+using SimpleAudioEditor.Controller.WaveController;
+using SimpleAudioEditor.Model;
 
 namespace SimpleAudioEditor.Controller.Editor
 {
@@ -122,12 +123,36 @@ namespace SimpleAudioEditor.Controller.Editor
                 listSegment.Add(s);
                 s.indexQueue = index;
                 SetSegmentEndPoints();
+                try
+                {
+                    CreateSampleFile(s.getFilePath, s.SplitStartTimeFromSecond, s.SplitEndTimeFromSecond, s.getAllTimeFromSecond);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Не удалось создать файл-отрезок./n" + ex.ToString());
+                }
             }
             else
             {
                 MessageBox.Show(String.Format("Выходной файл не может привышать {0} минут! Лимит привышен на {1} секунд!", maxLeghtOutFromSecond / 60, FinalLeght() + s.LeghtFromSecond - maxLeghtOutFromSecond));
             }
             pictureBox.Invalidate();
+        }
+
+        private void CreateSampleFile(string fileName, double startPosSample, double endPosSample, double allTime)
+        {
+            TimeSpan start = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(startPosSample * 1000));
+            TimeSpan end = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(endPosSample * 1000));
+            TimeSpan all = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(allTime * 1000));
+            SampleController sc = new SampleController();
+            if (fileName.ToString().Contains(".wav"))
+            {
+                sc.TrimWavFile(sc.Converter(fileName.ToString()), Params.GetResultCuttedIndexedSoundsPathWAV(), start, all - end);
+            }
+            else
+            {
+                sc.TrimWavFile(fileName.ToString(), Params.GetResultCuttedIndexedSoundsPathWAV(), start, all - end);
+            }
         }
 
         private void SetSegmentEndPoints()

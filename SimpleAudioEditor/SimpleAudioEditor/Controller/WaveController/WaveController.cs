@@ -901,9 +901,9 @@ namespace SimpleAudioEditor.Controller.WaveController {
             }
             try {
                 //StopPlaying();
-                using (FileStream fs = new FileStream(Params.ResultSoundsPath + "\\" + Params.ResultFileName, FileMode.Append)) {
-                    sc.Combine(Params.GetResultCuttedIndexedSoundsPathWAV(), fs);
-                }
+
+                    sc.Combine(Params.GetResultCuttedIndexedSoundsPathWAV());
+                
             } catch (Exception ex) {
                 MessageBox.Show(Params.ExceptionError);
             }
