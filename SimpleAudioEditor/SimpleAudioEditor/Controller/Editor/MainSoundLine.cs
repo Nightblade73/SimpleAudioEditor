@@ -20,12 +20,14 @@ namespace SimpleAudioEditor.Controller.Editor
         Point lineStartPos, lineEndPos;
         int leghtLine;
         double maxLeghtOutFromSecond = 300;
+        Button buttonPlay;
+        Button buttonStop;
         Random r = new Random();
-        public MainSoundLine(int width, Control parent, Point localtion)
+        public MainSoundLine(int width, int height, Control parent, Point location)
         {
-            pictureBox = new PictureBox();
-            pictureBox.Size = new Size(width, 75);
-            pictureBox.Location = localtion;
+            pictureBox = new PictureBox();            
+            pictureBox.Size = new Size(width- height * 2-10, height);
+
             pictureBox.Parent = parent;
             pictureBox.Paint += pictureBox_Paint;
             pictureBox.DragEnter += pictureBox_DragEnter;
@@ -35,6 +37,27 @@ namespace SimpleAudioEditor.Controller.Editor
             pictureBox.MouseDown += pictureBox_MouseDown;
             pictureBox.MouseDoubleClick += pictureBox_MouseDoubleClick;
 
+            buttonPlay = new Button();
+            buttonPlay.Size = new System.Drawing.Size(pictureBox.Size.Height/2, pictureBox.Size.Height/2);
+            buttonPlay.Location = new Point(location.X, location.Y + height-buttonPlay.Size.Width);
+            buttonPlay.Parent = parent;
+            //buttonPlay.Click += buttonPlay_Click;
+            buttonPlay.Text = ">";
+            buttonPlay.BackColor = Color.OrangeRed;
+            buttonPlay.FlatStyle = FlatStyle.Flat;
+
+
+            buttonStop = new Button();
+            buttonStop.Size = buttonPlay.Size;
+            buttonStop.Location = new Point(buttonPlay.Location.X + buttonPlay.Size.Width, buttonPlay.Location.Y);
+           // buttonStop.Click += buttonStop_Click;
+            buttonStop.Parent = parent;
+            buttonStop.Text = "■";
+            buttonStop.BackColor = Color.OrangeRed;
+            buttonStop.FlatStyle = FlatStyle.Flat;
+
+            pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width + 10, location.Y);
+
             (pictureBox as Control).AllowDrop = true;
             lineStartPos = new Point(0, pictureBox.Size.Height - 10);
             lineEndPos = new Point(width, pictureBox.Size.Height - 10);
@@ -42,6 +65,7 @@ namespace SimpleAudioEditor.Controller.Editor
             leghtLine = lineEndPos.X - lineStartPos.X;
             pictureBox.Invalidate();
         }
+
 
 
 

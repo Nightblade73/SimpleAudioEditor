@@ -113,6 +113,7 @@
     <Compile Include="Controller\WaveController\WaveController.Designer.cs">
       <DependentUpon>WaveController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\WaveViewercs.cs" />
     <Compile Include="Model\Params.cs" />
     <Compile Include="View\IntroForm.cs">
       <SubType>Form</SubType>

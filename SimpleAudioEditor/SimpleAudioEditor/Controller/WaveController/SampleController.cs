@@ -37,6 +37,7 @@ namespace SimpleAudioEditor.Controller.WaveController
 
         public void TrimWavFile(string inPath, string outPath, TimeSpan cutFromStart, TimeSpan cutFromEnd)
         {
+            
             using (Mp3FileReader reader = new Mp3FileReader(inPath))
             {
                 using (WaveFileWriter writer = new WaveFileWriter(outPath, reader.WaveFormat))

@@ -43,6 +43,7 @@ namespace SimpleAudioEditor.Controller.Editor
             splitP1 = soundLineEndPoint;
             splitP2 = soundLineStartPoint;
             markerPoint = new Point(soundLineStartPoint.X, soundLineStartPoint.Y - (int)(object_radius * 2f));
+
             buttonPlay = new Button();
             buttonPlay.Size = new System.Drawing.Size(pictureBox.Size.Height, pictureBox.Size.Height);
             buttonPlay.Location = location;

@@ -17,7 +17,7 @@ namespace SimpleAudioEditor.View
         public NewPlayerForm()
         {
             InitializeComponent();
-            m = new MainSoundLine(660, panelMain, new Point(0, 0));
+            m = new MainSoundLine(660, 75, panelMain, new Point(0, 0));
         }
         int x = 6;
         private void buttonAddSample_Click(object sender, EventArgs e)
