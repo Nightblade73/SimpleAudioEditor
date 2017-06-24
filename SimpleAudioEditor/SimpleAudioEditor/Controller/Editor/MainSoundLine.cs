@@ -27,8 +27,8 @@ namespace SimpleAudioEditor.Controller.Editor
         Random r = new Random();
         public MainSoundLine(int width, int height, Control parent, Point location)
         {
-            pictureBox = new PictureBox();            
-            pictureBox.Size = new Size(width- height * 3- 10 -10, height);
+            pictureBox = new PictureBox();
+            pictureBox.Size = new Size(width - height * 3 - 10 - 10, height);
 
             pictureBox.Parent = parent;
             pictureBox.Paint += pictureBox_Paint;
@@ -40,8 +40,8 @@ namespace SimpleAudioEditor.Controller.Editor
             pictureBox.MouseDoubleClick += pictureBox_MouseDoubleClick;
 
             buttonPlay = new Button();
-            buttonPlay.Size = new System.Drawing.Size(pictureBox.Size.Height/2, pictureBox.Size.Height/2);
-            buttonPlay.Location = new Point(location.X, location.Y + height-buttonPlay.Size.Width);
+            buttonPlay.Size = new System.Drawing.Size(pictureBox.Size.Height / 2, pictureBox.Size.Height / 2);
+            buttonPlay.Location = new Point(location.X, location.Y + height - buttonPlay.Size.Width);
             buttonPlay.Parent = parent;
             //buttonPlay.Click += buttonPlay_Click;
             buttonPlay.Text = ">";
@@ -52,7 +52,7 @@ namespace SimpleAudioEditor.Controller.Editor
             buttonStop = new Button();
             buttonStop.Size = buttonPlay.Size;
             buttonStop.Location = new Point(buttonPlay.Location.X + buttonPlay.Size.Width, buttonPlay.Location.Y);
-           // buttonStop.Click += buttonStop_Click;
+            // buttonStop.Click += buttonStop_Click;
             buttonStop.Parent = parent;
             buttonStop.Text = "■";
             buttonStop.BackColor = Color.OrangeRed;
@@ -70,7 +70,7 @@ namespace SimpleAudioEditor.Controller.Editor
             buttonDelete = new Button();
             buttonDelete.Size = buttonPlay.Size;
             buttonDelete.Location = new Point(buttonOK.Location.X + buttonPlay.Size.Width, buttonPlay.Location.Y);
-            // buttonStop.Click += buttonDelete_Click;
+            buttonDelete.Click += buttonDelete_Click;
             buttonDelete.Parent = parent;
             buttonDelete.Text = "×";
             buttonDelete.BackColor = Color.OrangeRed;
@@ -157,17 +157,23 @@ namespace SimpleAudioEditor.Controller.Editor
 
         protected void buttonOK_Click(object sender, EventArgs e)
         {
-            foreach (var s in listSegment)
+            foreach (var segment in listSegment)
             {
                 try
                 {
-                    CreateSampleFile(s.getFilePath, s.SplitStartTimeFromSecond, s.SplitEndTimeFromSecond, s.getAllTimeFromSecond);
+                    CreateSampleFile(segment.getFilePath, segment.SplitStartTimeFromSecond, segment.SplitEndTimeFromSecond, segment.getAllTimeFromSecond);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Не удалось создать файл-отрезок./n" + ex.ToString());
                 }
+                SampleController.Combine(Params.GetResultCuttedIndexedSoundsPathWAV());
             }
+        }
+
+        protected void buttonDelete_Click(object sender, EventArgs e)
+        {
+            listSegment.Clear();
         }
 
         protected void pictureBox_DragDrop(object sender, DragEventArgs e)
@@ -182,7 +188,6 @@ namespace SimpleAudioEditor.Controller.Editor
                 listSegment.Add(s);
                 s.indexQueue = index;
                 SetSegmentEndPoints();
-                
             }
             else
             {
@@ -197,15 +202,14 @@ namespace SimpleAudioEditor.Controller.Editor
             TimeSpan end = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(endPosSample * 1000));
             TimeSpan all = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(allTime * 1000));
             SampleController sc = new SampleController();
-            if (fileName.ToString().Contains(".wav"))
+            if (fileName.ToString().Contains(Params.FileFormatWAV))
             {
-                sc.TrimWavFile(sc.Converter(fileName.ToString()), Params.GetResultCuttedIndexedSoundsPathWAV(), start, all - end);
+                sc.TrimWavFile(SampleController.Converter(fileName.ToString()), Params.GetResultCuttedIndexedSoundsPathWAV(), start, all - end);
             }
             else
             {
                 sc.TrimWavFile(fileName.ToString(), Params.GetResultCuttedIndexedSoundsPathWAV(), start, all - end);
             }
-            Params.IndexCutFilePlus();
         }
 
         private void SetSegmentEndPoints()

@@ -11,13 +11,17 @@ using TagLib.Mpeg;
 using System.Threading.Tasks;
 using SimpleAudioEditor.Model;
 
-namespace SimpleAudioEditor.Controller.WaveController {
-    public partial class WaveEditor : UserControl {
+namespace SimpleAudioEditor.Controller.WaveController
+{
+    public partial class WaveEditor : UserControl
+    {
 
         private bool addAndDeleteButtonsVisibility = true;
-        public bool AddAndDeleteButtonsVisibility {
+        public bool AddAndDeleteButtonsVisibility
+        {
             get { return addAndDeleteButtonsVisibility; }
-            set {
+            set
+            {
                 addAndDeleteButtonsVisibility = value;
                 this.bCut.Visible = addAndDeleteButtonsVisibility;
                 this.bDelete.Visible = addAndDeleteButtonsVisibility;
@@ -55,7 +59,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
         // Offset from the beginning of the wave for where to start drawing 
         private long mDrawingStartOffset = 0;
         private int mLastDrawnPixel = 0;
-        
+
         private int mCursorPosX = 0;
         private long mCursorPosSample = 0;
 
@@ -66,7 +70,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
         private int mPrevWidth = 0;
         private int mPrevHeight = 0;
         private long mPrevOffset = 0;
-         private long mPrevSamplesPerPixel = 0;
+        private long mPrevSamplesPerPixel = 0;
 
         private Bitmap mBitmap = null;
         //Variables for selection
@@ -85,7 +89,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
         private FileStream mRawPlayReader;
         private MMDevice mDevice;
 
-        public WaveEditor() {
+        public WaveEditor()
+        {
             InitializeComponent();
             KeyUp += WaveControl_KeyUp;
             KeyDown += WaveControl_KeyDown;
@@ -94,26 +99,32 @@ namespace SimpleAudioEditor.Controller.WaveController {
             MouseMove += WaveControl_MouseMove;
             MouseDown += WaveControl_MouseDown;
             Paint += WaveControl_Paint;
-            
+
             hrScroll.Scroll += hrScroll_Scroll;
             // Sets up double buffering IMPORTANT !!!
             SetStyle(System.Windows.Forms.ControlStyles.UserPaint | System.Windows.Forms.ControlStyles.AllPaintingInWmPaint | System.Windows.Forms.ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
         }
 
-        private void WaveEditor_KeyPress(object sender, KeyPressEventArgs e) {
+        private void WaveEditor_KeyPress(object sender, KeyPressEventArgs e)
+        {
         }
 
         public TimeSpan getmMWaveSourceLength() { return mWaveSource.GetLength(); }
 
-        public string Filename {
+        public string Filename
+        {
             get { return mFilename; }
         }
 
-        private long GetCorrectedSamplesPerPixel(long value) {
+        private long GetCorrectedSamplesPerPixel(long value)
+        {
             long ret = value;
-            if (ret < 1) {
+            if (ret < 1)
+            {
                 ret = 1;
-            } else {
+            }
+            else
+            {
                 int pow = (int)Math.Ceiling(Math.Log(ret) / Math.Log(2));
                 if (pow > 30)
                     pow = 30;
@@ -122,45 +133,59 @@ namespace SimpleAudioEditor.Controller.WaveController {
             return ret;
         }
 
-        public int Zoom {
-            set {
+        public int Zoom
+        {
+            set
+            {
                 SamplesPerPixel = value;
                 Refresh();
             }
         }
 
-        private long SamplesPerPixel {
+        private long SamplesPerPixel
+        {
             //If Not mDrawWave Then Exit Property
             //Eğer seçili alan ekrana sığmıyorsa seçili alanın başlangıç noktasından başla
             //Sığıyorsa seçili alanı ortala
             //Cursor pozisyonunu ortala
             //küsürat varsa doğru yere çek
             get { return mSamplesPerPixel; }
-            set {
+            set
+            {
                 mSamplesPerPixel = Math.Min(GetCorrectedSamplesPerPixel(value), GetCorrectedSamplesPerPixel((int)(mDrawSource.Length / CWidth)));
                 int samplesPerPage = (int)(mSamplesPerPixel * CWidth);
                 hrScroll.Maximum = (int)(mDrawSource.Length);
-                if (hrScroll.Maximum > 0) {
+                if (hrScroll.Maximum > 0)
+                {
                     hrScroll.LargeChange = samplesPerPage;
                     hrScroll.SmallChange = samplesPerPage / 100;
                     if (hrScroll.SmallChange == 0)
                         hrScroll.SmallChange = 1;
-                    if (SelectionMade) {
+                    if (SelectionMade)
+                    {
                         int selectedPixels = (int)((mSelectionEndSample - mSelectionStartSample) / mSamplesPerPixel);
-                        if (selectedPixels > CWidth) {
+                        if (selectedPixels > CWidth)
+                        {
                             mDrawingStartOffset = mSelectionStartSample;
-                        } else {
+                        }
+                        else
+                        {
                             mDrawingStartOffset = mSelectionStartSample - (((mSamplesPerPixel * CWidth) - (mSelectionEndSample - mSelectionStartSample)) / 2);
                         }
-                    } else {
+                    }
+                    else
+                    {
                         mDrawingStartOffset = mCursorPosSample - (mSamplesPerPixel * (CWidth / 2));
                     }
                     mDrawingStartOffset = Math.Max(0, mDrawingStartOffset);
                     hrScroll.Value = (int)(mDrawingStartOffset);
-                    if (hrScroll.LargeChange >= hrScroll.Maximum) {
+                    if (hrScroll.LargeChange >= hrScroll.Maximum)
+                    {
                         mDrawingStartOffset = 0;
                     }
-                } else {
+                }
+                else
+                {
                     hrScroll.Value = 0;
                     mDrawingStartOffset = 0;
                 }
@@ -170,7 +195,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
         }
 
 
-        private void CreateOptimizedArray() {
+        private void CreateOptimizedArray()
+        {
             long offset = 0;
             long numSamples = mDrawSource.Length;
             int x = 0;
@@ -185,18 +211,21 @@ namespace SimpleAudioEditor.Controller.WaveController {
             mRawFileName = rawFilePath + Guid.NewGuid().ToString() + ".raw";
             FileStream rawFile = new FileStream(mRawFileName, FileMode.Create, FileAccess.ReadWrite);
             BinaryWriter bin = new BinaryWriter(rawFile);
-            while (offset < numSamples && samplesRead > 0) {
+            while (offset < numSamples && samplesRead > 0)
+            {
                 samplesRead = mDrawSource.Read(data, 0, mThresholdSample);
                 if (samplesRead > 0) //for some files file length is wrong so samplesRead may become 0 even if we did not come to the end of the file
                 {
-                    for (int i = 0; i < samplesRead; i++) {
+                    for (int i = 0; i < samplesRead; i++)
+                    {
                         bin.Write(data[i]);
                     }
 
                     float maxVal = -1;
                     float minVal = 1;
                     // finds the max & min peaks for this pixel 
-                    for (x = 0; x < samplesRead; x++) {
+                    for (x = 0; x < samplesRead; x++)
+                    {
                         maxVal = Math.Max(maxVal, data[x]);
                         minVal = Math.Min(minVal, data[x]);
                     }
@@ -205,7 +234,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
                     y += 2;
                     offset += samplesRead;
                     mProgressStatus = (int)(((float)offset / numSamples) * 100);
-                    if (progress.Value != mProgressStatus) {
+                    if (progress.Value != mProgressStatus)
+                    {
                         InvokeOnUiThreadIfRequired(() => progress.Value = mProgressStatus);
                     }
                 }
@@ -214,7 +244,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
         }
 
 
-        private void OpenWaveFileThread() {
+        private void OpenWaveFileThread()
+        {
 
             CreateOptimizedArray();
             mDrawWave = true;
@@ -230,7 +261,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
             mWaveSource = peakMeter.ToWaveSource(16);
             mMusicPlayer.Open(mWaveSource, mDevice);
 
-            InvokeOnUiThreadIfRequired(() => {
+            InvokeOnUiThreadIfRequired(() =>
+            {
                 progress.Value = 0;
                 cursorTimer.Enabled = true;
                 playTimer.Enabled = true;
@@ -240,7 +272,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
         }
 
-        public void CloseWaveFile() {
+        public void CloseWaveFile()
+        {
             StopPlaying();
             mFilename = "";
             progress.Visible = true;
@@ -280,7 +313,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
         }
 
-        public void OpenWaveFile(string fileName, MMDevice device) {
+        public void OpenWaveFile(string fileName, MMDevice device)
+        {
             CloseWaveFile();
             mDrawSource = CodecFactory.Instance.GetCodec(fileName).ToSampleSource().ToMono();
             mDevice = device;
@@ -292,7 +326,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
             {
                 label1.Text = file.Tag.Performers[0] + " - " + file.Tag.Title;
             }
-            else {
+            else
+            {
                 label1.Text = Filename;
             }
             file.Dispose();
@@ -308,39 +343,50 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
 
             Task nt = Task.Run(() => OpenWaveFileThread());
-            
+
             var divisionawaiter = nt.GetAwaiter();
 
-            divisionawaiter.OnCompleted(() => {
+            divisionawaiter.OnCompleted(() =>
+            {
                 MainForm.ThreadFinishEvent();
             });
         }
 
-        private void PeakMeter_PeakCalculated(object sender, PeakEventArgs e) {
+        private void PeakMeter_PeakCalculated(object sender, PeakEventArgs e)
+        {
             InvokeOnUiThreadIfRequired(() => progress.Value = (int)(e.PeakValue * 100));
         }
 
-        protected override void OnMouseWheel(MouseEventArgs args) {
-            if (args.Delta * SystemInformation.MouseWheelScrollLines / 120 > 0) {
+        protected override void OnMouseWheel(MouseEventArgs args)
+        {
+            if (args.Delta * SystemInformation.MouseWheelScrollLines / 120 > 0)
+            {
                 if (mCtrlKeyDown) ZoomIn();
-                else {
+                else
+                {
                     ScrollView((int)(mDrawingStartOffset + hrScroll.LargeChange));
                 }
-            } else {
+            }
+            else
+            {
                 if (mCtrlKeyDown) ZoomOut();
-                else {
+                else
+                {
                     ScrollView((int)(mDrawingStartOffset - hrScroll.LargeChange));
                 }
             }
             Refresh();
         }
 
-        private void WaveControl_Paint(object sender, System.Windows.Forms.PaintEventArgs e) {
+        private void WaveControl_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+        {
             PaintMe(e.Graphics);
         }
 
-        private void PaintMe(Graphics grfx) {
-            if (mDrawWave) {
+        private void PaintMe(Graphics grfx)
+        {
+            if (mDrawWave)
+            {
                 mDrawing = true;
                 Pen pen = new Pen(Color.Black);
                 DrawWave(grfx, pen);
@@ -348,27 +394,32 @@ namespace SimpleAudioEditor.Controller.WaveController {
             }
         }
 
-        private int CHeight {
+        private int CHeight
+        {
             get { return ClientSize.Height - hrScroll.Height - status.Height; }
         }
 
-        private int CWidth {
+        private int CWidth
+        {
             get { return ClientSize.Width; }
         }
 
-        private void DrawWave(Graphics grfx, Pen pen) {
+        private void DrawWave(Graphics grfx, Pen pen)
+        {
             int h = CHeight;
             int w = CWidth;
             long numSamples = mDrawSource.Length;
 
 
-            if ((mPrevWidth != w) | (mPrevHeight != h) | (mPrevOffset != mDrawingStartOffset) | (mPrevSamplesPerPixel != mSamplesPerPixel)) {
+            if ((mPrevWidth != w) | (mPrevHeight != h) | (mPrevOffset != mDrawingStartOffset) | (mPrevSamplesPerPixel != mSamplesPerPixel))
+            {
                 mPrevWidth = w;
                 mPrevHeight = h;
                 mPrevOffset = mDrawingStartOffset;
                 mPrevSamplesPerPixel = mSamplesPerPixel;
 
-                if (mBitmap == null || ((mBitmap.Width != w) | (mBitmap.Height != h))) {
+                if (mBitmap == null || ((mBitmap.Width != w) | (mBitmap.Height != h)))
+                {
                     if (mBitmap != null)
                         mBitmap.Dispose();
                     mBitmap = new Bitmap(w, h);
@@ -390,7 +441,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
                 int sampleCount = 0;
                 int offsetIndex = 0;
-                if (mSamplesPerPixel > mThresholdSample) {
+                if (mSamplesPerPixel > mThresholdSample)
+                {
                     sampleCount = (int)(mSamplesPerPixel / mThresholdSample) * 2;
                     offsetIndex = (int)Math.Floor((decimal)(mDrawingStartOffset / mThresholdSample)) * 2;
                 }
@@ -398,21 +450,27 @@ namespace SimpleAudioEditor.Controller.WaveController {
                 mDrawSource.Position = mDrawingStartOffset;
 
                 int x = 0;
-                while (index < maxSampleToShow) {
+                while (index < maxSampleToShow)
+                {
                     maxVal = -1;
                     minVal = 1;
                     int samplesRead = 0;
-                    if (mSamplesPerPixel > mThresholdSample) {
+                    if (mSamplesPerPixel > mThresholdSample)
+                    {
                         int startIndex = offsetIndex + (i * sampleCount);
                         int endIndex = Math.Min(mOptimizedArray.Length - 1, startIndex + sampleCount - 1);
-                        for (x = startIndex; x <= endIndex; x++) {
+                        for (x = startIndex; x <= endIndex; x++)
+                        {
                             maxVal = Math.Max(maxVal, mOptimizedArray[x]);
                             minVal = Math.Min(minVal, mOptimizedArray[x]);
                         }
-                    } else {
+                    }
+                    else
+                    {
                         samplesRead = mDrawSource.Read(data, 0, data.Length);
                         // finds the max & min peaks for this pixel 
-                        for (x = 0; x < samplesRead; x++) {
+                        for (x = 0; x < samplesRead; x++)
+                        {
                             maxVal = Math.Max(maxVal, data[x]);
                             minVal = Math.Min(minVal, data[x]);
                         }
@@ -425,16 +483,25 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
                     // if the max/min are the same, then draw a line from the previous position, 
                     // otherwise we will not see anything 
-                    if (scaledMinVal == scaledMaxVal) {
-                        if (prevMaxY != 0) {
+                    if (scaledMinVal == scaledMaxVal)
+                    {
+                        if (prevMaxY != 0)
+                        {
                             canvas.DrawLine(pen, prevX, prevMaxY, i, scaledMaxVal);
                         }
-                    } else {
-                        if (i > prevX) {
-                            if (prevMaxY < scaledMinVal) {
+                    }
+                    else
+                    {
+                        if (i > prevX)
+                        {
+                            if (prevMaxY < scaledMinVal)
+                            {
                                 canvas.DrawLine(pen, prevX, prevMaxY, i, scaledMinVal);
-                            } else {
-                                if (prevMinY > scaledMaxVal) {
+                            }
+                            else
+                            {
+                                if (prevMinY > scaledMaxVal)
+                                {
                                     canvas.DrawLine(pen, prevX, prevMinY, i, scaledMaxVal);
                                 }
                             }
@@ -456,7 +523,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
                 //Adjust scrollbar change values if width of page has changed
                 int samplesPerPage = (int)(mSamplesPerPixel * w);
-                if (hrScroll.LargeChange != samplesPerPage) {
+                if (hrScroll.LargeChange != samplesPerPage)
+                {
                     hrScroll.LargeChange = samplesPerPage;
                     hrScroll.SmallChange = samplesPerPage / 100;
                     if (hrScroll.SmallChange == 0)
@@ -464,13 +532,15 @@ namespace SimpleAudioEditor.Controller.WaveController {
                 }
             }
             grfx.DrawImage(mBitmap, 0, 0);
-            if (mLastPlayCursorX >= 0 && mLastPlayCursorX < mLastDrawnPixel) {
+            if (mLastPlayCursorX >= 0 && mLastPlayCursorX < mLastDrawnPixel)
+            {
                 grfx.DrawLine(new Pen(Color.Blue), mLastPlayCursorX, 0, mLastPlayCursorX, h);
-            }            
+            }
             grfx.DrawLine(pen, 0, (int)(CHeight / 2), CWidth, (int)(CHeight / 2));
             int regionStartX = Math.Max(0, Math.Min(SelectionStartX, SelectionEndX));
             int regionEndX = Math.Min(mLastDrawnPixel, Math.Max(SelectionStartX, SelectionEndX));
-            if (regionStartX >= 0 && regionEndX >= 0) {
+            if (regionStartX >= 0 && regionEndX >= 0)
+            {
                 SolidBrush brs = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
                 grfx.FillRectangle(brs, regionStartX, 0, regionEndX - regionStartX + 1, CHeight);
             }
@@ -478,16 +548,20 @@ namespace SimpleAudioEditor.Controller.WaveController {
             grfx.DrawLine(new Pen(Color.Green), CursorPositionX, 0, CursorPositionX, h);
         }
 
-        private void ZoomIn() {
+        private void ZoomIn()
+        {
             SamplesPerPixel /= 2;
         }
 
-        private void ZoomOut() {
+        private void ZoomOut()
+        {
             SamplesPerPixel *= 2;
         }
 
-        private void ZoomToRegion() {
-            if (SelectionMade) {
+        private void ZoomToRegion()
+        {
+            if (SelectionMade)
+            {
                 mDrawingStartOffset = mSelectionStartSample;
                 long numSamplesToShow = mSelectionEndSample - mSelectionStartSample;
                 SamplesPerPixel = numSamplesToShow / CWidth;
@@ -495,51 +569,64 @@ namespace SimpleAudioEditor.Controller.WaveController {
             }
         }
 
-        private void ZoomOutFull() {
+        private void ZoomOutFull()
+        {
             SamplesPerPixel = (int)(mDrawSource.Length / CWidth);
             mDrawingStartOffset = 0;
 
             mResetRegion = true;
         }
 
-        private void ScrollMe(int newXValue) {
+        private void ScrollMe(int newXValue)
+        {
             mDrawingStartOffset -= (newXValue - mPrevX) * mSamplesPerPixel;
 
-            if (mDrawingStartOffset < 0) {
+            if (mDrawingStartOffset < 0)
+            {
                 mDrawingStartOffset = 0;
             }
         }
 
-        public int SamplesPerMilisecond {
-            get {
-                if (mDrawWave) {
+        public int SamplesPerMilisecond
+        {
+            get
+            {
+                if (mDrawWave)
+                {
                     int samplesPerSecond = mDrawSource.WaveFormat.BytesPerSecond / mDrawSource.WaveFormat.BytesPerSample;
                     return samplesPerSecond / 1000;
-                } else {
+                }
+                else
+                {
                     return 1;
                 }
             }
         }
 
-        private string PositionTimeString(long pos) {
+        private string PositionTimeString(long pos)
+        {
             double miliSeconds = pos / SamplesPerMilisecond;
             DateTime dt = new DateTime(1, 1, 1);
             dt = dt.AddMilliseconds(miliSeconds);
             return (dt.ToString("HH:mm:ss.ff"));
         }
 
-        private int CursorPositionX {
+        private int CursorPositionX
+        {
             get { return mCursorPosX; }
-            set {
+            set
+            {
                 mCursorPosX = value;
                 mCursorPosSample = mDrawingStartOffset + (mCursorPosX * mSamplesPerPixel);
                 lblCursorPos.Text = PositionTimeString(mCursorPosSample);
             }
         }
 
-        private long CursorPositionSample {
+        private long CursorPositionSample
+        {
             get { return mCursorPosSample; }
-            set {
+            set
+            {
                 mCursorPosSample = value;
                 mCursorPosX = (int)((mCursorPosSample - mDrawingStartOffset) / mSamplesPerPixel);
                 lblCursorPos.Text = PositionTimeString(mCursorPosSample);
@@ -547,10 +634,12 @@ namespace SimpleAudioEditor.Controller.WaveController {
         }
 
 
-        private void DisplaySelection() {
+        private void DisplaySelection()
+        {
             int startX = mSelectionStartX;
             int endX = mSelectionEndX;
-            if (mSelectionStartX > mSelectionEndX) {
+            if (mSelectionStartX > mSelectionEndX)
+            {
                 startX = mSelectionEndX;
                 endX = mSelectionStartX;
             }
@@ -561,36 +650,44 @@ namespace SimpleAudioEditor.Controller.WaveController {
             lblSelectLength.Text = PositionTimeString(mSelectionEndSample - mSelectionStartSample);
         }
 
-        private int SelectionStartX {
+        private int SelectionStartX
+        {
             get { return mSelectionStartX; }
-            set {
+            set
+            {
                 mSelectionStartX = Math.Max(0, value);
                 DisplaySelection();
             }
         }
 
 
-        private int SelectionEndX {
+        private int SelectionEndX
+        {
             get { return mSelectionEndX; }
-            set {
+            set
+            {
                 mSelectionEndX = Math.Max(0, value);
                 DisplaySelection();
             }
         }
 
-        private void ArrangeSelectionPositions() {
-            if (SelectionMade) {
+        private void ArrangeSelectionPositions()
+        {
+            if (SelectionMade)
+            {
                 mSelectionStartX = (int)((mSelectionStartSample - mDrawingStartOffset) / mSamplesPerPixel);
                 mSelectionEndX = (int)((mSelectionEndSample - mDrawingStartOffset) / mSamplesPerPixel);
             }
             mCursorPosX = (int)((mCursorPosSample - mDrawingStartOffset) / mSamplesPerPixel);
         }
 
-        private bool SelectionMade {
+        private bool SelectionMade
+        {
             get { return (SelectionStartX != 0) | (SelectionEndX != 0); }
         }
 
-        private void ResetSelectionX(int x) {
+        private void ResetSelectionX(int x)
+        {
             mSelectionStartX = x;
             //Restart here. If mouse moves selection will be made
             mSelectionStartSample = mDrawingStartOffset + (mSelectionStartX * mSamplesPerPixel);
@@ -601,7 +698,8 @@ namespace SimpleAudioEditor.Controller.WaveController {
             lblSelectLength.Text = PositionTimeString(0);
         }
 
-        private void ResetSelectionOffset(int offset) {
+        private void ResetSelectionOffset(int offset)
+        {
             mSelectionStartSample = offset;
             mSelectionStartX = (int)((mSelectionStartSample - mDrawingStartOffset) / mSamplesPerPixel);
             mSelectionEndX = mSelectionStartX;
@@ -612,66 +710,97 @@ namespace SimpleAudioEditor.Controller.WaveController {
         }
 
 
-        private void WaveControl_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e) {
+        private void WaveControl_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
             if (!mDrawWave) return;
 
-            if (e.Button == MouseButtons.Left) {
-                if (mAltKeyDown) {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (mAltKeyDown)
+                {
                     mPrevX = e.X;
-                } else {
+                }
+                else
+                {
                     mSelecting = true;
                     bool restart = true;
-                    if (mShiftKeyDown) {
-                        if (SelectionMade) {
-                            if (e.X < SelectionStartX + ((SelectionEndX - SelectionStartX) / 2)) {
+                    if (mShiftKeyDown)
+                    {
+                        if (SelectionMade)
+                        {
+                            if (e.X < SelectionStartX + ((SelectionEndX - SelectionStartX) / 2))
+                            {
                                 SelectionStartX = e.X;
-                            } else {
+                            }
+                            else
+                            {
                                 SelectionEndX = e.X;
                             }
                             restart = false;
                             Refresh();
                         }
-                    } else {
-                        if (SelectionMade) {
-                            if (SelectionStartX >= 0 && (e.X > SelectionStartX - 3 & e.X < SelectionStartX + 3)) {
+                    }
+                    else
+                    {
+                        if (SelectionMade)
+                        {
+                            if (SelectionStartX >= 0 && (e.X > SelectionStartX - 3 & e.X < SelectionStartX + 3))
+                            {
                                 SelectionStartX = SelectionEndX;
                                 SelectionEndX = e.X;
                                 restart = false;
-                            } else {
-                                if (SelectionEndX >= 0 && (e.X > SelectionEndX - 3 & e.X < SelectionEndX + 3)) {
+                            }
+                            else
+                            {
+                                if (SelectionEndX >= 0 && (e.X > SelectionEndX - 3 & e.X < SelectionEndX + 3))
+                                {
                                     SelectionEndX = e.X;
                                     restart = false;
                                 }
                             }
                         }
                     }
-                    if (restart) {
+                    if (restart)
+                    {
                         ResetSelectionX(e.X);
                         CursorPositionX = Math.Min(e.X, mLastDrawnPixel);
                         Cursor = Cursors.SizeWE;
                         mResetRegion = true;
                     }
                 }
-            } else if (e.Button == MouseButtons.Right) {
-                if (e.Clicks == 2) {
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                if (e.Clicks == 2)
+                {
                     //ZoomOutFull()
-                } else {
-                    if (mCtrlKeyDown) {
+                }
+                else
+                {
+                    if (mCtrlKeyDown)
+                    {
                         ZoomToRegion();
-                    } else {
+                    }
+                    else
+                    {
                         PlayRegion();
                     }
                 }
             }
         }
 
-        private void WaveControl_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e) {
+        private void WaveControl_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
             if (!mDrawWave) return;
 
-            if (e.Button == MouseButtons.Left) {
-                if (mAltKeyDown) {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (mAltKeyDown)
+                {
                     //ScrollMe(e.X)
-                } else {
+                }
+                else
+                {
                     SelectionEndX = Math.Min(e.X, mLastDrawnPixel);
                     mResetRegion = false;
                 }
@@ -679,31 +808,46 @@ namespace SimpleAudioEditor.Controller.WaveController {
                 mPrevX = e.X;
 
                 Refresh();
-            } else {
-                if (e.Button == MouseButtons.None) {
-                    if (SelectionMade) {
-                        if ((e.X > SelectionStartX - 3 & e.X < SelectionStartX + 3) | (e.X > SelectionEndX - 3 & e.X < SelectionEndX + 3)) {
+            }
+            else
+            {
+                if (e.Button == MouseButtons.None)
+                {
+                    if (SelectionMade)
+                    {
+                        if ((e.X > SelectionStartX - 3 & e.X < SelectionStartX + 3) | (e.X > SelectionEndX - 3 & e.X < SelectionEndX + 3))
+                        {
                             Cursor = Cursors.SizeWE;
-                        } else {
+                        }
+                        else
+                        {
                             Cursor = Cursors.Default;
                         }
-                    } else {
+                    }
+                    else
+                    {
                         Cursor = Cursors.Default;
                     }
                 }
             }
         }
 
-        private void WaveControl_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e) {
+        private void WaveControl_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
             mSelecting = false;
-            if (mResetRegion) {
+            if (mResetRegion)
+            {
                 mSelectionStartX = 0;
                 mSelectionEndX = 0;
                 Cursor = Cursors.Default;
                 Refresh();
-            } else {
-                if (SelectionMade) {
-                    if (mSelectionStartX > mSelectionEndX) {
+            }
+            else
+            {
+                if (SelectionMade)
+                {
+                    if (mSelectionStartX > mSelectionEndX)
+                    {
                         int swap = mSelectionStartX;
                         mSelectionStartX = mSelectionEndX;
                         mSelectionEndX = swap;
@@ -713,27 +857,36 @@ namespace SimpleAudioEditor.Controller.WaveController {
             }
         }
 
-        private void WaveControl_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) {
-            if (e.Alt) {
+        private void WaveControl_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.Alt)
+            {
                 mAltKeyDown = true;
             }
-            if (e.Control) {
+            if (e.Control)
+            {
                 mCtrlKeyDown = true;
             }
-            if (e.Shift) {
+            if (e.Shift)
+            {
                 mShiftKeyDown = true;
             }
-            if (e.KeyCode == Keys.Space) {
-                if (mMusicPlayer.PlaybackState == CSCore.SoundOut.PlaybackState.Playing) {
+            if (e.KeyCode == Keys.Space)
+            {
+                if (mMusicPlayer.PlaybackState == CSCore.SoundOut.PlaybackState.Playing)
+                {
                     StopPlaying();
-                } else {
+                }
+                else
+                {
                     PlayRegion();
                 }
 
             }
         }
 
-        private void WaveControl_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e) {
+        private void WaveControl_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
             if (e.KeyCode == Keys.Menu)
                 mAltKeyDown = false;
             if (e.KeyCode == Keys.ControlKey)
@@ -742,20 +895,26 @@ namespace SimpleAudioEditor.Controller.WaveController {
                 mShiftKeyDown = false;
         }
 
-        public void StopPlaying() {
+        public void StopPlaying()
+        {
             mMusicPlayer.Stop();
             mLastPlayCursorX = -1;
             Refresh();
         }
 
-        private void PlayRegion() {
+        private void PlayRegion()
+        {
             StopPlaying();
 
-            if (mDrawWave) {
-                if (mSelectionEndSample > mSelectionStartSample) {
+            if (mDrawWave)
+            {
+                if (mSelectionEndSample > mSelectionStartSample)
+                {
                     mStreamStart = mSelectionStartSample;
                     mStreamEnd = mSelectionEndSample;
-                } else {
+                }
+                else
+                {
                     mStreamStart = mCursorPosSample;
                     mStreamEnd = mDrawSource.Length;
                 }
@@ -780,10 +939,13 @@ namespace SimpleAudioEditor.Controller.WaveController {
         //    }
         //}        
 
-        private void ScrollView(int newOffset) {
+        private void ScrollView(int newOffset)
+        {
             if (newOffset < 0) newOffset = 0;
-            if (newOffset < hrScroll.Maximum) {
-                if (newOffset != hrScroll.Value) {
+            if (newOffset < hrScroll.Maximum)
+            {
+                if (newOffset != hrScroll.Value)
+                {
                     hrScroll.Value = newOffset;
                     mDrawingStartOffset = newOffset;
                     ArrangeSelectionPositions();
@@ -792,41 +954,58 @@ namespace SimpleAudioEditor.Controller.WaveController {
             }
         }
 
-        private void hrScroll_Scroll(System.Object sender, System.Windows.Forms.ScrollEventArgs e) {
+        private void hrScroll_Scroll(System.Object sender, System.Windows.Forms.ScrollEventArgs e)
+        {
             ScrollView(e.NewValue);
         }
 
-        private bool ZoomedFull() {
-            if (mDrawWave) {
+        private bool ZoomedFull()
+        {
+            if (mDrawWave)
+            {
                 return (int)(mDrawSource.Length / SamplesPerPixel) <= CWidth;
-            } else {
+            }
+            else
+            {
                 return true;
             }
         }
 
-        public void SetCursorToOffset(int offset, bool center) {
-            if (mDrawWave) {
-                if (offset < mDrawSource.Length) {
+        public void SetCursorToOffset(int offset, bool center)
+        {
+            if (mDrawWave)
+            {
+                if (offset < mDrawSource.Length)
+                {
                     StopPlaying();
                     int x = 0;
-                    if (ZoomedFull()) {
+                    if (ZoomedFull())
+                    {
                         //If all wave file is visible
                         mDrawingStartOffset = 0;
-                    } else {
-                        if (center) {
+                    }
+                    else
+                    {
+                        if (center)
+                        {
                             x = Math.Min(CWidth / 2, mLastDrawnPixel);
                             //Set drawing offset half page before the required offset
                             mDrawingStartOffset = (int)Math.Max(0, offset - x * mSamplesPerPixel);
-                        } else {
+                        }
+                        else
+                        {
                             //Set drawing offset a little before the required offset
                             x = Math.Min(CWidth / 50, mLastDrawnPixel);
                             mDrawingStartOffset = (int)Math.Max(0, offset - x * mSamplesPerPixel);
                         }
                     }
                     hrScroll.Value = (int)(mDrawingStartOffset);
-                    if (hrScroll.LargeChange >= hrScroll.Maximum) {
+                    if (hrScroll.LargeChange >= hrScroll.Maximum)
+                    {
                         mDrawingStartOffset = 0;
-                    } else {
+                    }
+                    else
+                    {
                         mDrawingStartOffset = hrScroll.Value;
                         //küsürat varsa doğru yere çek
                     }
@@ -837,56 +1016,76 @@ namespace SimpleAudioEditor.Controller.WaveController {
             }
         }
 
-        private void cursorTimer_Tick(System.Object sender, System.EventArgs e) {
-            if ((ParentForm.ContainsFocus && (mDrawWave && (!mDrawing && !mSelecting) && !(mMusicPlayer.PlaybackState == CSCore.SoundOut.PlaybackState.Playing)))) {
-                if (((CursorPositionX < CWidth) && (CursorPositionX >= 0))) {
+        private void cursorTimer_Tick(System.Object sender, System.EventArgs e)
+        {
+            if ((ParentForm.ContainsFocus && (mDrawWave && (!mDrawing && !mSelecting) && !(mMusicPlayer.PlaybackState == CSCore.SoundOut.PlaybackState.Playing))))
+            {
+                if (((CursorPositionX < CWidth) && (CursorPositionX >= 0)))
+                {
                     //ControlPaint.DrawReversibleLine(this.PointToScreen(new Point(CursorPositionX, 0)), this.PointToScreen(new Point(CursorPositionX, CHeight)), Color.Gray);
                 }
             }
         }
 
-        private void playTimer_Tick(System.Object sender, System.EventArgs e) {
-            if (mMusicPlayer.PlaybackState == CSCore.SoundOut.PlaybackState.Playing) {
+        private void playTimer_Tick(System.Object sender, System.EventArgs e)
+        {
+            if (mMusicPlayer.PlaybackState == CSCore.SoundOut.PlaybackState.Playing)
+            {
                 lblCursorPos.Text = mPlaySource.GetPosition().ToString(@"hh\:mm\:ss\.ff");
                 if (mPlaySource.Position >= mStreamEnd) StopPlaying();
-                else {
+                else
+                {
                     int playCursorX = (int)((mPlaySource.Position - mDrawingStartOffset) / mSamplesPerPixel);
-                    if (playCursorX != mLastPlayCursorX) {
-                        if (playCursorX < CWidth && playCursorX >= 0) {
+                    if (playCursorX != mLastPlayCursorX)
+                    {
+                        if (playCursorX < CWidth && playCursorX >= 0)
+                        {
                             mLastPlayCursorX = playCursorX;
                             Refresh();
-                        } else {
+                        }
+                        else
+                        {
                             ScrollView((int)(mPlaySource.Position));
                         }
                     }
                 }
-            } else {
+            }
+            else
+            {
                 progress.Value = 0;
             }
 
         }
 
-        public void InvokeOnUiThreadIfRequired(Action action) {
-            if (this.InvokeRequired) {
+        public void InvokeOnUiThreadIfRequired(Action action)
+        {
+            if (this.InvokeRequired)
+            {
                 this.BeginInvoke(action);
-            } else {
+            }
+            else
+            {
                 action.Invoke();
             }
         }
 
-        private void btnPlay_ButtonClick(object sender, EventArgs e) {
+        private void btnPlay_ButtonClick(object sender, EventArgs e)
+        {
             PlayRegion();
         }
 
-        private void btnStop_ButtonClick(object sender, EventArgs e) {
+        private void btnStop_ButtonClick(object sender, EventArgs e)
+        {
             StopPlaying();
         }
 
-        public MusicPlayer Player {
+        public MusicPlayer Player
+        {
             get { return mMusicPlayer; }
         }
 
-        private void bCut_Click(object sender, EventArgs e) {
+        private void bCut_Click(object sender, EventArgs e)
+        {
             MainForm.ThreadStartEvent();
 
             this.StopPlaying();
@@ -894,24 +1093,30 @@ namespace SimpleAudioEditor.Controller.WaveController {
             TimeSpan allTime = this.getmMWaveSourceLength();
             string startPosSample = this.lblSelectStartPos.Text;
             string endPosSample = this.lblSelectEndPos.Text;
-            if (Filename.ToString().Contains(".wav")) {
-                sc.TrimWavFile(sc.Converter(Filename.ToString()), Params.GetResultCuttedIndexedSoundsPathWAV(), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
-            } else {
+            if (Filename.ToString().Contains(".wav"))
+            {
+                sc.TrimWavFile(SampleController.Converter(Filename.ToString()), Params.GetResultCuttedIndexedSoundsPathWAV(), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
+            }
+            else
+            {
                 sc.TrimWavFile(Filename.ToString(), Params.GetResultCuttedIndexedSoundsPathWAV(), TimeSpan.Parse(startPosSample), allTime - TimeSpan.Parse(endPosSample));
             }
-            try {
+            try
+            {
                 //StopPlaying();
+                SampleController.Combine(Params.GetResultCuttedIndexedSoundsPathWAV());
 
-                    sc.Combine(Params.GetResultCuttedIndexedSoundsPathWAV());
-                
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 MessageBox.Show(Params.ExceptionError);
             }
             Params.IndexCutFilePlus();
             MainForm.ControlClickEvent();
         }
 
-        private void bDelete_Click(object sender, EventArgs e) {
+        private void bDelete_Click(object sender, EventArgs e)
+        {
             this.StopPlaying();
             this.Dispose();
         }
