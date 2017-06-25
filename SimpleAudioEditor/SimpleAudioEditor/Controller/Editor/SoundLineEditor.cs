@@ -28,7 +28,9 @@ namespace SimpleAudioEditor.Controller.Editor
         Button buttonPlay;
         Button buttonStop;
         Point splitP1, splitP2;
+        Project project;
         Label name;
+
 
         // «Размер» объекта для мыши над целями.
         private const int object_radius = 6;
@@ -37,8 +39,9 @@ namespace SimpleAudioEditor.Controller.Editor
         // между мышью и объектом меньше этого.
         private const int over_dist_squared = object_radius * object_radius;
 
-        public SoundLineEditor(string _filePath, Control parent, Point location, int playerWidth)
+        public SoundLineEditor(string _filePath, Control parent, Point location, int playerWidth, Project _project)
         {
+            project = _project;
             pictureBox = new PictureBox();
             pictureBox.Size = new System.Drawing.Size(playerWidth, 40);
             soundLineStartPoint = new Point(10, pictureBox.Size.Height / 2); //
@@ -176,9 +179,9 @@ namespace SimpleAudioEditor.Controller.Editor
             buttonPlay.Text = ">";
         }
 
-        public Segment GetSegment()
+        public Sample GetSample()
         {
-            return new Segment(SplitStartTimeFromSecond(), SplitEndTimeFromSecond(), soundTotalTime, filePath);
+            return new Sample(SplitStartTimeFromSecond(), SplitEndTimeFromSecond(), soundTotalTime, filePath, project);
         }
 
         protected void pictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -218,7 +221,7 @@ namespace SimpleAudioEditor.Controller.Editor
             if (MouseIsOverSegment(e.Location))
             {
                 //   MessageBox.Show("DpDragDrop");
-                pictureBox.DoDragDrop(GetSegment(), DragDropEffects.Copy);
+                pictureBox.DoDragDrop(GetSample(), DragDropEffects.Copy);
             }
 
         }
