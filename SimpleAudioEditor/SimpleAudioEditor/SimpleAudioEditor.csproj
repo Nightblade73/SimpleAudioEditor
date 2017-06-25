@@ -107,7 +107,6 @@
     <Compile Include="Controller\WaveController\RawDataReader.cs" />
     <Compile Include="Controller\WaveController\SampleController.cs" />
     <Compile Include="Controller\WaveViewercs.cs" />
-    <Compile Include="Model\Params.cs" />
     <Compile Include="View\IntroForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,6 +217,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,4 @@
 ﻿using SimpleAudioEditor.Controller;
-using SimpleAudioEditor.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +30,7 @@ namespace SimpleAudioEditor.View
             this.DialogResult = DialogResult.OK;
             if (pr == null)
             {
-                Params.SetProjectName(tBName.Text);
+                ///что то было
             } else
             {
                 pr.title = tBName.Text;

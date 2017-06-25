@@ -8,7 +8,6 @@ using NAudio.Wave.SampleProviders;
 using System.Windows.Forms;
 using System.Drawing;
 using SimpleAudioEditor.Controller.WaveController;
-using SimpleAudioEditor.Model;
 using System.IO;
 
 namespace SimpleAudioEditor.Controller.Editor
@@ -158,7 +157,7 @@ namespace SimpleAudioEditor.Controller.Editor
 
         protected void buttonOK_Click(object sender, EventArgs e)
         {
-            project.Save();
+            MessageBox.Show(project.Save());
         }
 
         protected void buttonDelete_Click(object sender, EventArgs e)

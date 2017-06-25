@@ -1,6 +1,5 @@
 ﻿using NAudio.Lame;
 using NAudio.Wave;
-using SimpleAudioEditor.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +16,7 @@ namespace SimpleAudioEditor.Controller.WaveController
             using (FileStream fs = new FileStream(outPath, FileMode.Append))
             {
                 inPath = Converter(inPath);
-                File.Delete(inPath.Split('.')[0] + Params.FileFormatWAV);
+                File.Delete(inPath.Split('.')[0] + ".wav");
                 using (Mp3FileReader reader = new Mp3FileReader(inPath))
                 {
                     if ((fs.Position == 0) && (reader.Id3v2Tag != null))
@@ -31,7 +30,6 @@ namespace SimpleAudioEditor.Controller.WaveController
                     }
                 }
             }
-            Params.IndexCutFilePlus();
         }
 
         public void TrimWavFile(string inPath, string outPath, TimeSpan cutFromStart, TimeSpan cutFromEnd)
@@ -91,7 +89,7 @@ namespace SimpleAudioEditor.Controller.WaveController
                         using (var wave32 = new Wave32To16Stream(mixer))
                         {
                             var mp3Stream = ConvertWavToMp3(wave32);
-                            inPath = inPath.Split('.')[0] + Params.FileFormatMP3;
+                            inPath = inPath.Split('.')[0] + ".mp3";
                             File.WriteAllBytes(inPath, mp3Stream.ToArray());
                         }
                     }
