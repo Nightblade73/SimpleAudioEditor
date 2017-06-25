@@ -157,6 +157,7 @@ namespace SimpleAudioEditor.Controller.Editor
 
         protected void buttonOK_Click(object sender, EventArgs e)
         {
+            List<string> list = new List<string>();
             foreach (var segment in listSegment)
             {
                 try
@@ -167,8 +168,10 @@ namespace SimpleAudioEditor.Controller.Editor
                 {
                     MessageBox.Show("Не удалось создать файл-отрезок./n" + ex.ToString());
                 }
-                SampleController.Combine(Params.GetResultCuttedIndexedSoundsPathWAV());
+                list.Add(SampleController.Resemple(Params.GetResultCuttedIndexedSoundsPathWAV()));
+                Params.IndexCutFilePlus();
             }
+            SampleController.Concatenate(list);
         }
 
         protected void buttonDelete_Click(object sender, EventArgs e)

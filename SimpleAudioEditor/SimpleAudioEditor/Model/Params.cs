@@ -9,7 +9,7 @@ namespace SimpleAudioEditor.Model {
 
         public static readonly string ResultSoundsPath = "Results";
         public static readonly string ResultCuttedSoundsPath = "Results\\cut";
-        public static readonly string ResultFileName = "result.mp3";
+        public static readonly string ResultFileName = "result.wav";
         public static readonly string FileFormatMP3 = ".mp3";
         public static readonly string FileFormatWAV = ".wav";
         public static readonly int CoefNewSamplesToMainSample = 2;
