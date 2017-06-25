@@ -51,11 +51,8 @@ namespace SimpleAudioEditor.Controller.Editor
             markerPoint = new Point(soundLineStartPoint.X, soundLineStartPoint.Y - (int)(object_radius * 2f));
 
             ///
-            ///
-            ///
             name = new Label();
             AudioFile fileWithTags = new AudioFile(_filePath, ReadStyle.Average);
-            //name.Text = file.Tag.Performers[0] + " - " + file.Tag.Title;
             if (fileWithTags.Tag.Performers != null && fileWithTags.Tag.Title != null)
             {
                 name.Text = fileWithTags.Tag.Performers[0] + " - " + fileWithTags.Tag.Title;
