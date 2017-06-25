@@ -30,21 +30,21 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IntroForm));
             this.panelPath = new System.Windows.Forms.Panel();
+            this.pictureboxWarning = new System.Windows.Forms.PictureBox();
             this.btnChoosePath = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.panelSamples = new System.Windows.Forms.Panel();
+            this.btnPlaySample = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.button13 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.layoutProjects = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBox_Divider = new System.Windows.Forms.GroupBox();
-            this.pictureboxWarning = new System.Windows.Forms.PictureBox();
             this.btnNewProject = new System.Windows.Forms.Button();
-            this.btnPlaySample = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
+            this.groupBox_Divider = new System.Windows.Forms.GroupBox();
             this.panelPath.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).BeginInit();
             this.panelSamples.SuspendLayout();
             this.layoutProjects.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).BeginInit();
             this.SuspendLayout();
             // 
             // panelPath
@@ -56,6 +56,15 @@
             this.panelPath.Name = "panelPath";
             this.panelPath.Size = new System.Drawing.Size(181, 194);
             this.panelPath.TabIndex = 16;
+            // 
+            // pictureboxWarning
+            // 
+            this.pictureboxWarning.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Error_104;
+            this.pictureboxWarning.Location = new System.Drawing.Point(30, 5);
+            this.pictureboxWarning.Name = "pictureboxWarning";
+            this.pictureboxWarning.Size = new System.Drawing.Size(105, 99);
+            this.pictureboxWarning.TabIndex = 8;
+            this.pictureboxWarning.TabStop = false;
             // 
             // btnChoosePath
             // 
@@ -94,6 +103,20 @@
             this.panelSamples.Size = new System.Drawing.Size(214, 75);
             this.panelSamples.TabIndex = 15;
             // 
+            // btnPlaySample
+            // 
+            this.btnPlaySample.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.btnPlaySample.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Pause_48;
+            this.btnPlaySample.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPlaySample.FlatAppearance.BorderSize = 0;
+            this.btnPlaySample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlaySample.Location = new System.Drawing.Point(185, 38);
+            this.btnPlaySample.Name = "btnPlaySample";
+            this.btnPlaySample.Size = new System.Drawing.Size(24, 24);
+            this.btnPlaySample.TabIndex = 7;
+            this.btnPlaySample.UseVisualStyleBackColor = false;
+            this.btnPlaySample.Click += new System.EventHandler(this.btnPlaySample_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -104,6 +127,19 @@
             this.label1.Size = new System.Drawing.Size(142, 16);
             this.label1.TabIndex = 5;
             this.label1.Text = "Прошлые сэмплы:";
+            // 
+            // button13
+            // 
+            this.button13.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button13.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Audio_Wave_26;
+            this.button13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button13.FlatAppearance.BorderSize = 0;
+            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button13.Location = new System.Drawing.Point(8, 38);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(24, 22);
+            this.button13.TabIndex = 0;
+            this.button13.UseVisualStyleBackColor = false;
             // 
             // label2
             // 
@@ -126,27 +162,6 @@
             this.layoutProjects.Size = new System.Drawing.Size(458, 359);
             this.layoutProjects.TabIndex = 14;
             // 
-            // groupBox_Divider
-            // 
-            this.groupBox_Divider.BackColor = System.Drawing.Color.Chocolate;
-            this.groupBox_Divider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox_Divider.Location = new System.Drawing.Point(477, 38);
-            this.groupBox_Divider.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBox_Divider.Name = "groupBox_Divider";
-            this.groupBox_Divider.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox_Divider.Size = new System.Drawing.Size(2, 359);
-            this.groupBox_Divider.TabIndex = 13;
-            this.groupBox_Divider.TabStop = false;
-            // 
-            // pictureboxWarning
-            // 
-            this.pictureboxWarning.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Error_104;
-            this.pictureboxWarning.Location = new System.Drawing.Point(30, 5);
-            this.pictureboxWarning.Name = "pictureboxWarning";
-            this.pictureboxWarning.Size = new System.Drawing.Size(105, 99);
-            this.pictureboxWarning.TabIndex = 8;
-            this.pictureboxWarning.TabStop = false;
-            // 
             // btnNewProject
             // 
             this.btnNewProject.BackColor = System.Drawing.SystemColors.WindowFrame;
@@ -165,32 +180,17 @@
             this.btnNewProject.UseVisualStyleBackColor = false;
             this.btnNewProject.Click += new System.EventHandler(this.btnNewProject_Click);
             // 
-            // btnPlaySample
+            // groupBox_Divider
             // 
-            this.btnPlaySample.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.btnPlaySample.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Pause_48;
-            this.btnPlaySample.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPlaySample.FlatAppearance.BorderSize = 0;
-            this.btnPlaySample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPlaySample.Location = new System.Drawing.Point(185, 38);
-            this.btnPlaySample.Name = "btnPlaySample";
-            this.btnPlaySample.Size = new System.Drawing.Size(24, 24);
-            this.btnPlaySample.TabIndex = 7;
-            this.btnPlaySample.UseVisualStyleBackColor = false;
-            this.btnPlaySample.Click += new System.EventHandler(this.btnPlaySample_Click);
-            // 
-            // button13
-            // 
-            this.button13.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.button13.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Audio_Wave_26;
-            this.button13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button13.FlatAppearance.BorderSize = 0;
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.Location = new System.Drawing.Point(8, 38);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(24, 22);
-            this.button13.TabIndex = 0;
-            this.button13.UseVisualStyleBackColor = false;
+            this.groupBox_Divider.BackColor = System.Drawing.Color.Chocolate;
+            this.groupBox_Divider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox_Divider.Location = new System.Drawing.Point(477, 38);
+            this.groupBox_Divider.Margin = new System.Windows.Forms.Padding(0);
+            this.groupBox_Divider.Name = "groupBox_Divider";
+            this.groupBox_Divider.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox_Divider.Size = new System.Drawing.Size(2, 359);
+            this.groupBox_Divider.TabIndex = 13;
+            this.groupBox_Divider.TabStop = false;
             // 
             // IntroForm
             // 
@@ -210,10 +210,10 @@
             this.Load += new System.EventHandler(this.IntroForm_Load);
             this.panelPath.ResumeLayout(false);
             this.panelPath.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).EndInit();
             this.panelSamples.ResumeLayout(false);
             this.panelSamples.PerformLayout();
             this.layoutProjects.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).EndInit();
             this.ResumeLayout(false);
 
         }

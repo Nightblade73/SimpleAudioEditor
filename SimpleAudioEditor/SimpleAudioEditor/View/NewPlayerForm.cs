@@ -17,11 +17,29 @@ namespace SimpleAudioEditor.View
         public NewPlayerForm()
         {
             InitializeComponent();
-            m = new MainSoundLine(660, panelMain, new Point(0, 0));
+
+            panelSamples.AutoScroll = false;
+            panelSamples.HorizontalScroll.Enabled = false;
+            panelSamples.HorizontalScroll.Visible = false;
+            panelSamples.HorizontalScroll.Maximum = 0;
+            panelSamples.AutoScroll = true;
+
+            /*
+            var ofd = new OpenFileDialog();
+            ofd.Filter = "Cursor Files|*.mp3;*.wav";
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ClassTest ct = new ClassTest(ofd.FileName);
+                
+
+            }
+            */
+               m = new MainSoundLine(700, panelMain, new Point(0, 0));
         }
         int x = 6;
         private void buttonAddSample_Click(object sender, EventArgs e)
         {
+
             var ofd = new OpenFileDialog();
             ofd.Filter = "Cursor Files|*.mp3;*.wav";
             ofd.Multiselect = true;
@@ -29,12 +47,13 @@ namespace SimpleAudioEditor.View
             {
                 for (int i = 0; i < ofd.FileNames.Length; i++)
                 {
-                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i] , panelSamples, new Point(6, x), 500);
-                    x += 46;
+                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 640);
+                    x += 106;
                 }
-                MessageBox.Show("загружено");
-                
+
             }
         }
     }
+
 }
+

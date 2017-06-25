@@ -342,7 +342,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
         private void PaintMe(Graphics grfx) {
             if (mDrawWave) {
                 mDrawing = true;
-                Pen pen = new Pen(Color.Black);
+                Pen pen = new Pen(Color.OrangeRed);
                 DrawWave(grfx, pen);
                 mDrawing = false;
             }
@@ -361,13 +361,13 @@ namespace SimpleAudioEditor.Controller.WaveController {
             int w = CWidth;
             long numSamples = mDrawSource.Length;
 
-
-            if ((mPrevWidth != w) | (mPrevHeight != h) | (mPrevOffset != mDrawingStartOffset) | (mPrevSamplesPerPixel != mSamplesPerPixel)) {
-                mPrevWidth = w;
-                mPrevHeight = h;
-                mPrevOffset = mDrawingStartOffset;
-                mPrevSamplesPerPixel = mSamplesPerPixel;
-
+            //            if ((mPrevWidth != w) | (mPrevHeight != h) | (mPrevOffset != mDrawingStartOffset) | (mPrevSamplesPerPixel != mSamplesPerPixel)) {
+            //                mPrevWidth = w;
+            //                mPrevHeight = h;
+            //                mDrawingStartOffset =0;
+            //                mPrevOffset =  mDrawingStartOffset;
+            //                mPrevSamplesPerPixel = mSamplesPerPixel;
+            {
                 if (mBitmap == null || ((mBitmap.Width != w) | (mBitmap.Height != h))) {
                     if (mBitmap != null)
                         mBitmap.Dispose();
@@ -425,6 +425,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
 
                     // if the max/min are the same, then draw a line from the previous position, 
                     // otherwise we will not see anything 
+
                     if (scaledMinVal == scaledMaxVal) {
                         if (prevMaxY != 0) {
                             canvas.DrawLine(pen, prevX, prevMaxY, i, scaledMaxVal);
@@ -439,6 +440,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
                                 }
                             }
                         }
+                       
                         canvas.DrawLine(pen, i, scaledMinVal, i, scaledMaxVal);
                     }
 
@@ -449,24 +451,30 @@ namespace SimpleAudioEditor.Controller.WaveController {
                     i += 1;
                     index = (i * mSamplesPerPixel) + mDrawingStartOffset;
                 }
+
                 mLastDrawnPixel = i - 1;
                 //Fill non wave area with different color
-                SolidBrush br = new SolidBrush(Color.LightGray);
-                canvas.FillRectangle(br, i, 0, w - i + 1, h);
+                
 
-                //Adjust scrollbar change values if width of page has changed
-                int samplesPerPage = (int)(mSamplesPerPixel * w);
-                if (hrScroll.LargeChange != samplesPerPage) {
-                    hrScroll.LargeChange = samplesPerPage;
-                    hrScroll.SmallChange = samplesPerPage / 100;
-                    if (hrScroll.SmallChange == 0)
-                        hrScroll.SmallChange = 1;
-                }
+                                SolidBrush br = new SolidBrush(Color.LightGray);
+                                canvas.FillRectangle(br, i, 0, w - i + 1, h);
+                /*
+                                //Adjust scrollbar change values if width of page has changed
+                                int samplesPerPage = (int)(mSamplesPerPixel * w);
+                                if (hrScroll.LargeChange != samplesPerPage) {
+                                    hrScroll.LargeChange = samplesPerPage;
+                                    hrScroll.SmallChange = samplesPerPage / 100;
+                                    if (hrScroll.SmallChange == 0)
+                                        hrScroll.SmallChange = 1;
+                                }
+                */
             }
+
             grfx.DrawImage(mBitmap, 0, 0);
+            /* 
             if (mLastPlayCursorX >= 0 && mLastPlayCursorX < mLastDrawnPixel) {
                 grfx.DrawLine(new Pen(Color.Blue), mLastPlayCursorX, 0, mLastPlayCursorX, h);
-            }            
+            }           
             grfx.DrawLine(pen, 0, (int)(CHeight / 2), CWidth, (int)(CHeight / 2));
             int regionStartX = Math.Max(0, Math.Min(SelectionStartX, SelectionEndX));
             int regionEndX = Math.Min(mLastDrawnPixel, Math.Max(SelectionStartX, SelectionEndX));
@@ -476,6 +484,7 @@ namespace SimpleAudioEditor.Controller.WaveController {
             }
             //курсор
             grfx.DrawLine(new Pen(Color.Green), CursorPositionX, 0, CursorPositionX, h);
+            */
         }
 
         private void ZoomIn() {
