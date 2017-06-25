@@ -34,7 +34,7 @@ namespace SimpleAudioEditor.Controller.WaveController
 
         public void TrimWavFile(string inPath, string outPath, TimeSpan cutFromStart, TimeSpan cutFromEnd)
         {
-            
+            WaveFormat MyWaveFormat = new WaveFormat(44100, 2);
             using (Mp3FileReader reader = new Mp3FileReader(inPath))
             {
                 using (WaveFileWriter writer = new WaveFileWriter(outPath, reader.WaveFormat))
@@ -107,5 +107,68 @@ namespace SimpleAudioEditor.Controller.WaveController
                 return retMs;
             }
         }
+
+        
+         public static void Concatenate(List<string> sourceFiles, string outPath)
+         {
+             byte[] buffer = new byte[1024];
+             WaveFileWriter waveFileWriter = null;
+             try
+             {
+                 foreach (string sourceFile in sourceFiles)
+                 {
+                     using (WaveFileReader reader = new WaveFileReader(sourceFile))
+                     {
+                         if (waveFileWriter == null)
+                         {
+                             waveFileWriter = new WaveFileWriter(outPath, reader.WaveFormat);
+                         }
+                         else
+                         {
+                             if (!reader.WaveFormat.Equals(waveFileWriter.WaveFormat))
+                             {
+                                 throw new InvalidOperationException("Can't concatenate WAV Files that don't share the same format");
+                             }
+                         }
+                         int read;
+                         while ((read = reader.Read(buffer, 0, buffer.Length)) > 0)
+                         {
+                             waveFileWriter.Write(buffer, 0, read);
+                         }
+                     }
+                 }
+             }
+             finally
+             {
+                 if (waveFileWriter != null)
+                 {
+                     waveFileWriter.Dispose();
+                 }
+             }
+         }
+         public static string Resemple(string inPath, string outPath)
+         {
+             int outRate = 44100;
+             var outFile = outPath;
+             using (var reader = new WaveFileReader(inPath))
+             {
+                 if (reader.WaveFormat.Equals(new WaveFormat(outRate, 2)))
+                 {
+                     return inPath;
+                 }
+                 else
+                 {
+                     var outFormat = new WaveFormat(outRate, reader.WaveFormat.Channels);
+                     using (var resampler = new MediaFoundationResampler(reader, outFormat))
+                     {
+                         // resampler.ResamplerQuality = 60;
+                         WaveFileWriter.CreateWaveFile(outFile, resampler);
+                     }
+                 }
+             }
+             File.Delete(inPath);
+             File.Move(outFile, inPath);
+             return inPath;
+         }
     }
 }

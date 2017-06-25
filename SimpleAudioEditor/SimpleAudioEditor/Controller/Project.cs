@@ -79,6 +79,7 @@ namespace SimpleAudioEditor.Controller
          */
         public string Save()
         {
+            List<string> list = new List<string>();
             foreach (var sample in listSamples)
             {
                 try
@@ -90,10 +91,11 @@ namespace SimpleAudioEditor.Controller
                 {
                     return "Не удалось создать файл-отрезок./n" + ex.ToString();
                 }
-
-                SampleController.Combine(sample.SamplePath, path + "\\" + "result.mp3");
+                list.Add(SampleController.Resemple(sample.SamplePath, path + "\\" + "result.wav"));
+                //SampleController.Combine(sample.SamplePath, path + "\\" + "result.wav");
                 
             }
+            SampleController.Concatenate(list, path + "\\" + "result.wav");
             return "Сохранено";
         }
     }
