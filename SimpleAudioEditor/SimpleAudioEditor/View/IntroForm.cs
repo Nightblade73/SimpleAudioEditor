@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using SimpleAudioEditor.Controller;
 using SimpleAudioEditor.Properties;
 using SimpleAudioEditor.View;
 using System;
@@ -18,21 +19,23 @@ namespace SimpleAudioEditor
     {
         public NewPlayerForm main;
         private bool btnSampleState = false;
+        private Primary pr = new Primary();
 
         public IntroForm(NewPlayerForm main)
         {
             this.main = main;
             InitializeComponent();
-            String str = Registry_GetPath();
-            if (Registry_GetPath() == "nopath")
+
+            Primary pr = new Primary();
+            if(pr.progPath == "nopath")
             {
 
-            }
-            else
+            } else
             {
                 panelSamples.Enabled = true;
                 panelPath.Visible = false;
                 layoutProjects.Enabled = true;
+                labelProjectsPath.Text = "Путь с проектами:  "+pr.progPath;
             }
         }
 
@@ -57,12 +60,33 @@ namespace SimpleAudioEditor
         {
             try
             {
-                Directory.Delete(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\SoundFactory", true);
+                //Directory.Delete(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\SoundFactory", true);
+                DrawFolders();
             }
             catch (Exception ex)
             {
 
             }
+        }
+        private void DrawFolders()
+        {
+            if (pr.projects.Count > 0)
+            {
+                foreach (Project p in pr.projects)
+                {
+                    Console.WriteLine(p.title);
+                    ProjectButton btn = new ProjectButton(p);
+                    
+                    btn.Click += btnExistingProject_Click;
+                    layoutProjects.Controls.Add(btn);
+                    layoutProjects.Refresh();
+                }
+            }
+        }
+        private void btnExistingProject_Click(object sender, EventArgs e)
+        {
+            ProjectButton p = sender as ProjectButton;
+            MessageBox.Show(p.pr.title);
         }
 
         private void btnChoosePath_Click(object sender, EventArgs e)
@@ -70,7 +94,9 @@ namespace SimpleAudioEditor
             FolderBrowserDialog f = new FolderBrowserDialog();
             if (f.ShowDialog() == DialogResult.OK)
             {
-                Registry_SetPath(f.SelectedPath);
+                pr.SetProgrammPath(f.SelectedPath);
+                DrawFolders();
+                labelProjectsPath.Text = "Путь с проектами:  " + pr.progPath;
                 panelSamples.Enabled = true;
                 panelPath.Visible = false;
                 layoutProjects.Enabled = true;
@@ -79,9 +105,12 @@ namespace SimpleAudioEditor
 
         private void btnNewProject_Click(object sender, EventArgs e)
         {
-            if ((new WriteProjectNameForm().ShowDialog()) == DialogResult.OK)
+            Project pr = new Project();
+
+            if ((new WriteProjectNameForm(pr).ShowDialog()) == DialogResult.OK)
             {
                 this.DialogResult = DialogResult.OK;
+                main.project = pr;
                 main.Show();
                 this.Dispose();
             }
@@ -101,34 +130,9 @@ namespace SimpleAudioEditor
             }
         }
 
-        private RegistryKey Registry_GetKey()
+        private void groupBox2_Enter(object sender, EventArgs e)
         {
-            Microsoft.Win32.RegistryKey key;
-            String[] subkeys = Microsoft.Win32.Registry.CurrentUser.GetSubKeyNames();
-            try
-            {
-                key = Registry.CurrentUser.OpenSubKey("Software\\SimpleAudioEditor", true);
-                Console.WriteLine(key.Name);
-            }
-            catch (NullReferenceException ex)
-            {
-                key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\SimpleAudioEditor");
-                key.SetValue("path", "nopath", RegistryValueKind.String);
-            }
-            return key;
-        }
-        private String Registry_GetPath()
-        {
-            RegistryKey key = Registry_GetKey();
-            String str = key.GetValue("path").ToString();
-            key.Close();
-            return str;
-        }
-        private void Registry_SetPath(String path)
-        {
-            RegistryKey key = Registry_GetKey();
-            key.SetValue("path", path);
-            key.Close();
+
         }
     }
 }

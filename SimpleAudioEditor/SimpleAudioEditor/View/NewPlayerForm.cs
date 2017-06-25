@@ -1,4 +1,5 @@
-﻿using SimpleAudioEditor.Controller.Editor;
+﻿using SimpleAudioEditor.Controller;
+using SimpleAudioEditor.Controller.Editor;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace SimpleAudioEditor.View
     public partial class NewPlayerForm : Form
     {
         MainSoundLine m;
+        public Project project;
         public NewPlayerForm()
         {
             InitializeComponent();
@@ -40,6 +42,7 @@ namespace SimpleAudioEditor.View
         {
             if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
             {
+                this.Text = project.title;
                 this.Close();
             }
         }

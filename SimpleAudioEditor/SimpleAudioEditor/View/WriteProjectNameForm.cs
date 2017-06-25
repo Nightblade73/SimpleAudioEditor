@@ -1,4 +1,5 @@
-﻿using SimpleAudioEditor.Model;
+﻿using SimpleAudioEditor.Controller;
+using SimpleAudioEditor.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,16 +14,30 @@ namespace SimpleAudioEditor.View
 {
     public partial class WriteProjectNameForm : Form
     {
+        public Project pr;
+
         public WriteProjectNameForm()
         {
+            InitializeComponent();
+        }
+        public WriteProjectNameForm(Project pr)
+        {
+            this.pr = pr;
             InitializeComponent();
         }
 
         private void butOK_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-            Params.SetProjectName(tBName.Text);
+            if (pr == null)
+            {
+                Params.SetProjectName(tBName.Text);
+            } else
+            {
+                pr.title = tBName.Text;
+            }
             Dispose();
+
         }
 
         private void butCancle_Click(object sender, EventArgs e)

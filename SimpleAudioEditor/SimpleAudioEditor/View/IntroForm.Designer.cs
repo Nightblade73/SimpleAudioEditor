@@ -41,10 +41,18 @@
             this.btnNewProject = new System.Windows.Forms.Button();
             this.btnPlaySample = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.labelProjectsPath = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panelPath.SuspendLayout();
             this.panelSamples.SuspendLayout();
             this.layoutProjects.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelPath
@@ -134,7 +142,7 @@
             this.groupBox_Divider.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox_Divider.Name = "groupBox_Divider";
             this.groupBox_Divider.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox_Divider.Size = new System.Drawing.Size(2, 359);
+            this.groupBox_Divider.Size = new System.Drawing.Size(2, 385);
             this.groupBox_Divider.TabIndex = 13;
             this.groupBox_Divider.TabStop = false;
             // 
@@ -192,13 +200,83 @@
             this.button13.TabIndex = 0;
             this.button13.UseVisualStyleBackColor = false;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.Chocolate;
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Location = new System.Drawing.Point(-1, 424);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox1.Size = new System.Drawing.Size(725, 1);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Chocolate;
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.groupBox2);
+            this.panel1.Location = new System.Drawing.Point(-5, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(735, 37);
+            this.panel1.TabIndex = 17;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(272, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(36, 34);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft NeoGothic", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.label3.Location = new System.Drawing.Point(314, 2);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(137, 30);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Peach Editor";
+            // 
+            // labelProjectsPath
+            // 
+            this.labelProjectsPath.AutoSize = true;
+            this.labelProjectsPath.BackColor = System.Drawing.Color.Transparent;
+            this.labelProjectsPath.ForeColor = System.Drawing.SystemColors.Menu;
+            this.labelProjectsPath.Location = new System.Drawing.Point(-1, 425);
+            this.labelProjectsPath.Name = "labelProjectsPath";
+            this.labelProjectsPath.Size = new System.Drawing.Size(128, 13);
+            this.labelProjectsPath.TabIndex = 18;
+            this.labelProjectsPath.Text = "Путь с проектами: none";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.Color.Chocolate;
+            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox2.Location = new System.Drawing.Point(5, 36);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox2.Size = new System.Drawing.Size(725, 1);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            // 
             // IntroForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(724, 441);
+            this.Controls.Add(this.labelProjectsPath);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelPath);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.layoutProjects);
             this.Controls.Add(this.groupBox_Divider);
             this.Controls.Add(this.panelSamples);
@@ -214,7 +292,11 @@
             this.panelSamples.PerformLayout();
             this.layoutProjects.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -232,5 +314,11 @@
         private System.Windows.Forms.FlowLayoutPanel layoutProjects;
         private System.Windows.Forms.Button btnNewProject;
         private System.Windows.Forms.GroupBox groupBox_Divider;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label labelProjectsPath;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }

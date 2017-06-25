@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.Controller
 {
-    class Sample
+    public class Sample
     {
         public String title;
         /* Путь к оригинальной звуковой дорожке

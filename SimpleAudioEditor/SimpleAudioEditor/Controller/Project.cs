@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.Controller
 {
-    class Project
+    public class Project
     {
         public String title;
         public String path;
@@ -16,13 +17,14 @@ namespace SimpleAudioEditor.Controller
          */
         public Project()
         {
-
+            
         }
         /* Загрузить проект из папки path
          */
         public Project(String path)
         {
-
+            this.title = Path.GetFileName(path);
+            this.path = path;
         }
         /* Проиграть текущий проект
          * int start    - секунда начала воспроизведения

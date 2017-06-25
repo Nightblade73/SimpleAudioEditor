@@ -99,6 +99,7 @@
     <Compile Include="Controller\Editor\MainSoundLine.cs" />
     <Compile Include="Controller\Editor\Segment.cs" />
     <Compile Include="Controller\Editor\SoundLineEditor.cs" />
+    <Compile Include="Controller\Primary.cs" />
     <Compile Include="Controller\Project.cs" />
     <Compile Include="Controller\Sample.cs" />
     <Compile Include="Controller\SoundSource.cs" />
@@ -134,6 +135,9 @@
     </Compile>
     <Compile Include="View\NewPlayerForm.Designer.cs">
       <DependentUpon>NewPlayerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProjectButton.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="View\WriteProjectNameForm.cs">
       <SubType>Form</SubType>
@@ -215,6 +219,7 @@
     <Content Include="libmp3lame.64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\icons8-Folder-104.png" />
     <None Include="Resources\icons8-Peach-48.png" />
     <None Include="Resources\icons8-Error-104.png" />
     <None Include="Resources\icons8-Pause-48.png" />
