@@ -8,6 +8,7 @@ using NAudio.Wave.SampleProviders;
 using System.Windows.Forms;
 using System.Drawing;
 using SimpleAudioEditor.Model;
+using SimpleAudioEditor.Controller.WaveController;
 
 namespace SimpleAudioEditor.Controller.Editor
 {
@@ -396,7 +397,7 @@ namespace SimpleAudioEditor.Controller.Editor
         }
 
         private void CreateSampleFile(string fileName, double startPosSample, double endPosSample, double allTime)
-        {/*
+        {
             TimeSpan start = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(startPosSample * 1000));
             TimeSpan end = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(endPosSample * 1000));
             TimeSpan all = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(allTime * 1000));
@@ -409,7 +410,7 @@ namespace SimpleAudioEditor.Controller.Editor
             {
                 sc.TrimWavFile(fileName.ToString(), Params.GetResultCuttedIndexedSoundsPathWAV(), start, all - end);
             }
-            Params.IndexCutFilePlus();*/
+            Params.IndexCutFilePlus();
         }
 
         private void SetSegmentEndPoints()
