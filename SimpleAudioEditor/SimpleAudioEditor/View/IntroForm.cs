@@ -109,7 +109,9 @@ namespace SimpleAudioEditor
 
             if ((new WriteProjectNameForm(pr).ShowDialog()) == DialogResult.OK)
             {
-                this.DialogResult = DialogResult.OK;
+                pr.path = this.pr.progPath + "\\" + pr.title;
+                pr.listSamples = new List<Sample>();
+                this.DialogResult = DialogResult.OK;                
                 main.project = pr;
                 main.Show();
                 this.Dispose();

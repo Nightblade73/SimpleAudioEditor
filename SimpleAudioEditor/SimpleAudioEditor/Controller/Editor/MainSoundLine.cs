@@ -9,13 +9,12 @@ using System.Windows.Forms;
 using System.Drawing;
 using SimpleAudioEditor.Controller.WaveController;
 using SimpleAudioEditor.Model;
+using System.IO;
 
 namespace SimpleAudioEditor.Controller.Editor
 {
     class MainSoundLine
     {
-        public List<Segment> listSegment;
-
         PictureBox pictureBox;
         Point lineStartPos, lineEndPos;
         int leghtLine;
@@ -25,8 +24,11 @@ namespace SimpleAudioEditor.Controller.Editor
         Button buttonOK;
         Button buttonDelete;
         Random r = new Random();
-        public MainSoundLine(int width, int height, Control parent, Point location)
-        {
+        Project project;
+        public MainSoundLine(int width, int height, Control parent, Point location, Project _project)
+        {     
+            project = _project;
+
             pictureBox = new PictureBox();
             pictureBox.Size = new Size(width - height * 3 - 10 - 10, height);
 
@@ -81,7 +83,6 @@ namespace SimpleAudioEditor.Controller.Editor
             (pictureBox as Control).AllowDrop = true;
             lineStartPos = new Point(0, pictureBox.Size.Height - 10);
             lineEndPos = new Point(width, pictureBox.Size.Height - 10);
-            listSegment = new List<Segment>();
             leghtLine = lineEndPos.X - lineStartPos.X;
             pictureBox.Invalidate();
         }
@@ -96,34 +97,34 @@ namespace SimpleAudioEditor.Controller.Editor
 
             SetSegmentEndPoints();
             int dx = int.MaxValue;
-            if (listSegment.Count > 0)
+            if (project.listSamples.Count > 0)
             {
-                for (int i = 0; i < listSegment.Count; i++)
+                for (int i = 0; i < project.listSamples.Count; i++)
                 {
-                    if (dx >= Math.Max(pt1.X, listSegment[i].segmentStartPos.X) - Math.Min(pt1.X, listSegment[i].segmentStartPos.X))
+                    if (dx >= Math.Max(pt1.X, project.listSamples[i].startPos.X) - Math.Min(pt1.X, project.listSamples[i].startPos.X))
                     {
-                        dx = Math.Max(pt1.X, listSegment[i].segmentStartPos.X) - Math.Min(pt1.X, listSegment[i].segmentStartPos.X);
+                        dx = Math.Max(pt1.X, project.listSamples[i].startPos.X) - Math.Min(pt1.X, project.listSamples[i].startPos.X);
                         index = i;
                     }
                 }
 
 
-                if (Math.Max(listSegment[index].segmentStartPos.X, pt1.X) - Math.Min(listSegment[index].segmentStartPos.X, pt1.X) <
-                    Math.Max(listSegment[index].segmentEndPos.X, pt1.X) - Math.Min(listSegment[index].segmentEndPos.X, pt1.X))
+                if (Math.Max(project.listSamples[index].startPos.X, pt1.X) - Math.Min(project.listSamples[index].startPos.X, pt1.X) <
+                    Math.Max(project.listSamples[index].endPos.X, pt1.X) - Math.Min(project.listSamples[index].endPos.X, pt1.X))
                 {
 
-                    indexQueue = listSegment[index].indexQueue;
-                    for (int i = index; i < listSegment.Count; i++)
+                    indexQueue = project.listSamples[index].IndexQueue;
+                    for (int i = index; i < project.listSamples.Count; i++)
                     {
-                        listSegment[i].indexQueue += 1;
+                        project.listSamples[i].IndexQueue += 1;
                     }
                 }
                 else
                 {
-                    indexQueue = listSegment[index].indexQueue + 1;
-                    for (int i = index + 1; i < listSegment.Count; i++)
+                    indexQueue = project.listSamples[index].IndexQueue + 1;
+                    for (int i = index + 1; i < project.listSamples.Count; i++)
                     {
-                        listSegment[i].indexQueue += 2;
+                        project.listSamples[i].IndexQueue += 2;
                     }
                 }
 
@@ -147,9 +148,9 @@ namespace SimpleAudioEditor.Controller.Editor
         public double FinalLeght()
         {
             double sum = 0;
-            for (int i = 0; i < listSegment.Count(); i++)
+            for (int i = 0; i < project.listSamples.Count(); i++)
             {
-                sum += listSegment[i].LeghtFromSecond;
+                sum += project.listSamples[i].LeghtFromSecond;
             }
 
             return sum;
@@ -157,23 +158,15 @@ namespace SimpleAudioEditor.Controller.Editor
 
         protected void buttonOK_Click(object sender, EventArgs e)
         {
-            foreach (var segment in listSegment)
-            {
-                try
-                {
-                    CreateSampleFile(segment.getFilePath, segment.SplitStartTimeFromSecond, segment.SplitEndTimeFromSecond, segment.getAllTimeFromSecond);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Не удалось создать файл-отрезок./n" + ex.ToString());
-                }
-                SampleController.Combine(Params.GetResultCuttedIndexedSoundsPathWAV());
-            }
+            project.Save();
         }
 
         protected void buttonDelete_Click(object sender, EventArgs e)
         {
-            listSegment.Clear();
+            project.listSamples.Clear();
+            //
+            Directory.Delete(project.path, true);
+            Directory.CreateDirectory(project.path);
             pictureBox.Invalidate();
         }
 
@@ -181,13 +174,13 @@ namespace SimpleAudioEditor.Controller.Editor
         {
             SetSegmentEndPoints();
             int index = SetIndexQueue(pictureBox.PointToClient(new Point(e.X, e.Y)));
-            Segment s = e.Data.GetData(typeof(Segment)) as Segment;
+            Sample s = e.Data.GetData(typeof(Sample)) as Sample;
 
             if (FinalLeght() + s.LeghtFromSecond <= maxLeghtOutFromSecond)
             {
                 // MessageBox.Show(""+s.indexQueue);
-                listSegment.Add(s);
-                s.indexQueue = index;
+                project.listSamples.Add(s);
+                s.IndexQueue = index;
                 SetSegmentEndPoints();
             }
             else
@@ -197,33 +190,19 @@ namespace SimpleAudioEditor.Controller.Editor
             pictureBox.Invalidate();
         }
 
-        private void CreateSampleFile(string fileName, double startPosSample, double endPosSample, double allTime)
-        {
-            TimeSpan start = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(startPosSample * 1000));
-            TimeSpan end = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(endPosSample * 1000));
-            TimeSpan all = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(allTime * 1000));
-            SampleController sc = new SampleController();
-            if (fileName.ToString().Contains(Params.FileFormatWAV))
-            {
-                sc.TrimWavFile(SampleController.Converter(fileName.ToString()), Params.GetResultCuttedIndexedSoundsPathWAV(), start, all - end);
-            }
-            else
-            {
-                sc.TrimWavFile(fileName.ToString(), Params.GetResultCuttedIndexedSoundsPathWAV(), start, all - end);
-            }
-        }
+        
 
         private void SetSegmentEndPoints()
         {
-            listSegment.Sort();
+            project.listSamples.Sort();
 
             int x = 0;
-            for (int i = 0; i < listSegment.Count(); i++)
+            for (int i = 0; i < project.listSamples.Count(); i++)
             {
                 int x1 = x;
-                listSegment[i].segmentStartPos = new Point(x, lineStartPos.Y);
-                x = x + (int)(leghtLine * listSegment[i].LeghtFromSecond / maxLeghtOutFromSecond);
-                listSegment[i].segmentEndPos = new Point(x, lineStartPos.Y);
+                project.listSamples[i].startPos = new Point(x, lineStartPos.Y);
+                x = x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond);
+                project.listSamples[i].endPos = new Point(x, lineStartPos.Y);
 
             }
 
@@ -258,7 +237,7 @@ namespace SimpleAudioEditor.Controller.Editor
             {
                 // Запомните номер сегмента.
                 MovingSegment = segment_number;
-                listSegment.RemoveAt(MovingSegment);
+                project.listSamples.RemoveAt(MovingSegment);
                 SetSegmentEndPoints();
                 pictureBox.Invalidate();
             }
@@ -300,67 +279,21 @@ namespace SimpleAudioEditor.Controller.Editor
 
             // See how far the first point will move.
             Point pt1 = new System.Drawing.Point(e.X, e.Y);
-            //int new_x1 = e.X + OffsetX;
-
-            //int dx = new_x1 - listSegment[MovingSegment].segmentStartPos.X;
-
-            int index = 0;
-            int indexQueue = 0;
-
-            SetSegmentEndPoints();
-            int dx = int.MaxValue;
-            if (listSegment.Count > 0)
-            {
-                for (int i = 0; i < listSegment.Count; i++)
-                {
-                    if (i != MovingSegment)
-                        if (dx >= Math.Max(pt1.X, listSegment[i].segmentStartPos.X) - Math.Min(pt1.X, listSegment[i].segmentStartPos.X))
-                        {
-                            dx = Math.Max(pt1.X, listSegment[i].segmentStartPos.X) - Math.Min(pt1.X, listSegment[i].segmentStartPos.X);
-                            index = i;
-                        }
-                }
 
 
-                if (Math.Max(listSegment[index].segmentStartPos.X, pt1.X) - Math.Min(listSegment[index].segmentStartPos.X, pt1.X) <
-                    Math.Max(listSegment[index].segmentEndPos.X, pt1.X) - Math.Min(listSegment[index].segmentEndPos.X, pt1.X))
-                {
+            int indexQueue = SetIndexQueue(pt1);
 
-                    indexQueue = listSegment[index].indexQueue;
-                    for (int i = index; i < listSegment.Count; i++)
-                    {
-                        listSegment[i].indexQueue += 1;
-                    }
-                }
-                else
-                {
-                    indexQueue = listSegment[index].indexQueue + 1;
-                    for (int i = index + 1; i < listSegment.Count; i++)
-                    {
-                        listSegment[i].indexQueue += 2;
-                    }
-                }
-            }
-            /*
-                        int dx = pt1.X - pt2.X;
-                        int dy = pt1.Y - pt2.Y;
-                        return dx * dx + dy * dy;
-                        */
-
-            listSegment[MovingSegment].indexQueue = indexQueue;
+            project.listSamples[MovingSegment].IndexQueue = indexQueue;
 
             SetSegmentEndPoints();
-            for (int i = 0; i < listSegment.Count; i++)
+            for (int i = 0; i < project.listSamples.Count; i++)
             {
-                if (listSegment[i].indexQueue == indexQueue)
+                if (project.listSamples[i].IndexQueue == indexQueue)
                 {
                     MovingSegment = i;
                 }
             }
-
             // Move the segment to its new location.
-
-
             // Redraw.
             pictureBox.Invalidate();
         }
@@ -380,12 +313,12 @@ namespace SimpleAudioEditor.Controller.Editor
         #endregion // Moving End Point
         private bool MouseIsOverSegment(Point mouse_pt, out int segment_number)
         {
-            for (int i = 0; i < listSegment.Count; i++)
+            for (int i = 0; i < project.listSamples.Count; i++)
             {
                 // Посмотрим, перешли ли мы над сегментом.
                 PointF closest;
                 if (FindDistanceToSegmentSquared(
-                    mouse_pt, listSegment[i].segmentStartPos, listSegment[i].segmentEndPos, out closest)
+                    mouse_pt, project.listSamples[i].startPos, project.listSamples[i].endPos, out closest)
                         < over_dist_squared)
                 {
                     // Мы над этим сегментом.
@@ -451,7 +384,7 @@ namespace SimpleAudioEditor.Controller.Editor
             int x = 0;
 
 
-            for (int i = 0; i < listSegment.Count(); i++)
+            for (int i = 0; i < project.listSamples.Count(); i++)
             {
                 //   MessageBox.Show("" + listSegment[i].indexQueue);
                 // listSegment[i].LeghtFromSecond;
@@ -460,9 +393,9 @@ namespace SimpleAudioEditor.Controller.Editor
                 {
                     e.Graphics.DrawLine(orangePen, new Point(x, lineStartPos.Y)
 
-                    , new Point(x + (int)(leghtLine * listSegment[i].LeghtFromSecond / maxLeghtOutFromSecond), lineStartPos.Y));
+                    , new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond), lineStartPos.Y));
                     e.Graphics.DrawLine(orangePen, new Point(x + penWidth / 2, lineStartPos.Y + 5), new Point(x + penWidth / 2, lineStartPos.Y - 5));
-                    e.Graphics.DrawLine(darkGreyPen, new Point(x + (int)(leghtLine * listSegment[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y + 5), new Point(x + (int)(leghtLine * listSegment[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y - 5));
+                    e.Graphics.DrawLine(darkGreyPen, new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y + 5), new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y - 5));
 
 
                 }
@@ -470,16 +403,16 @@ namespace SimpleAudioEditor.Controller.Editor
                 {
                     Pen colorRed = new Pen(Color.OrangeRed, 3);
                     e.Graphics.DrawLine(colorRed, new Point(x, lineStartPos.Y)
-                                    , new Point(x + (int)(leghtLine * listSegment[i].LeghtFromSecond / maxLeghtOutFromSecond), lineStartPos.Y));
+                                    , new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond), lineStartPos.Y));
 
                     e.Graphics.DrawLine(colorRed, new Point(x + penWidth / 2, lineStartPos.Y + 5), new Point(x + penWidth / 2, lineStartPos.Y - 5));
-                    e.Graphics.DrawLine(colorRed, new Point(x + (int)(leghtLine * listSegment[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y + 5), new Point(x + (int)(leghtLine * listSegment[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y - 5));
+                    e.Graphics.DrawLine(colorRed, new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y + 5), new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y - 5));
 
                 }
 
 
 
-                x += (int)(leghtLine * listSegment[i].LeghtFromSecond / maxLeghtOutFromSecond);
+                x += (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond);
 
             }
         }

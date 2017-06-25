@@ -1,48 +1,127 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.Controller
 {
-    public class Sample
+    public class Sample : IComparable<Sample>
     {
-        public String title;
+        private  String title;
+        Project project;
         /* Путь к оригинальной звуковой дорожке
          * (не обрезанной)
          */
-        public String soundPath;
+        private  String soundPath;
         /* Путь к сэмплу (обрезанной звуковой дорожке)
          * для каждого сэмпла, нужно создавать новый _экземпляр_ оригинальной дорожки
          */
-        public String samplePath;
-        public int start;
-        public int stop;
-        
-        /* Воспроизвести оригинальную звуковую дорожку
-         */
-        public void Play()
+        private String samplePath;
+
+        public Point startPos, endPos;
+        private double splitEndTimeFromSecond;
+        private double splitStartTimeFromSecond;
+        private double allTimeFromSecond;
+        private int indexQueue;
+
+        public string Title
+        {
+            get
+            {
+                return title;
+            }
+
+            set
+            {
+                title = value;
+            }
+        }
+
+        public double LeghtFromSecond
+        {
+            get { return splitEndTimeFromSecond - splitStartTimeFromSecond; }
+        }
+
+        public string SoundPath
+        {
+            get
+            {
+                return soundPath;
+            }
+
+        }
+
+        public string SamplePath
+        {
+            get
+            {
+                return samplePath;
+            }
+        }
+
+        public double SplitEndTimeFromSecond
+        {
+            get
+            {
+                return splitEndTimeFromSecond;
+            }
+        }
+
+        public double SplitStartTimeFromSecond
+        {
+            get
+            {
+                return splitStartTimeFromSecond;
+            }
+        }
+
+        public double AllTimeFromSecond
+        {
+            get
+            {
+                return allTimeFromSecond;
+            }          
+        }
+
+        public int IndexQueue
+        {
+            get
+            {
+                return indexQueue;
+            }
+
+            set
+            {
+                indexQueue = value;
+                samplePath = project.path + "\\cut" + indexQueue + ".wav";
+            }
+        }
+
+        public Sample()
         {
 
         }
-        /* Воспроизвести сэмпл, если указать start, stop обрезает и воспроизводит, но сэмпл не сохраняет
-         */
-        public void Play(int start = -1, int stop = -1)
-        {
 
+        public Sample(double _splitStartTimeFromSecond, double _splitEndTimeFromSecond, double _allTimeFromSecond, string _soundPath, Project _project)
+        {
+            splitStartTimeFromSecond = _splitStartTimeFromSecond;
+            splitEndTimeFromSecond = _splitEndTimeFromSecond;
+            allTimeFromSecond = _allTimeFromSecond;
+            soundPath = _soundPath;
+            project = _project;
         }
-        /* Останавливает воспроизведение звука
-         */
-        public void Stop()
+
+        public int CompareTo(Sample other)
         {
 
-        }
-        /* Обрезает оригинальную дорожку по указанным таймингам
-         */
-        public void Trim(int start, int stop)
-        {
+            // A null value means that this object is greater.
+            if (other == null)
+                return 1;
 
+            else
+                return this.indexQueue.CompareTo(other.indexQueue);
         }
     }
 }

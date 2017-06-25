@@ -97,23 +97,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Editor\MainSoundLine.cs" />
-    <Compile Include="Controller\Editor\Segment.cs" />
     <Compile Include="Controller\Editor\SoundLineEditor.cs" />
     <Compile Include="Controller\Primary.cs" />
     <Compile Include="Controller\Project.cs" />
     <Compile Include="Controller\Sample.cs" />
-    <Compile Include="Controller\SoundSource.cs" />
     <Compile Include="Controller\WaveController\MusicPlayer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controller\WaveController\RawDataReader.cs" />
     <Compile Include="Controller\WaveController\SampleController.cs" />
-    <Compile Include="Controller\WaveController\WaveController.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controller\WaveController\WaveController.Designer.cs">
-      <DependentUpon>WaveController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controller\WaveViewercs.cs" />
     <Compile Include="Model\Params.cs" />
     <Compile Include="View\IntroForm.cs">
@@ -121,12 +113,6 @@
     </Compile>
     <Compile Include="View\IntroForm.Designer.cs">
       <DependentUpon>IntroForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -145,14 +131,8 @@
     <Compile Include="View\WriteProjectNameForm.Designer.cs">
       <DependentUpon>WriteProjectNameForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Controller\WaveController\WaveController.resx">
-      <DependentUpon>WaveController.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\IntroForm.resx">
       <DependentUpon>IntroForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

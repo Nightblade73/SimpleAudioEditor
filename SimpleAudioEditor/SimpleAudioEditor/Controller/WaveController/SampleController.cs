@@ -12,9 +12,9 @@ namespace SimpleAudioEditor.Controller.WaveController
 {
     class SampleController
     {
-        public static void Combine(string inPath)
+        public static void Combine(string inPath, string outPath)
         {
-            using (FileStream fs = new FileStream(Params.ResultSoundsPath + "\\" + Params.ResultFileName, FileMode.Append))
+            using (FileStream fs = new FileStream(outPath, FileMode.Append))
             {
                 inPath = Converter(inPath);
                 File.Delete(inPath.Split('.')[0] + Params.FileFormatWAV);
