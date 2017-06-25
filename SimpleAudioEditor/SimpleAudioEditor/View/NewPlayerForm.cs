@@ -31,10 +31,10 @@ namespace SimpleAudioEditor.View
             {
                 for (int i = 0; i < ofd.FileNames.Length; i++)
                 {
-                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 500);
-                    x += 46;
+                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 500); //
+                    x += 66; //
                 }
-                MessageBox.Show("загружено");
+                MessageBox.Show("Загружено");
 
             }
         }

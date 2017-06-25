@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewPlayerForm));
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelSamples = new System.Windows.Forms.Panel();
             this.buttonAddSample = new System.Windows.Forms.Button();
@@ -36,24 +37,25 @@
             // panelMain
             // 
             this.panelMain.AutoScroll = true;
-            this.panelMain.Location = new System.Drawing.Point(12, 12);
+            this.panelMain.Location = new System.Drawing.Point(22, 12);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(660, 85);
+            this.panelMain.Size = new System.Drawing.Size(607, 74);
             this.panelMain.TabIndex = 10;
             // 
             // panelSamples
             // 
             this.panelSamples.AutoScroll = true;
-            this.panelSamples.Location = new System.Drawing.Point(12, 132);
+            this.panelSamples.Location = new System.Drawing.Point(22, 121);
             this.panelSamples.Name = "panelSamples";
-            this.panelSamples.Size = new System.Drawing.Size(660, 208);
+            this.panelSamples.Size = new System.Drawing.Size(607, 208);
             this.panelSamples.TabIndex = 9;
             // 
             // buttonAddSample
             // 
-            this.buttonAddSample.BackColor = System.Drawing.Color.OrangeRed;
+            this.buttonAddSample.BackColor = System.Drawing.Color.Coral;
             this.buttonAddSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddSample.Location = new System.Drawing.Point(12, 103);
+            this.buttonAddSample.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.buttonAddSample.Location = new System.Drawing.Point(282, 92);
             this.buttonAddSample.Name = "buttonAddSample";
             this.buttonAddSample.Size = new System.Drawing.Size(126, 23);
             this.buttonAddSample.TabIndex = 8;
@@ -64,15 +66,17 @@
             // NewPlayerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.Load += new System.EventHandler(this.Form_Load);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
-            this.ClientSize = new System.Drawing.Size(684, 356);
+            this.ClientSize = new System.Drawing.Size(652, 342);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelSamples);
             this.Controls.Add(this.buttonAddSample);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NewPlayerForm";
-            this.Text = "NewPlayerForm";
+            this.Text = "Peach Editor";
+            this.Load += new System.EventHandler(this.Form_Load);
             this.ResumeLayout(false);
 
         }

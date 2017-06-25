@@ -41,11 +41,11 @@ namespace SimpleAudioEditor.Controller.Editor
 
             buttonPlay = new Button();
             buttonPlay.Size = new System.Drawing.Size(pictureBox.Size.Height / 2, pictureBox.Size.Height / 2);
-            buttonPlay.Location = new Point(location.X, location.Y + height - buttonPlay.Size.Width);
+            buttonPlay.Location = new Point(location.X, location.Y + height - buttonPlay.Size.Width - 20);
             buttonPlay.Parent = parent;
             //buttonPlay.Click += buttonPlay_Click;
             buttonPlay.Text = ">";
-            buttonPlay.BackColor = Color.OrangeRed;
+            buttonPlay.BackColor = Color.Coral;
             buttonPlay.FlatStyle = FlatStyle.Flat;
 
 
@@ -55,7 +55,7 @@ namespace SimpleAudioEditor.Controller.Editor
             // buttonStop.Click += buttonStop_Click;
             buttonStop.Parent = parent;
             buttonStop.Text = "■";
-            buttonStop.BackColor = Color.OrangeRed;
+            buttonStop.BackColor = Color.Coral;
             buttonStop.FlatStyle = FlatStyle.Flat;
 
             buttonOK = new Button();
@@ -64,7 +64,7 @@ namespace SimpleAudioEditor.Controller.Editor
             buttonOK.Click += buttonOK_Click;
             buttonOK.Parent = parent;
             buttonOK.Text = "✔";
-            buttonOK.BackColor = Color.OrangeRed;
+            buttonOK.BackColor = Color.Coral;
             buttonOK.FlatStyle = FlatStyle.Flat;
 
             buttonDelete = new Button();
@@ -73,10 +73,10 @@ namespace SimpleAudioEditor.Controller.Editor
             buttonDelete.Click += buttonDelete_Click;
             buttonDelete.Parent = parent;
             buttonDelete.Text = "×";
-            buttonDelete.BackColor = Color.OrangeRed;
+            buttonDelete.BackColor = Color.Coral;
             buttonDelete.FlatStyle = FlatStyle.Flat;
 
-            pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width + 10, location.Y);
+            pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width + 10, location.Y - 25);
 
             (pictureBox as Control).AllowDrop = true;
             lineStartPos = new Point(0, pictureBox.Size.Height - 10);
@@ -163,6 +163,7 @@ namespace SimpleAudioEditor.Controller.Editor
                 try
                 {
                     CreateSampleFile(segment.getFilePath, segment.SplitStartTimeFromSecond, segment.SplitEndTimeFromSecond, segment.getAllTimeFromSecond);
+                    MessageBox.Show("Композиция создана успешно.");
                 }
                 catch (Exception ex)
                 {

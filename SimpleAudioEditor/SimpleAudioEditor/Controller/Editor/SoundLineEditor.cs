@@ -7,6 +7,8 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System.Windows.Forms;
 using System.Drawing;
+using TagLib;
+using TagLib.Mpeg;
 
 namespace SimpleAudioEditor.Controller.Editor
 {
@@ -26,6 +28,7 @@ namespace SimpleAudioEditor.Controller.Editor
         Button buttonPlay;
         Button buttonStop;
         Point splitP1, splitP2;
+        Label name;
 
         // «Размер» объекта для мыши над целями.
         private const int object_radius = 6;
@@ -38,32 +41,52 @@ namespace SimpleAudioEditor.Controller.Editor
         {
             pictureBox = new PictureBox();
             pictureBox.Size = new System.Drawing.Size(playerWidth, 40);
-            soundLineStartPoint = new Point(10, pictureBox.Size.Height / 2);
-            soundLineEndPoint = new Point(pictureBox.Size.Width - 10, pictureBox.Size.Height / 2);
+            soundLineStartPoint = new Point(10, pictureBox.Size.Height / 2); //
+            soundLineEndPoint = new Point(pictureBox.Size.Width - 10, pictureBox.Size.Height / 2); //
             splitP1 = soundLineEndPoint;
             splitP2 = soundLineStartPoint;
             markerPoint = new Point(soundLineStartPoint.X, soundLineStartPoint.Y - (int)(object_radius * 2f));
 
+            ///
+            ///
+            ///
+            name = new Label();
+            AudioFile fileWithTags = new AudioFile(_filePath, ReadStyle.Average);
+            //name.Text = file.Tag.Performers[0] + " - " + file.Tag.Title;
+            if (fileWithTags.Tag.Performers != null && fileWithTags.Tag.Title != null)
+            {
+                name.Text = fileWithTags.Tag.Performers[0] + " - " + fileWithTags.Tag.Title;
+            } else {
+                string[] s =_filePath.Split('\\');
+                name.Text = s[s.Length - 1];
+            }
+            name.Location = location;
+            name.AutoSize = true;
+            name.Parent = parent;
+            name.SendToBack();
+            name.FlatStyle = FlatStyle.Standard;
+
+
             buttonPlay = new Button();
             buttonPlay.Size = new System.Drawing.Size(pictureBox.Size.Height, pictureBox.Size.Height);
-            buttonPlay.Location = location;
+            buttonPlay.Location = new Point(name.Location.X, location.Y + 23);
             buttonPlay.Parent = parent;
             buttonPlay.Click += buttonPlay_Click;
             buttonPlay.Text = ">";
-            buttonPlay.BackColor = Color.OrangeRed;
+            buttonPlay.BackColor = Color.Coral;
             buttonPlay.FlatStyle = FlatStyle.Flat;
 
 
             buttonStop = new Button();
             buttonStop.Size = buttonPlay.Size;
-            buttonStop.Location = new Point(buttonPlay.Location.X + buttonPlay.Size.Width, location.Y);
+            buttonStop.Location = new Point(buttonPlay.Location.X + buttonPlay.Size.Width, location.Y + 23);
             buttonStop.Click += buttonStop_Click;
             buttonStop.Parent = parent;
             buttonStop.Text = "■";
-            buttonStop.BackColor = Color.OrangeRed;
+            buttonStop.BackColor = Color.Coral;
             buttonStop.FlatStyle = FlatStyle.Flat;
 
-            pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width, location.Y);
+            pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width, location.Y + 23);
             pictureBox.Paint += pictureBox_Paint;
             pictureBox.MouseMove += pictureBox_MouseMove_NotDown;
             pictureBox.MouseDown += pictureBox_MouseDown;
