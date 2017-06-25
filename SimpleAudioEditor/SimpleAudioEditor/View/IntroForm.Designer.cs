@@ -30,27 +30,27 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IntroForm));
             this.panelPath = new System.Windows.Forms.Panel();
+            this.pictureboxWarning = new System.Windows.Forms.PictureBox();
             this.btnChoosePath = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.panelSamples = new System.Windows.Forms.Panel();
+            this.btnPlaySample = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.button13 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.layoutProjects = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBox_Divider = new System.Windows.Forms.GroupBox();
-            this.pictureboxWarning = new System.Windows.Forms.PictureBox();
             this.btnNewProject = new System.Windows.Forms.Button();
-            this.btnPlaySample = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
+            this.groupBox_Divider = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.labelProjectsPath = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelProjectsPath = new System.Windows.Forms.Label();
             this.panelPath.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).BeginInit();
             this.panelSamples.SuspendLayout();
             this.layoutProjects.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -64,6 +64,15 @@
             this.panelPath.Name = "panelPath";
             this.panelPath.Size = new System.Drawing.Size(181, 194);
             this.panelPath.TabIndex = 16;
+            // 
+            // pictureboxWarning
+            // 
+            this.pictureboxWarning.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Error_104;
+            this.pictureboxWarning.Location = new System.Drawing.Point(30, 5);
+            this.pictureboxWarning.Name = "pictureboxWarning";
+            this.pictureboxWarning.Size = new System.Drawing.Size(105, 99);
+            this.pictureboxWarning.TabIndex = 8;
+            this.pictureboxWarning.TabStop = false;
             // 
             // btnChoosePath
             // 
@@ -102,6 +111,21 @@
             this.panelSamples.Size = new System.Drawing.Size(214, 75);
             this.panelSamples.TabIndex = 15;
             // 
+            // btnPlaySample
+            // 
+            this.btnPlaySample.AccessibleName = "stop";
+            this.btnPlaySample.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.btnPlaySample.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Play_26;
+            this.btnPlaySample.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPlaySample.FlatAppearance.BorderSize = 0;
+            this.btnPlaySample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlaySample.Location = new System.Drawing.Point(185, 38);
+            this.btnPlaySample.Name = "btnPlaySample";
+            this.btnPlaySample.Size = new System.Drawing.Size(24, 24);
+            this.btnPlaySample.TabIndex = 7;
+            this.btnPlaySample.UseVisualStyleBackColor = false;
+            this.btnPlaySample.Click += new System.EventHandler(this.btnPlaySample_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -112,6 +136,19 @@
             this.label1.Size = new System.Drawing.Size(142, 16);
             this.label1.TabIndex = 5;
             this.label1.Text = "Прошлые сэмплы:";
+            // 
+            // button13
+            // 
+            this.button13.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button13.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Audio_Wave_26;
+            this.button13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button13.FlatAppearance.BorderSize = 0;
+            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button13.Location = new System.Drawing.Point(8, 38);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(24, 22);
+            this.button13.TabIndex = 0;
+            this.button13.UseVisualStyleBackColor = false;
             // 
             // label2
             // 
@@ -134,6 +171,24 @@
             this.layoutProjects.Size = new System.Drawing.Size(458, 359);
             this.layoutProjects.TabIndex = 14;
             // 
+            // btnNewProject
+            // 
+            this.btnNewProject.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.btnNewProject.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Add_Folder_104;
+            this.btnNewProject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnNewProject.FlatAppearance.BorderSize = 0;
+            this.btnNewProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewProject.Font = new System.Drawing.Font("Microsoft New Tai Lue", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnNewProject.ForeColor = System.Drawing.Color.Linen;
+            this.btnNewProject.Location = new System.Drawing.Point(10, 10);
+            this.btnNewProject.Margin = new System.Windows.Forms.Padding(10, 10, 0, 10);
+            this.btnNewProject.Name = "btnNewProject";
+            this.btnNewProject.Size = new System.Drawing.Size(100, 100);
+            this.btnNewProject.TabIndex = 1;
+            this.btnNewProject.Text = "Новый\r\nпроект\r\n\r\n";
+            this.btnNewProject.UseVisualStyleBackColor = false;
+            this.btnNewProject.Click += new System.EventHandler(this.btnNewProject_Click);
+            // 
             // groupBox_Divider
             // 
             this.groupBox_Divider.BackColor = System.Drawing.Color.Chocolate;
@@ -145,60 +200,6 @@
             this.groupBox_Divider.Size = new System.Drawing.Size(2, 385);
             this.groupBox_Divider.TabIndex = 13;
             this.groupBox_Divider.TabStop = false;
-            // 
-            // pictureboxWarning
-            // 
-            this.pictureboxWarning.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Error_104;
-            this.pictureboxWarning.Location = new System.Drawing.Point(30, 5);
-            this.pictureboxWarning.Name = "pictureboxWarning";
-            this.pictureboxWarning.Size = new System.Drawing.Size(105, 99);
-            this.pictureboxWarning.TabIndex = 8;
-            this.pictureboxWarning.TabStop = false;
-            // 
-            // btnNewProject
-            // 
-            this.btnNewProject.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.btnNewProject.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Add_Folder_104;
-            this.btnNewProject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnNewProject.FlatAppearance.BorderSize = 0;
-            this.btnNewProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNewProject.Font = new System.Drawing.Font("Microsoft New Tai Lue", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnNewProject.ForeColor = System.Drawing.Color.Linen;
-            this.btnNewProject.Location = new System.Drawing.Point(10, 15);
-            this.btnNewProject.Margin = new System.Windows.Forms.Padding(10, 15, 25, 10);
-            this.btnNewProject.Name = "btnNewProject";
-            this.btnNewProject.Size = new System.Drawing.Size(100, 100);
-            this.btnNewProject.TabIndex = 1;
-            this.btnNewProject.Text = "Новый\r\nпроект\r\n\r\n";
-            this.btnNewProject.UseVisualStyleBackColor = false;
-            this.btnNewProject.Click += new System.EventHandler(this.btnNewProject_Click);
-            // 
-            // btnPlaySample
-            // 
-            this.btnPlaySample.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.btnPlaySample.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Pause_48;
-            this.btnPlaySample.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPlaySample.FlatAppearance.BorderSize = 0;
-            this.btnPlaySample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPlaySample.Location = new System.Drawing.Point(185, 38);
-            this.btnPlaySample.Name = "btnPlaySample";
-            this.btnPlaySample.Size = new System.Drawing.Size(24, 24);
-            this.btnPlaySample.TabIndex = 7;
-            this.btnPlaySample.UseVisualStyleBackColor = false;
-            this.btnPlaySample.Click += new System.EventHandler(this.btnPlaySample_Click);
-            // 
-            // button13
-            // 
-            this.button13.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.button13.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Audio_Wave_26;
-            this.button13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button13.FlatAppearance.BorderSize = 0;
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.Location = new System.Drawing.Point(8, 38);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(24, 22);
-            this.button13.TabIndex = 0;
-            this.button13.UseVisualStyleBackColor = false;
             // 
             // groupBox1
             // 
@@ -223,16 +224,6 @@
             this.panel1.Size = new System.Drawing.Size(735, 37);
             this.panel1.TabIndex = 17;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(272, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(36, 34);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -244,16 +235,15 @@
             this.label3.TabIndex = 1;
             this.label3.Text = "Peach Editor";
             // 
-            // labelProjectsPath
+            // pictureBox1
             // 
-            this.labelProjectsPath.AutoSize = true;
-            this.labelProjectsPath.BackColor = System.Drawing.Color.Transparent;
-            this.labelProjectsPath.ForeColor = System.Drawing.SystemColors.Menu;
-            this.labelProjectsPath.Location = new System.Drawing.Point(-1, 425);
-            this.labelProjectsPath.Name = "labelProjectsPath";
-            this.labelProjectsPath.Size = new System.Drawing.Size(128, 13);
-            this.labelProjectsPath.TabIndex = 18;
-            this.labelProjectsPath.Text = "Путь с проектами: none";
+            this.pictureBox1.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(272, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(36, 34);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // groupBox2
             // 
@@ -266,6 +256,17 @@
             this.groupBox2.Size = new System.Drawing.Size(725, 1);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
+            // 
+            // labelProjectsPath
+            // 
+            this.labelProjectsPath.AutoSize = true;
+            this.labelProjectsPath.BackColor = System.Drawing.Color.Transparent;
+            this.labelProjectsPath.ForeColor = System.Drawing.SystemColors.Menu;
+            this.labelProjectsPath.Location = new System.Drawing.Point(-1, 425);
+            this.labelProjectsPath.Name = "labelProjectsPath";
+            this.labelProjectsPath.Size = new System.Drawing.Size(128, 13);
+            this.labelProjectsPath.TabIndex = 18;
+            this.labelProjectsPath.Text = "Путь с проектами: none";
             // 
             // IntroForm
             // 
@@ -284,14 +285,12 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IntroForm";
             this.Text = "Peach editor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IntroForm_FormClosing);
-            this.Load += new System.EventHandler(this.IntroForm_Load);
             this.panelPath.ResumeLayout(false);
             this.panelPath.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).EndInit();
             this.panelSamples.ResumeLayout(false);
             this.panelSamples.PerformLayout();
             this.layoutProjects.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

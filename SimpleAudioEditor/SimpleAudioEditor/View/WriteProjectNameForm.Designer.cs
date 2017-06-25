@@ -90,16 +90,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(274, 119);
-            this.ControlBox = false;
             this.Controls.Add(this.butCancle);
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.LabText);
             this.Controls.Add(this.tBName);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.ForeColor = System.Drawing.Color.OrangeRed;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "WriteProjectNameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.WriteProjectNameForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

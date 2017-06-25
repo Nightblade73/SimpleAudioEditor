@@ -16,14 +16,17 @@ namespace SimpleAudioEditor.Controller
 
         /* Создает пустой проект
          */
-        public Project()
+        public Project(String title, Primary prim)
         {
-            
+            this.listSamples = new List<Sample>();
+            this.title = title;
+            this.path = prim.progPath + "\\" + title;
         }
         /* Загрузить проект из папки path
          */
         public Project(String path)
         {
+            this.listSamples = new List<Sample>();
             this.title = Path.GetFileName(path);
             this.path = path;
         }

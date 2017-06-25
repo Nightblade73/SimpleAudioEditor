@@ -13,36 +13,28 @@ namespace SimpleAudioEditor.View
 {
     public partial class WriteProjectNameForm : Form
     {
-        public Project pr;
+        public String title;
 
         public WriteProjectNameForm()
         {
-            InitializeComponent();
-        }
-        public WriteProjectNameForm(Project pr)
-        {
-            this.pr = pr;
             InitializeComponent();
         }
 
         private void butOK_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-            if (pr == null)
-            {
-                ///что то было
-            } else
-            {
-                pr.title = tBName.Text;
-            }
-            Dispose();
-
+            this.title = tBName.Text;
         }
 
         private void butCancle_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             Dispose();
+        }
+
+        private void WriteProjectNameForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -383,37 +383,39 @@ namespace SimpleAudioEditor.Controller.Editor
             //SetSegmentEndPoints();
             int x = 0;
 
-
-            for (int i = 0; i < project.listSamples.Count(); i++)
+            if (project.listSamples.Count() > 0)
             {
-                //   MessageBox.Show("" + listSegment[i].indexQueue);
-                // listSegment[i].LeghtFromSecond;
-                //     MessageBox.Show(""+(listSegment[i].LeghtFromSecond / maxLeghtOutFromSecond));
-                if (MovingSegment != i)
+                for (int i = 0; i < project.listSamples.Count(); i++)
                 {
-                    e.Graphics.DrawLine(orangePen, new Point(x, lineStartPos.Y)
+                    //   MessageBox.Show("" + listSegment[i].indexQueue);
+                    // listSegment[i].LeghtFromSecond;
+                    //     MessageBox.Show(""+(listSegment[i].LeghtFromSecond / maxLeghtOutFromSecond));
+                    if (MovingSegment != i)
+                    {
+                        e.Graphics.DrawLine(orangePen, new Point(x, lineStartPos.Y)
 
-                    , new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond), lineStartPos.Y));
-                    e.Graphics.DrawLine(orangePen, new Point(x + penWidth / 2, lineStartPos.Y + 5), new Point(x + penWidth / 2, lineStartPos.Y - 5));
-                    e.Graphics.DrawLine(darkGreyPen, new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y + 5), new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y - 5));
+                        , new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond), lineStartPos.Y));
+                        e.Graphics.DrawLine(orangePen, new Point(x + penWidth / 2, lineStartPos.Y + 5), new Point(x + penWidth / 2, lineStartPos.Y - 5));
+                        e.Graphics.DrawLine(darkGreyPen, new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y + 5), new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y - 5));
 
+
+                    }
+                    else
+                    {
+                        Pen colorRed = new Pen(Color.OrangeRed, 3);
+                        e.Graphics.DrawLine(colorRed, new Point(x, lineStartPos.Y)
+                                        , new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond), lineStartPos.Y));
+
+                        e.Graphics.DrawLine(colorRed, new Point(x + penWidth / 2, lineStartPos.Y + 5), new Point(x + penWidth / 2, lineStartPos.Y - 5));
+                        e.Graphics.DrawLine(colorRed, new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y + 5), new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y - 5));
+
+                    }
+
+
+
+                    x += (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond);
 
                 }
-                else
-                {
-                    Pen colorRed = new Pen(Color.OrangeRed, 3);
-                    e.Graphics.DrawLine(colorRed, new Point(x, lineStartPos.Y)
-                                    , new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond), lineStartPos.Y));
-
-                    e.Graphics.DrawLine(colorRed, new Point(x + penWidth / 2, lineStartPos.Y + 5), new Point(x + penWidth / 2, lineStartPos.Y - 5));
-                    e.Graphics.DrawLine(colorRed, new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y + 5), new Point(x + (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond) - penWidth / 2, lineStartPos.Y - 5));
-
-                }
-
-
-
-                x += (int)(leghtLine * project.listSamples[i].LeghtFromSecond / maxLeghtOutFromSecond);
-
             }
         }
     }

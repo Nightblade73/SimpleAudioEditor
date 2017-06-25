@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.Controller
 {
-    class Primary
+    public class Primary
     {
         public String progPath;
         public List<Project> projects;
