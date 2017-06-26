@@ -95,43 +95,49 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\Editor\MainSoundLine.cs" />
-    <Compile Include="Controller\Editor\SoundLineEditor.cs" />
-    <Compile Include="Controller\Primary.cs" />
-    <Compile Include="Controller\Project.cs" />
-    <Compile Include="Controller\Sample.cs" />
-    <Compile Include="Controller\WaveController\MusicPlayer.cs">
+    <Compile Include="OldFiles\Controller\Editor\MainSoundLine.cs" />
+    <Compile Include="OldFiles\Controller\Editor\SoundLineEditor.cs" />
+    <Compile Include="OldFiles\Controller\Primary.cs" />
+    <Compile Include="OldFiles\Controller\Project.cs" />
+    <Compile Include="OldFiles\Controller\Sample.cs" />
+    <Compile Include="OldFiles\Controller\WaveController\MusicPlayer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controller\WaveController\RawDataReader.cs" />
-    <Compile Include="Controller\WaveController\SampleController.cs" />
-    <Compile Include="View\IntroForm.cs">
+    <Compile Include="OldFiles\Controller\WaveController\RawDataReader.cs" />
+    <Compile Include="OldFiles\Controller\WaveController\SampleController.cs" />
+    <Compile Include="PeachStudio\IntroForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\IntroForm.Designer.cs">
+    <Compile Include="PeachStudio\IntroForm.Designer.cs">
       <DependentUpon>IntroForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PeachStudio\Project.cs" />
+    <Compile Include="PeachStudio\ProjectControl.cs" />
+    <Compile Include="PeachStudio\ProjectPlayer.cs" />
+    <Compile Include="PeachStudio\Sample.cs" />
+    <Compile Include="PeachStudio\SampleControl.cs" />
+    <Compile Include="PeachStudio\SamplePlayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\NewPlayerForm.cs">
+    <Compile Include="OldFiles\View\NewPlayerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\NewPlayerForm.Designer.cs">
+    <Compile Include="OldFiles\View\NewPlayerForm.Designer.cs">
       <DependentUpon>NewPlayerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\ProjectButton.cs">
+    <Compile Include="OldFiles\View\ProjectButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="View\SampleLineEditor.cs">
+    <Compile Include="OldFiles\View\SampleLineEditor.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="View\WriteProjectNameForm.cs">
+    <Compile Include="PeachStudio\WriteProjectNameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\WriteProjectNameForm.Designer.cs">
+    <Compile Include="PeachStudio\WriteProjectNameForm.Designer.cs">
       <DependentUpon>WriteProjectNameForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\IntroForm.resx">
+    <EmbeddedResource Include="PeachStudio\IntroForm.resx">
       <DependentUpon>IntroForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -144,10 +150,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="View\NewPlayerForm.resx">
+    <EmbeddedResource Include="OldFiles\View\NewPlayerForm.resx">
       <DependentUpon>NewPlayerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\WriteProjectNameForm.resx">
+    <EmbeddedResource Include="PeachStudio\WriteProjectNameForm.resx">
       <DependentUpon>WriteProjectNameForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -185,10 +191,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bitmaps\media_play_green.png" />
+    <None Include="OldFiles\Bitmaps\media_play_green.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bitmaps\media_stop_red.png" />
+    <None Include="OldFiles\Bitmaps\media_stop_red.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8-Peach-48.ico" />
@@ -219,7 +225,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
+    <Folder Include="OldFiles\Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
