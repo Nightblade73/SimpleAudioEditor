@@ -25,7 +25,7 @@ namespace SimpleAudioEditor.View
             ToolTip t = new ToolTip();
             if(tBName.Text.Equals(""))
             {
-                t.Show("Имя проекта не может быть пустой или содержать символы: '.', '*', '/'", tBName);  //какие ещё символы?
+                t.Show("Имя проекта не может быть пустым или содержать символы: '.', '*', '/'", tBName);  //какие ещё символы?
             }
             else
             {
