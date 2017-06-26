@@ -12,12 +12,12 @@ namespace SimpleAudioEditor.Controller
     public class Primary
     {
         public String progPath;
-        public List<Project> projects;
+        public List<string> projectsPath;
 
         public Primary()
         {
             progPath = GetProgrammPath();
-            projects = new List<Project>();
+            projectsPath = new List<string>();
             LoadProjects();
         }
         private void LoadProjects()
@@ -28,7 +28,7 @@ namespace SimpleAudioEditor.Controller
                 String[] folders = Directory.GetDirectories(progPath);
                 foreach (String folder in folders)
                 {
-                    projects.Add(new Project(folder));
+                    projectsPath.Add(folder);
                 }
             }
         }

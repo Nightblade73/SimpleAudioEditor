@@ -47,7 +47,8 @@ namespace SimpleAudioEditor
         private void btnExistingProject_Click(object sender, EventArgs e)
         {
             ProjectButton p = sender as ProjectButton;
-            main.project = p.pr;
+            string s = p.Text;
+            //main.project = DESERIALIZE(s);
             this.DialogResult = DialogResult.OK;
             this.Dispose();
         }
@@ -80,12 +81,12 @@ namespace SimpleAudioEditor
         }
         private void DrawFolders()
         {
-            if (main.primary.projects.Count > 0)
+            if (main.primary.projectsPath.Count > 0)
             {
-                foreach (Project p in main.primary.projects)
+                foreach (string s in main.primary.projectsPath)
                 {
-                    Console.WriteLine(p.title);
-                    ProjectButton btn = new ProjectButton(p);
+                    Console.WriteLine(s);
+                    ProjectButton btn = new ProjectButton(s);
 
                     btn.Click += btnExistingProject_Click;
                     layoutProjects.Controls.Add(btn);
