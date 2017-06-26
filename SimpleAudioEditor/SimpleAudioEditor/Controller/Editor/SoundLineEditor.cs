@@ -13,7 +13,7 @@ using TagLib.Mpeg;
 
 namespace SimpleAudioEditor.Controller.Editor
 {
-    class SoundLineEditor
+    public class SoundLineEditor
     {
         double soundTotalTime;
         string filePath;
