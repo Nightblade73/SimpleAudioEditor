@@ -1,6 +1,7 @@
 ﻿using SimpleAudioEditor.Controller;
 using SimpleAudioEditor.Controller.Editor;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,28 @@ namespace SimpleAudioEditor.View
         public Primary primary;
         public Project project;
         int x = 6;
+        int pauseX = 6;
+        string pathToPause;
+        string[] pauses;
+
+        private void getPauses() {
+            try
+            {
+                string dir = Directory.GetCurrentDirectory() + "\\Pauses";
+                pauses = Directory.GetFiles(dir);
+
+                for (int i = 0; i < pauses.Length; i++)
+                {
+                    string s = pauses[i];
+                    string[] temp = s.Split('\\');
+
+                    comboBox1.Items.Add(temp[temp.Length - 1]);
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         public NewPlayerForm()
         {
@@ -50,7 +73,17 @@ namespace SimpleAudioEditor.View
                 return;
             }
             this.Text = project.title;
-            m = new MainSoundLine(700, 80, panelMain, new Point(0, 0), project);
+
+            m = new MainSoundLine(660, 75, panelMain, new Point(0, 0), project);
+
+            try
+            {
+                getPauses();
+                comboBox1.SelectedIndex = 0;
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void buttonAddSample_Click(object sender, EventArgs e)
@@ -66,9 +99,29 @@ namespace SimpleAudioEditor.View
                     //Sample samp = new Sample(ofd.FileNames[i]);
                     //layoutSamples.Controls.Add(samp.lineEditor);
                     SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 640, project);
-                    x += 106;
+                    x += 116;
+                    pauseX = x;
                 }
+                MessageBox.Show("Загружено");
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pathToPause = pauses[comboBox1.SelectedIndex];
+        }
+
+        private void buttonAddPause_Click(object sender, EventArgs e)
+        {
+            AddPause(pathToPause);
+        }
+
+        private void AddPause(string pathToPause)
+        {
+            SoundLineEditor s = new SoundLineEditor(pathToPause, panelSamples, new Point(6, pauseX), 640, project);
+            pauseX += 116;
+
+            MessageBox.Show("Пауза загружена");
         }
     }
 

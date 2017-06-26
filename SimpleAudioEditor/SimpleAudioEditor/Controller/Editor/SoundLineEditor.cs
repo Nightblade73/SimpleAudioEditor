@@ -61,7 +61,6 @@ namespace SimpleAudioEditor.Controller.Editor
             splitP2 = soundLineStartPoint;
             markerPoint = new Point(soundLineStartPoint.X, soundLineStartPoint.Y - (int)(object_radius * 2f));
 
-            ///
             name = new Label();
             AudioFile fileWithTags = new AudioFile(_filePath, ReadStyle.Average);
             if (fileWithTags.Tag.Performers != null && fileWithTags.Tag.Title != null)
@@ -71,7 +70,7 @@ namespace SimpleAudioEditor.Controller.Editor
                 string[] s = _filePath.Split('\\');
                 name.Text = s[s.Length - 1];
             }
-            name.Location = location;
+            name.Location = new Point(location.X + 48, location.Y);
             name.AutoSize = true;
             name.Parent = parent;
             name.SendToBack();
@@ -80,7 +79,7 @@ namespace SimpleAudioEditor.Controller.Editor
 
             buttonPlay = new Button();
             buttonPlay.Size = new System.Drawing.Size(pictureBox.Size.Height / 2, pictureBox.Size.Height / 2);
-            buttonPlay.Location = location;
+            buttonPlay.Location = new Point(location.X, location.Y + 15);
             buttonPlay.Parent = parent;
             buttonPlay.Click += buttonPlay_Click;
             buttonPlay.Text = ">";
@@ -89,14 +88,14 @@ namespace SimpleAudioEditor.Controller.Editor
 
             buttonStop = new Button();
             buttonStop.Size = buttonPlay.Size;
-            buttonStop.Location = new Point(buttonPlay.Location.X, location.Y + buttonPlay.Size.Width);
+            buttonStop.Location = new Point(buttonPlay.Location.X, location.Y + buttonPlay.Size.Width + 15);
             buttonStop.Click += buttonStop_Click;
             buttonStop.Parent = parent;
             buttonStop.Text = "■";
             buttonStop.BackColor = Color.OrangeRed;
             buttonStop.FlatStyle = FlatStyle.Flat;
 
-            pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width, location.Y);
+            pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width, location.Y + 15);
             pictureBox.Paint += pictureBox_Paint;
             pictureBox.MouseMove += pictureBox_MouseMove_NotDown;
             pictureBox.MouseDown += pictureBox_MouseDown;
@@ -938,50 +937,50 @@ namespace SimpleAudioEditor.Controller.Editor
 
         //}
 
-        private string mRawFileName;
+        //private string mRawFileName;
 
-        private void CreateOptimizedArray()
-        {
-            mDrawSource = CodecFactory.Instance.GetCodec(filePath).ToSampleSource().ToMono();
-            long offset = 0;
-            long numSamples = mDrawSource.Length;
-            int x = 0;
-            int y = 0;
-            //Nth item holds maxVal, N+1th item holds minVal so allocate an array of double size
-            mOptimizedArray = new float[((numSamples / mThresholdSample) + 1) * 2];
-            float[] data = new float[mThresholdSample];
-            int samplesRead = 1;
-            mDrawSource.Position = 0;
-            string rawFilePath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\SoundFactory\";
-            if (!Directory.Exists(rawFilePath)) Directory.CreateDirectory(rawFilePath);
-            mRawFileName = rawFilePath + Guid.NewGuid().ToString() + ".raw";
-            FileStream rawFile = new FileStream(mRawFileName, FileMode.Create, FileAccess.ReadWrite);
-            BinaryWriter bin = new BinaryWriter(rawFile);
-            while (offset < numSamples && samplesRead > 0)
-            {
-                samplesRead = mDrawSource.Read(data, 0, mThresholdSample);
-                if (samplesRead > 0) //for some files file length is wrong so samplesRead may become 0 even if we did not come to the end of the file
-                {
-                    for (int i = 0; i < samplesRead; i++)
-                    {
-                        bin.Write(data[i]);
-                    }
-                    float maxVal = -1;
-                    float minVal = 1;
-                    // finds the max & min peaks for this pixel 
-                    for (x = 0; x < samplesRead; x++)
-                    {
-                        maxVal = Math.Max(maxVal, data[x]);
-                        minVal = Math.Min(minVal, data[x]);
-                    }
-                    mOptimizedArray[y] = minVal;
-                    mOptimizedArray[y + 1] = maxVal;
-                    y += 2;
-                    offset += samplesRead;
-                    //mProgressStatus = (int)(((float)offset / numSamples) * 100);
-                }
-            }
-        }
+        //private void CreateOptimizedArray()
+        //{
+        //    mDrawSource = CodecFactory.Instance.GetCodec(filePath).ToSampleSource().ToMono();
+        //    long offset = 0;
+        //    long numSamples = mDrawSource.Length;
+        //    int x = 0;
+        //    int y = 0;
+        //    //Nth item holds maxVal, N+1th item holds minVal so allocate an array of double size
+        //    mOptimizedArray = new float[((numSamples / mThresholdSample) + 1) * 2];
+        //    float[] data = new float[mThresholdSample];
+        //    int samplesRead = 1;
+        //    mDrawSource.Position = 0;
+        //    string rawFilePath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\SoundFactory\";
+        //    if (!Directory.Exists(rawFilePath)) Directory.CreateDirectory(rawFilePath);
+        //    mRawFileName = rawFilePath + Guid.NewGuid().ToString() + ".raw";
+        //    FileStream rawFile = new FileStream(mRawFileName, FileMode.Create, FileAccess.ReadWrite);
+        //    BinaryWriter bin = new BinaryWriter(rawFile);
+        //    while (offset < numSamples && samplesRead > 0)
+        //    {
+        //        samplesRead = mDrawSource.Read(data, 0, mThresholdSample);
+        //        if (samplesRead > 0) //for some files file length is wrong so samplesRead may become 0 even if we did not come to the end of the file
+        //        {
+        //            for (int i = 0; i < samplesRead; i++)
+        //            {
+        //                bin.Write(data[i]);
+        //            }
+        //            float maxVal = -1;
+        //            float minVal = 1;
+        //            // finds the max & min peaks for this pixel 
+        //            for (x = 0; x < samplesRead; x++)
+        //            {
+        //                maxVal = Math.Max(maxVal, data[x]);
+        //                minVal = Math.Min(minVal, data[x]);
+        //            }
+        //            mOptimizedArray[y] = minVal;
+        //            mOptimizedArray[y + 1] = maxVal;
+        //            y += 2;
+        //            offset += samplesRead;
+        //            //mProgressStatus = (int)(((float)offset / numSamples) * 100);
+        //        }
+        //    }
+        //}
 
         private Bitmap DrawWave(Pen pen, int w, int h)
         {
@@ -1110,6 +1109,51 @@ namespace SimpleAudioEditor.Controller.Editor
 
             return mBitmap;
 
+        }
+
+        private string mRawFileName;
+        private void CreateOptimizedArray()
+        {
+            mDrawSource = CodecFactory.Instance.GetCodec(filePath).ToSampleSource().ToMono();
+            long offset = 0;
+            long numSamples = mDrawSource.Length;
+            int x = 0;
+            int y = 0;
+            //Nth item holds maxVal, N+1th item holds minVal so allocate an array of double size
+            mOptimizedArray = new float[((numSamples / mThresholdSample) + 1) * 2];
+            float[] data = new float[mThresholdSample];
+            int samplesRead = 1;
+            mDrawSource.Position = 0;
+            string rawFilePath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\SoundFactory\";
+            if (!Directory.Exists(rawFilePath)) Directory.CreateDirectory(rawFilePath);
+            mRawFileName = rawFilePath + Guid.NewGuid().ToString() + ".raw";
+            FileStream rawFile = new FileStream(mRawFileName, FileMode.Create, FileAccess.ReadWrite);
+            BinaryWriter bin = new BinaryWriter(rawFile);
+            while (offset < numSamples && samplesRead > 0)
+            {
+                samplesRead = mDrawSource.Read(data, 0, mThresholdSample);
+                if (samplesRead > 0) //for some files file length is wrong so samplesRead may become 0 even if we did not come to the end of the file
+                {
+                    for (int i = 0; i < samplesRead; i++)
+                    {
+                        bin.Write(data[i]);
+                    }
+                    float maxVal = -1;
+                    float minVal = 1;
+                    // finds the max & min peaks for this pixel 
+                    for (x = 0; x < samplesRead; x++)
+                    {
+                        maxVal = Math.Max(maxVal, data[x]);
+                        minVal = Math.Min(minVal, data[x]);
+                    }
+                    mOptimizedArray[y] = minVal;
+                    mOptimizedArray[y + 1] = maxVal;
+                    y += 2;
+                    offset += samplesRead;
+                    //mProgressStatus = (int)(((float)offset / numSamples) * 100);
+                }
+            }
+            rawFile.Close();
         }
 
         private double FindDistanceToSegmentSquared(Point pt, Point p1, Point p2, out PointF closest)
