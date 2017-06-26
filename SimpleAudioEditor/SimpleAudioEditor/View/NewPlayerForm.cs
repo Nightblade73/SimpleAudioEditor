@@ -22,8 +22,25 @@ namespace SimpleAudioEditor.View
         public NewPlayerForm()
         {
             InitializeComponent();
+            panelSamples.AutoScroll = false;
+            panelSamples.HorizontalScroll.Enabled = false;
+            panelSamples.HorizontalScroll.Visible = false;
+            panelSamples.HorizontalScroll.Maximum = 0;
+            panelSamples.AutoScroll = true;
+
+            /*
+            var ofd = new OpenFileDialog();
+            ofd.Filter = "Cursor Files|*.mp3;*.wav";
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ClassTest ct = new ClassTest(ofd.FileName);
+                
+
+            }
+            */
             primary = new Primary();
         }
+
         private void Form_Load(object sender, EventArgs e)
         {
             if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
@@ -32,10 +49,12 @@ namespace SimpleAudioEditor.View
                 return;
             }
             this.Text = project.title;
-            m = new MainSoundLine(660, 75, panelMain, new Point(0, 0), project);
+            m = new MainSoundLine(700, 80, panelMain, new Point(0, 0), project);
         }
+
         private void buttonAddSample_Click(object sender, EventArgs e)
         {
+
             var ofd = new OpenFileDialog();
             ofd.Filter = "Cursor Files|*.mp3;*.wav";
             ofd.Multiselect = true;
@@ -47,8 +66,9 @@ namespace SimpleAudioEditor.View
                     x += 106;
                 }
                 MessageBox.Show("Загружено");
-
             }
         }
     }
+
 }
+

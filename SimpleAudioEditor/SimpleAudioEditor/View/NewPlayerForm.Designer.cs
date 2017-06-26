@@ -54,7 +54,9 @@
             // 
             this.buttonAddSample.BackColor = System.Drawing.Color.OrangeRed;
             this.buttonAddSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+
             this.buttonAddSample.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+
             this.buttonAddSample.Location = new System.Drawing.Point(12, 110);
             this.buttonAddSample.Name = "buttonAddSample";
             this.buttonAddSample.Size = new System.Drawing.Size(126, 23);
@@ -72,7 +74,9 @@
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelSamples);
             this.Controls.Add(this.buttonAddSample);
+
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NewPlayerForm";
             this.Text = "Peach Editor";

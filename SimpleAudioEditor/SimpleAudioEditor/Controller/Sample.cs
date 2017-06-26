@@ -15,6 +15,8 @@ namespace SimpleAudioEditor.Controller
          * (не обрезанной)
          */
         private  String soundPath;
+        private Bitmap frequencyBitMap;
+        
         /* Путь к сэмплу (обрезанной звуковой дорожке)
          * для каждого сэмпла, нужно создавать новый _экземпляр_ оригинальной дорожки
          */
@@ -25,6 +27,11 @@ namespace SimpleAudioEditor.Controller
         private double splitStartTimeFromSecond;
         private double allTimeFromSecond;
         private int indexQueue;
+
+        public Bitmap FrequencyBitMap
+        {
+            get { return frequencyBitMap; }
+        }
 
         public string Title
         {
@@ -104,13 +111,14 @@ namespace SimpleAudioEditor.Controller
 
         }
 
-        public Sample(double _splitStartTimeFromSecond, double _splitEndTimeFromSecond, double _allTimeFromSecond, string _soundPath, Project _project)
+        public Sample(double _splitStartTimeFromSecond, double _splitEndTimeFromSecond, double _allTimeFromSecond, string _soundPath, Project _project, Bitmap _frequencyBitMap)
         {
             splitStartTimeFromSecond = _splitStartTimeFromSecond;
             splitEndTimeFromSecond = _splitEndTimeFromSecond;
             allTimeFromSecond = _allTimeFromSecond;
             soundPath = _soundPath;
             project = _project;
+            frequencyBitMap = _frequencyBitMap;
         }
 
         public int CompareTo(Sample other)
@@ -122,6 +130,30 @@ namespace SimpleAudioEditor.Controller
 
             else
                 return this.indexQueue.CompareTo(other.indexQueue);
+        }
+
+        public void ResizeBitMap(Size size)
+        {
+            frequencyBitMap = ResizeImage(frequencyBitMap, size);
+        }
+
+        private static Bitmap ResizeImage(Bitmap imgToResize, Size size)
+        {
+            try
+            {
+                Bitmap b = new Bitmap(size.Width, size.Height);
+                using (Graphics g = Graphics.FromImage((Image)b))
+                {
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(imgToResize, 0, 0, size.Width, size.Height);
+                }
+                return b;
+            }
+            catch
+            {
+                Console.WriteLine("Bitmap could not be resized");
+                return imgToResize;
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,11 @@ namespace SimpleAudioEditor.Model {
         public static readonly int NewSamplesWidth = 600;
         public static string ProjectName = "Name";
         private static int indexCutFile = 0;
+        public static readonly double maxLeghtOutFromSecond = 300;
+        public static readonly int MailnLinePerPixel = 600;
+
+        public static readonly Color myColor = Color.OrangeRed;
+
         public static readonly string ExceptionError = "Вы не можете получить доступ к файлу, " +
             "попробуйте через 5 секунд";
 
