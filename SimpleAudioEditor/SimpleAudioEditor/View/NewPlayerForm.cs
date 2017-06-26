@@ -62,10 +62,11 @@ namespace SimpleAudioEditor.View
             {
                 for (int i = 0; i < ofd.FileNames.Length; i++)
                 {
-                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 640, project);
+                    Sample samp = new Sample(ofd.FileNames[i]);
+                    layoutSamples.Controls.Add(samp.lineEditor);
+                    //SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 640, project);
                     x += 106;
                 }
-                MessageBox.Show("Загружено");
             }
         }
     }

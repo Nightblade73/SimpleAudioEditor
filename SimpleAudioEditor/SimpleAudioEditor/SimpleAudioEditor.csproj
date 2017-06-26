@@ -122,6 +122,9 @@
     <Compile Include="View\ProjectButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="View\SampleLineEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\WriteProjectNameForm.cs">
       <SubType>Form</SubType>
     </Compile>
