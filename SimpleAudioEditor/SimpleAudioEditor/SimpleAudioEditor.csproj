@@ -97,7 +97,6 @@
   <ItemGroup>
     <Compile Include="OldFiles\Controller\Editor\MainSoundLine.cs" />
     <Compile Include="OldFiles\Controller\Editor\SoundLineEditor.cs" />
-    <Compile Include="OldFiles\Controller\Primary.cs" />
     <Compile Include="OldFiles\Controller\Project.cs" />
     <Compile Include="OldFiles\Controller\Sample.cs" />
     <Compile Include="OldFiles\Controller\WaveController\MusicPlayer.cs">
@@ -111,11 +110,22 @@
     <Compile Include="PeachStudio\IntroForm.Designer.cs">
       <DependentUpon>IntroForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PeachStudio\Primary.cs" />
     <Compile Include="PeachStudio\Project.cs" />
-    <Compile Include="PeachStudio\ProjectControl.cs" />
+    <Compile Include="PeachStudio\ProjectControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PeachStudio\ProjectControl.Designer.cs">
+      <DependentUpon>ProjectControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="PeachStudio\ProjectPlayer.cs" />
     <Compile Include="PeachStudio\Sample.cs" />
-    <Compile Include="PeachStudio\SampleControl.cs" />
+    <Compile Include="PeachStudio\SampleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PeachStudio\SampleControl.Designer.cs">
+      <DependentUpon>SampleControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="PeachStudio\SamplePlayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

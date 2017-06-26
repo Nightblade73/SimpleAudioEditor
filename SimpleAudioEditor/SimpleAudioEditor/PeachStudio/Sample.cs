@@ -6,5 +6,11 @@ using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.PeachStudio {
     class Sample {
+        string soundPath;
+        TimeSpan splitStartTime;
+        TimeSpan splitEndTime;
+        TimeSpan currentTime;
+        TimeSpan totalTime;
+        float[] optimizedArray;
     }
 }
