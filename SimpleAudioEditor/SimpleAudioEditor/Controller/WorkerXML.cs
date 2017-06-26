@@ -26,5 +26,16 @@ namespace SimpleAudioEditor.Controller
             }
             return "Все ок";
         }
+
+        public static Project Deserialize()
+        {
+            Project project = null;
+            XmlSerializer serializer = new XmlSerializer(typeof(Project));
+            StreamReader reader = new StreamReader(new Primary().GetProgrammPath());
+            reader.ReadToEnd();
+            project = (Project)serializer.Deserialize(reader);
+            reader.Close();
+            return project;
+        }
     }
 }

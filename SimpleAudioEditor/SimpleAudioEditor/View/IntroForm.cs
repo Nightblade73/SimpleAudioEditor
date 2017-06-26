@@ -47,6 +47,7 @@ namespace SimpleAudioEditor
         private void btnExistingProject_Click(object sender, EventArgs e)
         {
             ProjectButton p = sender as ProjectButton;
+
             string s = p.Text;
             //main.project = DESERIALIZE(s);
             this.DialogResult = DialogResult.OK;
