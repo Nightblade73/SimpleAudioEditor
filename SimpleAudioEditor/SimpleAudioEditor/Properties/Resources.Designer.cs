@@ -93,6 +93,16 @@ namespace SimpleAudioEditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_Folder_104 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-Folder-104", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_Pause_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-Pause-48", resourceCulture);

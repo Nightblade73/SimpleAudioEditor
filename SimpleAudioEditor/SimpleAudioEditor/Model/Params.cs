@@ -10,11 +10,12 @@ namespace SimpleAudioEditor.Model {
 
         public static readonly string ResultSoundsPath = "Results";
         public static readonly string ResultCuttedSoundsPath = "Results\\cut";
-        public static readonly string ResultFileName = "result.mp3";
+        public static readonly string ResultFileName = "result.wav";
         public static readonly string FileFormatMP3 = ".mp3";
         public static readonly string FileFormatWAV = ".wav";
         public static readonly int CoefNewSamplesToMainSample = 2;
         public static readonly int NewSamplesWidth = 600;
+        public static string ProjectName = "Name";
         private static int indexCutFile = 0;
         public static readonly double maxLeghtOutFromSecond = 300;
         public static readonly int MailnLinePerPixel = 600;
@@ -32,10 +33,14 @@ namespace SimpleAudioEditor.Model {
             return ResultCuttedSoundsPath + (indexCutFile) + FileFormatWAV;
         }
 
+        public static void SetProjectName(string name)
+        {
+            ProjectName = name;
+        }
+
         public static void IndexCutFilePlus()
         {
             indexCutFile++;
         }
-
     }
 }

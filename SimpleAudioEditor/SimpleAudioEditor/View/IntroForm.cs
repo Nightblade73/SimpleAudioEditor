@@ -1,5 +1,7 @@
 ﻿using Microsoft.Win32;
+using SimpleAudioEditor.Controller;
 using SimpleAudioEditor.Properties;
+using SimpleAudioEditor.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,116 +17,81 @@ namespace SimpleAudioEditor
 {
     public partial class IntroForm : Form
     {
-        public MainForm main;
-        private bool btnSampleState = false;
+        public NewPlayerForm main;
 
-        public IntroForm(MainForm main)
+        public IntroForm(NewPlayerForm main)
         {
-            this.main = main;
             InitializeComponent();
-            String str = Registry_GetPath();
-            if (Registry_GetPath() == "nopath")
-            {
+            this.main = main;
 
-            }
-            else
+            if (main.primary.progPath != "nopath")
             {
                 panelSamples.Enabled = true;
                 panelPath.Visible = false;
                 layoutProjects.Enabled = true;
+                labelProjectsPath.Text = "Путь с проектами:  " + main.primary.progPath;
+                DrawFolders();
             }
         }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnNewProject_Click(object sender, EventArgs e)
         {
-            
+            WriteProjectNameForm form = new WriteProjectNameForm();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                Project pr = new Project(form.title, main.primary);
+                main.project = pr;
+                this.DialogResult = DialogResult.OK;
+                this.Dispose();
+            }
         }
-
-        private void buttonToMain_Click(object sender, EventArgs e)
+        private void btnExistingProject_Click(object sender, EventArgs e)
         {
+            ProjectButton p = sender as ProjectButton;
+            main.project = p.pr;
             this.DialogResult = DialogResult.OK;
-            main.Show();
             this.Dispose();
         }
-
-        private void IntroForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
-
-        private void IntroForm_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                Directory.Delete(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\SoundFactory", true);
-            }
-            catch (Exception ex)
-            {
-                
-            }
-        }
-
         private void btnChoosePath_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog f = new FolderBrowserDialog();
             if (f.ShowDialog() == DialogResult.OK)
             {
-                Registry_SetPath(f.SelectedPath);
+                main.primary.SetProgrammPath(f.SelectedPath);
+                DrawFolders();
+                labelProjectsPath.Text = "Путь с проектами:  " + main.primary.progPath;
                 panelSamples.Enabled = true;
                 panelPath.Visible = false;
                 layoutProjects.Enabled = true;
             }
         }
-
-        private void btnNewProject_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.OK;
-            main.Show();
-            this.Dispose();
-        }
-
         private void btnPlaySample_Click(object sender, EventArgs e)
         {
-            if (btnSampleState)
+            Button btn = sender as Button;
+            if (btn.AccessibleName == "stop")
             {
-                btnSampleState = !btnSampleState;
-                btnPlaySample.BackgroundImage = new Bitmap(Resources.icons8_Pause_48);
+                btn.BackgroundImage = new Bitmap(Resources.icons8_Pause_48);
+                btn.AccessibleName = "play";
             }
             else
             {
-                btnSampleState = !btnSampleState;
-                btnPlaySample.BackgroundImage = new Bitmap(Resources.icons8_Play_26);
+                btn.AccessibleName = "stop";
+                btn.BackgroundImage = new Bitmap(Resources.icons8_Play_26);
             }
         }
+        private void DrawFolders()
+        {
+            if (main.primary.projects.Count > 0)
+            {
+                foreach (Project p in main.primary.projects)
+                {
+                    Console.WriteLine(p.title);
+                    ProjectButton btn = new ProjectButton(p);
 
-        private RegistryKey Registry_GetKey()
-        {
-            Microsoft.Win32.RegistryKey key;
-            String[] subkeys = Microsoft.Win32.Registry.CurrentUser.GetSubKeyNames();
-            try
-            {
-                key = Registry.CurrentUser.OpenSubKey("Software\\SimpleAudioEditor", true);
-                Console.WriteLine(key.Name);
+                    btn.Click += btnExistingProject_Click;
+                    layoutProjects.Controls.Add(btn);
+                    layoutProjects.Refresh();
+                }
             }
-            catch (NullReferenceException ex)
-            {
-                key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\SimpleAudioEditor");
-                key.SetValue("path", "nopath", RegistryValueKind.String);
-            }
-            return key;
-        }
-        private String Registry_GetPath()
-        {
-            RegistryKey key = Registry_GetKey();
-            String str = key.GetValue("path").ToString();
-            key.Close();
-            return str;
-        }
-        private void Registry_SetPath(String path)
-        {
-            RegistryKey key = Registry_GetKey();
-            key.SetValue("path", path);
-            key.Close();
         }
     }
 }

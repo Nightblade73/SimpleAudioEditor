@@ -1,4 +1,5 @@
-﻿using SimpleAudioEditor.Controller.Editor;
+﻿using SimpleAudioEditor.Controller;
+using SimpleAudioEditor.Controller.Editor;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,10 +15,13 @@ namespace SimpleAudioEditor.View
     public partial class NewPlayerForm : Form
     {
         MainSoundLine m;
+        public Primary primary;
+        public Project project;
+        int x = 6;
+
         public NewPlayerForm()
         {
             InitializeComponent();
-
             panelSamples.AutoScroll = false;
             panelSamples.HorizontalScroll.Enabled = false;
             panelSamples.HorizontalScroll.Visible = false;
@@ -34,9 +38,20 @@ namespace SimpleAudioEditor.View
 
             }
             */
-               m = new MainSoundLine(700, panelMain, new Point(0, 0));
+            primary = new Primary();
         }
-        int x = 6;
+
+        private void Form_Load(object sender, EventArgs e)
+        {
+            if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
+            {
+                this.Close();
+                return;
+            }
+            this.Text = project.title;
+            m = new MainSoundLine(700, 80, panelMain, new Point(0, 0), project);
+        }
+
         private void buttonAddSample_Click(object sender, EventArgs e)
         {
 
@@ -47,10 +62,10 @@ namespace SimpleAudioEditor.View
             {
                 for (int i = 0; i < ofd.FileNames.Length; i++)
                 {
-                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 640);
+                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 640, project);
                     x += 106;
                 }
-
+                MessageBox.Show("Загружено");
             }
         }
     }

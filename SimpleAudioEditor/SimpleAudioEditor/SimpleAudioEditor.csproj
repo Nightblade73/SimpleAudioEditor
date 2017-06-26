@@ -57,7 +57,6 @@
   <ItemGroup>
     <Reference Include="CSCore, Version=1.2.1.1, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
       <HintPath>..\packages\CSCore.1.2.1.1\lib\net35-client\CSCore.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MediaBase, Version=4.0.1433.0, Culture=neutral, PublicKeyToken=d264bf7150202654, processorArchitecture=AMD64">
       <HintPath>..\packages\Streamcoders.MediaSuite.x64.4.0.1433.0\lib\net45\MediaBase.dll</HintPath>
@@ -97,34 +96,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Editor\MainSoundLine.cs" />
-    <Compile Include="Controller\Editor\Segment.cs" />
     <Compile Include="Controller\Editor\SoundLineEditor.cs" />
+    <Compile Include="Controller\Primary.cs" />
     <Compile Include="Controller\Project.cs" />
     <Compile Include="Controller\Sample.cs" />
-    <Compile Include="Controller\SoundSource.cs" />
     <Compile Include="Controller\WaveController\MusicPlayer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controller\WaveController\RawDataReader.cs" />
     <Compile Include="Controller\WaveController\SampleController.cs" />
-    <Compile Include="Controller\WaveController\WaveController.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controller\WaveController\WaveController.Designer.cs">
-      <DependentUpon>WaveController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Params.cs" />
     <Compile Include="View\IntroForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\IntroForm.Designer.cs">
       <DependentUpon>IntroForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,14 +119,17 @@
     <Compile Include="View\NewPlayerForm.Designer.cs">
       <DependentUpon>NewPlayerForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Controller\WaveController\WaveController.resx">
-      <DependentUpon>WaveController.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="View\ProjectButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\WriteProjectNameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\WriteProjectNameForm.Designer.cs">
+      <DependentUpon>WriteProjectNameForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="View\IntroForm.resx">
       <DependentUpon>IntroForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -155,6 +143,9 @@
     </Compile>
     <EmbeddedResource Include="View\NewPlayerForm.resx">
       <DependentUpon>NewPlayerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\WriteProjectNameForm.resx">
+      <DependentUpon>WriteProjectNameForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -170,7 +161,26 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Bitmaps\media_play_green.png" />
   </ItemGroup>
@@ -178,7 +188,6 @@
     <None Include="Bitmaps\media_stop_red.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icons8-Music_Record-48.ico" />
     <Content Include="icons8-Peach-48.ico" />
     <Content Include="libmp3lame.32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -186,6 +195,7 @@
     <Content Include="libmp3lame.64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\icons8-Folder-104.png" />
     <None Include="Resources\icons8-Peach-48.png" />
     <None Include="Resources\icons8-Error-104.png" />
     <None Include="Resources\icons8-Pause-48.png" />
@@ -204,6 +214,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

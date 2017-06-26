@@ -1,29 +1,37 @@
-﻿using System;
+﻿using SimpleAudioEditor.Controller.WaveController;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.Controller
 {
-    class Project
+    public class Project
     {
         public String title;
         public String path;
-        public Dictionary<int,Sample> samples;
+        public List<Sample> listSamples;
 
         /* Создает пустой проект
          */
-        public Project()
+        public Project(String title, Primary prim)
         {
-
+            this.listSamples = new List<Sample>();
+            this.title = title;
+            this.path = prim.progPath + "\\" + title;
         }
         /* Загрузить проект из папки path
          */
         public Project(String path)
         {
-
+            this.listSamples = new List<Sample>();
+            this.title = Path.GetFileName(path);
+            this.path = path;
         }
+
+        
         /* Проиграть текущий проект
          * int start    - секунда начала воспроизведения
          * int stop     - секунда конца воспроизведения
@@ -44,18 +52,54 @@ namespace SimpleAudioEditor.Controller
         {
 
         }
-        /* Объеденить сэмплы в 1 муз. файл
-         * String filename  - название результирующего файла, сохранится по пути path
-         */
-        public void Combine(String filename)
+
+        public void SwapSample(int pos1, int pos2)
         {
 
         }
+        /* Объеденить сэмплы в 1 муз. файл
+         * String filename  - название результирующего файла, сохранится по пути path
+         */
+
+
+        private void CreateSampleFile(Sample s)
+        {
+            TimeSpan start = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(s.SplitStartTimeFromSecond * 1000));
+            TimeSpan end = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(s.SplitEndTimeFromSecond * 1000));
+            TimeSpan all = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(s.AllTimeFromSecond * 1000));
+            SampleController sc = new SampleController();
+            if (s.SoundPath.ToString().Contains(".wav"))
+            {
+                sc.TrimWavFile(SampleController.Converter(s.SoundPath), s.SamplePath, start, all - end);
+            }
+            else
+            {
+                sc.TrimWavFile(s.SoundPath, s.SamplePath, start, all - end);
+            }
+        }
+
         /* Сохраняет проект в папку path
          */
-        public void Save()
+        public string Save()
         {
-
+            List<string> list = new List<string>();
+            foreach (var sample in listSamples)
+            {
+                try
+                {
+                    CreateSampleFile(sample);
+                    
+                }
+                catch (Exception ex)
+                {
+                    return "Не удалось создать файл-отрезок./n" + ex.ToString();
+                }
+                list.Add(SampleController.Resemple(sample.SamplePath, path + "\\" + "result.mp3"));
+                //SampleController.Combine(sample.SamplePath, path + "\\" + "result.wav");
+                
+            }
+            SampleController.Concatenate(list, path + "\\" + "result.mp3");
+            return "Сохранено";
         }
     }
 }
