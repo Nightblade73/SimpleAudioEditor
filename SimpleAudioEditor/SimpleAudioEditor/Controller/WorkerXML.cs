@@ -12,15 +12,18 @@ namespace SimpleAudioEditor.Controller
     {
         public static string Serialize(Project project)
         {
-            try {
-                XmlSerializer xs = new XmlSerializer(typeof(Project));
-                using (StreamWriter writer = new StreamWriter(project.path +
-                "\\config.xml"))
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(Project));
+                using (FileStream fs = new FileStream(project.path +"\\config.xml", FileMode.Create))
                 {
-                    xs.Serialize(writer.BaseStream, project);
+                    using (StreamWriter writer = new StreamWriter(fs))
+                    {
+                        serializer.Serialize(writer, project);
+                    }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "не сериализовал настройки./n" + ex.ToString();
             }
@@ -31,10 +34,12 @@ namespace SimpleAudioEditor.Controller
         {
             Project project = null;
             XmlSerializer serializer = new XmlSerializer(typeof(Project));
-            StreamReader reader = new StreamReader(path + "\\config.xml");
-            reader.ReadToEnd();
-            project = (Project)serializer.Deserialize(reader);
-            reader.Close();
+            using (StreamReader reader = new StreamReader(path + "\\config.xml"))
+            {
+                reader.ReadToEnd();
+                project = (Project)serializer.Deserialize(reader);
+            }
+            //  if (project == null) project = new Project();
             return project;
         }
     }

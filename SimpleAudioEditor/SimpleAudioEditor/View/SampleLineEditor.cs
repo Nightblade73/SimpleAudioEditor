@@ -13,6 +13,8 @@ namespace SimpleAudioEditor.View
     {
         Sample samp;
 
+        public SampleLineEditor() { }
+        
         public SampleLineEditor(Sample s)
         {
             samp = s;

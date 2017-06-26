@@ -23,7 +23,6 @@ namespace SimpleAudioEditor
         {
             InitializeComponent();
             this.main = main;
-
             if (main.primary.progPath != "nopath")
             {
                 panelSamples.Enabled = true;
@@ -49,7 +48,7 @@ namespace SimpleAudioEditor
             ProjectButton p = sender as ProjectButton;
 
             string s = p.Text;
-            main.project = WorkerXML.Deserialize(s);
+            main.project = WorkerXML.Deserialize(p.path);
             this.DialogResult = DialogResult.OK;
             this.Dispose();
         }

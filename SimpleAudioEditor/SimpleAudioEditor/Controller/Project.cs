@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.Controller
 {
-    [Serializable()]
+
     public class Project
     {
-        public String title;
-        public String path;
+        public string title;
+        public string path;
         public List<Sample> listSamples = new List<Sample>();
 
         /* Создает пустой проект
@@ -29,10 +29,7 @@ namespace SimpleAudioEditor.Controller
             this.title = Path.GetFileName(path);
             this.path = path;
         }
-        public Project()
-        {
-
-        }
+        public Project() { }
 
         /* Проиграть текущий проект
          * int start    - секунда начала воспроизведения

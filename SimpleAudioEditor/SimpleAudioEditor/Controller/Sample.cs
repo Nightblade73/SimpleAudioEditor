@@ -12,14 +12,15 @@ namespace SimpleAudioEditor.Controller
 {
     public class Sample : IComparable<Sample>
     {
-        private  String title;
+        private String title;
         Project project;
         /* Путь к оригинальной звуковой дорожке
          * (не обрезанной)
          */
-        private  String soundPath;
+        public Sample() { }
+        private String soundPath;
         private Bitmap frequencyBitMap;
-        
+
         /* Путь к сэмплу (обрезанной звуковой дорожке)
          * для каждого сэмпла, нужно создавать новый _экземпляр_ оригинальной дорожки
          */
@@ -93,7 +94,7 @@ namespace SimpleAudioEditor.Controller
             get
             {
                 return allTimeFromSecond;
-            }          
+            }
         }
 
         public int IndexQueue
@@ -168,7 +169,7 @@ namespace SimpleAudioEditor.Controller
         }
         public void Pause()
         {
-            MessageBox.Show(this.soundPath+" pause");
+            MessageBox.Show(this.soundPath + " pause");
         }
         public void Stop()
         {

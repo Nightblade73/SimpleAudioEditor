@@ -12,12 +12,12 @@ namespace SimpleAudioEditor.View
 {
     class ProjectButton : Button
     {
-        string path;
+        public string path;
         
         public ProjectButton(string prName) : base()
         {
             
-            this.Text = prName; //ПЕРЕДЕЛАТЬ
+            this.Text = prName.Split('\\')[prName.Split('\\').Length-1];
             this.path = prName;
             this.BackgroundImage = Resources.icons8_Folder_104;
             this.BackgroundImageLayout = ImageLayout.Stretch;
