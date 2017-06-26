@@ -106,6 +106,7 @@
     <Compile Include="Controller\WaveController\RawDataReader.cs" />
     <Compile Include="Controller\WaveController\SampleController.cs" />
     <Compile Include="Controller\WorkerXML.cs" />
+    <Compile Include="Controller\WorkMethods.cs" />
     <Compile Include="View\IntroForm.cs">
       <SubType>Form</SubType>
     </Compile>

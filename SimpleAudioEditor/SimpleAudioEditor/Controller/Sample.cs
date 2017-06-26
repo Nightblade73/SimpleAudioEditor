@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace SimpleAudioEditor.Controller
 {
+    [Serializable]
     public class Sample : IComparable<Sample>
     {
         private String title;
+        [XmlIgnore]
         Project project;
         /* Путь к оригинальной звуковой дорожке
          * (не обрезанной)
@@ -25,19 +28,20 @@ namespace SimpleAudioEditor.Controller
          * для каждого сэмпла, нужно создавать новый _экземпляр_ оригинальной дорожки
          */
         private String samplePath;
-        public SampleLineEditor lineEditor;
+        //public SampleLineEditor lineEditor;
 
         public Point startPos, endPos;
         private double splitEndTimeFromSecond;
         private double splitStartTimeFromSecond;
         private double allTimeFromSecond;
         private int indexQueue;
-
+        
         public Bitmap FrequencyBitMap
         {
             get { return frequencyBitMap; }
+            set { frequencyBitMap = value; }
         }
-
+        
         public string Title
         {
             get
@@ -50,53 +54,61 @@ namespace SimpleAudioEditor.Controller
                 title = value;
             }
         }
-
+        [XmlIgnore]
         public double LeghtFromSecond
         {
             get { return splitEndTimeFromSecond - splitStartTimeFromSecond; }
         }
-
+        
         public string SoundPath
         {
+            set
+            {
+                soundPath = value;
+            }
             get
             {
                 return soundPath;
             }
 
         }
-
+        
         public string SamplePath
         {
             get
             {
                 return samplePath;
             }
+            
         }
-
+        
         public double SplitEndTimeFromSecond
         {
             get
             {
                 return splitEndTimeFromSecond;
             }
+            set { splitEndTimeFromSecond = value; }
         }
-
+        
         public double SplitStartTimeFromSecond
         {
             get
             {
                 return splitStartTimeFromSecond;
             }
+            set { splitStartTimeFromSecond = value; }
         }
-
+        
         public double AllTimeFromSecond
         {
             get
             {
                 return allTimeFromSecond;
             }
+            set { allTimeFromSecond = value; }
         }
-
+        
         public int IndexQueue
         {
             get
@@ -110,12 +122,12 @@ namespace SimpleAudioEditor.Controller
                 samplePath = project.path + "\\cut" + indexQueue + ".wav";
             }
         }
-
-        public Sample(String filepath)
-        {
-            this.soundPath = filepath;
-            lineEditor = new SampleLineEditor(this);
-        }
+       
+        //public Sample(String filepath)
+        //{
+        //    this.soundPath = filepath;
+        //    lineEditor = new SampleLineEditor(this);
+        //}
 
         public Sample(double _splitStartTimeFromSecond, double _splitEndTimeFromSecond, double _allTimeFromSecond, string _soundPath, Project _project, Bitmap _frequencyBitMap)
         {
@@ -126,7 +138,7 @@ namespace SimpleAudioEditor.Controller
             project = _project;
             frequencyBitMap = _frequencyBitMap;
         }
-
+        
         public int CompareTo(Sample other)
         {
 

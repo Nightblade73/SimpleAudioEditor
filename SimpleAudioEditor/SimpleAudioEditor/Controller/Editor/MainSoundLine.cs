@@ -399,7 +399,8 @@ namespace SimpleAudioEditor.Controller.Editor
 
         protected void buttonOK_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(project.Save());
+            MessageBox.Show(WorkMethods.Save(project));
+            WorkerXML.Serialize(project);
 
         }
 

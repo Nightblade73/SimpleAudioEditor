@@ -70,6 +70,15 @@ namespace SimpleAudioEditor.View
                 }
             }
         }
+
+        private void NewPlayerForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            String mes = WorkMethods.CleanRAWFiles();
+            if (!mes.Equals("ok"))
+            {
+                MessageBox.Show(mes);
+            }
+        }
     }
 
 }

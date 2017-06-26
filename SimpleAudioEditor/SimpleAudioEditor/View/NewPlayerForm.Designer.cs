@@ -75,6 +75,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NewPlayerForm";
             this.Text = "Peach Editor";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NewPlayerForm_FormClosed);
             this.Load += new System.EventHandler(this.Form_Load);
             this.ResumeLayout(false);
 
