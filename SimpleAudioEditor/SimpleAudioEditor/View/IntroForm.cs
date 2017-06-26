@@ -49,7 +49,7 @@ namespace SimpleAudioEditor
             ProjectButton p = sender as ProjectButton;
 
             string s = p.Text;
-            //main.project = DESERIALIZE(s);
+            main.project = WorkerXML.Deserialize(s);
             this.DialogResult = DialogResult.OK;
             this.Dispose();
         }

@@ -27,11 +27,11 @@ namespace SimpleAudioEditor.Controller
             return "Все ок";
         }
 
-        public static Project Deserialize()
+        public static Project Deserialize(string path)
         {
             Project project = null;
             XmlSerializer serializer = new XmlSerializer(typeof(Project));
-            StreamReader reader = new StreamReader(new Primary().GetProgrammPath());
+            StreamReader reader = new StreamReader(path + "\\config.xml");
             reader.ReadToEnd();
             project = (Project)serializer.Deserialize(reader);
             reader.Close();

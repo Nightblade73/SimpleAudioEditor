@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.Controller
 {
+    [Serializable()]
     public class Project
     {
         public String title;
@@ -28,8 +29,11 @@ namespace SimpleAudioEditor.Controller
             this.title = Path.GetFileName(path);
             this.path = path;
         }
+        public Project()
+        {
 
-        
+        }
+
         /* Проиграть текущий проект
          * int start    - секунда начала воспроизведения
          * int stop     - секунда конца воспроизведения
@@ -97,6 +101,7 @@ namespace SimpleAudioEditor.Controller
                 
             }
             SampleController.Concatenate(list, path + "\\" + "result.mp3");
+            WorkerXML.Serialize(this);
             return "Сохранено";
         }
     }
