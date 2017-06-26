@@ -43,8 +43,8 @@ namespace SimpleAudioEditor.View
             {
                 for (int i = 0; i < ofd.FileNames.Length; i++)
                 {
-                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 500, project);
-                    x += 66;
+                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 640, project);
+                    x += 106;
                 }
                 MessageBox.Show("Загружено");
 
