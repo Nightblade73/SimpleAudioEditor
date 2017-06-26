@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,12 +26,13 @@ namespace SimpleAudioEditor.View
             ToolTip t = new ToolTip();
             if(tBName.Text.Equals(""))
             {
-                t.Show("Имя проекта не может быть пустым или содержать символы: '.', '*', '/'", tBName);  //какие ещё символы?
+                t.Show("Имя проекта не может быть пустым или содержать символы:\n . * / \\ : < > ? | \"", tBName);  //какие ещё символы?
             }
             else
             {
                 this.DialogResult = DialogResult.OK;
                 this.title = tBName.Text;
+                Directory.CreateDirectory(new Primary().GetProgrammPath() + "\\" + tBName.Text);
             }
         }
 
