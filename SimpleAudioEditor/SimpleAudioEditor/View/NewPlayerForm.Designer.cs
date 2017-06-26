@@ -32,6 +32,8 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelSamples = new System.Windows.Forms.Panel();
             this.buttonAddSample = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.buttonAddPause = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panelMain
@@ -63,12 +65,36 @@
             this.buttonAddSample.UseVisualStyleBackColor = false;
             this.buttonAddSample.Click += new System.EventHandler(this.buttonAddSample_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(359, 110);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(221, 21);
+            this.comboBox1.TabIndex = 11;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // buttonAddPause
+            // 
+            this.buttonAddPause.BackColor = System.Drawing.Color.OrangeRed;
+            this.buttonAddPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddPause.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.buttonAddPause.Location = new System.Drawing.Point(586, 109);
+            this.buttonAddPause.Name = "buttonAddPause";
+            this.buttonAddPause.Size = new System.Drawing.Size(126, 23);
+            this.buttonAddPause.TabIndex = 12;
+            this.buttonAddPause.Text = "Добавить паузу";
+            this.buttonAddPause.UseVisualStyleBackColor = false;
+            this.buttonAddPause.Click += new System.EventHandler(this.buttonAddPause_Click);
+            // 
             // NewPlayerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(724, 441);
+            this.Controls.Add(this.buttonAddPause);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelSamples);
             this.Controls.Add(this.buttonAddSample);
@@ -86,5 +112,7 @@
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Panel panelSamples;
         private System.Windows.Forms.Button buttonAddSample;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button buttonAddPause;
     }
 }

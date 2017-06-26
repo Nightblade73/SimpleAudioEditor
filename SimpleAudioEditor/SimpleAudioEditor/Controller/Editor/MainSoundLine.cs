@@ -24,6 +24,7 @@ namespace SimpleAudioEditor.Controller.Editor
         Button buttonDelete;
         Random r = new Random();
         Project project;
+
         public MainSoundLine(int width, int height, Control parent, Point location, Project _project)
         {     
             project = _project;
@@ -85,9 +86,6 @@ namespace SimpleAudioEditor.Controller.Editor
             leghtLine = lineEndPos.X - lineStartPos.X;
             pictureBox.Invalidate();
         }
-
-
-
 
         protected int SetIndexQueue(Point pt1)
         {
@@ -190,7 +188,24 @@ namespace SimpleAudioEditor.Controller.Editor
             pictureBox.Invalidate();
         }
 
-        
+        //public void DoLikeDragDrop()
+        //{
+        //    SetSegmentEndPoints();
+
+        //    Sample s = new Sample(0.0,  )
+        //    if (FinalLeght() + s.LeghtFromSecond <= maxLeghtOutFromSecond)
+        //    {
+        //        // MessageBox.Show(""+s.indexQueue);
+        //        project.listSamples.Add(s);
+        //        s.IndexQueue = index;
+        //        SetSegmentEndPoints();
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show(String.Format("Выходной файл не может привышать {0} минут! Лимит привышен на {1} секунд!", maxLeghtOutFromSecond / 60, FinalLeght() + s.LeghtFromSecond - maxLeghtOutFromSecond));
+        //    }
+        //    pictureBox.Invalidate();
+        //}
 
         private void SetSegmentEndPoints()
         {

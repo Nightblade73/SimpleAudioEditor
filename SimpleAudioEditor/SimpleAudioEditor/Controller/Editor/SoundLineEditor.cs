@@ -61,7 +61,6 @@ namespace SimpleAudioEditor.Controller.Editor
             splitP2 = soundLineStartPoint;
             markerPoint = new Point(soundLineStartPoint.X, soundLineStartPoint.Y - (int)(object_radius * 2f));
 
-            ///
             name = new Label();
             AudioFile fileWithTags = new AudioFile(_filePath, ReadStyle.Average);
             if (fileWithTags.Tag.Performers != null && fileWithTags.Tag.Title != null)
@@ -71,7 +70,7 @@ namespace SimpleAudioEditor.Controller.Editor
                 string[] s =_filePath.Split('\\');
                 name.Text = s[s.Length - 1];
             }
-            name.Location = location;
+            name.Location = new Point(location.X + 48, location.Y);
             name.AutoSize = true;
             name.Parent = parent;
             name.SendToBack();
@@ -80,7 +79,7 @@ namespace SimpleAudioEditor.Controller.Editor
 
             buttonPlay = new Button();
             buttonPlay.Size = new System.Drawing.Size(pictureBox.Size.Height / 2, pictureBox.Size.Height / 2);
-            buttonPlay.Location = location;
+            buttonPlay.Location = new Point(location.X, location.Y + 15);
             buttonPlay.Parent = parent;
             buttonPlay.Click += buttonPlay_Click;
             buttonPlay.Text = ">";
@@ -90,14 +89,14 @@ namespace SimpleAudioEditor.Controller.Editor
 
             buttonStop = new Button();
             buttonStop.Size = buttonPlay.Size;
-            buttonStop.Location = new Point(buttonPlay.Location.X, location.Y + buttonPlay.Size.Width);
+            buttonStop.Location = new Point(buttonPlay.Location.X, location.Y + buttonPlay.Size.Width + 15);
             buttonStop.Click += buttonStop_Click;
             buttonStop.Parent = parent;
             buttonStop.Text = "■";
             buttonStop.BackColor = Color.OrangeRed;
             buttonStop.FlatStyle = FlatStyle.Flat;
 
-            pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width, location.Y);
+            pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width, location.Y + 15);
             pictureBox.Paint += pictureBox_Paint;
             pictureBox.MouseMove += pictureBox_MouseMove_NotDown;
             pictureBox.MouseDown += pictureBox_MouseDown;
@@ -940,8 +939,6 @@ namespace SimpleAudioEditor.Controller.Editor
                     y += 2;
                     offset += samplesRead;
                     //mProgressStatus = (int)(((float)offset / numSamples) * 100);
-
-
                 }
             }
             rawFile.Close();
