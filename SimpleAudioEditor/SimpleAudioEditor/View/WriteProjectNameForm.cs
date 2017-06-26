@@ -22,8 +22,16 @@ namespace SimpleAudioEditor.View
 
         private void butOK_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.title = tBName.Text;
+            ToolTip t = new ToolTip();
+            if(tBName.Text.Equals(""))
+            {
+                t.Show("Имя проекта не может быть пустой или содержать символы: '.', '*', '/'", tBName);  //какие ещё символы?
+            }
+            else
+            {
+                this.DialogResult = DialogResult.OK;
+                this.title = tBName.Text;
+            }
         }
 
         private void butCancle_Click(object sender, EventArgs e)

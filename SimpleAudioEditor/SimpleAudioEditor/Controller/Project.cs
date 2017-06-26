@@ -94,11 +94,11 @@ namespace SimpleAudioEditor.Controller
                 {
                     return "Не удалось создать файл-отрезок./n" + ex.ToString();
                 }
-                list.Add(SampleController.Resemple(sample.SamplePath, path + "\\" + "result.wav"));
+                list.Add(SampleController.Resemple(sample.SamplePath, path + "\\" + "result.mp3"));
                 //SampleController.Combine(sample.SamplePath, path + "\\" + "result.wav");
                 
             }
-            SampleController.Concatenate(list, path + "\\" + "result.wav");
+            SampleController.Concatenate(list, path + "\\" + "result.mp3");
             return "Сохранено";
         }
     }
