@@ -9,16 +9,18 @@ using System.Windows.Forms;
 using System.Drawing;
 using TagLib;
 using TagLib.Mpeg;
+using System.ComponentModel;
+using CSCore.Codecs;
+using CSCore;
+using System.IO;
 
 namespace SimpleAudioEditor.Controller.Editor
 {
     class SoundLineEditor
     {
         double soundTotalTime;
-
         string filePath;
         WaveOutEvent player;
-
         Mp3FileReader mp3Reader;
         PictureBox pictureBox;
         Point soundLineStartPoint;
@@ -30,7 +32,16 @@ namespace SimpleAudioEditor.Controller.Editor
         Point splitP1, splitP2;
         Project project;
         Label name;
-
+        int mProgressStatus;
+        bool draw = false;
+        //bool splitPointStop = false;
+        MaskedTextBox cursorMaskedTime;
+        MaskedTextBox endMaskedTime;
+        MaskedTextBox startMaskedTime;
+        MaskedTextBox finalMaskedTime;
+        MaskedTextBox minusMaskedTime;
+        MaskedTextBox equalMaskedTime;
+        BackgroundWorker backgroundWorker;
 
         // «Размер» объекта для мыши над целями.
         private const int object_radius = 6;
@@ -43,7 +54,7 @@ namespace SimpleAudioEditor.Controller.Editor
         {
             project = _project;
             pictureBox = new PictureBox();
-            pictureBox.Size = new System.Drawing.Size(playerWidth, 40);
+            pictureBox.Size = new System.Drawing.Size(playerWidth, 80);
             soundLineStartPoint = new Point(10, pictureBox.Size.Height / 2); //
             soundLineEndPoint = new Point(pictureBox.Size.Width - 10, pictureBox.Size.Height / 2); //
             splitP1 = soundLineEndPoint;
@@ -68,30 +79,31 @@ namespace SimpleAudioEditor.Controller.Editor
 
 
             buttonPlay = new Button();
-            buttonPlay.Size = new System.Drawing.Size(pictureBox.Size.Height, pictureBox.Size.Height);
-            buttonPlay.Location = new Point(name.Location.X, location.Y + 23);
+            buttonPlay.Size = new System.Drawing.Size(pictureBox.Size.Height / 2, pictureBox.Size.Height / 2);
+            buttonPlay.Location = location;
             buttonPlay.Parent = parent;
             buttonPlay.Click += buttonPlay_Click;
             buttonPlay.Text = ">";
-            buttonPlay.BackColor = Color.Coral;
+            buttonPlay.BackColor = Color.OrangeRed;
             buttonPlay.FlatStyle = FlatStyle.Flat;
 
 
             buttonStop = new Button();
             buttonStop.Size = buttonPlay.Size;
-            buttonStop.Location = new Point(buttonPlay.Location.X + buttonPlay.Size.Width, location.Y + 23);
+            buttonStop.Location = new Point(buttonPlay.Location.X, location.Y + buttonPlay.Size.Width);
             buttonStop.Click += buttonStop_Click;
             buttonStop.Parent = parent;
             buttonStop.Text = "■";
-            buttonStop.BackColor = Color.Coral;
+            buttonStop.BackColor = Color.OrangeRed;
             buttonStop.FlatStyle = FlatStyle.Flat;
 
-            pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width, location.Y + 23);
+            pictureBox.Location = new Point(buttonStop.Location.X + buttonStop.Size.Width, location.Y);
             pictureBox.Paint += pictureBox_Paint;
             pictureBox.MouseMove += pictureBox_MouseMove_NotDown;
             pictureBox.MouseDown += pictureBox_MouseDown;
             pictureBox.Parent = parent;
-            pictureBox.BackColor = Color.DarkGray;
+            pictureBox.BackColor = Color.Transparent;
+            pictureBox.BorderStyle = BorderStyle.None;
             pictureBox.Invalidate();
             timer = new Timer();
             timer.Tick += timer_Tick;
@@ -99,6 +111,22 @@ namespace SimpleAudioEditor.Controller.Editor
             timer.Start();
 
             filePath = _filePath;
+            buttonPlay.Enabled = false;
+            buttonStop.Enabled = false;
+            pictureBox.Enabled = false;
+
+            backgroundWorker = new BackgroundWorker();
+
+            backgroundWorker.WorkerReportsProgress = true;
+            backgroundWorker.WorkerSupportsCancellation = true;
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.ProgressChanged += backgroundWorker_ProgressChanged;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            // Start the asynchronous operation.
+            backgroundWorker.RunWorkerAsync();
+
+            //CreateOptimizedArray();
+
             player = new WaveOutEvent();
             var file = new AudioFileReader(filePath);
             //   trimmed = new OffsetSampleProvider(file);
@@ -107,6 +135,175 @@ namespace SimpleAudioEditor.Controller.Editor
             //           player.Stop();
             player.PlaybackStopped += Player_PlaybackStopped;
             player.Init(mp3Reader);
+            cursorMaskedTime = new MaskedTextBox();
+            cursorMaskedTime.BackColor = Color.OrangeRed;
+            cursorMaskedTime.ForeColor = Color.Black;
+
+            cursorMaskedTime.BorderStyle = BorderStyle.None;
+            cursorMaskedTime.Location = new Point(pictureBox.Location.X + 10, pictureBox.Location.Y + pictureBox.Height);
+            cursorMaskedTime.Size = new Size(70, 20);
+            cursorMaskedTime.AutoSize = true;
+            cursorMaskedTime.Parent = parent;
+
+            endMaskedTime = new MaskedTextBox();
+            endMaskedTime.BackColor = Color.Black;
+            endMaskedTime.ForeColor = Color.DarkOrange;
+            endMaskedTime.BorderStyle = BorderStyle.None;
+
+            endMaskedTime.Location = new Point(cursorMaskedTime.Location.X + cursorMaskedTime.Width, pictureBox.Location.Y + pictureBox.Height);
+            endMaskedTime.Size = new Size(70, 20);
+            endMaskedTime.AutoSize = true;
+            endMaskedTime.Parent = parent;
+
+            minusMaskedTime = new MaskedTextBox();
+            minusMaskedTime.BackColor = Color.Black;
+            minusMaskedTime.ForeColor = Color.DarkOrange;
+            minusMaskedTime.BorderStyle = BorderStyle.None;
+
+            minusMaskedTime.Location = new Point(endMaskedTime.Location.X + endMaskedTime.Width, pictureBox.Location.Y + pictureBox.Height);
+            minusMaskedTime.Size = new Size(12, 20);
+            minusMaskedTime.AutoSize = true;
+            minusMaskedTime.Parent = parent;
+            minusMaskedTime.Text = "-";
+
+
+
+            startMaskedTime = new MaskedTextBox();
+            startMaskedTime.BackColor = Color.Black;
+            startMaskedTime.ForeColor = Color.DarkOrange;
+            startMaskedTime.BorderStyle = BorderStyle.None;
+
+            startMaskedTime.Location = new Point(minusMaskedTime.Location.X + minusMaskedTime.Width, pictureBox.Location.Y + pictureBox.Height);
+            startMaskedTime.Size = new Size(80, 20);
+            startMaskedTime.AutoSize = true;
+            startMaskedTime.Parent = parent;
+
+            equalMaskedTime = new MaskedTextBox();
+            equalMaskedTime.BackColor = Color.Black;
+            equalMaskedTime.ForeColor = Color.DarkOrange;
+            equalMaskedTime.BorderStyle = BorderStyle.None;
+
+            equalMaskedTime.Location = new Point(startMaskedTime.Location.X + startMaskedTime.Width, pictureBox.Location.Y + pictureBox.Height);
+            equalMaskedTime.Size = new Size(12, 20);
+            equalMaskedTime.AutoSize = true;
+            equalMaskedTime.Parent = parent;
+            equalMaskedTime.Text = "=";
+
+
+
+
+            finalMaskedTime = new MaskedTextBox();
+            finalMaskedTime.BackColor = Color.Black;
+            finalMaskedTime.ForeColor = Color.DarkOrange;
+            finalMaskedTime.BorderStyle = BorderStyle.None;
+
+            finalMaskedTime.Location = new Point(equalMaskedTime.Location.X + equalMaskedTime.Width, pictureBox.Location.Y + pictureBox.Height);
+            finalMaskedTime.Size = new Size(70, 20);
+            finalMaskedTime.AutoSize = true;
+            finalMaskedTime.Parent = parent;
+
+
+
+            endMaskedTime.Text = TimeSpan.FromSeconds(SplitEndTimeFromSecond()).ToString(@"hh\:mm\:ss\.FF");
+            startMaskedTime.Text = TimeSpan.FromSeconds(SplitStartTimeFromSecond()).ToString(@"hh\:mm\:ss\.FF");
+            finalMaskedTime.Text = TimeSpan.FromSeconds(SplitEndTimeFromSecond() - SplitStartTimeFromSecond()).ToString(@"hh\:mm\:ss\.FF");
+
+
+            cursorMaskedTime.Text = TimeSpan.FromSeconds(CursorTime()).ToString(@"hh\:mm\:ss\.FF");
+        }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+
+            mDrawSource = CodecFactory.Instance.GetCodec(filePath).ToSampleSource().ToMono();
+
+            long offset = 0;
+            long numSamples = mDrawSource.Length;
+            int x = 0;
+            int y = 0;
+            //Nth item holds maxVal, N+1th item holds minVal so allocate an array of double size
+            mOptimizedArray = new float[((numSamples / mThresholdSample) + 1) * 2];
+            float[] data = new float[mThresholdSample];
+            int samplesRead = 1;
+            mDrawSource.Position = 0;
+            string rawFilePath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\SoundFactory\";
+            if (!Directory.Exists(rawFilePath)) Directory.CreateDirectory(rawFilePath);
+            mRawFileName = rawFilePath + Guid.NewGuid().ToString() + ".raw";
+            FileStream rawFile = new FileStream(mRawFileName, FileMode.Create, FileAccess.ReadWrite);
+            BinaryWriter bin = new BinaryWriter(rawFile);
+            while (offset < numSamples && samplesRead > 0)
+            {
+                samplesRead = mDrawSource.Read(data, 0, mThresholdSample);
+                if (samplesRead > 0) //for some files file length is wrong so samplesRead may become 0 even if we did not come to the end of the file
+                {
+                    for (int i = 0; i < samplesRead; i++)
+                    {
+                        bin.Write(data[i]);
+                    }
+
+                    float maxVal = -1;
+                    float minVal = 1;
+                    // finds the max & min peaks for this pixel 
+                    for (x = 0; x < samplesRead; x++)
+                    {
+                        maxVal = Math.Max(maxVal, data[x]);
+                        minVal = Math.Min(minVal, data[x]);
+                    }
+                    mOptimizedArray[y] = minVal;
+                    mOptimizedArray[y + 1] = maxVal;
+                    y += 2;
+                    offset += samplesRead;
+
+                    if (worker.CancellationPending == true)
+                    {
+                        e.Cancel = true;
+                        break;
+                    }
+                    else
+                    {
+                        // Perform a time consuming operation and report progress.
+                        // if((int)(((float)offset / numSamples) * 100)>5)
+                        //MessageBox.Show(""+(int)(((float)offset / numSamples) * 100)+"%");
+
+                        //System.Threading.Thread.Sleep(10);
+                        worker.ReportProgress((int)(((float)offset / numSamples) * 100));
+                    }
+                }
+            }
+            rawFile.Close();
+        }
+
+        // This event handler updates the progress.
+        private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            mProgressStatus = e.ProgressPercentage;
+            pictureBox.Invalidate();
+            //    resultLabel.Text = (e.ProgressPercentage.ToString() + "%");
+        }
+
+        // This event handler deals with the results of the background operation.
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled == true)
+            {
+                //        resultLabel.Text = "Canceled!";
+            }
+            else if (e.Error != null)
+            {
+                //      resultLabel.Text = "Error: " + e.Error.Message;
+            }
+            else
+            {
+                draw = true;
+                pictureBox.Invalidate();
+                //    MessageBox.Show("Done");
+                //    resultLabel.Text = "Done!";
+            }
+            buttonPlay.Enabled = true;
+            buttonStop.Enabled = true;
+            pictureBox.Enabled = true;
         }
 
         protected void pictureBox_MouseMove_NotDown(object sender, MouseEventArgs e)
@@ -139,6 +336,8 @@ namespace SimpleAudioEditor.Controller.Editor
             player.Stop();
             int lineLeght = soundLineEndPoint.X - soundLineStartPoint.X;
             markerPoint = new Point(((soundLineStartPoint.X) + (int)(lineLeght * (mp3Reader.CurrentTime.TotalSeconds / soundTotalTime))), markerPoint.Y);
+            cursorMaskedTime.Text = TimeSpan.FromSeconds(CursorTime()).ToString(@"hh\:mm\:ss\.FF");
+
             pictureBox.Invalidate();
         }
 
@@ -149,10 +348,7 @@ namespace SimpleAudioEditor.Controller.Editor
             {
                 if (markerPoint.X < Math.Max(splitP1.X, splitP2.X))
                 {
-                    int lineLeght = soundLineEndPoint.X - soundLineStartPoint.X;
-                    double skipTimeFromSecond = ((markerPoint.X - soundLineStartPoint.X) * 1.0 / lineLeght) * soundTotalTime;
-                    //  MessageBox.Show(String.Format( "{0} - {1} - {2}", (markerPoint.X - soundLineStartPoint.X) * 1.0 / lineLeght,soundTotalTime, skipTimeFromSecond));
-                    mp3Reader.CurrentTime = TimeSpan.FromSeconds(skipTimeFromSecond);
+                    mp3Reader.CurrentTime = TimeSpan.FromSeconds(CursorTime());
                 }
                 else
                 {
@@ -170,7 +366,7 @@ namespace SimpleAudioEditor.Controller.Editor
             }
         }
 
-        protected void Player_PlaybackStopped(object sender, StoppedEventArgs e)
+        protected void Player_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
         {
             timer.Stop();
             buttonPlay.Text = ">";
@@ -181,7 +377,18 @@ namespace SimpleAudioEditor.Controller.Editor
             return new Sample(SplitStartTimeFromSecond(), SplitEndTimeFromSecond(), soundTotalTime, filePath, project);
         }
 
-        protected void pictureBox_MouseDown(object sender, MouseEventArgs e)
+        public Bitmap CropImage(Bitmap source, Rectangle section)
+        {
+            // An empty bitmap which will hold the cropped image
+            Bitmap bmp = new Bitmap(section.Width, section.Height);
+            Graphics g = Graphics.FromImage(bmp);
+            // Draw the given area (section) of the source image
+            // at location 0,0 on the empty bitmap (bmp)
+            g.DrawImage(source, 0, 0, section, GraphicsUnit.Pixel);
+            return bmp;
+        }
+
+            protected void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             // Посмотрим, чем мы закончили.
             Point hit_point;
@@ -234,7 +441,7 @@ namespace SimpleAudioEditor.Controller.Editor
             markerPoint =
             new Point(Clamp(e.X + OffsetX, Math.Min(splitP1.X, splitP2.X), Math.Max(splitP1.X, splitP2.X)), markerPoint.Y);
 
-
+            cursorMaskedTime.Text = TimeSpan.FromSeconds(CursorTime()).ToString(@"hh\:mm\:ss\.FF");
             // Перерисовать.
             pictureBox.Invalidate();
         }
@@ -251,18 +458,19 @@ namespace SimpleAudioEditor.Controller.Editor
             double skipTimeFromSecond = ((markerPoint.X - soundLineStartPoint.X) * 1.0 / lineLeght) * soundTotalTime;
             //  MessageBox.Show(String.Format( "{0} - {1} - {2}", (markerPoint.X - soundLineStartPoint.X) * 1.0 / lineLeght,soundTotalTime, skipTimeFromSecond));
             mp3Reader.CurrentTime = TimeSpan.FromSeconds(skipTimeFromSecond);
-            timer.Start();
+            //timer.Start();
 
             if (mp3Reader.CurrentTime.TotalSeconds == SplitEndTimeFromSecond())
             {
                 player.Stop();
-                mp3Reader.CurrentTime = TimeSpan.FromSeconds(SplitStartTimeFromSecond());
+                //mp3Reader.CurrentTime = TimeSpan.FromSeconds(SplitStartTimeFromSecond());
                 buttonPlay.Name = ">";
                 timer.Stop();
 
             }
 
             // Перерисовать.
+            cursorMaskedTime.Text = TimeSpan.FromSeconds(CursorTime()).ToString(@"hh\:mm\:ss\.FF");
             pictureBox.Invalidate();
             //   MessageBox.Show(""+ mp3Reader.CurrentTime.TotalSeconds + " - " +soundTotalTime);
         }
@@ -297,37 +505,90 @@ namespace SimpleAudioEditor.Controller.Editor
                 int lineLeght = soundLineEndPoint.X - soundLineStartPoint.X;
 
                 markerPoint = new Point(((soundLineStartPoint.X) + (int)(lineLeght * (mp3Reader.CurrentTime.TotalSeconds / soundTotalTime))), markerPoint.Y);
+                cursorMaskedTime.Text = TimeSpan.FromSeconds(CursorTime()).ToString(@"hh\:mm\:ss\.FF");
                 pictureBox.Invalidate();
                 //DisplayPosition();
             }
             if (mp3Reader.CurrentTime.TotalSeconds >= SplitEndTimeFromSecond())
             {
                 player.Stop();
-                mp3Reader.CurrentTime = TimeSpan.FromSeconds(SplitStartTimeFromSecond());
+                timer.Stop();
+                //mp3Reader.CurrentTime = TimeSpan.FromSeconds(SplitStartTimeFromSecond());
                 buttonPlay.Name = ">";
             }
         }
 
         protected void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            Pen greyPen = new Pen(Color.Gray, 3);
-            Pen orangePen = new Pen(Color.OrangeRed, 3);
-            Pen orangeDarkPen = new Pen(Color.DarkOrange, 3);
-
-            e.Graphics.DrawLine(greyPen, soundLineStartPoint, soundLineEndPoint);
-
-
-            // Нарисуем сегмент.
-            e.Graphics.DrawLine(orangeDarkPen, splitP1, splitP2);
+            int penSize = 3;
+            Pen greyPen = new Pen(SystemColors.WindowFrame, penSize);
+            Pen splitPen = new Pen(Color.OrangeRed, penSize);
+            Pen cursorPen = new Pen(Color.Black, penSize);
 
 
+            Pen orangePen = new Pen(Color.DarkOrange, penSize);
 
-            //Рисуем маркер
-            e.Graphics.DrawPolygon(orangePen, new Point[] {
-                new Point(markerPoint.X - object_radius, markerPoint.Y - object_radius),
+            if (draw)
+            {
+                e.Graphics.DrawImage(DrawWave(new Pen(Color.OrangeRed), pictureBox.Size.Width - 20, pictureBox.Size.Height), 10, 0);
+                Pen orangeDarkPen = new Pen(Color.DarkOrange, 3);
+
+                //  e.Graphics.DrawLine(greyPen, soundLineStartPoint, soundLineEndPoint);
+                e.Graphics.DrawLine(new Pen(Color.Orange, penSize), splitP1, splitP2);
+
+
+                if (Math.Min(splitP1.X, splitP2.X) <= markerPoint.X)
+                    e.Graphics.DrawLine(cursorPen, new Point(Math.Min(splitP1.X, splitP2.X), splitP1.Y), new Point(markerPoint.X, soundLineStartPoint.Y));
+
+
+                e.Graphics.DrawLine(orangePen, new Point(splitP1.X, 0), new Point(splitP1.X, pictureBox.Height));
+
+                e.Graphics.DrawLine(orangePen, new Point(splitP2.X, 0), new Point(splitP2.X, pictureBox.Height));
+
+                e.Graphics.DrawLine(orangePen, new Point(splitP1.X, 0 + penSize / 2), new Point(splitP2.X, 0 + penSize / 2));
+                e.Graphics.DrawLine(orangePen, new Point(splitP1.X, pictureBox.Height - penSize / 2), new Point(splitP2.X, pictureBox.Height - penSize / 2));
+
+
+                if (markerPoint.X - object_radius <= Math.Min(splitP1.X, splitP2.X))
+                {
+                    cursorPen.Color = Color.OrangeRed;
+
+                    //Рисуем маркер
+                    e.Graphics.DrawPolygon(cursorPen, new Point[] {
+                new Point( Clamp( markerPoint.X - object_radius,soundLineStartPoint.X,Math.Max(splitP1.X,splitP2.X))
+                , markerPoint.Y - object_radius),
+                new Point( Clamp( markerPoint.X + object_radius,soundLineStartPoint.X,Math.Max(splitP1.X,splitP2.X))
+                , markerPoint.Y - object_radius),
+                new Point(markerPoint.X, soundLineStartPoint.Y)});
+                }
+
+                if (markerPoint.X + object_radius + penSize > Math.Min(splitP1.X, splitP2.X) && markerPoint.X <= Math.Max(splitP1.X, splitP2.X))
+                {
+                    //Рисуем маркер
+                    cursorPen.Color = Color.Black;
+
+                    e.Graphics.DrawPolygon(cursorPen, new Point[] {
+                new Point( Clamp( markerPoint.X - object_radius,Math.Min(splitP1.X,splitP2.X),Math.Max(splitP1.X,splitP2.X))
+                , markerPoint.Y - object_radius),
+                new Point( Clamp( markerPoint.X + object_radius,Math.Min(splitP1.X,splitP2.X),Math.Max(splitP1.X,splitP2.X))
+                , markerPoint.Y - object_radius),
+                new Point(markerPoint.X, soundLineStartPoint.Y)});
+                }
+                /*
+                else
+                {
+                    //Рисуем маркер
+                cursorPen.Color = Color.OrangeRed;
+                e.Graphics.DrawPolygon(cursorPen, new Point[] {
+                new Point( markerPoint.X - object_radius, markerPoint.Y - object_radius),
                 new Point(markerPoint.X + object_radius, markerPoint.Y - object_radius),
                 new Point(markerPoint.X, soundLineStartPoint.Y)});
+                
 
+                }
+                */
+
+                /*
             //Рисуем точки обрезки 
             int object_radius_point = object_radius / 3;
             Rectangle rect = new Rectangle(
@@ -342,7 +603,14 @@ namespace SimpleAudioEditor.Controller.Editor
             2 * object_radius_point + 1, 2 * object_radius_point + 1);
             e.Graphics.FillEllipse(Brushes.Orange, rect);
             e.Graphics.DrawEllipse(Pens.Black, rect);
-
+            */
+            }
+            else
+            {
+                Rectangle rect = new Rectangle(soundLineStartPoint.X, 0,
+                      (pictureBox.Width - 20) * mProgressStatus / 100, pictureBox.Height);
+                e.Graphics.FillRectangle(new SolidBrush(Color.OrangeRed), rect);
+            }
             /*
             Rectangle rect = new Rectangle(
                         markerPoint.X - object_radius, markerPoint.Y - object_radius,
@@ -374,15 +642,15 @@ namespace SimpleAudioEditor.Controller.Editor
         private bool MouseIsOverSplitPoint(Point mouse_pt, out Point hit_pt)
         {
             // Проверьте начальную точку.
-            if (FindDistanceToPointSquared(mouse_pt, splitP1) < Math.Sqrt(over_dist_squared))
+            if (FindDistanceToSplitPointSquared(mouse_pt, splitP1) < Math.Sqrt(over_dist_squared))
             {
                 hit_pt = splitP1;
                 return true;
             }
 
             // Проверьте конечную точку.
-            if (FindDistanceToPointSquared(mouse_pt, splitP2) < Math.Sqrt(over_dist_squared))
-            {
+            if (FindDistanceToSplitPointSquared(mouse_pt, splitP2) < Math.Sqrt(over_dist_squared))
+            { 
                 hit_pt = splitP2;
                 return true;
             }
@@ -390,7 +658,12 @@ namespace SimpleAudioEditor.Controller.Editor
             hit_pt = new Point(-1, -1);
             return false;
         }
-
+        protected int FindDistanceToSplitPointSquared(Point pt1, Point pt2)
+        {
+            int dx = pt1.X - pt2.X;
+            int dy = pt1.Y - pt1.Y;
+            return dx * dx + dy * dy;
+        }
         protected int FindDistanceToPointSquared(Point pt1, Point pt2)
         {
             int dx = pt1.X - pt2.X;
@@ -398,7 +671,7 @@ namespace SimpleAudioEditor.Controller.Editor
             return dx * dx + dy * dy;
         }
 
-        public int Clamp(int value, int min, int max)
+        public static int Clamp(int value, int min, int max)
         {
             value = Math.Min(max, value);
             value = Math.Max(min, value);
@@ -413,7 +686,11 @@ namespace SimpleAudioEditor.Controller.Editor
 
         // Смещение от мыши до перемещаемого объекта.
         private int OffsetP1X, OffsetP2X;
-
+        private double CursorTime()
+        {
+            int lineLeght = soundLineEndPoint.X - soundLineStartPoint.X;
+            return ((double)(markerPoint.X - soundLineStartPoint.X) / (double)lineLeght) * soundTotalTime;
+        }
         // Мы двигаем конечную точку.
         private void pictureBox_MouseMove_MovingSplitPoint(object sender, MouseEventArgs e)
         {
@@ -423,20 +700,26 @@ namespace SimpleAudioEditor.Controller.Editor
 
                 splitP1 =
                      new Point(Clamp(e.X + OffsetP1X, soundLineStartPoint.X, soundLineEndPoint.X), splitP1.Y);
+                endMaskedTime.Text = TimeSpan.FromSeconds(SplitEndTimeFromSecond()).ToString(@"hh\:mm\:ss\.FF");
+                startMaskedTime.Text = TimeSpan.FromSeconds(SplitStartTimeFromSecond()).ToString(@"hh\:mm\:ss\.FF");
+                finalMaskedTime.Text = TimeSpan.FromSeconds(SplitEndTimeFromSecond() - SplitStartTimeFromSecond()).ToString(@"hh\:mm\:ss\.FF");
             }
             else
             {
                 splitP2 =
                 new Point(Clamp(e.X + OffsetX, soundLineStartPoint.X, soundLineEndPoint.X), splitP2.Y);
+                endMaskedTime.Text = TimeSpan.FromSeconds(SplitEndTimeFromSecond()).ToString(@"hh\:mm\:ss\.FF");
+                startMaskedTime.Text = TimeSpan.FromSeconds(SplitStartTimeFromSecond()).ToString(@"hh\:mm\:ss\.FF");
+                finalMaskedTime.Text = TimeSpan.FromSeconds(SplitEndTimeFromSecond() - SplitStartTimeFromSecond()).ToString(@"hh\:mm\:ss\.FF");
 
             }
-            if (player.PlaybackState == PlaybackState.Stopped)
+            if (player.PlaybackState != PlaybackState.Playing)
             {
                 markerPoint =
              new Point(Clamp(markerPoint.X, Math.Min(splitP1.X, splitP2.X), Math.Max(splitP1.X, splitP2.X)), markerPoint.Y);
 
             }
-
+            cursorMaskedTime.Text = TimeSpan.FromSeconds(CursorTime()).ToString(@"hh\:mm\:ss\.FF");
             // Перерисовать.
             pictureBox.Invalidate();
         }
@@ -455,15 +738,14 @@ namespace SimpleAudioEditor.Controller.Editor
                 markerPoint =
               new Point(Clamp(markerPoint.X, Math.Min(splitP1.X, splitP2.X), Math.Max(splitP1.X, splitP2.X)), markerPoint.Y);
 
-                int lineLeght = soundLineEndPoint.X - soundLineStartPoint.X;
-                double skipTimeFromSecond = ((markerPoint.X - soundLineStartPoint.X) * 1.0 / lineLeght) * soundTotalTime;
                 //  MessageBox.Show(String.Format( "{0} - {1} - {2}", (markerPoint.X - soundLineStartPoint.X) * 1.0 / lineLeght,soundTotalTime, skipTimeFromSecond));
-                mp3Reader.CurrentTime = TimeSpan.FromSeconds(skipTimeFromSecond);
+                mp3Reader.CurrentTime = TimeSpan.FromSeconds(CursorTime());
                 timer.Start();
             }
             if (mp3Reader.CurrentTime.TotalSeconds == SplitEndTimeFromSecond())
             {
                 player.Stop();
+                //splitPointStop = true;
                 mp3Reader.CurrentTime = TimeSpan.FromSeconds(SplitStartTimeFromSecond());
                 buttonPlay.Name = ">";
                 timer.Stop();
@@ -499,7 +781,171 @@ namespace SimpleAudioEditor.Controller.Editor
             }
             return false;
         }
+        private ISampleSource mDrawSource;
+        private float[] mOptimizedArray;
+        int mThresholdSample = 64;
+        private Bitmap DrawWave(Pen pen, int w, int h)
+        {
+            Color defaultColor = pen.Color;
+            long numSamples = mDrawSource.Length;
 
+            int mSamplesPerPixel = (int)(mDrawSource.Length / w);
+            int mDrawingStartOffset = 0;
+            int mPrevSamplesPerPixel = mSamplesPerPixel;
+            Bitmap mBitmap = null;
+            if (mBitmap == null || ((mBitmap.Width != w) | (mBitmap.Height != h)))
+            {
+                if (mBitmap != null)
+                    mBitmap.Dispose();
+                mBitmap = new Bitmap(w, h);
+            }
+            Graphics canvas = Graphics.FromImage(mBitmap);
+
+            int prevX = 0;
+            int prevMaxY = 0;
+            int prevMinY = 0;
+            float maxVal = 0;
+            float minVal = 0;
+            int i = 0;
+            // index is how far to offset into the data array 
+            long index = 0;
+            int maxSampleToShow = (int)Math.Min((mSamplesPerPixel * w) + mDrawingStartOffset, numSamples);
+            int sampleCount = 0;
+            int offsetIndex = 0;
+            if (mSamplesPerPixel > mThresholdSample)
+            {
+                sampleCount = (int)(mSamplesPerPixel / mThresholdSample) * 2;
+                offsetIndex = (int)Math.Floor((decimal)(mDrawingStartOffset / mThresholdSample)) * 2;
+            }
+            float[] data = new float[mSamplesPerPixel];
+            mDrawSource.Position = mDrawingStartOffset;
+
+            int x = 0;
+
+            while (index < maxSampleToShow)
+            {
+                maxVal = -1;
+                minVal = 1;
+                int samplesRead = 0;
+                if (mSamplesPerPixel > mThresholdSample)
+                {
+                    int startIndex = offsetIndex + (i * sampleCount);
+                    int endIndex = Math.Min(mOptimizedArray.Length - 1, startIndex + sampleCount - 1);
+                    for (x = startIndex; x <= endIndex; x++)
+                    {
+                        maxVal = Math.Max(maxVal, mOptimizedArray[x]);
+                        minVal = Math.Min(minVal, mOptimizedArray[x]);
+                    }
+                }
+                else
+                {
+                    samplesRead = mDrawSource.Read(data, 0, data.Length);
+                    // finds the max & min peaks for this pixel 
+                    for (x = 0; x < samplesRead; x++)
+                    {
+                        maxVal = Math.Max(maxVal, data[x]);
+                        minVal = Math.Min(minVal, data[x]);
+                    }
+                }
+                //8-bit samples are stored as unsigned bytes, ranging from 0 to 255. 
+                //16-bit samples are stored as 2's-complement signed integers, ranging from -32768 to 32767. 
+                // scales based on height of window 
+                int scaledMinVal = (int)(((minVal + 1) * h) / 2);
+                int scaledMaxVal = (int)(((maxVal + 1) * h) / 2);
+                // if the max/min are the same, then draw a line from the previous position, 
+                // otherwise we will not see anything 
+                if (prevX >= Math.Min(splitP1.X, splitP2.X) - 10 && prevX <= Math.Max(splitP1.X, splitP2.X) - 10)
+                {
+                    pen.Color = defaultColor;
+                }
+                else
+                {
+                    pen.Color = Color.Black;
+                }
+                if (scaledMinVal == scaledMaxVal)
+                {
+                    if (prevMaxY != 0)
+                    {
+                        canvas.DrawLine(pen, prevX, prevMaxY, i, scaledMaxVal);
+                    }
+                }
+                else
+                {
+                    if (i > prevX)
+                    {
+                        if (prevMaxY < scaledMinVal)
+                        {
+
+                            canvas.DrawLine(pen, prevX, prevMaxY, i, scaledMinVal);
+                        }
+                        else
+                        {
+                            if (prevMinY > scaledMaxVal)
+                            {
+                                canvas.DrawLine(pen, prevX, prevMinY, i, scaledMaxVal);
+                            }
+                        }
+                    }
+
+                    canvas.DrawLine(pen, i, scaledMinVal, i, scaledMaxVal);
+                }
+
+                prevX = i;
+                prevMaxY = scaledMaxVal;
+                prevMinY = scaledMinVal;
+                i += 1;
+                index = (i * mSamplesPerPixel) + mDrawingStartOffset;
+            }
+
+            return mBitmap;
+
+        }
+        private string mRawFileName;
+        private void CreateOptimizedArray()
+        {
+            mDrawSource = CodecFactory.Instance.GetCodec(filePath).ToSampleSource().ToMono();
+            long offset = 0;
+            long numSamples = mDrawSource.Length;
+            int x = 0;
+            int y = 0;
+            //Nth item holds maxVal, N+1th item holds minVal so allocate an array of double size
+            mOptimizedArray = new float[((numSamples / mThresholdSample) + 1) * 2];
+            float[] data = new float[mThresholdSample];
+            int samplesRead = 1;
+            mDrawSource.Position = 0;
+            string rawFilePath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\SoundFactory\";
+            if (!Directory.Exists(rawFilePath)) Directory.CreateDirectory(rawFilePath);
+            mRawFileName = rawFilePath + Guid.NewGuid().ToString() + ".raw";
+            FileStream rawFile = new FileStream(mRawFileName, FileMode.Create, FileAccess.ReadWrite);
+            BinaryWriter bin = new BinaryWriter(rawFile);
+            while (offset < numSamples && samplesRead > 0)
+            {
+                samplesRead = mDrawSource.Read(data, 0, mThresholdSample);
+                if (samplesRead > 0) //for some files file length is wrong so samplesRead may become 0 even if we did not come to the end of the file
+                {
+                    for (int i = 0; i < samplesRead; i++)
+                    {
+                        bin.Write(data[i]);
+                    }
+                    float maxVal = -1;
+                    float minVal = 1;
+                    // finds the max & min peaks for this pixel 
+                    for (x = 0; x < samplesRead; x++)
+                    {
+                        maxVal = Math.Max(maxVal, data[x]);
+                        minVal = Math.Min(minVal, data[x]);
+                    }
+                    mOptimizedArray[y] = minVal;
+                    mOptimizedArray[y + 1] = maxVal;
+                    y += 2;
+                    offset += samplesRead;
+                    //mProgressStatus = (int)(((float)offset / numSamples) * 100);
+
+
+                }
+            }
+            rawFile.Close();
+        }
         private double FindDistanceToSegmentSquared(Point pt, Point p1, Point p2, out PointF closest)
         {
             float dx = p2.X - p1.X;
@@ -537,7 +983,7 @@ namespace SimpleAudioEditor.Controller.Editor
                 dy = pt.Y - closest.Y;
             }
 
-            return dx * dx + dy * dy;
+            return dx * dx;
         }
 
     }

@@ -105,7 +105,6 @@
     </Compile>
     <Compile Include="Controller\WaveController\RawDataReader.cs" />
     <Compile Include="Controller\WaveController\SampleController.cs" />
-    <Compile Include="Controller\WaveViewercs.cs" />
     <Compile Include="View\IntroForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,7 +188,6 @@
     <None Include="Bitmaps\media_stop_red.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icons8-Music_Record-48.ico" />
     <Content Include="icons8-Peach-48.ico" />
     <Content Include="libmp3lame.32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

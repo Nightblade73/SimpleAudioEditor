@@ -37,25 +37,25 @@
             // panelMain
             // 
             this.panelMain.AutoScroll = true;
-            this.panelMain.Location = new System.Drawing.Point(22, 12);
+            this.panelMain.Location = new System.Drawing.Point(12, 12);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(607, 74);
+            this.panelMain.Size = new System.Drawing.Size(700, 92);
             this.panelMain.TabIndex = 10;
             // 
             // panelSamples
             // 
             this.panelSamples.AutoScroll = true;
-            this.panelSamples.Location = new System.Drawing.Point(22, 121);
+            this.panelSamples.Location = new System.Drawing.Point(12, 139);
             this.panelSamples.Name = "panelSamples";
-            this.panelSamples.Size = new System.Drawing.Size(607, 208);
+            this.panelSamples.Size = new System.Drawing.Size(700, 290);
             this.panelSamples.TabIndex = 9;
             // 
             // buttonAddSample
             // 
-            this.buttonAddSample.BackColor = System.Drawing.Color.Coral;
+            this.buttonAddSample.BackColor = System.Drawing.Color.OrangeRed;
             this.buttonAddSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddSample.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonAddSample.Location = new System.Drawing.Point(282, 92);
+            this.buttonAddSample.Location = new System.Drawing.Point(12, 110);
             this.buttonAddSample.Name = "buttonAddSample";
             this.buttonAddSample.Size = new System.Drawing.Size(126, 23);
             this.buttonAddSample.TabIndex = 8;
@@ -67,8 +67,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DarkGray;
-            this.ClientSize = new System.Drawing.Size(652, 342);
+            this.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.ClientSize = new System.Drawing.Size(724, 441);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelSamples);
             this.Controls.Add(this.buttonAddSample);
