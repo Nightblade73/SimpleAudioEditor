@@ -11,7 +11,7 @@ namespace SimpleAudioEditor.Controller
     {
         public static void Serialize(Project project)
         {
-
+            //XmlSerializationWriter wr = new XmlSerializationWriter(typeof Project);
         }
     }
 }
