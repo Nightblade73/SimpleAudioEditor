@@ -12,13 +12,12 @@ namespace SimpleAudioEditor.Controller
     {
         public String title;
         public String path;
-        public List<Sample> listSamples;
+        public List<Sample> listSamples = new List<Sample>();
 
         /* Создает пустой проект
          */
         public Project(String title, Primary prim)
         {
-            this.listSamples = new List<Sample>();
             this.title = title;
             this.path = prim.progPath + "\\" + title;
         }
@@ -26,7 +25,6 @@ namespace SimpleAudioEditor.Controller
          */
         public Project(String path)
         {
-            this.listSamples = new List<Sample>();
             this.title = Path.GetFileName(path);
             this.path = path;
         }

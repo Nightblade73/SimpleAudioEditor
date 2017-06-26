@@ -1,9 +1,12 @@
-﻿using System;
+﻿using SimpleAudioEditor.Controller.Editor;
+using SimpleAudioEditor.View;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SimpleAudioEditor.Controller
 {
@@ -19,6 +22,7 @@ namespace SimpleAudioEditor.Controller
          * для каждого сэмпла, нужно создавать новый _экземпляр_ оригинальной дорожки
          */
         private String samplePath;
+        public SampleLineEditor lineEditor;
 
         public Point startPos, endPos;
         private double splitEndTimeFromSecond;
@@ -99,9 +103,10 @@ namespace SimpleAudioEditor.Controller
             }
         }
 
-        public Sample()
+        public Sample(String filepath)
         {
-
+            this.soundPath = filepath;
+            lineEditor = new SampleLineEditor(this);
         }
 
         public Sample(double _splitStartTimeFromSecond, double _splitEndTimeFromSecond, double _allTimeFromSecond, string _soundPath, Project _project)
@@ -122,6 +127,19 @@ namespace SimpleAudioEditor.Controller
 
             else
                 return this.indexQueue.CompareTo(other.indexQueue);
+        }
+
+        public void Play()
+        {
+            MessageBox.Show(this.soundPath + " play");
+        }
+        public void Pause()
+        {
+            MessageBox.Show(this.soundPath+" pause");
+        }
+        public void Stop()
+        {
+            MessageBox.Show(this.soundPath + " stop");
         }
     }
 }
