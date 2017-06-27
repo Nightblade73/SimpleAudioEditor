@@ -13,7 +13,7 @@ namespace SimpleAudioEditor.Controller
     public class Sample : IComparable<Sample>
     {
         private  String title;
-        Project project;
+        ProjectOld project;
         /* Путь к оригинальной звуковой дорожке
          * (не обрезанной)
          */
@@ -116,7 +116,7 @@ namespace SimpleAudioEditor.Controller
             lineEditor = new SampleLineEditor(this);
         }
 
-        public Sample(double _splitStartTimeFromSecond, double _splitEndTimeFromSecond, double _allTimeFromSecond, string _soundPath, Project _project, Bitmap _frequencyBitMap)
+        public Sample(double _splitStartTimeFromSecond, double _splitEndTimeFromSecond, double _allTimeFromSecond, string _soundPath, ProjectOld _project, Bitmap _frequencyBitMap)
         {
             splitStartTimeFromSecond = _splitStartTimeFromSecond;
             splitEndTimeFromSecond = _splitEndTimeFromSecond;

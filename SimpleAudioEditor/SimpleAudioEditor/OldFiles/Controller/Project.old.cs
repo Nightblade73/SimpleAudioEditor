@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.Controller
 {
-    public class Project
+    public class ProjectOld
     {
         public String title;
         public String path;
@@ -16,14 +16,14 @@ namespace SimpleAudioEditor.Controller
 
         /* Создает пустой проект
          */
-        public Project(String title, Primary prim)
+        public ProjectOld(String title, Primary prim)
         {
             this.title = title;
             this.path = prim.progPath + "\\" + title;
         }
         /* Загрузить проект из папки path
          */
-        public Project(String path)
+        public ProjectOld(String path)
         {
             this.title = Path.GetFileName(path);
             this.path = path;

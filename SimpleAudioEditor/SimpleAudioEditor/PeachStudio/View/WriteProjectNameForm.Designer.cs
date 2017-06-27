@@ -99,7 +99,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "WriteProjectNameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.WriteProjectNameForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

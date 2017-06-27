@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using SimpleAudioEditor.PeachStudio;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +28,7 @@ namespace SimpleAudioEditor.Controller
                 String[] folders = Directory.GetDirectories(progPath);
                 foreach (String folder in folders)
                 {
-                    projects.Add(new Project(folder));
+                    projects.Add(Project.CreateTempProject(folder));
                 }
             }
         }

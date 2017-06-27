@@ -41,10 +41,5 @@ namespace SimpleAudioEditor.View
             this.DialogResult = DialogResult.Cancel;
             Dispose();
         }
-
-        private void WriteProjectNameForm_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

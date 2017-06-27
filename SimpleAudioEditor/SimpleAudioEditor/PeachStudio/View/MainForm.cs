@@ -1,5 +1,6 @@
 ﻿using SimpleAudioEditor.Controller;
 using SimpleAudioEditor.Controller.Editor;
+using SimpleAudioEditor.PeachStudio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,24 +23,11 @@ namespace SimpleAudioEditor.View
         public NewPlayerForm()
         {
             InitializeComponent();
+            primary = new Primary();
 
-            panelSamples.AutoScroll = false;
             panelSamples.HorizontalScroll.Enabled = false;
             panelSamples.HorizontalScroll.Visible = false;
             panelSamples.HorizontalScroll.Maximum = 0;
-            panelSamples.AutoScroll = true;
-
-            /*
-            var ofd = new OpenFileDialog();
-            ofd.Filter = "Cursor Files|*.mp3;*.wav";
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                ClassTest ct = new ClassTest(ofd.FileName);
-                
-
-            }
-            */
-            primary = new Primary();
         }
 
         private void Form_Load(object sender, EventArgs e)
@@ -49,8 +37,14 @@ namespace SimpleAudioEditor.View
                 this.Close();
                 return;
             }
+            if(project == null)
+            {
+                throw new NullReferenceException();
+            }
             this.Text = project.title;
-            m = new MainSoundLine(700, 80, panelMain, new Point(0, 0), project);
+            ProjectControl prjCntrl = new ProjectControl(this.project);
+            panelMain.Controls.Add(prjCntrl);
+            //m = new MainSoundLine(700, 80, panelMain, new Point(0, 0), project);
         }
 
         private void buttonAddSample_Click(object sender, EventArgs e)
@@ -65,7 +59,7 @@ namespace SimpleAudioEditor.View
                 {
                     //Sample samp = new Sample(ofd.FileNames[i]);
                     //layoutSamples.Controls.Add(samp.lineEditor);
-                    SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 640, project);
+                   // SoundLineEditor s = new SoundLineEditor(ofd.FileNames[i], panelSamples, new Point(6, x), 640, project);
                     x += 106;
                 }
             }

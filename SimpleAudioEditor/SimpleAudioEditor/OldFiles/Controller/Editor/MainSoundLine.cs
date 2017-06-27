@@ -32,8 +32,8 @@ namespace SimpleAudioEditor.Controller.Editor
         Button buttonOK;
         Button buttonDelete;
         Random r = new Random();
-        Project project;
-        public MainSoundLine(int width, int height, Control parent, Point location, Project _project)
+        ProjectOld project;
+        public MainSoundLine(int width, int height, Control parent, Point location, ProjectOld _project)
         {     
             project = _project;
 

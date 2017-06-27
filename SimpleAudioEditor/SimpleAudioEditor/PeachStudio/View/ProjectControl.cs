@@ -13,10 +13,16 @@ namespace SimpleAudioEditor.PeachStudio {
         Project project;
         ProjectPlayer projectPlayer;
         
-        public ProjectControl() {
+        public ProjectControl(Project project) {
             InitializeComponent();
+            this.project = project;
         }
 
         public void SplitAll() { }
+
+        private void ProjectControl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

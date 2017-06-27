@@ -1,4 +1,5 @@
 ﻿using SimpleAudioEditor.Controller;
+using SimpleAudioEditor.PeachStudio;
 using SimpleAudioEditor.Properties;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace SimpleAudioEditor.View
             this.Font = new Font(this.Font, FontStyle.Bold);
             Padding margin = this.Margin;
             margin.Top = 5;
-            margin.Left = 40;
+            margin.Right = 40;
             this.Margin = margin;
         } 
     }

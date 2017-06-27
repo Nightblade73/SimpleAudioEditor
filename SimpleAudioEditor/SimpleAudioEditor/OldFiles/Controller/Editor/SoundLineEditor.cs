@@ -31,7 +31,7 @@ namespace SimpleAudioEditor.Controller.Editor
         bool draw = false;
         bool splitPointStop = false;
 
-        Project project;
+        ProjectOld project;
         Label name;
         //bool splitPointStop = false;
         MaskedTextBox cursorMaskedTime;
@@ -48,7 +48,7 @@ namespace SimpleAudioEditor.Controller.Editor
         // между мышью и объектом меньше этого.
         private const int over_dist_squared = object_radius * object_radius;
 
-        public SoundLineEditor(string _filePath, Control parent, Point location, int playerWidth, Project _project)
+        public SoundLineEditor(string _filePath, Control parent, Point location, int playerWidth, ProjectOld _project)
         {
             project = _project;
             pictureBox = new PictureBox();

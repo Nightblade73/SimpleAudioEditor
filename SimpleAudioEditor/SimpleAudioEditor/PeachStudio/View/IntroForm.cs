@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using SimpleAudioEditor.Controller;
+using SimpleAudioEditor.PeachStudio;
 using SimpleAudioEditor.Properties;
 using SimpleAudioEditor.View;
 using System;
@@ -38,8 +39,7 @@ namespace SimpleAudioEditor
             WriteProjectNameForm form = new WriteProjectNameForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                Project pr = new Project(form.title, main.primary);
-                main.project = pr;
+                main.project = Project.CreateTempProject(main.primary + "\\" + form.title);
                 this.DialogResult = DialogResult.OK;
                 this.Dispose();
             }
@@ -92,6 +92,11 @@ namespace SimpleAudioEditor
                     layoutProjects.Refresh();
                 }
             }
+        }
+
+        private void IntroForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

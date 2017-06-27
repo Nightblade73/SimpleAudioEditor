@@ -57,6 +57,7 @@
             // 
             // panelSamples
             // 
+            this.panelSamples.AutoScroll = true;
             this.panelSamples.Location = new System.Drawing.Point(12, 140);
             this.panelSamples.Name = "panelSamples";
             this.panelSamples.Size = new System.Drawing.Size(700, 289);
