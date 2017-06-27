@@ -194,6 +194,7 @@ namespace SimpleAudioEditor.PeachStudio {
         }
         #endregion // Перемещение конечной точки
 
+
         protected void pbWaveViewer_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Copy;
@@ -214,6 +215,10 @@ namespace SimpleAudioEditor.PeachStudio {
         {
             UpdatePointPos();
             pbWaveViewer.Invalidate();
+        }
+
+        private void bPlayPause_Click(object sender, EventArgs e) {
+
         }
 
         private TimeSpan GetAllTotalTime() {

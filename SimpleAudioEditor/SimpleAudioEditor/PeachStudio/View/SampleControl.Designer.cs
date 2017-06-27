@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.maskedTextBoxSplitEndTime = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBoxSplitStartTime = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
@@ -33,7 +34,11 @@
             this.maskedTextBoxResultTime = new System.Windows.Forms.MaskedTextBox();
             this.hScrollBar = new System.Windows.Forms.HScrollBar();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.FromBeginingToPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FromPointToEndingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // maskedTextBoxSplitEndTime
@@ -151,12 +156,36 @@
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
             this.pictureBox.Layout += new System.Windows.Forms.LayoutEventHandler(this.pictureBox_Layout);
+            this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseClick);
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FromBeginingToPointToolStripMenuItem,
+            this.FromPointToEndingToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(224, 48);
+            // 
+            // FromBeginingToPointToolStripMenuItem
+            // 
+            this.FromBeginingToPointToolStripMenuItem.Name = "FromBeginingToPointToolStripMenuItem";
+            this.FromBeginingToPointToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.FromBeginingToPointToolStripMenuItem.Text = "От начала до точки нажатия";
+            this.FromBeginingToPointToolStripMenuItem.Click += new System.EventHandler(this.FromBeginingToPointToolStripMenuItem_Click);
+            // 
+            // FromPointToEndingToolStripMenuItem
+            // 
+            this.FromPointToEndingToolStripMenuItem.Name = "FromPointToEndingToolStripMenuItem";
+            this.FromPointToEndingToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.FromPointToEndingToolStripMenuItem.Text = "От точки нажатия до конца";
+            this.FromPointToEndingToolStripMenuItem.Click += new System.EventHandler(this.FromPointToEndingToolStripMenuItem_Click);
             // 
             // SampleControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.hScrollBar);
             this.Controls.Add(this.maskedTextBoxResultTime);
             this.Controls.Add(this.maskedTextBox5);
@@ -164,13 +193,14 @@
             this.Controls.Add(this.maskedTextBoxSplitStartTime);
             this.Controls.Add(this.maskedTextBox2);
             this.Controls.Add(this.maskedTextBoxCurrentTime);
-            this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonPlay);
             this.MinimumSize = new System.Drawing.Size(680, 93);
             this.Name = "SampleControl";
             this.Size = new System.Drawing.Size(680, 93);
+            this.Load += new System.EventHandler(this.SampleControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,5 +218,8 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBox5;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxResultTime;
         private System.Windows.Forms.HScrollBar hScrollBar;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem FromBeginingToPointToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem FromPointToEndingToolStripMenuItem;
     }
 }

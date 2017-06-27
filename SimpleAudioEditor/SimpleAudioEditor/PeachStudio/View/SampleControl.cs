@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.Wave;
 
@@ -20,6 +14,7 @@ namespace SimpleAudioEditor.PeachStudio
 
         Point markerPoint;
         bool markerMoving;
+        int mousePositionX;
 
         public Sample Sample
         {
@@ -62,8 +57,7 @@ namespace SimpleAudioEditor.PeachStudio
 
         // «Размер» объекта для мыши над целями.
         private const int object_radius = 6;
-        // Мы над объектом, если квадрат расстояния
-        // между мышью и объектом меньше этого.
+        // Мы над объектом, если квадрат расстояния между мышью и объектом меньше этого.       
         private const int over_dist_squared = object_radius * object_radius;
 
         public int OffsetX;
@@ -403,6 +397,27 @@ namespace SimpleAudioEditor.PeachStudio
         }
 
         #endregion // Перемещение конечной точки
+
+        private void SampleControl_Load(object sender, EventArgs e) {
+            //pictureBox.ContextMenuStrip = contextMenuStrip;
+        }
+
+        private void FromBeginingToPointToolStripMenuItem_Click(object sender, EventArgs e) {
+            sample.SplitStartTime = Mathf.PosToTime(mousePositionX, PlayerLineWidth, samplePlayer.TotalTime);
+            pictureBox.Invalidate();
+        }
+
+        private void FromPointToEndingToolStripMenuItem_Click(object sender, EventArgs e) {
+            sample.SplitEndTime = Mathf.PosToTime(mousePositionX, PlayerLineWidth, samplePlayer.TotalTime);
+            pictureBox.Invalidate();
+        }
+        
+        private void pictureBox_MouseClick(object sender, MouseEventArgs e) {
+            if(e.Button == MouseButtons.Right) {
+                mousePositionX = pictureBox.PointToClient(MousePosition).X - indent;
+                contextMenuStrip.Show(MousePosition);                
+            }
+        }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
