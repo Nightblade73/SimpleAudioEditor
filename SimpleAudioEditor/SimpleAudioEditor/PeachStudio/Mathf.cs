@@ -2,6 +2,7 @@
 using CSCore.Codecs;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -44,23 +45,29 @@ namespace SimpleAudioEditor.PeachStudio
         }
 
 
+        public static int mThresholdSample = 64;
+        public static ISampleSource CreateDrawSource(string filePath)
+        {
+            ISampleSource mDrawSource = CodecFactory.Instance.GetCodec(filePath).ToSampleSource().ToMono();
+            return mDrawSource;
+        }
 
-        public static float[] CreateOptimizedArray(string filePath)
+        public static float[] CreateOptimizedArray(string filePath, ISampleSource drawSource)
         {
             string mRawFileName;
-            ISampleSource mDrawSource;
+            
             float[] mOptimizedArray;
-            int mThresholdSample = 64;
-            mDrawSource = CodecFactory.Instance.GetCodec(filePath).ToSampleSource().ToMono();
+
+            drawSource = CodecFactory.Instance.GetCodec(filePath).ToSampleSource().ToMono();
             long offset = 0;
-            long numSamples = mDrawSource.Length;
+            long numSamples = drawSource.Length;
             int x = 0;
             int y = 0;
             //Nth item holds maxVal, N+1th item holds minVal so allocate an array of double size
             mOptimizedArray = new float[((numSamples / mThresholdSample) + 1) * 2];
             float[] data = new float[mThresholdSample];
             int samplesRead = 1;
-            mDrawSource.Position = 0;
+            drawSource.Position = 0;
             string rawFilePath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\SoundFactory\";
             if (!Directory.Exists(rawFilePath)) Directory.CreateDirectory(rawFilePath);
             mRawFileName = rawFilePath + Guid.NewGuid().ToString() + ".raw";
@@ -68,7 +75,7 @@ namespace SimpleAudioEditor.PeachStudio
             BinaryWriter bin = new BinaryWriter(rawFile);
             while (offset < numSamples && samplesRead > 0)
             {
-                samplesRead = mDrawSource.Read(data, 0, mThresholdSample);
+                samplesRead = drawSource.Read(data, 0, mThresholdSample);
                 if (samplesRead > 0) //for some files file length is wrong so samplesRead may become 0 even if we did not come to the end of the file
                 {
                     for (int i = 0; i < samplesRead; i++)
@@ -91,6 +98,136 @@ namespace SimpleAudioEditor.PeachStudio
             }
             return mOptimizedArray;
         }
+
+        public static Bitmap DrawWave(float[] mOptimizedArray, ISampleSource mDrawSource, Pen pen, int w, int h,int splitStart, int splitEnd)
+        {
+            Color defaultColor = pen.Color;
+            long numSamples = mDrawSource.Length;
+
+            int mSamplesPerPixel = (int)(mDrawSource.Length / w);
+
+            int mDrawingStartOffset = 0;
+
+            int mPrevSamplesPerPixel = mSamplesPerPixel;
+            Bitmap mBitmap = null;
+            if (mBitmap == null || ((mBitmap.Width != w) | (mBitmap.Height != h)))
+            {
+                if (mBitmap != null)
+                    mBitmap.Dispose();
+                mBitmap = new Bitmap(w, h);
+            }
+            Graphics canvas = Graphics.FromImage(mBitmap);
+
+            int prevX = 0;
+            int prevMaxY = 0;
+            int prevMinY = 0;
+            float maxVal = 0;
+            float minVal = 0;
+
+            int i = 0;
+
+            // index is how far to offset into the data array 
+            long index = 0;
+            int maxSampleToShow = (int)Math.Min((mSamplesPerPixel * w) + mDrawingStartOffset, numSamples);
+
+            int sampleCount = 0;
+            int offsetIndex = 0;
+            if (mSamplesPerPixel > mThresholdSample)
+            {
+                sampleCount = (int)(mSamplesPerPixel / mThresholdSample) * 2;
+                offsetIndex = (int)Math.Floor((decimal)(mDrawingStartOffset / mThresholdSample)) * 2;
+            }
+            float[] data = new float[mSamplesPerPixel];
+            mDrawSource.Position = mDrawingStartOffset;
+
+
+            int x = 0;
+
+            while (index < maxSampleToShow)
+            {
+                maxVal = -1;
+                minVal = 1;
+                int samplesRead = 0;
+                if (mSamplesPerPixel > mThresholdSample)
+                {
+                    int startIndex = offsetIndex + (i * sampleCount);
+                    int endIndex = Math.Min(mOptimizedArray.Length - 1, startIndex + sampleCount - 1);
+                    for (x = startIndex; x <= endIndex; x++)
+                    {
+                        maxVal = Math.Max(maxVal, mOptimizedArray[x]);
+                        minVal = Math.Min(minVal, mOptimizedArray[x]);
+                    }
+                }
+                else
+                {
+                    samplesRead = mDrawSource.Read(data, 0, data.Length);
+                    // finds the max & min peaks for this pixel 
+                    for (x = 0; x < samplesRead; x++)
+                    {
+                        maxVal = Math.Max(maxVal, data[x]);
+                        minVal = Math.Min(minVal, data[x]);
+                    }
+                }
+                //8-bit samples are stored as unsigned bytes, ranging from 0 to 255. 
+                //16-bit samples are stored as 2's-complement signed integers, ranging from -32768 to 32767. 
+                // scales based on height of window 
+                int scaledMinVal = (int)(((minVal + 1) * h) / 2);
+                int scaledMaxVal = (int)(((maxVal + 1) * h) / 2);
+
+                // if the max/min are the same, then draw a line from the previous position, 
+                // otherwise we will not see anything 
+
+
+                if (prevX >= Math.Min(splitStart, splitEnd) && prevX <= Math.Max(splitStart, splitEnd) )
+                {
+                    pen.Color = defaultColor;
+
+                }
+                else
+                {
+                    pen.Color = Color.Black;
+
+                }
+                if (scaledMinVal == scaledMaxVal)
+                {
+                    if (prevMaxY != 0)
+                    {
+                        canvas.DrawLine(pen, prevX, prevMaxY, i, scaledMaxVal);
+                    }
+                }
+                else
+                {
+                    if (i > prevX)
+                    {
+                        if (prevMaxY < scaledMinVal)
+                        {
+
+                            canvas.DrawLine(pen, prevX, prevMaxY, i, scaledMinVal);
+                        }
+                        else
+                        {
+                            if (prevMinY > scaledMaxVal)
+                            {
+                                canvas.DrawLine(pen, prevX, prevMinY, i, scaledMaxVal);
+                            }
+                        }
+                    }
+
+                    canvas.DrawLine(pen, i, scaledMinVal, i, scaledMaxVal);
+                }
+
+                prevX = i;
+                prevMaxY = scaledMaxVal;
+                prevMinY = scaledMinVal;
+
+                i += 1;
+                index = (i * mSamplesPerPixel) + mDrawingStartOffset;
+            }
+
+            return mBitmap;
+
+        }
+
 
     }
 }

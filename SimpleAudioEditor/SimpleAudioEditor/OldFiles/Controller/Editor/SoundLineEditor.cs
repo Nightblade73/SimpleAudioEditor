@@ -778,13 +778,10 @@ namespace SimpleAudioEditor.Controller.Editor
             if (mp3Reader.CurrentTime.TotalSeconds == SplitEndTimeFromSecond())
             {
                 player.Stop();
-
                 splitPointStop = true;
-
                 mp3Reader.CurrentTime = TimeSpan.FromSeconds(SplitStartTimeFromSecond());
                 buttonPlay.Name = ">";
                 timer.Stop();
-
             }
 
             // Перерисовать.
@@ -1064,7 +1061,6 @@ namespace SimpleAudioEditor.Controller.Editor
                 if (prevX >= Math.Min(splitP1.X, splitP2.X) - 10 && prevX <= Math.Max(splitP1.X, splitP2.X) - 10)
                 {
                     pen.Color = defaultColor;
-
                 }
                 else
                 {
