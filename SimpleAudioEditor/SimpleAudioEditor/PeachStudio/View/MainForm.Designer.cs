@@ -29,19 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewPlayerForm));
-            this.panelMain = new System.Windows.Forms.Panel();
             this.buttonAddSample = new System.Windows.Forms.Button();
             this.panelSamples = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // panelMain
-            // 
-            this.panelMain.AutoScroll = true;
-            this.panelMain.Location = new System.Drawing.Point(12, 12);
-            this.panelMain.MinimumSize = new System.Drawing.Size(300, 100);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(700, 100);
-            this.panelMain.TabIndex = 10;
             // 
             // buttonAddSample
             // 
@@ -63,15 +53,15 @@
             this.panelSamples.Name = "panelSamples";
             this.panelSamples.Size = new System.Drawing.Size(700, 289);
             this.panelSamples.TabIndex = 11;
+            this.panelSamples.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panelSamples_ControlAdded);
             // 
             // NewPlayerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(724, 441);
             this.Controls.Add(this.panelSamples);
-            this.Controls.Add(this.panelMain);
             this.Controls.Add(this.buttonAddSample);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -83,8 +73,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Button buttonAddSample;
         private System.Windows.Forms.Panel panelSamples;
     }

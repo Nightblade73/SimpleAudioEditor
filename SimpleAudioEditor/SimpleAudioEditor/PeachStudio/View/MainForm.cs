@@ -44,8 +44,7 @@ namespace SimpleAudioEditor.View
             this.Text = project.title;
             ProjectControl projectControl = new ProjectControl(this.project);
             projectControl.Dock = DockStyle.Fill;
-            panelMain.Controls.Add(projectControl);
-            //m = new MainSoundLine(700, 80, panelMain, new Point(0, 0), project);
+            //panelMain.Controls.Add(projectControl);
         }
 
         private void buttonAddSample_Click(object sender, EventArgs e)
@@ -64,6 +63,11 @@ namespace SimpleAudioEditor.View
                     x += 106;
                 }
             }
+        }
+
+        private void panelSamples_ControlAdded(object sender, ControlEventArgs e)
+        {
+        
         }
     }
 

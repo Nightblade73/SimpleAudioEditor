@@ -767,7 +767,6 @@ namespace SimpleAudioEditor.Controller.Editor
                 new Point( SoundLineEditor.Clamp( markerPoint.X + object_radius,Math.Min(lineStartPos.X,lineEndPos.X),Math.Max(lineStartPos.X,lineEndPos.X))
                 , markerPoint.Y - object_radius),
                 new Point(markerPoint.X,lineStartPos.Y)});
-            //  }
 
         }
     }

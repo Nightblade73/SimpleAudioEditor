@@ -11,9 +11,6 @@ namespace SimpleAudioEditor.PeachStudio {
         public string title;
         List<Sample> samples;
 
-        public void AddSample(Sample addedSample) { }
-        public void RemoveSample(Sample removedSample) { }
-
         public static Project CreateTempProject(String path)
         {
             Project pr = new Project();
@@ -26,6 +23,19 @@ namespace SimpleAudioEditor.PeachStudio {
                 pr.samples.Add(Sample.CreateSample(file));
             }
             return pr;
+        }
+        
+        public Project()
+        {
+            samples = new List<Sample>();
+        }
+        public void AddSample(Sample addedSample)
+        {
+            samples.Add(addedSample);
+        }
+        public void RemoveSample(Sample removedSample)
+        {
+            samples.Remove(removedSample);
         }
     }
 }

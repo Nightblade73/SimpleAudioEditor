@@ -105,6 +105,7 @@
     <Compile Include="OldFiles\Controller\WaveController\RawDataReader.cs" />
     <Compile Include="OldFiles\Controller\WaveController\SampleController.cs" />
     <Compile Include="PeachStudio\FileValidator.cs" />
+    <Compile Include="PeachStudio\Mathf.cs" />
     <Compile Include="PeachStudio\View\IntroForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +129,12 @@
       <DependentUpon>SampleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="PeachStudio\SamplePlayer.cs" />
+    <Compile Include="PeachStudio\View\PeachEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PeachStudio\View\PeachEditor.Designer.cs">
+      <DependentUpon>PeachEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PeachStudio\View\MainForm.cs">
@@ -156,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PeachStudio\View\SampleControl.resx">
       <DependentUpon>SampleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeachStudio\View\PeachEditor.resx">
+      <DependentUpon>PeachEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

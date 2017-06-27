@@ -13,8 +13,15 @@ namespace SimpleAudioEditor.PeachStudio {
         Project project;
         ProjectPlayer projectPlayer;
 
+        public Project CurrentProject
+        {
+            set { project = value; }
+            get { return project; }
+        }
+        
         public ProjectControl() {
             InitializeComponent();
+            project = new Project();
         }
 
         public ProjectControl(Project project) {

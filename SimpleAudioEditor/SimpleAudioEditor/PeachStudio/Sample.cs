@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NAudio.Wave;
 
 namespace SimpleAudioEditor.PeachStudio {
     public class Sample {
@@ -9,7 +14,6 @@ namespace SimpleAudioEditor.PeachStudio {
         TimeSpan totalTime;
         float[] optimizedArray;
 
-
         public static Sample CreateSample(String filePath)
         {
             if(FileValidator.IsValid(filePath))
@@ -19,9 +23,50 @@ namespace SimpleAudioEditor.PeachStudio {
             }
             return null;
         }
-        private Sample(String filePath)
+
+        public Sample(string _soundPath)
         {
-            this.soundPath = filePath;
-        }        
+            soundPath = _soundPath;
+            optimizedArray = Mathf.CreateOptimizedArray(soundPath);
+            AudioFileReader a = new AudioFileReader(soundPath);
+            totalTime = a.TotalTime;
+            splitStartTime = new TimeSpan();
+            splitEndTime = totalTime;
+        }
+
+        public TimeSpan SplitStartTime
+        {
+            set { splitStartTime = value;}
+            get { return splitStartTime; }
+        }
+
+        public TimeSpan SplitEndTime
+        {
+            set { splitEndTime = value; }
+            get { return splitEndTime; }
+        }
+
+        public TimeSpan CurrentTime
+        {
+            set { currentTime = value; }
+            get { return currentTime; }
+        }
+
+        public TimeSpan TotalTime
+        {
+            get { return totalTime; }
+        }
+
+        public float[] OptimizedArray
+        {
+            set { optimizedArray = value; }
+            get { return optimizedArray; }
+        }
+
+        public string SoundPath
+        {
+            set{soundPath =value;}
+            get { return soundPath;}
+        }
     }
 }

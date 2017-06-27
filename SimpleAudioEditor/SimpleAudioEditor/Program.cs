@@ -1,4 +1,5 @@
-﻿using SimpleAudioEditor.View;
+﻿using SimpleAudioEditor.PeachStudio.View;
+using SimpleAudioEditor.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace SimpleAudioEditor {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new NewPlayerForm());
+            Application.Run(new PeachEditor());
         }
     }
 }
