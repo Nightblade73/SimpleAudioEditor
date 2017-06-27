@@ -12,6 +12,11 @@ namespace SimpleAudioEditor.PeachStudio {
         WaveOutEvent player;
         Timer timer;
 
+        public PlaybackState PlayerState
+        {
+            get {return player.PlaybackState; }
+        }
+
         public float Volume
         {
             set { player.Volume = value; }
@@ -25,11 +30,12 @@ namespace SimpleAudioEditor.PeachStudio {
 
         public SamplePlayer(string _filePath)
         {
+            
             fileReader = new Mp3FileReader(_filePath);
             player = new WaveOutEvent();
             player.Init(fileReader);
             timer = new Timer();
-            timer.Interval = 16;
+            timer.Interval = 10;
             player.PlaybackStopped += player_PlaybackStopped;
         }
         

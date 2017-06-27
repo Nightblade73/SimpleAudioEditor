@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NAudio.Wave;
+using CSCore;
 
 namespace SimpleAudioEditor.PeachStudio {
     public class Sample {
@@ -12,6 +13,7 @@ namespace SimpleAudioEditor.PeachStudio {
         TimeSpan splitEndTime;
         TimeSpan currentTime;
         TimeSpan totalTime;
+        ISampleSource mDrawSource;
         float[] optimizedArray;
 
         public static Sample CreateSample(String filePath)
@@ -27,7 +29,8 @@ namespace SimpleAudioEditor.PeachStudio {
         public Sample(string _soundPath)
         {
             soundPath = _soundPath;
-            optimizedArray = Mathf.CreateOptimizedArray(soundPath);
+            mDrawSource = Mathf.CreateDrawSource(soundPath);
+            optimizedArray = Mathf.CreateOptimizedArray(soundPath,mDrawSource);
             AudioFileReader a = new AudioFileReader(soundPath);
             totalTime = a.TotalTime;
             splitStartTime = new TimeSpan();
@@ -61,6 +64,12 @@ namespace SimpleAudioEditor.PeachStudio {
         {
             set { optimizedArray = value; }
             get { return optimizedArray; }
+        }
+
+        public ISampleSource DrawSource
+        {
+            set { mDrawSource = value; }
+            get { return mDrawSource; }
         }
 
         public string SoundPath

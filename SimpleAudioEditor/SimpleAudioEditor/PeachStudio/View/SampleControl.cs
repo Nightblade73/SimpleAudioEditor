@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NAudio.Wave;
 
 namespace SimpleAudioEditor.PeachStudio
 {
@@ -48,6 +49,7 @@ namespace SimpleAudioEditor.PeachStudio
 
         public void UpdateMaskedTimeValue()
         {
+            maskedTextBoxCurrentTime.Text = samplePlayer.CurrentTime.ToString(@"hh\:mm\:ss\.FF");
             maskedTextBoxSplitEndTime.Text = sample.SplitEndTime.ToString(@"hh\:mm\:ss\.FF");
             maskedTextBoxSplitStartTime.Text = sample.SplitStartTime.ToString(@"hh\:mm\:ss\.FF");
             maskedTextBoxResultTime.Text = (sample.SplitEndTime - sample.SplitStartTime).ToString(@"hh\:mm\:ss\.FF");
@@ -104,13 +106,26 @@ namespace SimpleAudioEditor.PeachStudio
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
-            samplePlayer.Play();
+
+            if (samplePlayer.PlayerState == PlaybackState.Paused || samplePlayer.PlayerState == PlaybackState.Stopped)
+            {
+                samplePlayer.Play();
+                buttonPlay.Text = "II";
+            }
+            else
+            {
+                samplePlayer.Pause();
+                buttonPlay.Text = ">";
+            }
+            UpdateMaskedTimeValue();
+            UpdatePointPos();
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
             samplePlayer.Stop();
             samplePlayer.CurrentTime = sample.SplitStartTime;
+            buttonPlay.Text = ">";
             UpdatePointPos();
         //    markerPoint = new Point(indent + Mathf.TimeToPos(samplePlayer.CurrentTime, samplePlayer.TotalTime, PlayerLineWidth), startPos.Y - object_radius * 2);
             pictureBox.Invalidate();
@@ -125,7 +140,9 @@ namespace SimpleAudioEditor.PeachStudio
             {
                 samplePlayer.Stop();
                 samplePlayer.CurrentTime = sample.SplitStartTime;
+                buttonPlay.Text = ">";
             }
+            if(!markerMoving)
             UpdatePointPos();
             pictureBox.Invalidate();
         }
@@ -139,11 +156,7 @@ namespace SimpleAudioEditor.PeachStudio
 
             markerPoint = new Point(indent + Mathf.TimeToPos(
                 Mathf.Clamp(Mathf.PosToTime(e.X + OffsetX, PlayerLineWidth, sample.TotalTime), sample.SplitStartTime, sample.SplitEndTime), samplePlayer.TotalTime, PlayerLineWidth), startPos.Y - object_radius * 2);
-
-            //    markerPoint =
-            //    new Point(Mathf.Clamp(e.X + OffsetX, startPos.X, endPos.X), markerPoint.Y);
-            //samplePlayer.CurrentTime = Mathf.PosToTime(markerPoint.X, PlayerLineWidth, samplePlayer.TotalTime);
-
+            UpdateMaskedTimeValue();
             // Перерисовать.
             pictureBox.Invalidate();
         }
@@ -158,6 +171,7 @@ namespace SimpleAudioEditor.PeachStudio
             samplePlayer.CurrentTime = Mathf.PosToTime(markerPoint.X - indent, PlayerLineWidth, samplePlayer.TotalTime);
             maskedTextBoxCurrentTime.Text = samplePlayer.CurrentTime.ToString(@"hh\:mm\:ss\.FF");
 
+            UpdateMaskedTimeValue();
             markerMoving = false;
             // Перерисовать.
             pictureBox.Invalidate();
@@ -326,8 +340,22 @@ namespace SimpleAudioEditor.PeachStudio
         {
             int penSize = 3;
             Pen grayPen = new Pen(Color.Gray, penSize);
+
+            
             Graphics canvas = e.Graphics;
+
+            canvas.DrawImage(
+                Mathf.DrawWave(sample.OptimizedArray,
+                sample.DrawSource,
+                new Pen(Color.Green),
+                PlayerLineWidth,
+                pictureBox.Height, 
+                Mathf.TimeToPos(sample.SplitStartTime, sample.TotalTime, PlayerLineWidth),
+                Mathf.TimeToPos(sample.SplitEndTime, sample.TotalTime, PlayerLineWidth)), 
+                new PointF(startPos.X,0));
+
             canvas.DrawLine(grayPen, startPos, endPos);
+
 
             Pen segmentPen = new Pen(Color.DarkOrange, penSize);
             canvas.DrawLine(segmentPen,
