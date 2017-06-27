@@ -38,8 +38,9 @@
             // 
             this.panelMain.AutoScroll = true;
             this.panelMain.Location = new System.Drawing.Point(12, 12);
+            this.panelMain.MinimumSize = new System.Drawing.Size(300, 100);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(700, 92);
+            this.panelMain.Size = new System.Drawing.Size(700, 100);
             this.panelMain.TabIndex = 10;
             // 
             // buttonAddSample
@@ -47,7 +48,7 @@
             this.buttonAddSample.BackColor = System.Drawing.Color.OrangeRed;
             this.buttonAddSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddSample.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonAddSample.Location = new System.Drawing.Point(12, 110);
+            this.buttonAddSample.Location = new System.Drawing.Point(12, 114);
             this.buttonAddSample.Name = "buttonAddSample";
             this.buttonAddSample.Size = new System.Drawing.Size(126, 23);
             this.buttonAddSample.TabIndex = 8;

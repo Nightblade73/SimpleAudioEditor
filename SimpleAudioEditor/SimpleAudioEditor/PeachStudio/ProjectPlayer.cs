@@ -12,8 +12,30 @@ namespace SimpleAudioEditor.PeachStudio {
         WaveOutEvent outEvents;
         TimeSpan currentTime;
 
-        public void Play() { }
-        public void Pause() { }
-        public void Stop() { }
+        public static ProjectPlayer Create(string path) {
+            if (FileValidator.IsValid(path)) {
+                ProjectPlayer s = new ProjectPlayer(path);
+                return s;
+            }
+            return null;
+        }
+
+        private ProjectPlayer(string path) {
+            audioPath = path;
+            fileReader = new Mp3FileReader(audioPath);
+            outEvents = new WaveOutEvent();
+            outEvents.Init(fileReader);
+            currentTime = new TimeSpan();
+        } 
+
+        public void Play() {
+            outEvents.Play();
+        }
+        public void Pause() {
+            outEvents.Pause();
+        }
+        public void Stop() {
+            outEvents.Stop();
+        }
     }
 }

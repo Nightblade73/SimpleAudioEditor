@@ -12,7 +12,11 @@ namespace SimpleAudioEditor.PeachStudio {
     public partial class ProjectControl : UserControl {
         Project project;
         ProjectPlayer projectPlayer;
-        
+
+        public ProjectControl() {
+            InitializeComponent();
+        }
+
         public ProjectControl(Project project) {
             InitializeComponent();
             this.project = project;

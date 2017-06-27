@@ -42,8 +42,9 @@ namespace SimpleAudioEditor.View
                 throw new NullReferenceException();
             }
             this.Text = project.title;
-            ProjectControl prjCntrl = new ProjectControl(this.project);
-            panelMain.Controls.Add(prjCntrl);
+            ProjectControl projectControl = new ProjectControl(this.project);
+            projectControl.Dock = DockStyle.Fill;
+            panelMain.Controls.Add(projectControl);
             //m = new MainSoundLine(700, 80, panelMain, new Point(0, 0), project);
         }
 

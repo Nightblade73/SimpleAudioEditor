@@ -104,6 +104,7 @@
     </Compile>
     <Compile Include="OldFiles\Controller\WaveController\RawDataReader.cs" />
     <Compile Include="OldFiles\Controller\WaveController\SampleController.cs" />
+    <Compile Include="PeachStudio\FileValidator.cs" />
     <Compile Include="PeachStudio\View\IntroForm.cs">
       <SubType>Form</SubType>
     </Compile>
