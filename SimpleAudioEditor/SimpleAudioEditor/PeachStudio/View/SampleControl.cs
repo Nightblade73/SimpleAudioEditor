@@ -195,9 +195,11 @@ namespace SimpleAudioEditor.PeachStudio
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-
             Point hit_point;
-
+            if (e.Button == MouseButtons.Right) {
+                mousePositionX = pictureBox.PointToClient(MousePosition).X - indent;
+                contextMenuStrip.Show(MousePosition);
+            } else
             if (MouseIsOverMarker(e.Location, out hit_point))
             {
                 // Начните перемещать эту конечную точку.
@@ -230,7 +232,7 @@ namespace SimpleAudioEditor.PeachStudio
                 pictureBox.DoDragDrop(sample, DragDropEffects.Copy);
             }
 
-
+            
 
         }
 
@@ -403,21 +405,24 @@ namespace SimpleAudioEditor.PeachStudio
         }
 
         private void FromBeginingToPointToolStripMenuItem_Click(object sender, EventArgs e) {
-            sample.SplitStartTime = Mathf.PosToTime(mousePositionX, PlayerLineWidth, samplePlayer.TotalTime);
+            sample.SplitStartTime = new TimeSpan();
+            sample.SplitEndTime = Mathf.PosToTime(mousePositionX, PlayerLineWidth, samplePlayer.TotalTime);
+            UpdatePointPos();
+            UpdateMaskedTimeValue();
             pictureBox.Invalidate();
         }
 
         private void FromPointToEndingToolStripMenuItem_Click(object sender, EventArgs e) {
-            sample.SplitEndTime = Mathf.PosToTime(mousePositionX, PlayerLineWidth, samplePlayer.TotalTime);
+            sample.SplitStartTime = Mathf.PosToTime(mousePositionX, PlayerLineWidth, samplePlayer.TotalTime);
+            sample.SplitEndTime = samplePlayer.TotalTime;
+            UpdatePointPos();
+            UpdateMaskedTimeValue();
             pictureBox.Invalidate();
         }
         
         private void pictureBox_MouseClick(object sender, MouseEventArgs e) {
-            if(e.Button == MouseButtons.Right) {
-                mousePositionX = pictureBox.PointToClient(MousePosition).X - indent;
-                contextMenuStrip.Show(MousePosition);                
-            }
-        }
+
+        }       
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
