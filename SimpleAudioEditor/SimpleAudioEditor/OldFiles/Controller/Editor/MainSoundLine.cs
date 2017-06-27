@@ -417,7 +417,6 @@ namespace SimpleAudioEditor.Controller.Editor
             SetSegmentEndPoints();
             int index = SetIndexQueue(pictureBox.PointToClient(new Point(e.X, e.Y)));
             Sample s = e.Data.GetData(typeof(Sample)) as Sample;
-
             if (FinalLeght() + s.LeghtFromSecond <= maxLeghtOutFromSecond)
             {
 
@@ -426,7 +425,6 @@ namespace SimpleAudioEditor.Controller.Editor
                 s.IndexQueue = index;
                 SetSegmentEndPoints();
                 s.ResizeBitMap(new Size(s.endPos.X - s.startPos.X, pictureBox.Height));
-
             }
             else
             {

@@ -187,10 +187,17 @@ namespace SimpleAudioEditor.PeachStudio
             else
             if (MouseIsOverSplitPoint(e.Location, out hit_point))
                 new_cursor = Cursors.SizeWE;
+            else
+            if (MouseIsOverSegment(e.Location))
+                new_cursor = Cursors.Hand;
+
             // Установим новый курсор.
             if (pictureBox.Cursor != new_cursor)
                 pictureBox.Cursor = new_cursor;
         }
+
+        
+
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
@@ -222,10 +229,71 @@ namespace SimpleAudioEditor.PeachStudio
 
                 // Запомните смещение от мыши до точки.
                 OffsetX = hit_point.X - e.X;
+            }else
+            if (MouseIsOverSegment(e.Location))
+            {
+                //   MessageBox.Show("DpDragDrop");
+                pictureBox.DoDragDrop(sample, DragDropEffects.Copy);
             }
 
 
 
+        }
+
+        private bool MouseIsOverSegment(Point mouse_pt)
+        {
+            // Посмотрим, перешли ли мы над сегментом.
+            Point splitP1 = new Point(Mathf.TimeToPos(sample.SplitStartTime, sample.TotalTime, PlayerLineWidth) + indent, startPos.Y);
+            Point splitP2 = new Point(Mathf.TimeToPos(sample.SplitEndTime, sample.TotalTime, PlayerLineWidth) + indent, startPos.Y);
+
+            PointF closest;
+            if (FindDistanceToSegmentSquared(
+                mouse_pt, splitP1, splitP2, out closest)
+                    < over_dist_squared)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private double FindDistanceToSegmentSquared(Point pt, Point p1, Point p2, out PointF closest)
+        {
+            float dx = p2.X - p1.X;
+            float dy = p2.Y - p1.Y;
+            if ((dx == 0) && (dy == 0))
+            {
+                // Это точка, а не сегмент линии.
+                closest = p1;
+                dx = pt.X - p1.X;
+                dy = pt.Y - p1.Y;
+                return dx * dx + dy * dy;
+            }
+
+            // Вычислим t, который минимизирует расстояние.
+            float t = ((pt.X - p1.X) * dx + (pt.Y - p1.Y) * dy) / (dx * dx + dy * dy);
+
+            // Посмотрим, представляет ли это один из сегментов
+            // конечные точки или точка в середине.
+            if (t < 0)
+            {
+                closest = new PointF(p1.X, p1.Y);
+                dx = pt.X - p1.X;
+                dy = pt.Y - p1.Y;
+            }
+            else if (t > 1)
+            {
+                closest = new PointF(p2.X, p2.Y);
+                dx = pt.X - p2.X;
+                dy = pt.Y - p2.Y;
+            }
+            else
+            {
+                closest = new PointF(p1.X + t * dx, p1.Y + t * dy);
+                dx = pt.X - closest.X;
+                dy = pt.Y - closest.Y;
+            }
+
+            return dx * dx;
         }
 
         protected bool MouseIsOverMarker(Point mouse_pt, out Point hit_pt)
