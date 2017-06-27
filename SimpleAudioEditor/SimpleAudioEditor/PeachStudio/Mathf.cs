@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.PeachStudio
 {
-    class Mathf
+    public class Mathf
     {
         public static int Clamp(int value, int min, int max)
         {
