@@ -47,12 +47,15 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelProjectsPath = new System.Windows.Forms.Label();
+            this.labelChangeProgPath = new System.Windows.Forms.Label();
+            this.panelProjectPath = new System.Windows.Forms.Panel();
             this.panelPath.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).BeginInit();
             this.panelSamples.SuspendLayout();
             this.layoutProjects.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelProjectPath.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelPath
@@ -168,7 +171,7 @@
             this.layoutProjects.Location = new System.Drawing.Point(19, 38);
             this.layoutProjects.Margin = new System.Windows.Forms.Padding(6);
             this.layoutProjects.Name = "layoutProjects";
-            this.layoutProjects.Padding = new System.Windows.Forms.Padding(25, 0, 0, 0);
+            this.layoutProjects.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.layoutProjects.Size = new System.Drawing.Size(458, 359);
             this.layoutProjects.TabIndex = 14;
             // 
@@ -181,7 +184,7 @@
             this.btnNewProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewProject.Font = new System.Drawing.Font("Microsoft New Tai Lue", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnNewProject.ForeColor = System.Drawing.Color.Linen;
-            this.btnNewProject.Location = new System.Drawing.Point(25, 10);
+            this.btnNewProject.Location = new System.Drawing.Point(15, 10);
             this.btnNewProject.Margin = new System.Windows.Forms.Padding(0, 10, 40, 10);
             this.btnNewProject.Name = "btnNewProject";
             this.btnNewProject.Size = new System.Drawing.Size(100, 100);
@@ -263,11 +266,34 @@
             this.labelProjectsPath.AutoSize = true;
             this.labelProjectsPath.BackColor = System.Drawing.Color.Transparent;
             this.labelProjectsPath.ForeColor = System.Drawing.SystemColors.Menu;
-            this.labelProjectsPath.Location = new System.Drawing.Point(-1, 425);
+            this.labelProjectsPath.Location = new System.Drawing.Point(3, 3);
             this.labelProjectsPath.Name = "labelProjectsPath";
             this.labelProjectsPath.Size = new System.Drawing.Size(128, 13);
             this.labelProjectsPath.TabIndex = 18;
             this.labelProjectsPath.Text = "Путь с проектами: none";
+            this.labelProjectsPath.Resize += new System.EventHandler(this.labelProjectsPath_Resize);
+            // 
+            // labelChangeProgPath
+            // 
+            this.labelChangeProgPath.BackColor = System.Drawing.Color.Transparent;
+            this.labelChangeProgPath.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.labelChangeProgPath.ForeColor = System.Drawing.Color.DarkOrange;
+            this.labelChangeProgPath.Location = new System.Drawing.Point(134, 3);
+            this.labelChangeProgPath.Margin = new System.Windows.Forms.Padding(0);
+            this.labelChangeProgPath.Name = "labelChangeProgPath";
+            this.labelChangeProgPath.Size = new System.Drawing.Size(62, 13);
+            this.labelChangeProgPath.TabIndex = 19;
+            this.labelChangeProgPath.Text = "(изменить)";
+            this.labelChangeProgPath.Click += new System.EventHandler(this.labelChangeProgPath_Click);
+            // 
+            // panelProjectPath
+            // 
+            this.panelProjectPath.Controls.Add(this.labelChangeProgPath);
+            this.panelProjectPath.Controls.Add(this.labelProjectsPath);
+            this.panelProjectPath.Location = new System.Drawing.Point(1, 425);
+            this.panelProjectPath.Name = "panelProjectPath";
+            this.panelProjectPath.Size = new System.Drawing.Size(723, 16);
+            this.panelProjectPath.TabIndex = 20;
             // 
             // IntroForm
             // 
@@ -275,13 +301,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(724, 441);
-            this.Controls.Add(this.labelProjectsPath);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelPath);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.layoutProjects);
             this.Controls.Add(this.groupBox_Divider);
             this.Controls.Add(this.panelSamples);
+            this.Controls.Add(this.panelProjectPath);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IntroForm";
@@ -296,8 +322,9 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelProjectPath.ResumeLayout(false);
+            this.panelProjectPath.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -321,5 +348,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label labelProjectsPath;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label labelChangeProgPath;
+        private System.Windows.Forms.Panel panelProjectPath;
     }
 }

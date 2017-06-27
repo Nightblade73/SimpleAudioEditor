@@ -25,6 +25,10 @@ namespace SimpleAudioEditor
             InitializeComponent();
             this.main = main;
 
+            //labelProjectsPath.Controls.Add(labelChangeProgPath);
+            //labelChangeProgPath.Parent = labelProjectsPath;
+           // labelChangeProgPath.Dock = DockStyle.Right;
+            //labelChangeProgPath.Anchor = AnchorStyles.Right;
             if (main.primary.progPath != "nopath")
             {
                 panelSamples.Enabled = true;
@@ -53,16 +57,7 @@ namespace SimpleAudioEditor
         }
         private void btnChoosePath_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog f = new FolderBrowserDialog();
-            if (f.ShowDialog() == DialogResult.OK)
-            {
-                main.primary.SetProgrammPath(f.SelectedPath);
-                DrawFolders();
-                labelProjectsPath.Text = "Путь с проектами:  " + main.primary.progPath;
-                panelSamples.Enabled = true;
-                panelPath.Visible = false;
-                layoutProjects.Enabled = true;
-            }
+            ChooseProgramPath();
         }
         private void btnPlaySample_Click(object sender, EventArgs e)
         {
@@ -82,6 +77,7 @@ namespace SimpleAudioEditor
         {
             if (main.primary.projects.Count > 0)
             {
+                layoutProjects.Controls.Clear();
                 foreach (Project p in main.primary.projects)
                 {
                     Console.WriteLine(p.title);
@@ -97,6 +93,29 @@ namespace SimpleAudioEditor
         private void IntroForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void labelChangeProgPath_Click(object sender, EventArgs e)
+        {
+            ChooseProgramPath();
+        }
+        private void ChooseProgramPath()
+        {
+            FolderBrowserDialog f = new FolderBrowserDialog();
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                main.primary.SetProgrammPath(f.SelectedPath);
+                DrawFolders();
+                labelProjectsPath.Text = "Путь с проектами:  " + main.primary.progPath;
+                panelSamples.Enabled = true;
+                panelPath.Visible = false;
+                layoutProjects.Enabled = true;
+            }
+        }
+        private void labelProjectsPath_Resize(object sender, EventArgs e)
+        {
+            Label l = sender as Label;
+            labelChangeProgPath.Left = l.Width;
         }
     }
 }

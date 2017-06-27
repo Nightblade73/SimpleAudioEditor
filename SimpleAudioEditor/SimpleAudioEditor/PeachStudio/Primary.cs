@@ -25,6 +25,7 @@ namespace SimpleAudioEditor.Controller
             Console.WriteLine("[DEBUG] LoadProjects call:  progPath: "+progPath);
             if (progPath != "nopath")
             {
+                projects = new List<Project>();
                 String[] folders = Directory.GetDirectories(progPath);
                 foreach (String folder in folders)
                 {
