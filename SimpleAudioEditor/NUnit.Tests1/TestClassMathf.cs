@@ -52,9 +52,35 @@ namespace NUnit.Tests1
         public void TestMethodClamp3False()
         {
 
-            Assert.AreEqual(Mathf.Clamp(new TimeSpan(0, 0, 10), new TimeSpan(0, 0, 0), new TimeSpan(0, 0, 15)), new TimeSpan(0, 0, 15));
+            Assert.AreNotEqual(Mathf.Clamp(new TimeSpan(0, 0, 10), new TimeSpan(0, 0, 0), new TimeSpan(0, 0, 15)), new TimeSpan(0, 0, 15));
         }
 
+        [Test]
+        public void TestMethodTimeToPosTrue()
+        {
 
+            Assert.AreEqual(Mathf.TimeToPos(new TimeSpan(0, 0, 2), new TimeSpan(0, 0, 5), (int) 20), (int) 8);
+        }
+
+        [Test]
+        public void TestMethodTimeToPosFalse()
+        {
+
+            Assert.AreNotEqual(Mathf.TimeToPos(new TimeSpan(0, 0, 2), new TimeSpan(0, 0, 5), (int)20), (int)20);
+        }
+
+        [Test]
+        public void TestMethodPosToTimeTrue()
+        {
+
+            Assert.AreEqual(Mathf.PosToTime((int) 10, (int)40, new TimeSpan(0, 0, 4)), new TimeSpan(0, 0, 1));
+        }
+
+        [Test]
+        public void TestMethodPosToTimeFalse()
+        {
+
+            Assert.AreNotEqual(Mathf.PosToTime((int)10, (int)40, new TimeSpan(0, 0, 8)), new TimeSpan(0, 0, 40));
+        }
     }
 }
