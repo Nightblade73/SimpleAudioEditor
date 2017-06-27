@@ -2,7 +2,6 @@
 using NAudio.Wave;
 using System.Windows.Forms;
 using System.Drawing;
-
 using CSCore;
 using System.IO;
 using CSCore.Codecs;

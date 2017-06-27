@@ -104,10 +104,11 @@
     </Compile>
     <Compile Include="OldFiles\Controller\WaveController\RawDataReader.cs" />
     <Compile Include="OldFiles\Controller\WaveController\SampleController.cs" />
-    <Compile Include="PeachStudio\IntroForm.cs">
+    <Compile Include="PeachStudio\Mathf.cs" />
+    <Compile Include="PeachStudio\View\IntroForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PeachStudio\IntroForm.Designer.cs">
+    <Compile Include="PeachStudio\View\IntroForm.Designer.cs">
       <DependentUpon>IntroForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PeachStudio\Primary.cs" />
@@ -127,6 +128,12 @@
       <DependentUpon>SampleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="PeachStudio\SamplePlayer.cs" />
+    <Compile Include="PeachStudio\View\PeachEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PeachStudio\View\PeachEditor.Designer.cs">
+      <DependentUpon>PeachEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OldFiles\View\NewPlayerForm.cs">
@@ -141,14 +148,23 @@
     <Compile Include="OldFiles\View\SampleLineEditor.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PeachStudio\WriteProjectNameForm.cs">
+    <Compile Include="PeachStudio\View\WriteProjectNameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PeachStudio\WriteProjectNameForm.Designer.cs">
+    <Compile Include="PeachStudio\View\WriteProjectNameForm.Designer.cs">
       <DependentUpon>WriteProjectNameForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="PeachStudio\IntroForm.resx">
+    <EmbeddedResource Include="PeachStudio\View\IntroForm.resx">
       <DependentUpon>IntroForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeachStudio\ProjectControl.resx">
+      <DependentUpon>ProjectControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeachStudio\SampleControl.resx">
+      <DependentUpon>SampleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeachStudio\View\PeachEditor.resx">
+      <DependentUpon>PeachEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -163,7 +179,7 @@
     <EmbeddedResource Include="OldFiles\View\NewPlayerForm.resx">
       <DependentUpon>NewPlayerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PeachStudio\WriteProjectNameForm.resx">
+    <EmbeddedResource Include="PeachStudio\View\WriteProjectNameForm.resx">
       <DependentUpon>WriteProjectNameForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

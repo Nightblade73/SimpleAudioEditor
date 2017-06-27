@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using NAudio.Wave;
 
 namespace SimpleAudioEditor.PeachStudio {
-    class ProjectPlayer {
+    public class ProjectPlayer {
         string audioPath;
         Mp3FileReader fileReader;
         WaveOutEvent outEvents;

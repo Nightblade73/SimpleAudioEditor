@@ -50,7 +50,7 @@ namespace SimpleAudioEditor.View
                 return;
             }
             this.Text = project.title;
-            m = new MainSoundLine(700, 80, panelMain, new Point(0, 0), project);
+        //    m = new MainSoundLine(700, 80, panelMain, new Point(0, 0), project);
         }
 
         private void buttonAddSample_Click(object sender, EventArgs e)
@@ -69,6 +69,11 @@ namespace SimpleAudioEditor.View
                     x += 106;
                 }
             }
+        }
+
+        private void panelSamples_ControlAdded(object sender, ControlEventArgs e)
+        {
+        
         }
     }
 
