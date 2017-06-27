@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace SimpleAudioEditor.Controller
@@ -14,12 +16,13 @@ namespace SimpleAudioEditor.Controller
         {
             try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Project));
+         //       XmlSerializer serializer = new XmlSerializer(typeof(Project));
+                DataContractSerializer serializer = new DataContractSerializer(typeof(Project));
                 using (FileStream fs = new FileStream(project.path + "\\config.xml", FileMode.Create))
                 {
-                    using (StreamWriter writer = new StreamWriter(fs))
+                    using (XmlWriter writer = XmlWriter.Create(fs))
                     {
-                        serializer.Serialize(writer, project);
+                        serializer.WriteObject(writer, project);
                     }
                 }
             }
@@ -35,12 +38,13 @@ namespace SimpleAudioEditor.Controller
             Project project = null;
             try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Project));
+                DataContractSerializer serializer = new DataContractSerializer(typeof(Project));
+                //        XmlSerializer serializer = new XmlSerializer(typeof(Project));
                 using (FileStream fs = new FileStream(path + "\\config.xml", FileMode.Open))
                 {
-                    using (StreamReader reader = new StreamReader(fs))
+                    using (XmlReader writer = XmlReader.Create(fs))
                     {
-                        project = (Project)serializer.Deserialize(reader);
+                        project = (Project)serializer.ReadObject(writer);
                     }
                 }
             }

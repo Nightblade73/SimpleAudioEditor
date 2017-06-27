@@ -35,7 +35,7 @@ namespace SimpleAudioEditor.Controller
         private double splitStartTimeFromSecond;
         private double allTimeFromSecond;
         private int indexQueue;
-        [XmlIgnore]
+
         public Bitmap FrequencyBitMap
         {
             get { return frequencyBitMap; }
