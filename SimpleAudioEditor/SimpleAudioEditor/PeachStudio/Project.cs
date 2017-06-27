@@ -29,6 +29,10 @@ namespace SimpleAudioEditor.PeachStudio {
         {
             samples = new List<Sample>();
         }
+
+        public List<Sample> GetSampleList() {
+            return samples;
+        }
         public void AddSample(Sample addedSample)
         {
             samples.Add(addedSample);

@@ -29,10 +29,6 @@
             this.bSave = new System.Windows.Forms.Button();
             this.bDelete = new System.Windows.Forms.Button();
             this.maskedTextBoxCurrentTime = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBoxSplitEndTime = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBoxSplitStartTime = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBoxResultTime = new System.Windows.Forms.MaskedTextBox();
-            this.hScrollBar = new System.Windows.Forms.HScrollBar();
             ((System.ComponentModel.ISupportInitialize)(this.pbWaveViewer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,6 +43,7 @@
             this.pbWaveViewer.Size = new System.Drawing.Size(300, 100);
             this.pbWaveViewer.TabIndex = 0;
             this.pbWaveViewer.TabStop = false;
+            this.pbWaveViewer.Paint += new System.Windows.Forms.PaintEventHandler(this.pbWaveViewer_Paint);
             // 
             // bPlayPause
             // 
@@ -100,77 +97,26 @@
             this.maskedTextBoxCurrentTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.maskedTextBoxCurrentTime.BackColor = System.Drawing.Color.DarkOrange;
             this.maskedTextBoxCurrentTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.maskedTextBoxCurrentTime.Location = new System.Drawing.Point(0, 100);
+            this.maskedTextBoxCurrentTime.Location = new System.Drawing.Point(50, 87);
             this.maskedTextBoxCurrentTime.Mask = "00:00:00.00";
             this.maskedTextBoxCurrentTime.Name = "maskedTextBoxCurrentTime";
             this.maskedTextBoxCurrentTime.Size = new System.Drawing.Size(70, 13);
             this.maskedTextBoxCurrentTime.TabIndex = 14;
-            // 
-            // maskedTextBoxSplitEndTime
-            // 
-            this.maskedTextBoxSplitEndTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.maskedTextBoxSplitEndTime.BackColor = System.Drawing.Color.Black;
-            this.maskedTextBoxSplitEndTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.maskedTextBoxSplitEndTime.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBoxSplitEndTime.Location = new System.Drawing.Point(70, 100);
-            this.maskedTextBoxSplitEndTime.Mask = "00:00:00.00";
-            this.maskedTextBoxSplitEndTime.Name = "maskedTextBoxSplitEndTime";
-            this.maskedTextBoxSplitEndTime.Size = new System.Drawing.Size(70, 13);
-            this.maskedTextBoxSplitEndTime.TabIndex = 17;
-            // 
-            // maskedTextBoxSplitStartTime
-            // 
-            this.maskedTextBoxSplitStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.maskedTextBoxSplitStartTime.BackColor = System.Drawing.Color.Black;
-            this.maskedTextBoxSplitStartTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.maskedTextBoxSplitStartTime.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBoxSplitStartTime.Location = new System.Drawing.Point(140, 100);
-            this.maskedTextBoxSplitStartTime.Mask = "00:00:00.00";
-            this.maskedTextBoxSplitStartTime.Name = "maskedTextBoxSplitStartTime";
-            this.maskedTextBoxSplitStartTime.Size = new System.Drawing.Size(70, 13);
-            this.maskedTextBoxSplitStartTime.TabIndex = 18;
-            // 
-            // maskedTextBoxResultTime
-            // 
-            this.maskedTextBoxResultTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.maskedTextBoxResultTime.BackColor = System.Drawing.Color.Black;
-            this.maskedTextBoxResultTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.maskedTextBoxResultTime.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBoxResultTime.Location = new System.Drawing.Point(210, 100);
-            this.maskedTextBoxResultTime.Mask = "00:00:00.00";
-            this.maskedTextBoxResultTime.Name = "maskedTextBoxResultTime";
-            this.maskedTextBoxResultTime.Size = new System.Drawing.Size(70, 13);
-            this.maskedTextBoxResultTime.TabIndex = 19;
-            // 
-            // hScrollBar
-            // 
-            this.hScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.hScrollBar.LargeChange = 2;
-            this.hScrollBar.Location = new System.Drawing.Point(280, 100);
-            this.hScrollBar.Maximum = 1;
-            this.hScrollBar.Name = "hScrollBar";
-            this.hScrollBar.Size = new System.Drawing.Size(120, 13);
-            this.hScrollBar.TabIndex = 20;
             // 
             // ProjectControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.hScrollBar);
-            this.Controls.Add(this.maskedTextBoxResultTime);
-            this.Controls.Add(this.maskedTextBoxSplitStartTime);
-            this.Controls.Add(this.maskedTextBoxSplitEndTime);
             this.Controls.Add(this.maskedTextBoxCurrentTime);
             this.Controls.Add(this.pbWaveViewer);
             this.Controls.Add(this.bDelete);
             this.Controls.Add(this.bSave);
             this.Controls.Add(this.bPlayPause);
             this.Controls.Add(this.bStop);
-            this.MinimumSize = new System.Drawing.Size(400, 113);
+            this.MinimumSize = new System.Drawing.Size(400, 100);
             this.Name = "ProjectControl";
-            this.Size = new System.Drawing.Size(400, 113);
+            this.Size = new System.Drawing.Size(400, 100);
             this.Load += new System.EventHandler(this.ProjectControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbWaveViewer)).EndInit();
             this.ResumeLayout(false);
@@ -186,9 +132,5 @@
         private System.Windows.Forms.Button bSave;
         private System.Windows.Forms.Button bDelete;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxCurrentTime;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxSplitEndTime;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxSplitStartTime;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxResultTime;
-        private System.Windows.Forms.HScrollBar hScrollBar;
     }
 }

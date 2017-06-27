@@ -36,7 +36,10 @@ namespace SimpleAudioEditor.PeachStudio
 
         public static int TimeToPos(TimeSpan currentTime, TimeSpan totalTime, int lineWidth)
         {
-            return Convert.ToInt16(lineWidth * (currentTime.TotalSeconds / totalTime.TotalSeconds));
+            if (totalTime != new TimeSpan()) {
+                return Convert.ToInt16(lineWidth * (currentTime.TotalSeconds / totalTime.TotalSeconds));
+            }
+            return 0;
         }
 
         public static TimeSpan PosToTime(int currentPos, int lineWidth, TimeSpan totalTime)

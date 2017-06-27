@@ -11,6 +11,7 @@ namespace SimpleAudioEditor.PeachStudio {
         Mp3FileReader fileReader;
         WaveOutEvent outEvents;
         TimeSpan currentTime;
+        
 
         public static ProjectPlayer Create(string path) {
             if (FileValidator.IsValid(path)) {

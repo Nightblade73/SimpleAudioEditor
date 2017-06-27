@@ -13,6 +13,7 @@ namespace SimpleAudioEditor.PeachStudio {
         TimeSpan splitEndTime;
         TimeSpan currentTime;
         TimeSpan totalTime;
+
         ISampleSource mDrawSource;
         float[] optimizedArray;
 
