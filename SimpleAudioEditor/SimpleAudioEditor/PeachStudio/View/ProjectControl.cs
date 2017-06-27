@@ -31,6 +31,11 @@ namespace SimpleAudioEditor.PeachStudio {
             get { return project; }
         }
 
+        private int TimePerPoint(TimeSpan time)
+        {
+            return 0;
+        }
+
         private int PlayerLineWidth {
             get { return pbWaveViewer.Width; }
         }
@@ -40,13 +45,20 @@ namespace SimpleAudioEditor.PeachStudio {
             project = new Project();
             //markerPoint = new Point(startPos.X, startPos.Y - object_radius * 2);
             UpdatePointPos();
+            markerPoint = new Point(Mathf.TimeToPos(
+                Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, GetAllTotalTime()), new TimeSpan(), GetAllTotalTime()), GetAllTotalTime(), PlayerLineWidth), startPos.Y - object_radius * 2);
+
+            pbWaveViewer.Invalidate();
         }
 
         public ProjectControl(Project project) {
             InitializeComponent();
             this.project = project;
-            //markerPoint = new Point(startPos.X, startPos.Y - object_radius * 2);
             UpdatePointPos();
+            markerPoint = new Point(Mathf.TimeToPos(
+                Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, GetAllTotalTime()), new TimeSpan(), GetAllTotalTime()), GetAllTotalTime(), PlayerLineWidth), startPos.Y - object_radius * 2);
+
+            pbWaveViewer.Invalidate();
         }
 
         private void UpdatePointPos() {
@@ -62,8 +74,19 @@ namespace SimpleAudioEditor.PeachStudio {
         private void pbWaveViewer_Paint(object sender, PaintEventArgs e) {            
             int penSize = 3;
             Pen grayPen = new Pen(Color.Gray, penSize);
+
             
+
             Graphics canvas = e.Graphics;
+
+            TimeSpan time = new TimeSpan();
+            foreach (var s in project.GetSampleList())
+            {
+                canvas.DrawLine(new Pen(Color.Blue, 5),
+                   new Point(Mathf.TimeToPos(time, GetAllTotalTime(), PlayerLineWidth), startPos.Y),
+                   new Point(Mathf.TimeToPos(time + s.SplitEndTime - s.SplitStartTime, GetAllTotalTime(), PlayerLineWidth), startPos.Y));
+                time += s.SplitEndTime - s.SplitStartTime;
+            }
 
             canvas.DrawLine(grayPen, startPos, endPos);
 
@@ -83,7 +106,14 @@ namespace SimpleAudioEditor.PeachStudio {
             currentTime = new TimeSpan(0, 0, 12);
             pbWaveViewer.MouseMove += pbWaveViewer_MouseMove_NotDown;
             pbWaveViewer.MouseDown += pbWaveViewer_MouseDown;
+            pbWaveViewer.DragEnter += pbWaveViewer_DragEnter;
+            pbWaveViewer.DragDrop += pbWaveViewer_DragDrop;
+
             UpdatePointPos();
+            (pbWaveViewer as Control).AllowDrop = true;
+            markerPoint = new Point(Mathf.TimeToPos(
+                Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, GetAllTotalTime()), new TimeSpan(), GetAllTotalTime()), GetAllTotalTime(), PlayerLineWidth), startPos.Y - object_radius * 2);
+
             pbWaveViewer.Invalidate();
         }
 
@@ -164,6 +194,29 @@ namespace SimpleAudioEditor.PeachStudio {
         }
         #endregion // Перемещение конечной точки
 
+
+        protected void pbWaveViewer_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        protected void pbWaveViewer_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetData(typeof(Sample)) as Sample != null)
+            {
+                Sample s = e.Data.GetData(typeof(Sample)) as Sample;
+                project.GetSampleList().Add(s);
+            }
+            pbWaveViewer.Invalidate();
+        }
+
+
+        private void pbWaveViewer_Layout(object sender, LayoutEventArgs e)
+        {
+            UpdatePointPos();
+            pbWaveViewer.Invalidate();
+        }
+
         private void bPlayPause_Click(object sender, EventArgs e) {
 
         }
@@ -171,10 +224,12 @@ namespace SimpleAudioEditor.PeachStudio {
         private TimeSpan GetAllTotalTime() {
             TimeSpan totalTime = new TimeSpan();
             foreach(var i in project.GetSampleList()) {
-                totalTime += i.TotalTime;
+                totalTime += i.SplitEndTime-i.SplitStartTime;
             }
             return totalTime;
         }
+
+
 
     }
 }
