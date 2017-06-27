@@ -63,7 +63,7 @@
             this.panelSamples.Name = "panelSamples";
             this.panelSamples.Size = new System.Drawing.Size(700, 289);
             this.panelSamples.TabIndex = 11;
-
+            // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
@@ -85,7 +85,6 @@
             this.buttonAddPause.Text = "Добавить паузу";
             this.buttonAddPause.UseVisualStyleBackColor = false;
             this.buttonAddPause.Click += new System.EventHandler(this.buttonAddPause_Click);
-
             // 
             // NewPlayerForm
             // 
@@ -93,17 +92,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(724, 441);
-
             this.Controls.Add(this.buttonAddPause);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.panelMain);
-
             this.Controls.Add(this.panelSamples);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.buttonAddSample);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NewPlayerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Peach Editor";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NewPlayerForm_FormClosed);
             this.Load += new System.EventHandler(this.Form_Load);

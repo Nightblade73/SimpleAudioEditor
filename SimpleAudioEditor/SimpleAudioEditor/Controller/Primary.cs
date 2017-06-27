@@ -40,7 +40,7 @@ namespace SimpleAudioEditor.Controller
             RegistryKey key = Registry_GetKey();
             String str = key.GetValue("path").ToString();
             key.Close();
-            return str;
+            return str.Replace("//", "\\");
         }
         /* Устанавливает путь с проектами в переменную реестра
          */

@@ -381,7 +381,7 @@ namespace SimpleAudioEditor.Controller.Editor
 
             Bitmap CroppedImage = CropImage(DrawWave(new Pen(Color.OrangeRed), pictureBox.Size.Width - 20, pictureBox.Size.Height), section);
             //    CroppedImage = ResizeImage(CroppedImage, new Size(cr,));
-            return new Sample(SplitStartTimeFromSecond(), SplitEndTimeFromSecond(), soundTotalTime, filePath, project, CroppedImage);
+            return new Sample(SplitStartTimeFromSecond(), SplitEndTimeFromSecond(), soundTotalTime, filePath, project.path, CroppedImage);
         }
 
 
@@ -1112,7 +1112,7 @@ namespace SimpleAudioEditor.Controller.Editor
         }
 
         private string mRawFileName;
-        private void CreateOptimizedArray()
+        private float[] CreateOptimizedArray()
         {
             mDrawSource = CodecFactory.Instance.GetCodec(filePath).ToSampleSource().ToMono();
             long offset = 0;
@@ -1154,6 +1154,7 @@ namespace SimpleAudioEditor.Controller.Editor
                 }
             }
             rawFile.Close();
+            return mOptimizedArray;
         }
 
         private double FindDistanceToSegmentSquared(Point pt, Point p1, Point p2, out PointF closest)

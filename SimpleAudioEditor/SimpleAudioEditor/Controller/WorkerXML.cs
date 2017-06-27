@@ -15,7 +15,7 @@ namespace SimpleAudioEditor.Controller
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(Project));
-                using (FileStream fs = new FileStream(project.path +"\\config.xml", FileMode.Create))
+                using (FileStream fs = new FileStream(project.path + "\\config.xml", FileMode.Create))
                 {
                     using (StreamWriter writer = new StreamWriter(fs))
                     {
@@ -33,12 +33,22 @@ namespace SimpleAudioEditor.Controller
         public static Project Deserialize(string path)
         {
             Project project = null;
-            XmlSerializer serializer = new XmlSerializer(typeof(Project));
-            using (StreamReader reader = new StreamReader(path + "\\config.xml"))
+            try
             {
-                reader.ReadToEnd();
-                project = (Project)serializer.Deserialize(reader);
+                XmlSerializer serializer = new XmlSerializer(typeof(Project));
+                using (FileStream fs = new FileStream(path + "\\config.xml", FileMode.Open))
+                {
+                    using (StreamReader reader = new StreamReader(fs))
+                    {
+                        project = (Project)serializer.Deserialize(reader);
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
             //  if (project == null) project = new Project();
             return project;
         }

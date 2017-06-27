@@ -41,7 +41,6 @@
             this.layoutProjects = new System.Windows.Forms.FlowLayoutPanel();
             this.btnNewProject = new System.Windows.Forms.Button();
             this.groupBox_Divider = new System.Windows.Forms.GroupBox();
-
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -54,7 +53,6 @@
             this.layoutProjects.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-
             this.SuspendLayout();
             // 
             // panelPath
@@ -115,11 +113,9 @@
             // 
             // btnPlaySample
             // 
-
             this.btnPlaySample.AccessibleName = "stop";
             this.btnPlaySample.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.btnPlaySample.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Play_26;
-
             this.btnPlaySample.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnPlaySample.FlatAppearance.BorderSize = 0;
             this.btnPlaySample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -194,7 +190,6 @@
             this.btnNewProject.Click += new System.EventHandler(this.btnNewProject_Click);
             // 
             // groupBox_Divider
-
             // 
             this.groupBox_Divider.BackColor = System.Drawing.Color.Chocolate;
             this.groupBox_Divider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -236,9 +231,9 @@
             this.label3.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.label3.Location = new System.Drawing.Point(314, 2);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(137, 30);
+            this.label3.Size = new System.Drawing.Size(143, 30);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Peach Editor";
+            this.label3.Text = "Peach Studio";
             // 
             // pictureBox1
             // 
@@ -289,6 +284,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IntroForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Peach editor";
             this.panelPath.ResumeLayout(false);
             this.panelPath.PerformLayout();
@@ -299,7 +295,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-
             this.ResumeLayout(false);
             this.PerformLayout();
 

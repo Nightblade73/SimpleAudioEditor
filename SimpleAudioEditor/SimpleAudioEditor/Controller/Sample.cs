@@ -16,7 +16,7 @@ namespace SimpleAudioEditor.Controller
     {
         private String title;
         [XmlIgnore]
-        Project project;
+        public string projectPath;
         /* Путь к оригинальной звуковой дорожке
          * (не обрезанной)
          */
@@ -119,7 +119,7 @@ namespace SimpleAudioEditor.Controller
             set
             {
                 indexQueue = value;
-                samplePath = project.path + "\\cut" + indexQueue + ".wav";
+                samplePath = projectPath + "\\cut" + indexQueue + ".wav";
             }
         }
        
@@ -129,13 +129,13 @@ namespace SimpleAudioEditor.Controller
         //    lineEditor = new SampleLineEditor(this);
         //}
 
-        public Sample(double _splitStartTimeFromSecond, double _splitEndTimeFromSecond, double _allTimeFromSecond, string _soundPath, Project _project, Bitmap _frequencyBitMap)
+        public Sample(double _splitStartTimeFromSecond, double _splitEndTimeFromSecond, double _allTimeFromSecond, string _soundPath, string _projectPath, Bitmap _frequencyBitMap)
         {
             splitStartTimeFromSecond = _splitStartTimeFromSecond;
             splitEndTimeFromSecond = _splitEndTimeFromSecond;
             allTimeFromSecond = _allTimeFromSecond;
             soundPath = _soundPath;
-            project = _project;
+            projectPath = _projectPath;
             frequencyBitMap = _frequencyBitMap;
         }
         
