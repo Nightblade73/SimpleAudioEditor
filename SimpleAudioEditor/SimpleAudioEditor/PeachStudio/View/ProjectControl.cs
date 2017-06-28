@@ -84,6 +84,7 @@ namespace SimpleAudioEditor.PeachStudio {
 
             TimeSpan timea = new TimeSpan(0, 0, 0);
 
+            if (project.GetSampleList().Count == 0) return;
             for (int i = 0; i < project.GetSampleList().Count; i++)
             {
 
