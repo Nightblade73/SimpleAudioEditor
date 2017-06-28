@@ -20,6 +20,8 @@ namespace SimpleAudioEditor.PeachStudio.View
             panelSample.HorizontalScroll.Visible = false;
             panelSample.HorizontalScroll.Visible = false;
             panelSample.HorizontalScroll.Maximum = 0;
+            panelSample.HorizontalScroll.LargeChange = 0;
+            panelSample.HorizontalScroll.SmallChange = 0;
             panelSample.AutoScroll = true;
             sampleControls = new List<SampleControl>();
         }
@@ -38,7 +40,7 @@ namespace SimpleAudioEditor.PeachStudio.View
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Sample m = new Sample(ofd.FileName);
-                SampleControl sc = new SampleControl(m, panelSample, new Point(0, y), new Size(680, 93));
+                SampleControl sc = new SampleControl(m, panelSample, new Point(0, y), new Size(400, 93));
 
                 trackBar1.ValueChanged += sc.GetSamplePlayer.trackBar_ValueChanged;
                 sc.GetSamplePlayer.Volume = trackBar1.Value * 0.01f;
