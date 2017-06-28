@@ -44,7 +44,7 @@ namespace SimpleAudioEditor.PeachStudio {
 
         public ProjectControl() {
             InitializeComponent();
-            project = new Project();
+            //project = new Project();
             //markerPoint = new Point(startPos.X, startPos.Y - object_radius * 2);
             UpdatePointPos();
             markerPoint = new Point(Mathf.TimeToPos(
@@ -471,12 +471,19 @@ namespace SimpleAudioEditor.PeachStudio {
             }
         }
 
+
+
         private TimeSpan GetAllTotalTime() {
             TimeSpan totalTime = new TimeSpan();
             foreach(var i in project.GetSampleList()) {
                 totalTime += i.SplitEndTime-i.SplitStartTime;
             }
             return totalTime;
+        }
+
+        private void bSave_Click(object sender, EventArgs e)
+        {
+            project.Save();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using SimpleAudioEditor.Controller;
 using SimpleAudioEditor.PeachStudio;
+using SimpleAudioEditor.PeachStudio.View;
 using SimpleAudioEditor.Properties;
 using SimpleAudioEditor.View;
 using System;
@@ -18,9 +19,9 @@ namespace SimpleAudioEditor
 {
     public partial class IntroForm : Form
     {
-        public NewPlayerForm main;
+        public PeachEditor main;
 
-        public IntroForm(NewPlayerForm main)
+        public IntroForm(PeachEditor main)
         {
             InitializeComponent();
             this.main = main;

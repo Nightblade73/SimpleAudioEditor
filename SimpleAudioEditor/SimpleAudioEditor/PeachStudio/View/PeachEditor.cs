@@ -13,15 +13,35 @@ namespace SimpleAudioEditor.PeachStudio.View
     public partial class PeachEditor : Form
     {
         List<SampleControl> sampleControls;
+        public Primary primary;
+        public Project project;
+
         public PeachEditor()
         {
             InitializeComponent();
+            primary = new Primary();
+
             panelSample.HorizontalScroll.Enabled = false;
             panelSample.HorizontalScroll.Visible = false;
             panelSample.HorizontalScroll.Visible = false;
             panelSample.HorizontalScroll.Maximum = 0;
             panelSample.AutoScroll = true;
             sampleControls = new List<SampleControl>();
+        }
+
+        private void PeachEditor_Load(object sender, EventArgs e)
+        {
+            if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
+            {
+                this.Close();
+                return;
+            }
+            if (project == null)
+            {
+                throw new NullReferenceException();
+            }
+            this.Text = "PeachEditor: "+project.title;
+            projectControl.CurrentProject = this.project;
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
@@ -58,5 +78,7 @@ namespace SimpleAudioEditor.PeachStudio.View
         {
             panelSupport.Size = new Size(panelSupport.Size.Width,panelSample.Size.Height+2);
         }
+
+
     }
 }

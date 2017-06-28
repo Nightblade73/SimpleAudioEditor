@@ -1,4 +1,4 @@
-﻿using SimpleAudioEditor.Controller;
+﻿using SimpleAudioEditor.PeachStudio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

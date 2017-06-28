@@ -113,6 +113,7 @@
             this.MinimumSize = new System.Drawing.Size(740, 480);
             this.Name = "PeachEditor";
             this.Text = "PeachEditor";
+            this.Load += new System.EventHandler(this.PeachEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panelSample.ResumeLayout(false);
             this.ResumeLayout(false);

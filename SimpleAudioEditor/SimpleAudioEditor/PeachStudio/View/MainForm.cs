@@ -32,7 +32,7 @@ namespace SimpleAudioEditor.View
 
         private void Form_Load(object sender, EventArgs e)
         {
-            if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
+            /*if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
             {
                 this.Close();
                 return;
@@ -40,7 +40,7 @@ namespace SimpleAudioEditor.View
             if(project == null)
             {
                 throw new NullReferenceException();
-            }
+            }*/
             this.Text = project.title;
             ProjectControl projectControl = new ProjectControl(this.project);
             projectControl.Dock = DockStyle.Fill;

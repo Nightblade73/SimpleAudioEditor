@@ -16,11 +16,11 @@ namespace SimpleAudioEditor.Controller
 
         /* Создает пустой проект
          */
-        public ProjectOld(String title, Primary prim)
+        /*public ProjectOld(String title, Primary prim)
         {
             this.title = title;
             this.path = prim.progPath + "\\" + title;
-        }
+        }*/
         /* Загрузить проект из папки path
          */
         public ProjectOld(String path)

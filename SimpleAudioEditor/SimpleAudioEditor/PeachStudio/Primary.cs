@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleAudioEditor.Controller
+namespace SimpleAudioEditor.PeachStudio
 {
     public class Primary
     {

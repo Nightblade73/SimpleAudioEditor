@@ -57,6 +57,19 @@
             this.bStop.Text = "■";
             this.bStop.UseVisualStyleBackColor = false;
             // 
+            // bSave
+            // 
+            this.bSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bSave.BackColor = System.Drawing.Color.DarkOrange;
+            this.bSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bSave.Location = new System.Drawing.Point(660, 0);
+            this.bSave.Name = "bSave";
+            this.bSave.Size = new System.Drawing.Size(40, 40);
+            this.bSave.TabIndex = 3;
+            this.bSave.Text = "button3";
+            this.bSave.UseVisualStyleBackColor = false;
+            this.bSave.Click += new System.EventHandler(this.bSave_Click);
+            //
             // bDelete
             // 
             this.bDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
