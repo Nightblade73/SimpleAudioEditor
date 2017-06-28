@@ -15,7 +15,7 @@ namespace SimpleAudioEditor {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PeachEditor());
+            Application.Run(new IntroForm());
         }
     }
 }

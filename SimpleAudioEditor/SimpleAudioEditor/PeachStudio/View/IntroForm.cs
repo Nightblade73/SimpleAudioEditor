@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using SimpleAudioEditor.Controller;
 using SimpleAudioEditor.PeachStudio;
+using SimpleAudioEditor.PeachStudio.View;
 using SimpleAudioEditor.Properties;
 using SimpleAudioEditor.View;
 using System;
@@ -18,42 +19,41 @@ namespace SimpleAudioEditor
 {
     public partial class IntroForm : Form
     {
-        public NewPlayerForm main;
+        private Primary primary = new Primary();
+        private System.Windows.Forms.Control tmpNew;
 
-        public IntroForm(NewPlayerForm main)
+        public IntroForm()
         {
             InitializeComponent();
-            this.main = main;
-
-            //labelProjectsPath.Controls.Add(labelChangeProgPath);
-            //labelChangeProgPath.Parent = labelProjectsPath;
-           // labelChangeProgPath.Dock = DockStyle.Right;
-            //labelChangeProgPath.Anchor = AnchorStyles.Right;
-            if (main.primary.progPath != "nopath")
+            tmpNew = layoutProjects.Controls.Find("btnNewProject", false)[0];
+            if (primary.progPath != "nopath")
             {
                 panelSamples.Enabled = true;
                 panelPath.Visible = false;
                 layoutProjects.Enabled = true;
-                labelProjectsPath.Text = "Путь с проектами:  " + main.primary.progPath;
+                labelProjectsPath.Text = "Путь с проектами:  " + primary.progPath;
                 DrawFolders();
             }
         }
+
         private void btnNewProject_Click(object sender, EventArgs e)
         {
             WriteProjectNameForm form = new WriteProjectNameForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                main.project = Project.CreateTempProject(main.primary + "\\" + form.title);
-                this.DialogResult = DialogResult.OK;
-                this.Dispose();
+                PeachEditor pe = new PeachEditor(Project.CreateTempProject(primary.progPath+"\\"+form.title));
+                this.Hide();
+                pe.ShowDialog();
+                this.Show();
             }
         }
         private void btnExistingProject_Click(object sender, EventArgs e)
         {
             ProjectButton p = sender as ProjectButton;
-            main.project = p.pr;
-            this.DialogResult = DialogResult.OK;
-            this.Dispose();
+            PeachEditor pe = new PeachEditor(p.pr);
+            this.Hide();
+            pe.ShowDialog();
+            this.Show();
         }
         private void btnChoosePath_Click(object sender, EventArgs e)
         {
@@ -75,10 +75,12 @@ namespace SimpleAudioEditor
         }
         private void DrawFolders()
         {
-            if (main.primary.projects.Count > 0)
+            if (primary.projects.Count > 0)
             {
-                layoutProjects.Controls.Clear();
-                foreach (Project p in main.primary.projects)
+                //layoutProjects.Controls.Clear();
+                layoutProjects.Controls.Add(tmpNew);
+
+                foreach (Project p in primary.projects)
                 {
                     Console.WriteLine(p.title);
                     ProjectButton btn = new ProjectButton(p);
@@ -104,9 +106,9 @@ namespace SimpleAudioEditor
             FolderBrowserDialog f = new FolderBrowserDialog();
             if (f.ShowDialog() == DialogResult.OK)
             {
-                main.primary.SetProgrammPath(f.SelectedPath);
+                primary.SetProgrammPath(f.SelectedPath);
                 DrawFolders();
-                labelProjectsPath.Text = "Путь с проектами:  " + main.primary.progPath;
+                labelProjectsPath.Text = "Путь с проектами:  " + primary.progPath;
                 panelSamples.Enabled = true;
                 panelPath.Visible = false;
                 layoutProjects.Enabled = true;

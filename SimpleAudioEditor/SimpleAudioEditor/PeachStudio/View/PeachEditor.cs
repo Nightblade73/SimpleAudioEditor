@@ -13,9 +13,13 @@ namespace SimpleAudioEditor.PeachStudio.View
     public partial class PeachEditor : Form
     {
         List<SampleControl> sampleControls;
-        public PeachEditor()
+        public Project project;
+
+        public PeachEditor(Project _project)
         {
             InitializeComponent();
+
+            project = _project;
             panelSample.HorizontalScroll.Enabled = false;
             panelSample.HorizontalScroll.Visible = false;
             panelSample.HorizontalScroll.Visible = false;
@@ -63,6 +67,11 @@ namespace SimpleAudioEditor.PeachStudio.View
 
         private void PeachEditor_Load(object sender, EventArgs e) {
             trackBar1.BackColor = Color.FromArgb(249,245,224);
+        }
+
+        private void PeachEditor_FormClosed(object sender, FormClosedEventArgs e)
+        {
+           //this.Parent.Show();
         }
     }
 }

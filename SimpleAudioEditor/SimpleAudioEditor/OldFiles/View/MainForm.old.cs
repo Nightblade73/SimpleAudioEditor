@@ -32,11 +32,11 @@ namespace SimpleAudioEditor.View
 
         private void Form_Load(object sender, EventArgs e)
         {
-            if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
+            /*if ((new IntroForm(this).ShowDialog()) != DialogResult.OK)
             {
                 this.Close();
                 return;
-            }
+            }*/
             if(project == null)
             {
                 throw new NullReferenceException();
