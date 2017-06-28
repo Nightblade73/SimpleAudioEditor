@@ -20,6 +20,7 @@ namespace SimpleAudioEditor.PeachStudio
         int mousePositionX;
 
         int startedPictureBoxWidth;
+        int visiblePictureBoxWidth;
         int oldScrollValue;
         int newScrollValue;
 
@@ -34,7 +35,7 @@ namespace SimpleAudioEditor.PeachStudio
             InitializeComponent();
 
             this.Parent = _parent;
-            this.Size = new Size(this.Parent.Width - 20, _size.Height);
+            this.Size = new Size(this.Parent.Width - 100, _size.Height);
 
             this.Location = _location;
             this.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
@@ -411,6 +412,7 @@ namespace SimpleAudioEditor.PeachStudio
 
         private void SampleControl_Load(object sender, EventArgs e) {           
             startedPictureBoxWidth =  pictureBox.Width;
+            visiblePictureBoxWidth = this.Width - buttonPlay.Width;
             hScrollBar.Maximum = startedPictureBoxWidth;
             hScrollBar.SmallChange = startedPictureBoxWidth;
             hScrollBar.LargeChange = startedPictureBoxWidth;
@@ -453,17 +455,31 @@ namespace SimpleAudioEditor.PeachStudio
                 } else
                 {
                     hScrollBar.Maximum = ((hScrollBar.Maximum - SCROLL_STEP) < startedPictureBoxWidth) ? startedPictureBoxWidth : (hScrollBar.Maximum - SCROLL_STEP);
-                    pictureBox.Width = (pictureBox.Width - SCROLL_STEP) < startedPictureBoxWidth ? startedPictureBoxWidth : (pictureBox.Width - SCROLL_STEP);
-                    if (hScrollBar.Value == hScrollBar.Maximum - hScrollBar.LargeChange + SCROLL_STEP + VALUES_START_AT_ONE) {
-                        callBackScrollEvent(2, oldScrollValue, newScrollValue, hScrollBar.Maximum);
+                    pictureBox.Width = (pictureBox.Width - SCROLL_STEP) < visiblePictureBoxWidth ? visiblePictureBoxWidth : (pictureBox.Width - SCROLL_STEP);
+                    if (hScrollBar.Maximum == startedPictureBoxWidth) {
+                        callBackScrollEventWithFirstPosition();
+                    } else {
+                        if (hScrollBar.Value == hScrollBar.Maximum - hScrollBar.LargeChange + SCROLL_STEP + VALUES_START_AT_ONE) {
+                            callBackScrollEventWithScrollStep(2);
+                        }
                     }
                 }
                 Console.WriteLine("after: max " + (hScrollBar.Maximum) + " currentValue " + hScrollBar.Value + " " + oldScrollValue + " " + newScrollValue);
                 Console.WriteLine("Location: " + pictureBox.Location.X);                
             }
+            UpdatePointPos();
+            pictureBox.Invalidate();
         }
 
-        private void callBackScrollEvent(int i, int oldv, int newv, int max) {
+        private void callBackScrollEventWithFirstPosition() {
+            newScrollValue = VALUES_START_AT_ONE;
+            hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.LargeDecrement, oldScrollValue, newScrollValue));
+            oldScrollValue = newScrollValue;
+            hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.EndScroll, oldScrollValue, newScrollValue));
+            hScrollBar.Value = newScrollValue;
+        }
+
+        private void callBackScrollEventWithScrollStep(int i) {
             Console.WriteLine(i + ".1: max " + (hScrollBar.Maximum) + " currentValue " + hScrollBar.Value + " " + oldScrollValue + " " + newScrollValue);
             newScrollValue -= SCROLL_STEP;
             hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.SmallDecrement, oldScrollValue, newScrollValue));
@@ -479,7 +495,14 @@ namespace SimpleAudioEditor.PeachStudio
             newScrollValue = e.NewValue;
             int diference =  e.NewValue - e.OldValue;
             pictureBox.Location = new Point((pictureBox.Location.X - (int)(diference)), pictureBox.Location.Y);
+            Location = new Point(0, Location.Y);
             Console.WriteLine("Location: " + pictureBox.Location.X + " currentValue " + hScrollBar.Value + " old " + oldScrollValue + " new " + newScrollValue);
+            UpdatePointPos();
+            pictureBox.Invalidate();
+        }
+
+        private void SampleControl_Resize(object sender, EventArgs e) {
+            visiblePictureBoxWidth = this.Width - buttonPlay.Width;
             UpdatePointPos();
             pictureBox.Invalidate();
         }

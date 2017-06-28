@@ -148,7 +148,7 @@
             this.hScrollBar.Location = new System.Drawing.Point(290, 80);
             this.hScrollBar.Minimum = 1;
             this.hScrollBar.Name = "hScrollBar";
-            this.hScrollBar.Size = new System.Drawing.Size(390, 13);
+            this.hScrollBar.Size = new System.Drawing.Size(265, 13);
             this.hScrollBar.SmallChange = 100;
             this.hScrollBar.TabIndex = 19;
             this.hScrollBar.Value = 1;
@@ -160,19 +160,19 @@
             this.FromBeginingToPointToolStripMenuItem,
             this.FromPointToEndingToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(231, 48);
+            this.contextMenuStrip.Size = new System.Drawing.Size(224, 48);
             // 
             // FromBeginingToPointToolStripMenuItem
             // 
             this.FromBeginingToPointToolStripMenuItem.Name = "FromBeginingToPointToolStripMenuItem";
-            this.FromBeginingToPointToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.FromBeginingToPointToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.FromBeginingToPointToolStripMenuItem.Text = "От начала до точки нажатия";
             this.FromBeginingToPointToolStripMenuItem.Click += new System.EventHandler(this.FromBeginingToPointToolStripMenuItem_Click);
             // 
             // FromPointToEndingToolStripMenuItem
             // 
             this.FromPointToEndingToolStripMenuItem.Name = "FromPointToEndingToolStripMenuItem";
-            this.FromPointToEndingToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.FromPointToEndingToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.FromPointToEndingToolStripMenuItem.Text = "От точки нажатия до конца";
             this.FromPointToEndingToolStripMenuItem.Click += new System.EventHandler(this.FromPointToEndingToolStripMenuItem_Click);
             // 
@@ -182,9 +182,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox.Location = new System.Drawing.Point(40, 0);
-            this.pictureBox.MinimumSize = new System.Drawing.Size(640, 80);
+            this.pictureBox.MinimumSize = new System.Drawing.Size(515, 80);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(640, 80);
+            this.pictureBox.Size = new System.Drawing.Size(515, 80);
             this.pictureBox.TabIndex = 12;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
@@ -207,10 +207,11 @@
             this.Controls.Add(this.maskedTextBox2);
             this.Controls.Add(this.maskedTextBoxCurrentTime);
             this.Controls.Add(this.pictureBox);
-            this.MinimumSize = new System.Drawing.Size(680, 93);
+            this.MinimumSize = new System.Drawing.Size(555, 93);
             this.Name = "SampleControl";
-            this.Size = new System.Drawing.Size(680, 93);
+            this.Size = new System.Drawing.Size(555, 93);
             this.Load += new System.EventHandler(this.SampleControl_Load);
+            this.Resize += new System.EventHandler(this.SampleControl_Resize);
             this.contextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);

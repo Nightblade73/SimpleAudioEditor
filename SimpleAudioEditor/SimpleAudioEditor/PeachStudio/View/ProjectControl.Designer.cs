@@ -25,9 +25,9 @@
         private void InitializeComponent() {
             this.bPlayPause = new System.Windows.Forms.Button();
             this.bStop = new System.Windows.Forms.Button();
-            this.bDelete = new System.Windows.Forms.Button();
             this.maskedTextBoxCurrentTime = new System.Windows.Forms.MaskedTextBox();
             this.pbWaveViewer = new System.Windows.Forms.PictureBox();
+            this.bDelete = new System.Windows.Forms.Button();
             this.bSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbWaveViewer)).BeginInit();
             this.SuspendLayout();
@@ -108,6 +108,22 @@
             this.pbWaveViewer.Paint += new System.Windows.Forms.PaintEventHandler(this.pbWaveViewer_Paint);
             this.pbWaveViewer.Layout += new System.Windows.Forms.LayoutEventHandler(this.pbWaveViewer_Layout);
             // 
+            // bDelete
+            // 
+            this.bDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bDelete.BackColor = System.Drawing.Color.DarkOrange;
+            this.bDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bDelete.CausesValidation = false;
+            this.bDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bDelete.Image = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48_Delete;
+            this.bDelete.Location = new System.Drawing.Point(660, 40);
+            this.bDelete.Name = "bDelete";
+            this.bDelete.Size = new System.Drawing.Size(40, 40);
+            this.bDelete.TabIndex = 4;
+            this.bDelete.UseVisualStyleBackColor = false;
+            this.bDelete.Click += new System.EventHandler(this.bDelete_Click);
+            // 
             // bSave
             // 
             this.bSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -121,6 +137,7 @@
             this.bSave.Size = new System.Drawing.Size(40, 40);
             this.bSave.TabIndex = 3;
             this.bSave.UseVisualStyleBackColor = false;
+            this.bSave.Click += new System.EventHandler(this.bSave_Click);
             // 
             // ProjectControl
             // 

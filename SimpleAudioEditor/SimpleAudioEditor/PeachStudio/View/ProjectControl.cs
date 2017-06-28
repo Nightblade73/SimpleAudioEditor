@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleAudioEditor.PeachStudio.View;
 
 namespace SimpleAudioEditor.PeachStudio {
     public partial class ProjectControl : UserControl {
@@ -472,7 +473,22 @@ namespace SimpleAudioEditor.PeachStudio {
             }
         }
 
+        private void bSave_Click(object sender, EventArgs e)
+        {
+            project.Save();
+            MyMessageBox mmb = new MyMessageBox("Сохранено!", false);
+            mmb.ShowDialog();
+        }
 
+        private void bDelete_Click(object sender, EventArgs e)
+        {
+            MyMessageBox mmb = new MyMessageBox("Уверены, что хотите удалить наработки?", true);
+            mmb.ShowDialog();
+            if(mmb.DialogResult == DialogResult.OK)
+            {
+                //удаляем
+            }
+        }
 
         private TimeSpan GetAllTotalTime() {
             TimeSpan totalTime = new TimeSpan();
@@ -480,11 +496,6 @@ namespace SimpleAudioEditor.PeachStudio {
                 totalTime += i.SplitEndTime-i.SplitStartTime;
             }
             return totalTime;
-        }
-
-        private void bSave_Click(object sender, EventArgs e)
-        {
-            project.Save();
         }
     }
 }

@@ -115,6 +115,12 @@
     </Compile>
     <Compile Include="PeachStudio\Primary.cs" />
     <Compile Include="PeachStudio\Project.cs" />
+    <Compile Include="PeachStudio\View\MyMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PeachStudio\View\MyMessageBox.Designer.cs">
+      <DependentUpon>MyMessageBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="PeachStudio\View\ProjectControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </Compile>
     <EmbeddedResource Include="PeachStudio\View\IntroForm.resx">
       <DependentUpon>IntroForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeachStudio\View\MyMessageBox.resx">
+      <DependentUpon>MyMessageBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PeachStudio\View\ProjectControl.resx">
       <DependentUpon>ProjectControl.cs</DependentUpon>
