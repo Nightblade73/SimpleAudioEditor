@@ -554,6 +554,8 @@ namespace SimpleAudioEditor.PeachStudio
 
         private void bSave_Click(object sender, EventArgs e)
         {
+            WorkMethods.WorkMethods.Save(project);
+            WorkMethods.WorkerXML.Serialize(project);
             MyMessageBox mmb = new MyMessageBox("Сохранено!", false);
             mmb.ShowDialog();
         }
