@@ -231,6 +231,8 @@
     <Content Include="libmp3lame.64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\icons8-Peach-48-Delete.png" />
+    <Content Include="Resources\icons8-Peach-48-OK.png" />
     <None Include="Resources\icons8-Folder-104.png" />
     <None Include="Resources\icons8-Peach-48.png" />
     <None Include="Resources\icons8-Error-104.png" />

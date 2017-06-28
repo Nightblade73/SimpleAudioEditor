@@ -40,7 +40,7 @@
             this.tBName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tBName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tBName.ForeColor = System.Drawing.Color.Orange;
-            this.tBName.Location = new System.Drawing.Point(45, 48);
+            this.tBName.Location = new System.Drawing.Point(24, 52);
             this.tBName.Name = "tBName";
             this.tBName.Size = new System.Drawing.Size(185, 23);
             this.tBName.TabIndex = 0;
@@ -50,7 +50,7 @@
             this.LabText.AutoSize = true;
             this.LabText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LabText.ForeColor = System.Drawing.Color.Orange;
-            this.LabText.Location = new System.Drawing.Point(58, 19);
+            this.LabText.Location = new System.Drawing.Point(37, 19);
             this.LabText.Name = "LabText";
             this.LabText.Size = new System.Drawing.Size(161, 18);
             this.LabText.TabIndex = 1;
@@ -59,28 +59,32 @@
             // butOK
             // 
             this.butOK.BackColor = System.Drawing.Color.Gray;
+            this.butOK.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48_OK;
+            this.butOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butOK.Cursor = System.Windows.Forms.Cursors.Hand;
             this.butOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.butOK.ForeColor = System.Drawing.Color.Orange;
-            this.butOK.Location = new System.Drawing.Point(12, 80);
+            this.butOK.Location = new System.Drawing.Point(40, 90);
             this.butOK.Name = "butOK";
-            this.butOK.Size = new System.Drawing.Size(109, 27);
+            this.butOK.Size = new System.Drawing.Size(52, 51);
             this.butOK.TabIndex = 2;
-            this.butOK.Text = "Принять";
             this.butOK.UseVisualStyleBackColor = false;
             this.butOK.Click += new System.EventHandler(this.butOK_Click);
             // 
             // butCancle
             // 
             this.butCancle.BackColor = System.Drawing.Color.Gray;
+            this.butCancle.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48_Delete;
+            this.butCancle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butCancle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.butCancle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butCancle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.butCancle.ForeColor = System.Drawing.Color.Orange;
-            this.butCancle.Location = new System.Drawing.Point(153, 80);
+            this.butCancle.Location = new System.Drawing.Point(146, 90);
             this.butCancle.Name = "butCancle";
-            this.butCancle.Size = new System.Drawing.Size(109, 27);
+            this.butCancle.Size = new System.Drawing.Size(52, 51);
             this.butCancle.TabIndex = 3;
-            this.butCancle.Text = "Отменить";
             this.butCancle.UseVisualStyleBackColor = false;
             this.butCancle.Click += new System.EventHandler(this.butCancle_Click);
             // 
@@ -89,7 +93,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(274, 119);
+            this.ClientSize = new System.Drawing.Size(235, 160);
             this.Controls.Add(this.butCancle);
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.LabText);

@@ -123,6 +123,26 @@ namespace SimpleAudioEditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_Peach_48_Delete {
+            get {
+                object obj = ResourceManager.GetObject("icons8-Peach-48-Delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_Peach_48_OK {
+            get {
+                object obj = ResourceManager.GetObject("icons8-Peach-48-OK", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_Play_26 {
             get {
                 object obj = ResourceManager.GetObject("icons8-Play-26", resourceCulture);
