@@ -188,25 +188,6 @@ namespace SimpleAudioEditor.Controller.Editor
             pictureBox.Invalidate();
         }
 
-        //public void DoLikeDragDrop()
-        //{
-        //    SetSegmentEndPoints();
-
-        //    Sample s = new Sample(0.0,  )
-        //    if (FinalLeght() + s.LeghtFromSecond <= maxLeghtOutFromSecond)
-        //    {
-        //        // MessageBox.Show(""+s.indexQueue);
-        //        project.listSamples.Add(s);
-        //        s.IndexQueue = index;
-        //        SetSegmentEndPoints();
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show(String.Format("Выходной файл не может привышать {0} минут! Лимит привышен на {1} секунд!", maxLeghtOutFromSecond / 60, FinalLeght() + s.LeghtFromSecond - maxLeghtOutFromSecond));
-        //    }
-        //    pictureBox.Invalidate();
-        //}
-
         private void SetSegmentEndPoints()
         {
             project.listSamples.Sort();

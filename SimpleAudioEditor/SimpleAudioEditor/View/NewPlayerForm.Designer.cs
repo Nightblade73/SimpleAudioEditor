@@ -65,6 +65,18 @@
             this.buttonAddSample.UseVisualStyleBackColor = false;
             this.buttonAddSample.Click += new System.EventHandler(this.buttonAddSample_Click);
             // 
+
+            // panelSamples
+            // 
+            this.panelSamples.AllowDrop = true;
+            this.panelSamples.Location = new System.Drawing.Point(12, 140);
+            this.panelSamples.Name = "panelSamples";
+            this.panelSamples.Size = new System.Drawing.Size(700, 289);
+            this.panelSamples.TabIndex = 11;
+            this.panelSamples.DragDrop += new System.Windows.Forms.DragEventHandler(this.panelSamples_DragDrop);
+            this.panelSamples.DragEnter += new System.Windows.Forms.DragEventHandler(this.panelSamples_DragEnter);
+            // 
+
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
@@ -101,7 +113,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NewPlayerForm";
-            this.Text = "Peach Editor";
+
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Peach Studio";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NewPlayerForm_FormClosed);
             this.Load += new System.EventHandler(this.Form_Load);
             this.ResumeLayout(false);
 

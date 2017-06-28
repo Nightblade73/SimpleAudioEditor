@@ -129,11 +129,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Onyx", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.Orange;
             this.label1.Location = new System.Drawing.Point(27, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 16);
+            this.label1.Size = new System.Drawing.Size(143, 17);
             this.label1.TabIndex = 5;
             this.label1.Text = "Прошлые сэмплы:";
             // 
@@ -227,11 +227,13 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft NeoGothic", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.label3.Location = new System.Drawing.Point(314, 2);
             this.label3.Name = "label3";
+
             this.label3.Size = new System.Drawing.Size(137, 30);
+
             this.label3.TabIndex = 1;
             this.label3.Text = "Peach Editor";
             // 
@@ -284,7 +286,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IntroForm";
-            this.Text = "Peach editor";
+
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Peach Studio";
+
             this.panelPath.ResumeLayout(false);
             this.panelPath.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).EndInit();

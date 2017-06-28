@@ -148,6 +148,7 @@
       <DependentUpon>WriteProjectNameForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\SimpleAudioEditor.Properties.Resources.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -195,6 +196,12 @@
     <Content Include="libmp3lame.64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Pauses\Пауза 7 секунд.mp3" />
+    <None Include="Resources\Pauses\Пауза 5 секунд.mp3" />
+    <None Include="Resources\Pauses\Пауза 5 секунд %281%29.mp3" />
+    <None Include="Resources\Pauses\Звук колокольчиков.mp3" />
+    <None Include="Resources\Pauses\Звук бренда bmw.mp3" />
+    <None Include="Resources\Pauses\Аэрофлот.mp3" />
     <None Include="Resources\icons8-Folder-104.png" />
     <None Include="Resources\icons8-Peach-48.png" />
     <None Include="Resources\icons8-Error-104.png" />

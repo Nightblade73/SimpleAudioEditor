@@ -22,8 +22,22 @@ namespace SimpleAudioEditor.View
 
         private void butOK_Click(object sender, EventArgs e)
         {
+<<<<<<< Updated upstream
             this.DialogResult = DialogResult.OK;
             this.title = tBName.Text;
+=======
+            ToolTip t = new ToolTip();
+            if(tBName.Text.Equals(""))
+            {
+                t.Show("Имя проекта не может быть пустым или содержать символы:\n . * / \\ : < > ? | \" @ # $ % ^ &", tBName);  //какие ещё символы?
+            }
+            else
+            {
+                this.DialogResult = DialogResult.OK;
+                this.title = tBName.Text;
+                Directory.CreateDirectory(new Primary().GetProgrammPath() + "\\" + tBName.Text);
+            }
+>>>>>>> Stashed changes
         }
 
         private void butCancle_Click(object sender, EventArgs e)
