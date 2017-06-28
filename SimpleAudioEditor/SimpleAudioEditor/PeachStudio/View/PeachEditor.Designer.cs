@@ -41,11 +41,10 @@
             // 
             // trackBar1
             // 
-            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar1.Location = new System.Drawing.Point(590, 118);
+            this.trackBar1.Location = new System.Drawing.Point(11, 133);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(122, 45);
+            this.trackBar1.Size = new System.Drawing.Size(165, 45);
             this.trackBar1.TabIndex = 2;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar1.Value = 20;
@@ -62,10 +61,10 @@
             this.panelSample.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.peaches_pattern;
             this.panelSample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSample.Controls.Add(this.panelSupport);
-            this.panelSample.Location = new System.Drawing.Point(12, 146);
+            this.panelSample.Location = new System.Drawing.Point(12, 156);
             this.panelSample.MinimumSize = new System.Drawing.Size(700, 302);
             this.panelSample.Name = "panelSample";
-            this.panelSample.Size = new System.Drawing.Size(700, 435);
+            this.panelSample.Size = new System.Drawing.Size(700, 425);
             this.panelSample.TabIndex = 3;
             this.panelSample.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panelSample_ControlAdded);
             this.panelSample.Layout += new System.Windows.Forms.LayoutEventHandler(this.panelSample_Layout);
@@ -82,7 +81,7 @@
             // 
             this.buttonAddSample.BackColor = System.Drawing.Color.DarkGreen;
             this.buttonAddSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddSample.Location = new System.Drawing.Point(12, 118);
+            this.buttonAddSample.Location = new System.Drawing.Point(12, 98);
             this.buttonAddSample.Name = "buttonAddSample";
             this.buttonAddSample.Size = new System.Drawing.Size(75, 23);
             this.buttonAddSample.TabIndex = 4;
@@ -95,6 +94,7 @@
             this.projectControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.projectControl.BackColor = System.Drawing.Color.Transparent;
+            this.projectControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.projectControl.CurrentProject = project1;
             this.projectControl.Location = new System.Drawing.Point(12, 12);
             this.projectControl.MinimumSize = new System.Drawing.Size(700, 80);
@@ -117,6 +117,7 @@
             this.MinimumSize = new System.Drawing.Size(740, 480);
             this.Name = "PeachEditor";
             this.Text = "PeachEditor";
+            this.Load += new System.EventHandler(this.PeachEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panelSample.ResumeLayout(false);
             this.ResumeLayout(false);
