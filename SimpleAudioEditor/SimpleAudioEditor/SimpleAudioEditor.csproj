@@ -80,6 +80,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -141,6 +142,9 @@
     <Compile Include="PeachStudio\View\PeachEditor.Designer.cs">
       <DependentUpon>PeachEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="PeachStudio\WorkMethods\SampleController.cs" />
+    <Compile Include="PeachStudio\WorkMethods\WorkerXML.cs" />
+    <Compile Include="PeachStudio\WorkMethods\WorkMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PeachStudio\View\MainForm.cs">
