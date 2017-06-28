@@ -403,11 +403,12 @@ namespace SimpleAudioEditor.PeachStudio
         }
 
         #endregion // Перемещение конечной точки
-
+        int startedPositionX = 40;
         private void SampleControl_Load(object sender, EventArgs e) {           
             startedWidth =  pictureBox.Width;
-            hScrollBar.SmallChange = (int)(startedWidth / (float)pictureBox.Width);
-            hScrollBar.LargeChange = (int)(2 * startedWidth / (float)pictureBox.Width);
+            hScrollBar.Maximum = startedWidth;
+            hScrollBar.SmallChange = startedWidth;
+            hScrollBar.LargeChange = startedWidth;
         }
 
         private void FromBeginingToPointToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -441,11 +442,27 @@ namespace SimpleAudioEditor.PeachStudio
         int newV;
         int oldSBV;
 
-        protected override void OnMouseWheel(MouseEventArgs e) {            
+        protected override void OnMouseWheel(MouseEventArgs e) {
             if (pictureBox.Focused) {
                 Console.WriteLine("initially: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
-                pictureBox.Width = (int)(pictureBox.Width + e.Delta * 0.5);
+                if (e.Delta > 0)
+                {
+                    pictureBox.Width = (int)(pictureBox.Width) + 20;
+                   // hScrollBar.LargeChange -= 2;
+                  //  hScrollBar.SmallChange -= 2;
+                    hScrollBar.Maximum += 20;
+                } else
+                {
+                  //  hScrollBar.LargeChange += 2;
+                   // hScrollBar.SmallChange += 2;
+                    hScrollBar.Maximum -= 20;
+                    pictureBox.Width = (int)(pictureBox.Width) - 20;
+                }
                 
+                //Console.WriteLine(e.Delta);
+
+                //pictureBox.Width = (int)(pictureBox.Width + e.Delta * 0.5);
+                /*
                 previousMaximum = hScrollBar.Maximum;
                 hScrollBar.Maximum = (int)(pictureBox.Width / startedWidth);
                 if (previousMaximum > hScrollBar.Maximum) {
@@ -478,6 +495,7 @@ namespace SimpleAudioEditor.PeachStudio
                 Console.WriteLine("after: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
                 UpdatePointPos();
                 pictureBox.Invalidate();
+                */
             }
         }
 
@@ -495,7 +513,7 @@ namespace SimpleAudioEditor.PeachStudio
             oldV = e.OldValue;
             newV = e.NewValue;
             int diference =  e.NewValue - e.OldValue;
-            pictureBox.Location = new Point(pictureBox.Location.X - (int)(diference * startedWidth), pictureBox.Location.Y);
+            pictureBox.Location = new Point((pictureBox.Location.X - (int)(diference))>40?40: (pictureBox.Location.X - (int)(diference)), pictureBox.Location.Y);
             Console.WriteLine("Location: " + pictureBox.Location.X+ " " + oldV + " " + newV);
             UpdatePointPos();
             pictureBox.Invalidate();
