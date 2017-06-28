@@ -1,12 +1,11 @@
-﻿using SimpleAudioEditor.Controller.WaveController;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleAudioEditor.Controller
+namespace SimpleAudioEditor.PeachStudio.WorkMethods
 {
     class WorkMethods
     {
@@ -26,24 +25,21 @@ namespace SimpleAudioEditor.Controller
 
         private static void CreateSampleFile(Sample s)
         {
-            TimeSpan start = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(s.SplitStartTimeFromSecond * 1000));
-            TimeSpan end = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(s.SplitEndTimeFromSecond * 1000));
-            TimeSpan all = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(s.AllTimeFromSecond * 1000));
             SampleController sc = new SampleController();
             if (s.SoundPath.ToString().Contains(".wav"))
             {
-                sc.TrimWavFile(SampleController.Converter(s.SoundPath), s.SamplePath, start, all - end);
+                sc.TrimWavFile(SampleController.Converter(s.SoundPath), s.SoundPath, s.SplitStartTime, s.TotalTime - s.SplitEndTime);
             }
             else
             {
-                sc.TrimWavFile(s.SoundPath, s.SamplePath, start, all - end);
+                sc.TrimWavFile(s.SoundPath, s.SoundPath, s.SplitStartTime, s.TotalTime- s.SplitEndTime);
             }
         }
 
         public static string Save(Project project)
         {
             List<string> list = new List<string>();
-            foreach (var sample in project.listSamples)
+            foreach (var sample in project.GetSampleList())
             {
                 try
                 {
@@ -54,11 +50,11 @@ namespace SimpleAudioEditor.Controller
                 {
                     return "Не удалось создать файл-отрезок./n" + ex.ToString();
                 }
-                list.Add(SampleController.Resemple(sample.SamplePath, project.path + "\\" + "result.mp3"));
+                list.Add(SampleController.Resemple(sample.SoundPath, project.GetProjectPath() + "\\" + "result.mp3"));
                 //SampleController.Combine(sample.SamplePath, path + "\\" + "result.wav");
 
             }
-            SampleController.Concatenate(list, project.path + "\\" + "result.mp3");
+            SampleController.Concatenate(list, project.GetProjectPath() + "\\" + "result.mp3");
 
             return "Сохранено";
         }

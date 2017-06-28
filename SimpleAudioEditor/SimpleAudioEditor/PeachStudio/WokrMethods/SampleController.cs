@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleAudioEditor.Controller.WaveController
+namespace SimpleAudioEditor.PeachStudio.WorkMethods
 {
     class SampleController
     {
