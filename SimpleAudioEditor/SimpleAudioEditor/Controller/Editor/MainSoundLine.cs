@@ -114,7 +114,7 @@ namespace SimpleAudioEditor.Controller.Editor
             timer.Interval = 16;
 
             pictureBox.Invalidate();
-
+            setPlayerLeghtPrePixel();
         }
 
 
