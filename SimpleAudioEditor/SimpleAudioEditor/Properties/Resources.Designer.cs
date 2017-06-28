@@ -179,6 +179,16 @@ namespace SimpleAudioEditor.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Аэрофлот {
+            get {
+                object obj = ResourceManager.GetObject("Аэрофлот", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
@@ -189,6 +199,16 @@ namespace SimpleAudioEditor.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Звук_бренда_bmw {
+            get {
+                object obj = ResourceManager.GetObject("Звук_бренда_bmw", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
@@ -197,6 +217,46 @@ namespace SimpleAudioEditor.Properties {
             get {
                 object obj = ResourceManager.GetObject("peaches_with_green_leaves_on_light_pink_background_Stock_Vector", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Звук_колокольчиков {
+            get {
+                object obj = ResourceManager.GetObject("Звук_колокольчиков", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Пауза_5_секунд {
+            get {
+                object obj = ResourceManager.GetObject("Пауза_5_секунд", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Пауза_5_секунд__1_ {
+            get {
+                object obj = ResourceManager.GetObject("Пауза_5_секунд__1_", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Пауза_7_секунд {
+            get {
+                object obj = ResourceManager.GetObject("Пауза_7_секунд", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }
