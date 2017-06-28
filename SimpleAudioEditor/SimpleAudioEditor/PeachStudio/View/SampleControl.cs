@@ -449,28 +449,29 @@ namespace SimpleAudioEditor.PeachStudio
                 previousMaximum = hScrollBar.Maximum;
                 hScrollBar.Maximum = (int)(pictureBox.Width / startedWidth);
                 if (previousMaximum > hScrollBar.Maximum) {
-                    if (hScrollBar.Maximum <= 1) {                        
+                    if (hScrollBar.Maximum <= 1) {
                         hScrollBar.Value = 0;
-                    }
-                    if (hScrollBar.Value == previousMaximum) {
-                        Console.WriteLine("1.1: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
-                        hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.SmallDecrement, oldV, --newV));
-                        Console.WriteLine("1.2: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
-                        oldV = newV;
-                        hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.EndScroll, oldV, newV));
-                        Console.WriteLine("1.3: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                        callBackScrollEvent(0, oldV, newV, hScrollBar.Maximum);
                     } else {
-                        hScrollBar.Value = oldSBV;
+                        if (hScrollBar.Value == previousMaximum) {
+                            callBackScrollEvent(1, oldV, newV, previousMaximum);
+                        } else {
+                            if (hScrollBar.Value == hScrollBar.Maximum) {
+                                callBackScrollEvent(2, oldV, newV, hScrollBar.Maximum);
+                            } else {
+                                hScrollBar.Value = oldSBV;
+                            }
+                        } 
                     }
                 }
                 if (previousMaximum < hScrollBar.Maximum) {
                     if (hScrollBar.Value == previousMaximum) {
-                        Console.WriteLine("2.1: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                        Console.WriteLine("3.1: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
                         hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.SmallDecrement, oldV, ++newV));
-                        Console.WriteLine("2.2: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                        Console.WriteLine("3.2: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
                         oldV = newV;
                         hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.EndScroll, oldV, newV));
-                        Console.WriteLine("2.3: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                        Console.WriteLine("3.3: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
                     }
                 }
                 oldSBV = hScrollBar.Value;
@@ -478,6 +479,16 @@ namespace SimpleAudioEditor.PeachStudio
                 UpdatePointPos();
                 pictureBox.Invalidate();
             }
+        }
+
+        private void callBackScrollEvent(int i, int oldv, int newv, int max) {
+            Console.WriteLine(i + ".1: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+            hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.SmallDecrement, oldV, --newV));
+            Console.WriteLine(i + ".2: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+            oldV = newV;
+            hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.EndScroll, oldV, newV));
+            Console.WriteLine(i + ".3: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+            hScrollBar.Value = max - 1;
         }
 
         private void hScrollBar_Scroll(object sender, ScrollEventArgs e) {
