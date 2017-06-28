@@ -47,7 +47,7 @@
             this.maskedTextBoxSplitEndTime.BackColor = System.Drawing.Color.Black;
             this.maskedTextBoxSplitEndTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskedTextBoxSplitEndTime.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBoxSplitEndTime.Location = new System.Drawing.Point(70, 80);
+            this.maskedTextBoxSplitEndTime.Location = new System.Drawing.Point(70, 78);
             this.maskedTextBoxSplitEndTime.Mask = "00:00:00.00";
             this.maskedTextBoxSplitEndTime.Name = "maskedTextBoxSplitEndTime";
             this.maskedTextBoxSplitEndTime.Size = new System.Drawing.Size(70, 13);
@@ -59,7 +59,7 @@
             this.maskedTextBoxSplitStartTime.BackColor = System.Drawing.Color.Black;
             this.maskedTextBoxSplitStartTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskedTextBoxSplitStartTime.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBoxSplitStartTime.Location = new System.Drawing.Point(145, 80);
+            this.maskedTextBoxSplitStartTime.Location = new System.Drawing.Point(145, 78);
             this.maskedTextBoxSplitStartTime.Mask = "00:00:00.00";
             this.maskedTextBoxSplitStartTime.Name = "maskedTextBoxSplitStartTime";
             this.maskedTextBoxSplitStartTime.Size = new System.Drawing.Size(70, 13);
@@ -71,7 +71,7 @@
             this.maskedTextBox2.BackColor = System.Drawing.Color.Black;
             this.maskedTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskedTextBox2.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBox2.Location = new System.Drawing.Point(215, 80);
+            this.maskedTextBox2.Location = new System.Drawing.Point(215, 78);
             this.maskedTextBox2.Name = "maskedTextBox2";
             this.maskedTextBox2.Size = new System.Drawing.Size(5, 13);
             this.maskedTextBox2.TabIndex = 14;
@@ -83,7 +83,7 @@
             this.maskedTextBoxCurrentTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.maskedTextBoxCurrentTime.BackColor = System.Drawing.Color.DarkOrange;
             this.maskedTextBoxCurrentTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.maskedTextBoxCurrentTime.Location = new System.Drawing.Point(0, 80);
+            this.maskedTextBoxCurrentTime.Location = new System.Drawing.Point(0, 78);
             this.maskedTextBoxCurrentTime.Mask = "00:00:00.00";
             this.maskedTextBoxCurrentTime.Name = "maskedTextBoxCurrentTime";
             this.maskedTextBoxCurrentTime.Size = new System.Drawing.Size(70, 13);
@@ -94,7 +94,7 @@
             this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonStop.BackColor = System.Drawing.Color.DarkOrange;
             this.buttonStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonStop.Location = new System.Drawing.Point(0, 40);
+            this.buttonStop.Location = new System.Drawing.Point(0, 38);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(40, 40);
             this.buttonStop.TabIndex = 11;
@@ -121,7 +121,7 @@
             this.maskedTextBox5.BackColor = System.Drawing.Color.Black;
             this.maskedTextBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskedTextBox5.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBox5.Location = new System.Drawing.Point(140, 80);
+            this.maskedTextBox5.Location = new System.Drawing.Point(140, 78);
             this.maskedTextBox5.Name = "maskedTextBox5";
             this.maskedTextBox5.Size = new System.Drawing.Size(5, 13);
             this.maskedTextBox5.TabIndex = 17;
@@ -134,7 +134,7 @@
             this.maskedTextBoxResultTime.BackColor = System.Drawing.Color.Black;
             this.maskedTextBoxResultTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskedTextBoxResultTime.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBoxResultTime.Location = new System.Drawing.Point(220, 80);
+            this.maskedTextBoxResultTime.Location = new System.Drawing.Point(220, 78);
             this.maskedTextBoxResultTime.Mask = "00:00:00.00";
             this.maskedTextBoxResultTime.Name = "maskedTextBoxResultTime";
             this.maskedTextBoxResultTime.Size = new System.Drawing.Size(70, 13);
@@ -145,10 +145,10 @@
             this.hScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.hScrollBar.LargeChange = 100;
-            this.hScrollBar.Location = new System.Drawing.Point(290, 80);
+            this.hScrollBar.Location = new System.Drawing.Point(290, 78);
             this.hScrollBar.Minimum = 1;
             this.hScrollBar.Name = "hScrollBar";
-            this.hScrollBar.Size = new System.Drawing.Size(265, 13);
+            this.hScrollBar.Size = new System.Drawing.Size(263, 13);
             this.hScrollBar.SmallChange = 100;
             this.hScrollBar.TabIndex = 19;
             this.hScrollBar.Value = 1;
@@ -197,6 +197,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonPlay);
             this.Controls.Add(this.hScrollBar);
@@ -209,7 +210,7 @@
             this.Controls.Add(this.pictureBox);
             this.MinimumSize = new System.Drawing.Size(555, 93);
             this.Name = "SampleControl";
-            this.Size = new System.Drawing.Size(555, 93);
+            this.Size = new System.Drawing.Size(553, 91);
             this.Load += new System.EventHandler(this.SampleControl_Load);
             this.Resize += new System.EventHandler(this.SampleControl_Resize);
             this.contextMenuStrip.ResumeLayout(false);

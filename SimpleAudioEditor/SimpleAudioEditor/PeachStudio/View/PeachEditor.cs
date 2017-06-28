@@ -60,5 +60,9 @@ namespace SimpleAudioEditor.PeachStudio.View
         {
             panelSupport.Size = new Size(panelSupport.Size.Width,panelSample.Size.Height+2);
         }
+
+        private void PeachEditor_Load(object sender, EventArgs e) {            
+
+        }
     }
 }

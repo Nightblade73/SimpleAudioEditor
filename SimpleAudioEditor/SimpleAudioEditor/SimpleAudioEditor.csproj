@@ -242,6 +242,9 @@
     </Content>
     <Content Include="Resources\icons8-Peach-48-Delete.png" />
     <Content Include="Resources\icons8-Peach-48-OK.png" />
+    <None Include="Resources\peaches-with-green-leaves-on-light-pink-background-Stock-Vector.jpg" />
+    <None Include="Resources\peaches_realistic_pattern.jpg" />
+    <None Include="Resources\peaches_pattern.jpg" />
     <None Include="Resources\icons8-Folder-104.png" />
     <None Include="Resources\icons8-Peach-48.png" />
     <None Include="Resources\icons8-Error-104.png" />

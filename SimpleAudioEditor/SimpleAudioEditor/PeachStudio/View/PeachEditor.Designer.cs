@@ -45,7 +45,7 @@
             this.trackBar1.Location = new System.Drawing.Point(590, 118);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(122, 45);
+            this.trackBar1.Size = new System.Drawing.Size(122, 42);
             this.trackBar1.TabIndex = 2;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
@@ -58,11 +58,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelSample.AutoScroll = true;
             this.panelSample.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelSample.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.peaches_pattern;
+            this.panelSample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSample.Controls.Add(this.panelSupport);
             this.panelSample.Location = new System.Drawing.Point(12, 146);
             this.panelSample.MinimumSize = new System.Drawing.Size(700, 302);
             this.panelSample.Name = "panelSample";
-            this.panelSample.Size = new System.Drawing.Size(700, 390);
+            this.panelSample.Size = new System.Drawing.Size(700, 435);
             this.panelSample.TabIndex = 3;
             this.panelSample.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panelSample_ControlAdded);
             this.panelSample.Layout += new System.Windows.Forms.LayoutEventHandler(this.panelSample_Layout);
@@ -104,7 +106,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(732, 548);
+            this.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.peaches_pattern;
+            this.ClientSize = new System.Drawing.Size(732, 593);
             this.Controls.Add(this.projectControl);
             this.Controls.Add(this.buttonAddSample);
             this.Controls.Add(this.panelSample);
@@ -113,6 +116,7 @@
             this.MinimumSize = new System.Drawing.Size(740, 480);
             this.Name = "PeachEditor";
             this.Text = "PeachEditor";
+            this.Load += new System.EventHandler(this.PeachEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panelSample.ResumeLayout(false);
             this.ResumeLayout(false);

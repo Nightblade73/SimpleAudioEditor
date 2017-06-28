@@ -74,7 +74,7 @@
             this.pbWaveViewer.BackColor = System.Drawing.Color.Transparent;
             this.pbWaveViewer.Location = new System.Drawing.Point(40, 0);
             this.pbWaveViewer.Name = "pbWaveViewer";
-            this.pbWaveViewer.Size = new System.Drawing.Size(620, 80);
+            this.pbWaveViewer.Size = new System.Drawing.Size(618, 80);
             this.pbWaveViewer.TabIndex = 0;
             this.pbWaveViewer.TabStop = false;
             this.pbWaveViewer.Paint += new System.Windows.Forms.PaintEventHandler(this.pbWaveViewer_Paint);
@@ -89,7 +89,7 @@
             this.bDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bDelete.Image = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48_Delete;
-            this.bDelete.Location = new System.Drawing.Point(660, 40);
+            this.bDelete.Location = new System.Drawing.Point(658, 40);
             this.bDelete.Name = "bDelete";
             this.bDelete.Size = new System.Drawing.Size(40, 40);
             this.bDelete.TabIndex = 4;
@@ -104,7 +104,7 @@
             this.bSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bSave.Image = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48_OK;
-            this.bSave.Location = new System.Drawing.Point(660, 0);
+            this.bSave.Location = new System.Drawing.Point(658, 0);
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(40, 40);
             this.bSave.TabIndex = 3;
@@ -116,6 +116,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.maskedTextBoxCurrentTime);
             this.Controls.Add(this.pbWaveViewer);
             this.Controls.Add(this.bDelete);
@@ -124,7 +125,7 @@
             this.Controls.Add(this.bStop);
             this.MinimumSize = new System.Drawing.Size(700, 80);
             this.Name = "ProjectControl";
-            this.Size = new System.Drawing.Size(700, 80);
+            this.Size = new System.Drawing.Size(698, 78);
             this.Load += new System.EventHandler(this.ProjectControl_Load);
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.ProjectControl_Layout);
             ((System.ComponentModel.ISupportInitialize)(this.pbWaveViewer)).EndInit();
