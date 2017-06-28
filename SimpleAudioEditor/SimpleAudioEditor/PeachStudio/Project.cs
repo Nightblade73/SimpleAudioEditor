@@ -41,5 +41,9 @@ namespace SimpleAudioEditor.PeachStudio {
         {
             samples.Remove(removedSample);
         }
+        public string GetProjectPath()
+        {
+            return projectPath;
+        }
     }
 }
