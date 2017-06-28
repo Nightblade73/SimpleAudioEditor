@@ -16,6 +16,8 @@ namespace SimpleAudioEditor.PeachStudio
         bool markerMoving;
         int mousePositionX;
 
+        int startedWidth;
+
         public Sample Sample
         {
             //    set{sample = value;}
@@ -400,8 +402,10 @@ namespace SimpleAudioEditor.PeachStudio
 
         #endregion // Перемещение конечной точки
 
-        private void SampleControl_Load(object sender, EventArgs e) {
-            //pictureBox.ContextMenuStrip = contextMenuStrip;
+        private void SampleControl_Load(object sender, EventArgs e) {           
+            startedWidth =  pictureBox.Width;
+            hScrollBar.SmallChange = (int)(startedWidth / (float)pictureBox.Width);
+            hScrollBar.LargeChange = (int)(2 * startedWidth / (float)pictureBox.Width);
         }
 
         private void FromBeginingToPointToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -421,8 +425,68 @@ namespace SimpleAudioEditor.PeachStudio
         }
         
         private void pictureBox_MouseClick(object sender, MouseEventArgs e) {
+            
+        }
 
-        }       
+        private void pictureBox_MouseEnter(object sender, EventArgs e) {
+            if (!pictureBox.Focused) {
+                pictureBox.Focus();
+            }
+        }
+
+        int previousMaximum;
+        int oldV;
+        int newV;
+        int oldSBV;
+
+        protected override void OnMouseWheel(MouseEventArgs e) {            
+            if (pictureBox.Focused) {
+                Console.WriteLine("initially: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                pictureBox.Width = (int)(pictureBox.Width + e.Delta * 0.5);
+                
+                previousMaximum = hScrollBar.Maximum;
+                hScrollBar.Maximum = (int)(pictureBox.Width / startedWidth);
+                if (previousMaximum > hScrollBar.Maximum) {
+                    if (hScrollBar.Maximum <= 1) {                        
+                        hScrollBar.Value = 0;
+                    }
+                    if (hScrollBar.Value == previousMaximum) {
+                        Console.WriteLine("1.1: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                        hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.SmallDecrement, oldV, --newV));
+                        Console.WriteLine("1.2: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                        oldV = newV;
+                        hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.EndScroll, oldV, newV));
+                        Console.WriteLine("1.3: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                    } else {
+                        hScrollBar.Value = oldSBV;
+                    }
+                }
+                if (previousMaximum < hScrollBar.Maximum) {
+                    if (hScrollBar.Value == previousMaximum) {
+                        Console.WriteLine("2.1: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                        hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.SmallDecrement, oldV, ++newV));
+                        Console.WriteLine("2.2: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                        oldV = newV;
+                        hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.EndScroll, oldV, newV));
+                        Console.WriteLine("2.3: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                    }
+                }
+                oldSBV = hScrollBar.Value;
+                Console.WriteLine("after: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                UpdatePointPos();
+                pictureBox.Invalidate();
+            }
+        }
+
+        private void hScrollBar_Scroll(object sender, ScrollEventArgs e) {
+            oldV = e.OldValue;
+            newV = e.NewValue;
+            int diference =  e.NewValue - e.OldValue;
+            pictureBox.Location = new Point(pictureBox.Location.X - (int)(diference * startedWidth), pictureBox.Location.Y);
+            Console.WriteLine("Location: " + pictureBox.Location.X+ " " + oldV + " " + newV);
+            UpdatePointPos();
+            pictureBox.Invalidate();
+        }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
