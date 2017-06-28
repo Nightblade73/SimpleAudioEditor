@@ -45,9 +45,10 @@
             this.trackBar1.Location = new System.Drawing.Point(590, 118);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(122, 42);
+            this.trackBar1.Size = new System.Drawing.Size(122, 45);
             this.trackBar1.TabIndex = 2;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar1.Value = 20;
             this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             // 
             // panelSample
@@ -79,7 +80,7 @@
             // 
             // buttonAddSample
             // 
-            this.buttonAddSample.BackColor = System.Drawing.Color.DarkOrange;
+            this.buttonAddSample.BackColor = System.Drawing.Color.DarkGreen;
             this.buttonAddSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddSample.Location = new System.Drawing.Point(12, 118);
             this.buttonAddSample.Name = "buttonAddSample";
@@ -116,7 +117,6 @@
             this.MinimumSize = new System.Drawing.Size(740, 480);
             this.Name = "PeachEditor";
             this.Text = "PeachEditor";
-            this.Load += new System.EventHandler(this.PeachEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panelSample.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -155,10 +155,9 @@ namespace SimpleAudioEditor.PeachStudio
         // Мы двигаем маркер точку.
         private void pictureBox_MouseMove_MovingMarker(object sender, MouseEventArgs e)
         {
-
-            markerPoint = new Point(indent + Mathf.TimeToPos(
-                Mathf.Clamp(Mathf.PosToTime(e.X + OffsetX, PlayerLineWidth, sample.TotalTime), sample.SplitStartTime, sample.SplitEndTime), samplePlayer.TotalTime, PlayerLineWidth), startPos.Y - object_radius * 2);
-            UpdateMaskedTimeValue();
+            markerPoint = new Point(Mathf.Clamp(e.X + OffsetX, Mathf.TimeToPos(sample.SplitStartTime, sample.TotalTime, PlayerLineWidth) + indent,
+            Mathf.TimeToPos(sample.SplitEndTime, sample.TotalTime, PlayerLineWidth)+indent),markerPoint.Y);
+                UpdateMaskedTimeValue();
             // Перерисовать.
             pictureBox.Invalidate();
         }
@@ -172,6 +171,7 @@ namespace SimpleAudioEditor.PeachStudio
             pictureBox.MouseUp -= pictureBox_MouseUp_MovingMarker;
             samplePlayer.CurrentTime = Mathf.PosToTime(markerPoint.X - indent, PlayerLineWidth, samplePlayer.TotalTime);
             maskedTextBoxCurrentTime.Text = samplePlayer.CurrentTime.ToString(@"hh\:mm\:ss\.FF");
+
 
             UpdateMaskedTimeValue();
             markerMoving = false;
@@ -509,26 +509,37 @@ namespace SimpleAudioEditor.PeachStudio
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
+            
             int penSize = 3;
-            Pen grayPen = new Pen(Color.Gray, penSize);
+            Pen grayPen = new Pen(Color.YellowGreen, penSize);
 
             
+            Pen drawWaveSplitPen = new Pen(Color.DarkOrange,0.5f);
+            Pen drawWaveBackPen = new Pen(Color.Firebrick, 0.5f);
+
             Graphics canvas = e.Graphics;
 
             canvas.DrawImage(
                 Mathf.DrawWave(sample.OptimizedArray,
                 sample.DrawSource,
-                new Pen(Color.Green),
+                drawWaveSplitPen,
                 pictureBox.Width-indent*2,
                 pictureBox.Height, 
                 Mathf.TimeToPos(sample.SplitStartTime, sample.TotalTime, PlayerLineWidth),
-                Mathf.TimeToPos(sample.SplitEndTime, sample.TotalTime, PlayerLineWidth)), 
+                Mathf.TimeToPos(sample.SplitEndTime, sample.TotalTime, PlayerLineWidth), drawWaveBackPen), 
                 new PointF(startPos.X,0));
 
-            canvas.DrawLine(grayPen, startPos, endPos);
+            canvas.DrawLine(grayPen, new Point(
+                Mathf.TimeToPos(sample.SplitStartTime, sample.TotalTime, PlayerLineWidth) + indent + penSize / 2, endPos.Y),
+                new Point( Mathf.TimeToPos(sample.SplitEndTime, sample.TotalTime, PlayerLineWidth) + indent + penSize / 2, endPos.Y));
+
+            Pen segmentPen = new Pen(Color.DarkGreen, penSize);
+
+            //Рисуем маркер
+            canvas.DrawLine(segmentPen,
+                new Point(Mathf.TimeToPos(sample.SplitStartTime, sample.TotalTime, PlayerLineWidth) + indent + penSize / 2, startPos.Y), new Point(markerPoint.X, startPos.Y));
 
 
-            Pen segmentPen = new Pen(Color.DarkOrange, penSize);
             canvas.DrawLine(segmentPen,
                 new Point(Mathf.TimeToPos(sample.SplitStartTime, sample.TotalTime, PlayerLineWidth) + indent + penSize / 2, 0),
                 new Point(Mathf.TimeToPos(sample.SplitStartTime, sample.TotalTime, PlayerLineWidth) + indent + penSize / 2, pictureBox.Height));
@@ -546,16 +557,18 @@ namespace SimpleAudioEditor.PeachStudio
                 new Point(Mathf.TimeToPos(sample.SplitEndTime, sample.TotalTime, PlayerLineWidth) + indent + penSize / 2, pictureBox.Height - penSize / 2));
 
 
-            Pen cursorPen = new Pen(Color.Black, penSize);
-            //Рисуем маркер
-            cursorPen.Color = Color.Black;
-            canvas.DrawLine(cursorPen, startPos, new Point(markerPoint.X, startPos.Y));
+            Pen cursorPen = new Pen(Color.ForestGreen, 1);
 
-            canvas.DrawPolygon(cursorPen, new Point[] {
+            canvas.DrawPolygon(new Pen(Color.ForestGreen,3), new Point[] {
                 new Point( markerPoint.X - object_radius, markerPoint.Y - object_radius),
                 new Point( markerPoint.X + object_radius, markerPoint.Y - object_radius),
                 new Point(markerPoint.X,startPos.Y)});
-
+            
+            canvas.DrawPolygon(new Pen(Color.OrangeRed,0.5f), new Point[] {
+                new Point( markerPoint.X - object_radius, markerPoint.Y - object_radius),
+                new Point( markerPoint.X + object_radius, markerPoint.Y - object_radius),
+                new Point(markerPoint.X,startPos.Y)});
+                
         }
 
         private void pictureBox_Layout(object sender, LayoutEventArgs e)

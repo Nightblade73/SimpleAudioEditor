@@ -102,9 +102,9 @@ namespace SimpleAudioEditor.PeachStudio
             return mOptimizedArray;
         }
 
-        public static Bitmap DrawWave(float[] mOptimizedArray, ISampleSource mDrawSource, Pen pen, int w, int h,int splitStart, int splitEnd)
+        public static Bitmap DrawWave(float[] mOptimizedArray, ISampleSource mDrawSource, Pen penSplit, int w, int h, int splitStart, int splitEnd, Pen penBack)
         {
-            Color defaultColor = pen.Color;
+            Color defaultColor = penSplit.Color;
             long numSamples = mDrawSource.Length;
 
             int mSamplesPerPixel = (int)((double)mDrawSource.Length / (double)w);
@@ -179,15 +179,15 @@ namespace SimpleAudioEditor.PeachStudio
 
                 // if the max/min are the same, then draw a line from the previous position, 
                 // otherwise we will not see anything 
-
-
+                Pen pen = new Pen(Color.Transparent);
+        
                 if (prevX >= Math.Min(splitStart, splitEnd) && prevX <= Math.Max(splitStart, splitEnd) )
                 {
-                    pen.Color = defaultColor;
+                    pen = penSplit;
                 }
                 else
                 {
-                    pen.Color = Color.Black;
+                    pen = penBack;
 
                 }
                 if (scaledMinVal == scaledMaxVal)

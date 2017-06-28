@@ -32,6 +32,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbWaveViewer)).BeginInit();
             this.SuspendLayout();
             // 
+  // pbWaveViewer
+            // 
+            this.pbWaveViewer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbWaveViewer.BackColor = System.Drawing.Color.Transparent;
+            this.pbWaveViewer.Location = new System.Drawing.Point(40, 0);
+            this.pbWaveViewer.Name = "pbWaveViewer";
+            this.pbWaveViewer.Size = new System.Drawing.Size(620, 80);
+            this.pbWaveViewer.TabIndex = 0;
+            this.pbWaveViewer.TabStop = false;
+            this.pbWaveViewer.Paint += new System.Windows.Forms.PaintEventHandler(this.pbWaveViewer_Paint);
+            this.pbWaveViewer.Layout += new System.Windows.Forms.LayoutEventHandler(this.pbWaveViewer_Layout);
+            this.pbWaveViewer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pbWaveViewer_MouseDoubleClick);
+            // 
+
             // bPlayPause
             // 
             this.bPlayPause.BackColor = System.Drawing.Color.DarkOrange;
@@ -56,6 +71,7 @@
             this.bStop.TabIndex = 2;
             this.bStop.Text = "■";
             this.bStop.UseVisualStyleBackColor = false;
+            this.bStop.Click += new System.EventHandler(this.bStop_Click);
             // 
             // maskedTextBoxCurrentTime
             // 
