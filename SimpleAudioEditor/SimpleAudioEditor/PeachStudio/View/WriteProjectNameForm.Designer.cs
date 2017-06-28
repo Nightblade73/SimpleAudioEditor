@@ -44,6 +44,7 @@
             this.tBName.Name = "tBName";
             this.tBName.Size = new System.Drawing.Size(185, 23);
             this.tBName.TabIndex = 0;
+            this.tBName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBName_KeyUp);
             // 
             // LabText
             // 

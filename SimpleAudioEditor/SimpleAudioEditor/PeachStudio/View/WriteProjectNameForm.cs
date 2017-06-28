@@ -23,8 +23,12 @@ namespace SimpleAudioEditor.View
 
         private void butOK_Click(object sender, EventArgs e)
         {
+            setTitle();
+        }
+        private void setTitle()
+        {
             ToolTip t = new ToolTip();
-            if(tBName.Text.Equals(""))
+            if (tBName.Text.Equals(""))
             {
                 t.Show("Имя проекта не может быть пустым или содержать символы:\n . * / \\ : < > ? | \"", tBName);  //какие ещё символы?
             }
@@ -35,11 +39,18 @@ namespace SimpleAudioEditor.View
                 Directory.CreateDirectory(new Primary().GetProgrammPath() + "\\" + tBName.Text);
             }
         }
-
         private void butCancle_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             Dispose();
+        }
+
+        private void tBName_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                setTitle();
+            }
         }
     }
 }
