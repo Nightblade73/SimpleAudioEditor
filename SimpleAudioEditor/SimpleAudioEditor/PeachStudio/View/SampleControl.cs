@@ -7,6 +7,9 @@ namespace SimpleAudioEditor.PeachStudio
 {
     public partial class SampleControl : UserControl
     {
+        const int SCROLL_STEP = 20;
+        const int VALUES_START_AT_ONE = 1;
+
         Sample sample;
         SamplePlayer samplePlayer;
         int indent = 10;//Отступ от края
@@ -16,7 +19,9 @@ namespace SimpleAudioEditor.PeachStudio
         bool markerMoving;
         int mousePositionX;
 
-        int startedWidth;
+        int startedPictureBoxWidth;
+        int oldScrollValue;
+        int newScrollValue;
 
         public Sample Sample
         {
@@ -403,12 +408,12 @@ namespace SimpleAudioEditor.PeachStudio
         }
 
         #endregion // Перемещение конечной точки
-        int startedPositionX = 40;
+
         private void SampleControl_Load(object sender, EventArgs e) {           
-            startedWidth =  pictureBox.Width;
-            hScrollBar.Maximum = startedWidth;
-            hScrollBar.SmallChange = startedWidth;
-            hScrollBar.LargeChange = startedWidth;
+            startedPictureBoxWidth =  pictureBox.Width;
+            hScrollBar.Maximum = startedPictureBoxWidth;
+            hScrollBar.SmallChange = startedPictureBoxWidth;
+            hScrollBar.LargeChange = startedPictureBoxWidth;
         }
 
         private void FromBeginingToPointToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -437,84 +442,44 @@ namespace SimpleAudioEditor.PeachStudio
             }
         }
 
-        int previousMaximum;
-        int oldV;
-        int newV;
-        int oldSBV;
-
         protected override void OnMouseWheel(MouseEventArgs e) {
             if (pictureBox.Focused) {
-                Console.WriteLine("initially: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
+                Console.WriteLine("initially: max " + (hScrollBar.Maximum) + " currentValue " + hScrollBar.Value + " " + oldScrollValue + " " + newScrollValue);
+                Console.WriteLine("Location: " + pictureBox.Location.X);
                 if (e.Delta > 0)
                 {
-                    pictureBox.Width = (int)(pictureBox.Width) + 20;
-                   // hScrollBar.LargeChange -= 2;
-                  //  hScrollBar.SmallChange -= 2;
-                    hScrollBar.Maximum += 20;
+                    pictureBox.Width = (int)(pictureBox.Width) + SCROLL_STEP;
+                    hScrollBar.Maximum = hScrollBar.Maximum + SCROLL_STEP;
                 } else
                 {
-                  //  hScrollBar.LargeChange += 2;
-                   // hScrollBar.SmallChange += 2;
-                    hScrollBar.Maximum -= 20;
-                    pictureBox.Width = (int)(pictureBox.Width) - 20;
-                }
-                
-                //Console.WriteLine(e.Delta);
-
-                //pictureBox.Width = (int)(pictureBox.Width + e.Delta * 0.5);
-                /*
-                previousMaximum = hScrollBar.Maximum;
-                hScrollBar.Maximum = (int)(pictureBox.Width / startedWidth);
-                if (previousMaximum > hScrollBar.Maximum) {
-                    if (hScrollBar.Maximum <= 1) {
-                        hScrollBar.Value = 0;
-                        callBackScrollEvent(0, oldV, newV, hScrollBar.Maximum);
-                    } else {
-                        if (hScrollBar.Value == previousMaximum) {
-                            callBackScrollEvent(1, oldV, newV, previousMaximum);
-                        } else {
-                            if (hScrollBar.Value == hScrollBar.Maximum) {
-                                callBackScrollEvent(2, oldV, newV, hScrollBar.Maximum);
-                            } else {
-                                hScrollBar.Value = oldSBV;
-                            }
-                        } 
+                    hScrollBar.Maximum = ((hScrollBar.Maximum - SCROLL_STEP) < startedPictureBoxWidth) ? startedPictureBoxWidth : (hScrollBar.Maximum - SCROLL_STEP);
+                    pictureBox.Width = (pictureBox.Width - SCROLL_STEP) < startedPictureBoxWidth ? startedPictureBoxWidth : (pictureBox.Width - SCROLL_STEP);
+                    if (hScrollBar.Value == hScrollBar.Maximum - hScrollBar.LargeChange + SCROLL_STEP + VALUES_START_AT_ONE) {
+                        callBackScrollEvent(2, oldScrollValue, newScrollValue, hScrollBar.Maximum);
                     }
                 }
-                if (previousMaximum < hScrollBar.Maximum) {
-                    if (hScrollBar.Value == previousMaximum) {
-                        Console.WriteLine("3.1: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
-                        hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.SmallDecrement, oldV, ++newV));
-                        Console.WriteLine("3.2: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
-                        oldV = newV;
-                        hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.EndScroll, oldV, newV));
-                        Console.WriteLine("3.3: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
-                    }
-                }
-                oldSBV = hScrollBar.Value;
-                Console.WriteLine("after: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
-                UpdatePointPos();
-                pictureBox.Invalidate();
-                */
+                Console.WriteLine("after: max " + (hScrollBar.Maximum) + " currentValue " + hScrollBar.Value + " " + oldScrollValue + " " + newScrollValue);
+                Console.WriteLine("Location: " + pictureBox.Location.X);                
             }
         }
 
         private void callBackScrollEvent(int i, int oldv, int newv, int max) {
-            Console.WriteLine(i + ".1: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
-            hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.SmallDecrement, oldV, --newV));
-            Console.WriteLine(i + ".2: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
-            oldV = newV;
-            hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.EndScroll, oldV, newV));
-            Console.WriteLine(i + ".3: " + (hScrollBar.Maximum) + " " + hScrollBar.Value + " " + oldV + " " + newV);
-            hScrollBar.Value = max - 1;
+            Console.WriteLine(i + ".1: max " + (hScrollBar.Maximum) + " currentValue " + hScrollBar.Value + " " + oldScrollValue + " " + newScrollValue);
+            newScrollValue -= SCROLL_STEP;
+            hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.SmallDecrement, oldScrollValue, newScrollValue));
+            Console.WriteLine(i + ".2: max " + (hScrollBar.Maximum) + " currentValue " + hScrollBar.Value + " " + oldScrollValue + " " + newScrollValue);
+            oldScrollValue = newScrollValue;
+            hScrollBar_Scroll(new object(), new ScrollEventArgs(ScrollEventType.EndScroll, oldScrollValue, newScrollValue));
+            Console.WriteLine(i + ".3: max " + (hScrollBar.Maximum) + " currentValue " + hScrollBar.Value + " " + oldScrollValue + " " + newScrollValue);
+            hScrollBar.Value = newScrollValue;
         }
 
         private void hScrollBar_Scroll(object sender, ScrollEventArgs e) {
-            oldV = e.OldValue;
-            newV = e.NewValue;
+            oldScrollValue = e.OldValue;
+            newScrollValue = e.NewValue;
             int diference =  e.NewValue - e.OldValue;
-            pictureBox.Location = new Point((pictureBox.Location.X - (int)(diference))>40?40: (pictureBox.Location.X - (int)(diference)), pictureBox.Location.Y);
-            Console.WriteLine("Location: " + pictureBox.Location.X+ " " + oldV + " " + newV);
+            pictureBox.Location = new Point((pictureBox.Location.X - (int)(diference)), pictureBox.Location.Y);
+            Console.WriteLine("Location: " + pictureBox.Location.X + " currentValue " + hScrollBar.Value + " old " + oldScrollValue + " new " + newScrollValue);
             UpdatePointPos();
             pictureBox.Invalidate();
         }
