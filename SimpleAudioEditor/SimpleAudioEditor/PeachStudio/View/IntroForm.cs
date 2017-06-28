@@ -2,6 +2,7 @@
 using SimpleAudioEditor.Controller;
 using SimpleAudioEditor.PeachStudio;
 using SimpleAudioEditor.PeachStudio.View;
+using SimpleAudioEditor.PeachStudio.WorkMethods;
 using SimpleAudioEditor.Properties;
 using SimpleAudioEditor.View;
 using System;
@@ -50,7 +51,8 @@ namespace SimpleAudioEditor
         private void btnExistingProject_Click(object sender, EventArgs e)
         {
             ProjectButton p = sender as ProjectButton;
-            PeachEditor pe = new PeachEditor(p.pr);
+            Project needP = WorkerXML.Deserialize(p.pr.GetProjectPath());
+            PeachEditor pe = new PeachEditor(needP);
             this.Hide();
             pe.ShowDialog();
             this.Show();

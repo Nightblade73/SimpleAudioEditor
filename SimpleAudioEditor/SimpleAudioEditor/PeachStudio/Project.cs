@@ -4,12 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SimpleAudioEditor.PeachStudio {
+    [Serializable]
     public class Project {
-        string projectPath;
+
+        public string projectPath;
         public string title;
-        List<Sample> samples;
+
+        
+        public List<Sample> samples;
 
         public static Project CreateTempProject(String path)
         {
@@ -29,7 +34,7 @@ namespace SimpleAudioEditor.PeachStudio {
         {
             samples = new List<Sample>();
         }
-
+        
         public List<Sample> GetSampleList() {
             return samples;
         }
@@ -41,6 +46,7 @@ namespace SimpleAudioEditor.PeachStudio {
         {
             samples.Remove(removedSample);
         }
+
         public string GetProjectPath()
         {
             return projectPath;

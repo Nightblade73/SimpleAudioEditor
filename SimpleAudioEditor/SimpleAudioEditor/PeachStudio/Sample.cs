@@ -5,17 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using NAudio.Wave;
 using CSCore;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace SimpleAudioEditor.PeachStudio {
+    [Serializable]
     public class Sample {
-        string soundPath;
-        TimeSpan splitStartTime;
-        TimeSpan splitEndTime;
-        TimeSpan currentTime;
-        TimeSpan totalTime;
 
-        ISampleSource mDrawSource;
-        float[] optimizedArray;
+        public string soundPath;
+        public TimeSpan splitStartTime;
+        public TimeSpan splitEndTime;
+        public TimeSpan currentTime;
+        public TimeSpan totalTime;       
+        [XmlIgnore]
+        public ISampleSource mDrawSource;
+        
+        public float[] optimizedArray;
+
 
         public static Sample CreateSample(String filePath)
         {
@@ -26,6 +32,8 @@ namespace SimpleAudioEditor.PeachStudio {
             }
             return null;
         }
+
+        public Sample() { }
 
         public Sample(string _soundPath)
         {
@@ -59,6 +67,16 @@ namespace SimpleAudioEditor.PeachStudio {
             splitEndTime = _sample.SplitEndTime;
         }
 
+        public String SamplePath(string projectPath, int order)
+        {
+            String newSamplePath = projectPath + "\\" + Path.GetFileName(this.SoundPath);
+            newSamplePath = newSamplePath.Replace(".wav", "_" + order + ".wav");
+            newSamplePath = newSamplePath.Replace(".mp3", "_" + order + ".mp3");
+            return newSamplePath;
+        }
+
+        
+
         public TimeSpan SplitStartTime
         {
             set { splitStartTime = value;}
@@ -87,7 +105,7 @@ namespace SimpleAudioEditor.PeachStudio {
             set { optimizedArray = value; }
             get { return optimizedArray; }
         }
-
+        [XmlIgnore]
         public ISampleSource DrawSource
         {
             set { mDrawSource = value; }

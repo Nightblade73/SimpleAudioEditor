@@ -16,13 +16,14 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
         {
             try
             {
-         //       XmlSerializer serializer = new XmlSerializer(typeof(Project));
-                DataContractSerializer serializer = new DataContractSerializer(typeof(Project));
+                XmlSerializer serializer = new XmlSerializer(typeof(Project));
+         //       DataContractSerializer serializer = new DataContractSerializer(typeof(Project));
                 using (FileStream fs = new FileStream(project.GetProjectPath() + "\\config.xml", FileMode.Create))
                 {
                     using (XmlWriter writer = XmlWriter.Create(fs))
                     {
-                        serializer.WriteObject(writer, project);
+           //             serializer.WriteObject(writer, project);
+                        serializer.Serialize(writer, project);
                     }
                 }
             }
@@ -38,13 +39,14 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
             Project project = null;
             try
             {
-                DataContractSerializer serializer = new DataContractSerializer(typeof(Project));
-                //        XmlSerializer serializer = new XmlSerializer(typeof(Project));
+         //       DataContractSerializer serializer = new DataContractSerializer(typeof(Project));
+                        XmlSerializer serializer = new XmlSerializer(typeof(Project));
                 using (FileStream fs = new FileStream(path + "\\config.xml", FileMode.Open))
                 {
                     using (XmlReader writer = XmlReader.Create(fs))
                     {
-                        project = (Project)serializer.ReadObject(writer);
+            //            project = (Project)serializer.ReadObject(writer);
+                        project = (Project)serializer.Deserialize(writer);
                     }
                 }
             }

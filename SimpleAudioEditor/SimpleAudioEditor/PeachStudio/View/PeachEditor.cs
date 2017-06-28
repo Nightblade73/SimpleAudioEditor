@@ -17,9 +17,10 @@ namespace SimpleAudioEditor.PeachStudio.View
 
         public PeachEditor(Project _project)
         {
+            project = _project;
             InitializeComponent();
 
-            project = _project;
+            projectControl.CurrentProject = project;
             panelSample.HorizontalScroll.Enabled = false;
             panelSample.HorizontalScroll.Visible = false;
             panelSample.HorizontalScroll.Visible = false;
