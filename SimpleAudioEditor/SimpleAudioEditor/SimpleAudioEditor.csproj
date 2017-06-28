@@ -197,6 +197,7 @@
       <DependentUpon>WriteProjectNameForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\SimpleAudioEditor.Properties.Resources.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -246,9 +247,18 @@
     </Content>
     <Content Include="Resources\icons8-Peach-48-Delete.png" />
     <Content Include="Resources\icons8-Peach-48-OK.png" />
+    <None Include="Resources\Pauses\Звук зажёваной пластинки.mp3" />
+    <None Include="Resources\Pauses\Звук виниловой пластинки.mp3" />
+    <None Include="Resources\Pauses\Звук ветра.mp3" />
     <None Include="Resources\peaches-with-green-leaves-on-light-pink-background-Stock-Vector.jpg" />
     <None Include="Resources\peaches_realistic_pattern.jpg" />
     <None Include="Resources\peaches_pattern.jpg" />
+    <None Include="Resources\Pauses\Пауза 7 секунд.mp3" />
+    <None Include="Resources\Pauses\Пауза 5 секунд.mp3" />
+    <None Include="Resources\Pauses\Пауза 5 секунд %281%29.mp3" />
+    <None Include="Resources\Pauses\Звук колокольчиков.mp3" />
+    <None Include="Resources\Pauses\Звук бренда bmw.mp3" />
+    <None Include="Resources\Pauses\Аэрофлот.mp3" />
     <None Include="Resources\icons8-Folder-104.png" />
     <None Include="Resources\icons8-Peach-48.png" />
     <None Include="Resources\icons8-Error-104.png" />

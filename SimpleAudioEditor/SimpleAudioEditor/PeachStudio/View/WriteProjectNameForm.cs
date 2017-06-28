@@ -30,7 +30,7 @@ namespace SimpleAudioEditor.View
             ToolTip t = new ToolTip();
             if (tBName.Text.Equals(""))
             {
-                t.Show("Имя проекта не может быть пустым или содержать символы:\n . * / \\ : < > ? | \"", tBName);  //какие ещё символы?
+                t.Show("Имя проекта не может быть пустым или содержать символы:\n . * / \\ : < > ? | \" @ # $ % ^ &", tBName);  //какие ещё символы?
             }
             else
             {
