@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleAudioEditor.PeachStudio.View;
 
 namespace SimpleAudioEditor.PeachStudio {
     public partial class ProjectControl : UserControl {
@@ -468,6 +469,22 @@ namespace SimpleAudioEditor.PeachStudio {
                 segment_number = i;
                 return true;
 
+            }
+        }
+
+        private void bSave_Click(object sender, EventArgs e)
+        {
+            MyMessageBox mmb = new MyMessageBox("Сохранено!", false);
+            mmb.ShowDialog();
+        }
+
+        private void bDelete_Click(object sender, EventArgs e)
+        {
+            MyMessageBox mmb = new MyMessageBox("Уверены, что хотите удалить наработки?", true);
+            mmb.ShowDialog();
+            if(mmb.DialogResult == DialogResult.OK)
+            {
+                //удаляем
             }
         }
 
