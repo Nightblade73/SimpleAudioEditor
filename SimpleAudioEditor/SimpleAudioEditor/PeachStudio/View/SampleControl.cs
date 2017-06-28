@@ -198,10 +198,7 @@ namespace SimpleAudioEditor.PeachStudio
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             Point hit_point;
-            if (e.Button == MouseButtons.Right) {
-                mousePositionX = pictureBox.PointToClient(MousePosition).X - indent;
-                contextMenuStrip.Show(MousePosition);
-            } else
+           
             if (MouseIsOverMarker(e.Location, out hit_point))
             {
                 // Начните перемещать эту конечную точку.
@@ -212,6 +209,11 @@ namespace SimpleAudioEditor.PeachStudio
 
                 // Запомните смещение от мыши до точки.
                 OffsetX = hit_point.X - e.X;
+            }else
+            if (e.Button == MouseButtons.Right)
+            {
+                mousePositionX = e.X - indent;
+                contextMenuStrip.Show(MousePosition);
             }
             else
             if (MouseIsOverSplitPoint(e.Location, out hit_point))
@@ -500,7 +502,7 @@ namespace SimpleAudioEditor.PeachStudio
                 Mathf.DrawWave(sample.OptimizedArray,
                 sample.DrawSource,
                 new Pen(Color.Green),
-                PlayerLineWidth,
+                pictureBox.Width-indent*2,
                 pictureBox.Height, 
                 Mathf.TimeToPos(sample.SplitStartTime, sample.TotalTime, PlayerLineWidth),
                 Mathf.TimeToPos(sample.SplitEndTime, sample.TotalTime, PlayerLineWidth)), 

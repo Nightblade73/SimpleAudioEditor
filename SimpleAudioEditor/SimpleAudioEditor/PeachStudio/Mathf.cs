@@ -107,7 +107,7 @@ namespace SimpleAudioEditor.PeachStudio
             Color defaultColor = pen.Color;
             long numSamples = mDrawSource.Length;
 
-            int mSamplesPerPixel = (int)(mDrawSource.Length / w);
+            int mSamplesPerPixel = (int)((double)mDrawSource.Length / (double)w);
 
             int mDrawingStartOffset = 0;
 
@@ -184,7 +184,6 @@ namespace SimpleAudioEditor.PeachStudio
                 if (prevX >= Math.Min(splitStart, splitEnd) && prevX <= Math.Max(splitStart, splitEnd) )
                 {
                     pen.Color = defaultColor;
-
                 }
                 else
                 {
@@ -220,9 +219,9 @@ namespace SimpleAudioEditor.PeachStudio
                 }
 
                 prevX = i;
+
                 prevMaxY = scaledMaxVal;
                 prevMinY = scaledMinVal;
-
                 i += 1;
                 index = (i * mSamplesPerPixel) + mDrawingStartOffset;
             }
@@ -230,6 +229,23 @@ namespace SimpleAudioEditor.PeachStudio
             return mBitmap;
 
         }
+
+
+        public static Bitmap CropImage(Bitmap source, Rectangle section)
+        {
+            // An empty bitmap which will hold the cropped image
+            Bitmap bmp = new Bitmap(section.Width, section.Height);
+
+            Graphics g = Graphics.FromImage(bmp);
+
+            // Draw the given area (section) of the source image
+            // at location 0,0 on the empty bitmap (bmp)
+            g.DrawImage(source, 0, 0, section, GraphicsUnit.Pixel);
+
+            return bmp;
+        }
+
+
 
 
     }

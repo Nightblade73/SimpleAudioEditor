@@ -38,6 +38,27 @@ namespace SimpleAudioEditor.PeachStudio {
             splitEndTime = totalTime;
         }
 
+        public Sample(string _soundPath,float[] _optimizedArray, ISampleSource _mDrawSource,TimeSpan _splitStartTime, TimeSpan _splitEndTime,TimeSpan _totalTime)
+        {
+            soundPath = _soundPath;
+            mDrawSource = _mDrawSource;
+            optimizedArray = _optimizedArray;
+            totalTime = _totalTime;
+            splitStartTime = _splitStartTime;
+            splitEndTime = _splitEndTime;
+        }
+
+
+        public Sample(Sample _sample)
+        {
+            soundPath = _sample.SoundPath;
+            mDrawSource = _sample.DrawSource;
+            optimizedArray = _sample.OptimizedArray;
+            totalTime = _sample.TotalTime;
+            splitStartTime = _sample.SplitStartTime;
+            splitEndTime = _sample.SplitEndTime;
+        }
+
         public TimeSpan SplitStartTime
         {
             set { splitStartTime = value;}

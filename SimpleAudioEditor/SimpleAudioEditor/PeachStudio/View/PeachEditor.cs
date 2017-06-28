@@ -38,7 +38,6 @@ namespace SimpleAudioEditor.PeachStudio.View
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Sample m = new Sample(ofd.FileName);
-                projectControl.CurrentProject.AddSample(m);
                 SampleControl sc = new SampleControl(m, panelSample, new Point(0, y), new Size(680, 93));
 
                 trackBar1.ValueChanged += sc.GetSamplePlayer.trackBar_ValueChanged;

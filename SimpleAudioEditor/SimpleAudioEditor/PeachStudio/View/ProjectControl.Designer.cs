@@ -34,13 +34,12 @@
             // 
             // pbWaveViewer
             // 
-            this.pbWaveViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.pbWaveViewer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbWaveViewer.BackColor = System.Drawing.Color.Transparent;
-            this.pbWaveViewer.Location = new System.Drawing.Point(50, 0);
+            this.pbWaveViewer.Location = new System.Drawing.Point(40, 0);
             this.pbWaveViewer.Name = "pbWaveViewer";
-            this.pbWaveViewer.Size = new System.Drawing.Size(359, 100);
+            this.pbWaveViewer.Size = new System.Drawing.Size(620, 80);
             this.pbWaveViewer.TabIndex = 0;
             this.pbWaveViewer.TabStop = false;
             this.pbWaveViewer.Paint += new System.Windows.Forms.PaintEventHandler(this.pbWaveViewer_Paint);
@@ -52,19 +51,19 @@
             this.bPlayPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bPlayPause.Location = new System.Drawing.Point(0, 0);
             this.bPlayPause.Name = "bPlayPause";
-            this.bPlayPause.Size = new System.Drawing.Size(50, 50);
+            this.bPlayPause.Size = new System.Drawing.Size(40, 40);
             this.bPlayPause.TabIndex = 1;
             this.bPlayPause.Text = ">";
             this.bPlayPause.UseVisualStyleBackColor = false;
+            this.bPlayPause.Click += new System.EventHandler(this.bPlayPause_Click);
             // 
             // bStop
             // 
-            this.bStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bStop.BackColor = System.Drawing.Color.DarkOrange;
             this.bStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bStop.Location = new System.Drawing.Point(0, 50);
+            this.bStop.Location = new System.Drawing.Point(0, 40);
             this.bStop.Name = "bStop";
-            this.bStop.Size = new System.Drawing.Size(50, 50);
+            this.bStop.Size = new System.Drawing.Size(40, 40);
             this.bStop.TabIndex = 2;
             this.bStop.Text = "■";
             this.bStop.UseVisualStyleBackColor = false;
@@ -74,31 +73,30 @@
             this.bSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.bSave.BackColor = System.Drawing.Color.DarkOrange;
             this.bSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bSave.Location = new System.Drawing.Point(409, 0);
+            this.bSave.Location = new System.Drawing.Point(660, 0);
             this.bSave.Name = "bSave";
-            this.bSave.Size = new System.Drawing.Size(50, 50);
+            this.bSave.Size = new System.Drawing.Size(40, 40);
             this.bSave.TabIndex = 3;
             this.bSave.Text = "button3";
             this.bSave.UseVisualStyleBackColor = false;
             // 
             // bDelete
             // 
-            this.bDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.bDelete.BackColor = System.Drawing.Color.DarkOrange;
             this.bDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bDelete.Location = new System.Drawing.Point(409, 50);
+            this.bDelete.Location = new System.Drawing.Point(660, 40);
             this.bDelete.Name = "bDelete";
-            this.bDelete.Size = new System.Drawing.Size(50, 50);
+            this.bDelete.Size = new System.Drawing.Size(40, 40);
             this.bDelete.TabIndex = 4;
             this.bDelete.Text = "button4";
             this.bDelete.UseVisualStyleBackColor = false;
             // 
             // maskedTextBoxCurrentTime
             // 
-            this.maskedTextBoxCurrentTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.maskedTextBoxCurrentTime.BackColor = System.Drawing.Color.DarkOrange;
             this.maskedTextBoxCurrentTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.maskedTextBoxCurrentTime.Location = new System.Drawing.Point(50, 87);
+            this.maskedTextBoxCurrentTime.Location = new System.Drawing.Point(40, 67);
             this.maskedTextBoxCurrentTime.Mask = "00:00:00.00";
             this.maskedTextBoxCurrentTime.Name = "maskedTextBoxCurrentTime";
             this.maskedTextBoxCurrentTime.Size = new System.Drawing.Size(70, 13);
@@ -115,10 +113,11 @@
             this.Controls.Add(this.bSave);
             this.Controls.Add(this.bPlayPause);
             this.Controls.Add(this.bStop);
-            this.MinimumSize = new System.Drawing.Size(400, 100);
+            this.MinimumSize = new System.Drawing.Size(700, 80);
             this.Name = "ProjectControl";
-            this.Size = new System.Drawing.Size(459, 100);
+            this.Size = new System.Drawing.Size(700, 80);
             this.Load += new System.EventHandler(this.ProjectControl_Load);
+            this.Layout += new System.Windows.Forms.LayoutEventHandler(this.ProjectControl_Layout);
             ((System.ComponentModel.ISupportInitialize)(this.pbWaveViewer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

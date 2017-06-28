@@ -45,7 +45,7 @@
             this.trackBar1.Location = new System.Drawing.Point(590, 118);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(122, 42);
+            this.trackBar1.Size = new System.Drawing.Size(122, 45);
             this.trackBar1.TabIndex = 2;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
@@ -94,10 +94,10 @@
             this.projectControl.BackColor = System.Drawing.Color.Transparent;
             this.projectControl.CurrentProject = project1;
             this.projectControl.Location = new System.Drawing.Point(12, 12);
-            this.projectControl.MinimumSize = new System.Drawing.Size(475, 100);
+            this.projectControl.MinimumSize = new System.Drawing.Size(700, 80);
             this.projectControl.Name = "projectControl";
-            this.projectControl.Size = new System.Drawing.Size(700, 100);
-            this.projectControl.TabIndex = 0;
+            this.projectControl.Size = new System.Drawing.Size(700, 80);
+            this.projectControl.TabIndex = 5;
             // 
             // PeachEditor
             // 
@@ -105,10 +105,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(732, 548);
+            this.Controls.Add(this.projectControl);
             this.Controls.Add(this.buttonAddSample);
             this.Controls.Add(this.panelSample);
             this.Controls.Add(this.trackBar1);
-            this.Controls.Add(this.projectControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(740, 480);
             this.Name = "PeachEditor";
@@ -121,11 +121,10 @@
         }
 
         #endregion
-
-        private ProjectControl projectControl;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Panel panelSample;
         private System.Windows.Forms.Button buttonAddSample;
         private System.Windows.Forms.Panel panelSupport;
+        private ProjectControl projectControl;
     }
 }

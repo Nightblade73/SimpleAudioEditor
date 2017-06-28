@@ -437,8 +437,6 @@ namespace SimpleAudioEditor.Controller.Editor
             pictureBox.Invalidate();
         }
 
-        
-
         private void SetSegmentEndPoints()
         {
             project.listSamples.Sort();
