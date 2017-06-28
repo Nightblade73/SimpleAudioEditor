@@ -37,6 +37,10 @@ namespace SimpleAudioEditor.PeachStudio {
         public List<Sample> GetSampleList() {
             return samples;
         }
+        public void ClearSamples()
+        {
+            this.samples.Clear();
+        }
         public void AddSample(Sample addedSample)
         {
             samples.Add(addedSample);
