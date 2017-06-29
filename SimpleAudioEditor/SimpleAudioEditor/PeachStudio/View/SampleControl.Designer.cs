@@ -93,25 +93,27 @@
             // 
             this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonStop.BackColor = System.Drawing.Color.DarkOrange;
+            this.buttonStop.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.stop_icon;
+            this.buttonStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStop.Location = new System.Drawing.Point(0, 38);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(40, 40);
             this.buttonStop.TabIndex = 11;
-            this.buttonStop.Text = "■";
             this.buttonStop.UseVisualStyleBackColor = false;
             this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
             // 
             // buttonPlay
             // 
             this.buttonPlay.BackColor = System.Drawing.Color.DarkOrange;
+            this.buttonPlay.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.play_icon;
+            this.buttonPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(204)));
             this.buttonPlay.Location = new System.Drawing.Point(0, 0);
             this.buttonPlay.Name = "buttonPlay";
             this.buttonPlay.Size = new System.Drawing.Size(40, 40);
             this.buttonPlay.TabIndex = 10;
-            this.buttonPlay.Text = ">";
             this.buttonPlay.UseVisualStyleBackColor = false;
             this.buttonPlay.Click += new System.EventHandler(this.buttonPlay_Click);
             // 
@@ -148,7 +150,7 @@
             this.hScrollBar.Location = new System.Drawing.Point(290, 78);
             this.hScrollBar.Minimum = 1;
             this.hScrollBar.Name = "hScrollBar";
-            this.hScrollBar.Size = new System.Drawing.Size(263, 13);
+            this.hScrollBar.Size = new System.Drawing.Size(390, 13);
             this.hScrollBar.SmallChange = 100;
             this.hScrollBar.TabIndex = 19;
             this.hScrollBar.Value = 1;
@@ -160,19 +162,19 @@
             this.FromBeginingToPointToolStripMenuItem,
             this.FromPointToEndingToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(224, 48);
+            this.contextMenuStrip.Size = new System.Drawing.Size(231, 48);
             // 
             // FromBeginingToPointToolStripMenuItem
             // 
             this.FromBeginingToPointToolStripMenuItem.Name = "FromBeginingToPointToolStripMenuItem";
-            this.FromBeginingToPointToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.FromBeginingToPointToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.FromBeginingToPointToolStripMenuItem.Text = "От начала до точки нажатия";
             this.FromBeginingToPointToolStripMenuItem.Click += new System.EventHandler(this.FromBeginingToPointToolStripMenuItem_Click);
             // 
             // FromPointToEndingToolStripMenuItem
             // 
             this.FromPointToEndingToolStripMenuItem.Name = "FromPointToEndingToolStripMenuItem";
-            this.FromPointToEndingToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.FromPointToEndingToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.FromPointToEndingToolStripMenuItem.Text = "От точки нажатия до конца";
             this.FromPointToEndingToolStripMenuItem.Click += new System.EventHandler(this.FromPointToEndingToolStripMenuItem_Click);
             // 
@@ -184,7 +186,7 @@
             this.pictureBox.Location = new System.Drawing.Point(40, 0);
             this.pictureBox.MinimumSize = new System.Drawing.Size(515, 80);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(515, 80);
+            this.pictureBox.Size = new System.Drawing.Size(642, 80);
             this.pictureBox.TabIndex = 12;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
@@ -208,9 +210,9 @@
             this.Controls.Add(this.maskedTextBox2);
             this.Controls.Add(this.maskedTextBoxCurrentTime);
             this.Controls.Add(this.pictureBox);
-            this.MinimumSize = new System.Drawing.Size(555, 93);
+            this.MinimumSize = new System.Drawing.Size(680, 91);
             this.Name = "SampleControl";
-            this.Size = new System.Drawing.Size(553, 91);
+            this.Size = new System.Drawing.Size(680, 91);
             this.Load += new System.EventHandler(this.SampleControl_Load);
             this.Resize += new System.EventHandler(this.SampleControl_Resize);
             this.contextMenuStrip.ResumeLayout(false);

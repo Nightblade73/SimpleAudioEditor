@@ -114,7 +114,6 @@
             this.bStop.Name = "bStop";
             this.bStop.Size = new System.Drawing.Size(40, 40);
             this.bStop.TabIndex = 2;
-            this.bStop.Text = "■";
             this.bStop.UseVisualStyleBackColor = false;
             this.bStop.Click += new System.EventHandler(this.bStop_Click);
             // 
