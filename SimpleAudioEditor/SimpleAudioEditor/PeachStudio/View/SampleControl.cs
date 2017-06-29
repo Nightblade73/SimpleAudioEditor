@@ -48,6 +48,9 @@ namespace SimpleAudioEditor.PeachStudio
             markerMoving = false;
             UpdatePointPos();
             UpdateMaskedTimeValue();
+
+            label1.ForeColor = Color.OrangeRed;
+            label1.Text = "sdfsdfsfsfds";
         }
 
         public void UpdateMaskedTimeValue()

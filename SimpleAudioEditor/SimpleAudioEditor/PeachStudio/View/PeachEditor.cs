@@ -1,11 +1,7 @@
-п»їusing System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SimpleAudioEditor.PeachStudio.View
@@ -14,6 +10,9 @@ namespace SimpleAudioEditor.PeachStudio.View
     {
         List<SampleControl> sampleControls;
         public Project project;
+        string pathToPause;
+        int y = 0;
+        string[] pauses;
 
         public PeachEditor(Project _project)
         {
@@ -35,12 +34,34 @@ namespace SimpleAudioEditor.PeachStudio.View
             
         }
 
+        private void getPauses()
+        {
+            try
+            {
+                string dir = Directory.GetCurrentDirectory();
+                dir = dir.Replace("\\bin\\Debug", "") + "\\Resources\\Pauses";
+                pauses = Directory.GetFiles(dir);
+
+                for (int i = 0; i < pauses.Length; i++)
+                {
+                    string st = pauses[i];
+                    string[] temp = st.Split('\\');
+
+                    comboBox1.Items.Add(temp[temp.Length - 1]);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
 
         }
 
-        int y = 0;
         private void buttonAddSample_Click(object sender, EventArgs e)
         {
             var ofd = new OpenFileDialog();
@@ -51,15 +72,15 @@ namespace SimpleAudioEditor.PeachStudio.View
             {
                 foreach (var fileName in ofd.FileNames)
                 {
-                    Sample m = new Sample(fileName);
-                    SampleControl sc = new SampleControl(m, panelSample, new Point(0, y), new Size(400, 93));
-
+                Sample m = new Sample(fileName);
+                SampleControl sc = new SampleControl(m, panelSample, new Point(0, y), new Size(400, 113));
                     trackBar1.ValueChanged += sc.GetSamplePlayer.trackBar_ValueChanged;
                     sc.GetSamplePlayer.Volume = trackBar1.Value * 0.01f;
                     sampleControls.Add(sc);
 
-                    y += 99;
-                }
+                    
+                y += 116;                
+}
             }
         }
 
@@ -76,12 +97,90 @@ namespace SimpleAudioEditor.PeachStudio.View
 
         private void PeachEditor_Load(object sender, EventArgs e) {
             trackBar1.BackColor = Color.FromArgb(43,43,43);
+
+            try
+            {
+                getPauses();
+                comboBox1.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void PeachEditor_FormClosed(object sender, FormClosedEventArgs e)
         {
             //this.Parent.Show();
             WorkMethods.WorkMethods.CleanRAWFiles();
+
+            DialogResult dialog = MessageBox.Show("Сохранить композицию перед закрытием?", "Сохранение перед закрытием", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialog == DialogResult.Yes)
+            {
+                WorkMethods.WorkMethods.Save(project);
+                WorkMethods.WorkerXML.Serialize(project);
+                MyMessageBox mmb = new MyMessageBox("Сохранено!", false);
+                mmb.ShowDialog();
+                Application.Exit();
+            }
+            else {
+                Application.Exit();
+            }
+        }
+
+        private void panelSample_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop) && e.Effect == DragDropEffects.Move)
+            {
+                string[] objects = (string[])e.Data.GetData(DataFormats.FileDrop);
+                for (int i = 0; i < objects.Length; i++)
+                {
+                    if (string.Equals(Path.GetExtension(objects[i]), ".mp3", StringComparison.InvariantCultureIgnoreCase)
+                        || (string.Equals(Path.GetExtension(objects[i]), ".wav", StringComparison.InvariantCultureIgnoreCase)))
+                    {
+                        Sample m = new Sample(objects[i]);
+                        SampleControl sc = new SampleControl(m, panelSample, new Point(0, y), new Size(400, 113));
+
+                        trackBar1.ValueChanged += sc.GetSamplePlayer.trackBar_ValueChanged;
+                        sc.GetSamplePlayer.Volume = trackBar1.Value * 0.01f;
+                        sampleControls.Add(sc);
+
+                        y += 116;
+                    }
+                }
+            }
+        }
+
+        private void panelSample_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop) &&
+                ((e.AllowedEffect & DragDropEffects.Move) == DragDropEffects.Move))
+                
+                e.Effect = DragDropEffects.Move;
+        }
+
+        private void buttonAddPause_Click(object sender, EventArgs e)
+        {
+            AddPause(pathToPause);
+        }
+
+        private void AddPause(string pathToPause)
+        {
+            Sample m = new Sample(pathToPause);
+            SampleControl sc = new SampleControl(m, panelSample, new Point(0, y), new Size(400, 113));
+
+            trackBar1.ValueChanged += sc.GetSamplePlayer.trackBar_ValueChanged;
+            sc.GetSamplePlayer.Volume = trackBar1.Value * 0.01f;
+            sampleControls.Add(sc);
+
+            y += 116;
+
+            MessageBox.Show("Пауза загружена");
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pathToPause = pauses[comboBox1.SelectedIndex];
         }
     }
 }

@@ -37,6 +37,7 @@
             this.FromBeginingToPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FromPointToEndingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
@@ -47,7 +48,7 @@
             this.maskedTextBoxSplitEndTime.BackColor = System.Drawing.Color.Black;
             this.maskedTextBoxSplitEndTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskedTextBoxSplitEndTime.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBoxSplitEndTime.Location = new System.Drawing.Point(70, 78);
+            this.maskedTextBoxSplitEndTime.Location = new System.Drawing.Point(70, 98);
             this.maskedTextBoxSplitEndTime.Mask = "00:00:00.00";
             this.maskedTextBoxSplitEndTime.Name = "maskedTextBoxSplitEndTime";
             this.maskedTextBoxSplitEndTime.Size = new System.Drawing.Size(70, 13);
@@ -59,7 +60,7 @@
             this.maskedTextBoxSplitStartTime.BackColor = System.Drawing.Color.Black;
             this.maskedTextBoxSplitStartTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskedTextBoxSplitStartTime.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBoxSplitStartTime.Location = new System.Drawing.Point(145, 78);
+            this.maskedTextBoxSplitStartTime.Location = new System.Drawing.Point(145, 98);
             this.maskedTextBoxSplitStartTime.Mask = "00:00:00.00";
             this.maskedTextBoxSplitStartTime.Name = "maskedTextBoxSplitStartTime";
             this.maskedTextBoxSplitStartTime.Size = new System.Drawing.Size(70, 13);
@@ -71,7 +72,7 @@
             this.maskedTextBox2.BackColor = System.Drawing.Color.Black;
             this.maskedTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskedTextBox2.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBox2.Location = new System.Drawing.Point(215, 78);
+            this.maskedTextBox2.Location = new System.Drawing.Point(215, 98);
             this.maskedTextBox2.Name = "maskedTextBox2";
             this.maskedTextBox2.Size = new System.Drawing.Size(5, 13);
             this.maskedTextBox2.TabIndex = 14;
@@ -83,7 +84,7 @@
             this.maskedTextBoxCurrentTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.maskedTextBoxCurrentTime.BackColor = System.Drawing.Color.DarkOrange;
             this.maskedTextBoxCurrentTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.maskedTextBoxCurrentTime.Location = new System.Drawing.Point(0, 78);
+            this.maskedTextBoxCurrentTime.Location = new System.Drawing.Point(0, 98);
             this.maskedTextBoxCurrentTime.Mask = "00:00:00.00";
             this.maskedTextBoxCurrentTime.Name = "maskedTextBoxCurrentTime";
             this.maskedTextBoxCurrentTime.Size = new System.Drawing.Size(70, 13);
@@ -96,7 +97,7 @@
             this.buttonStop.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.stop_icon;
             this.buttonStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonStop.Location = new System.Drawing.Point(0, 38);
+            this.buttonStop.Location = new System.Drawing.Point(0, 56);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(40, 40);
             this.buttonStop.TabIndex = 11;
@@ -110,7 +111,7 @@
             this.buttonPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(204)));
-            this.buttonPlay.Location = new System.Drawing.Point(0, 0);
+            this.buttonPlay.Location = new System.Drawing.Point(0, 16);
             this.buttonPlay.Name = "buttonPlay";
             this.buttonPlay.Size = new System.Drawing.Size(40, 40);
             this.buttonPlay.TabIndex = 10;
@@ -123,7 +124,7 @@
             this.maskedTextBox5.BackColor = System.Drawing.Color.Black;
             this.maskedTextBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskedTextBox5.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBox5.Location = new System.Drawing.Point(140, 78);
+            this.maskedTextBox5.Location = new System.Drawing.Point(140, 98);
             this.maskedTextBox5.Name = "maskedTextBox5";
             this.maskedTextBox5.Size = new System.Drawing.Size(5, 13);
             this.maskedTextBox5.TabIndex = 17;
@@ -136,7 +137,7 @@
             this.maskedTextBoxResultTime.BackColor = System.Drawing.Color.Black;
             this.maskedTextBoxResultTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskedTextBoxResultTime.ForeColor = System.Drawing.Color.DarkOrange;
-            this.maskedTextBoxResultTime.Location = new System.Drawing.Point(220, 78);
+            this.maskedTextBoxResultTime.Location = new System.Drawing.Point(220, 98);
             this.maskedTextBoxResultTime.Mask = "00:00:00.00";
             this.maskedTextBoxResultTime.Name = "maskedTextBoxResultTime";
             this.maskedTextBoxResultTime.Size = new System.Drawing.Size(70, 13);
@@ -147,7 +148,7 @@
             this.hScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.hScrollBar.LargeChange = 100;
-            this.hScrollBar.Location = new System.Drawing.Point(290, 78);
+            this.hScrollBar.Location = new System.Drawing.Point(290, 98);
             this.hScrollBar.Minimum = 1;
             this.hScrollBar.Name = "hScrollBar";
             this.hScrollBar.Size = new System.Drawing.Size(390, 13);
@@ -183,10 +184,12 @@
             this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox.Location = new System.Drawing.Point(40, 0);
+            this.pictureBox.Location = new System.Drawing.Point(40, 17);
             this.pictureBox.MinimumSize = new System.Drawing.Size(515, 80);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(642, 80);
+
+            this.pictureBox.Size = new System.Drawing.Size(515, 81);
+
             this.pictureBox.TabIndex = 12;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
@@ -194,12 +197,22 @@
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseClick);
             this.pictureBox.MouseEnter += new System.EventHandler(this.pictureBox_MouseEnter);
             // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Location = new System.Drawing.Point(40, 1);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(513, 13);
+            this.label1.TabIndex = 0;
+            // 
             // SampleControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonPlay);
             this.Controls.Add(this.hScrollBar);
@@ -210,9 +223,11 @@
             this.Controls.Add(this.maskedTextBox2);
             this.Controls.Add(this.maskedTextBoxCurrentTime);
             this.Controls.Add(this.pictureBox);
-            this.MinimumSize = new System.Drawing.Size(680, 91);
+
+            this.MinimumSize = new System.Drawing.Size(555, 113);
             this.Name = "SampleControl";
-            this.Size = new System.Drawing.Size(680, 91);
+            this.Size = new System.Drawing.Size(553, 111);
+
             this.Load += new System.EventHandler(this.SampleControl_Load);
             this.Resize += new System.EventHandler(this.SampleControl_Resize);
             this.contextMenuStrip.ResumeLayout(false);
@@ -237,5 +252,6 @@
         private System.Windows.Forms.ToolStripMenuItem FromBeginingToPointToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem FromPointToEndingToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.Label label1;
     }
 }

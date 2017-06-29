@@ -34,6 +34,8 @@
             this.panelSupport = new System.Windows.Forms.Panel();
             this.buttonAddSample = new System.Windows.Forms.Button();
             this.projectControl = new SimpleAudioEditor.PeachStudio.ProjectControl();
+            this.buttonAddPause = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panelSample.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +68,8 @@
             this.panelSample.Size = new System.Drawing.Size(700, 425);
             this.panelSample.TabIndex = 3;
             this.panelSample.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panelSample_ControlAdded);
+            this.panelSample.DragDrop += new System.Windows.Forms.DragEventHandler(this.panelSample_DragDrop);
+            this.panelSample.DragEnter += new System.Windows.Forms.DragEventHandler(this.panelSample_DragEnter);
             this.panelSample.Layout += new System.Windows.Forms.LayoutEventHandler(this.panelSample_Layout);
             // 
             // panelSupport
@@ -102,6 +106,27 @@
             this.projectControl.Size = new System.Drawing.Size(700, 80);
             this.projectControl.TabIndex = 5;
             // 
+            // buttonAddPause
+            // 
+            this.buttonAddPause.BackColor = System.Drawing.Color.DarkGreen;
+            this.buttonAddPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddPause.Location = new System.Drawing.Point(577, 98);
+            this.buttonAddPause.Name = "buttonAddPause";
+            this.buttonAddPause.Size = new System.Drawing.Size(135, 23);
+            this.buttonAddPause.TabIndex = 6;
+            this.buttonAddPause.Text = "Добавить паузу";
+            this.buttonAddPause.UseVisualStyleBackColor = false;
+            this.buttonAddPause.Click += new System.EventHandler(this.buttonAddPause_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(393, 100);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(178, 21);
+            this.comboBox1.TabIndex = 7;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // PeachEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -109,6 +134,8 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.peaches_pattern3;
             this.ClientSize = new System.Drawing.Size(732, 593);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.buttonAddPause);
             this.Controls.Add(this.projectControl);
             this.Controls.Add(this.buttonAddSample);
             this.Controls.Add(this.panelSample);
@@ -117,7 +144,7 @@
             this.MinimumSize = new System.Drawing.Size(740, 480);
             this.Name = "PeachEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PeachEditor";
+            this.Text = "PeachStudio";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PeachEditor_FormClosed);
             this.Load += new System.EventHandler(this.PeachEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
@@ -133,5 +160,7 @@
         private System.Windows.Forms.Button buttonAddSample;
         private System.Windows.Forms.Panel panelSupport;
         private ProjectControl projectControl;
+        private System.Windows.Forms.Button buttonAddPause;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
