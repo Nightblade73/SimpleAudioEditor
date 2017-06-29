@@ -8,24 +8,25 @@ using CSCore;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace SimpleAudioEditor.PeachStudio {
+namespace SimpleAudioEditor.PeachStudio
+{
     [Serializable]
-    public class Sample {
+    public class Sample
+    {
 
-        public string soundPath;
-        public TimeSpan splitStartTime;
-        public TimeSpan splitEndTime;
-        public TimeSpan currentTime;
-        public TimeSpan totalTime;       
+        private string soundPath;
+        private TimeSpan splitStartTime;
+        private TimeSpan splitEndTime;
+        private TimeSpan currentTime;
+        private TimeSpan totalTime;
         [XmlIgnore]
-        public ISampleSource mDrawSource;
-        [XmlIgnore]
-        public float[] optimizedArray;
+        private ISampleSource mDrawSource;
+        private float[] optimizedArray;
 
 
         public static Sample CreateSample(String filePath)
         {
-            if(FileValidator.IsValid(filePath))
+            if (FileValidator.IsValid(filePath))
             {
                 Sample s = new Sample(filePath);
                 return s;
@@ -39,14 +40,14 @@ namespace SimpleAudioEditor.PeachStudio {
         {
             soundPath = _soundPath;
             mDrawSource = Mathf.CreateDrawSource(soundPath);
-            optimizedArray = Mathf.CreateOptimizedArray(soundPath,mDrawSource);
+            optimizedArray = Mathf.CreateOptimizedArray(soundPath, mDrawSource);
             AudioFileReader a = new AudioFileReader(soundPath);
             totalTime = a.TotalTime;
             splitStartTime = new TimeSpan();
             splitEndTime = totalTime;
         }
 
-        public Sample(string _soundPath,float[] _optimizedArray, ISampleSource _mDrawSource,TimeSpan _splitStartTime, TimeSpan _splitEndTime,TimeSpan _totalTime)
+        public Sample(string _soundPath, float[] _optimizedArray, ISampleSource _mDrawSource, TimeSpan _splitStartTime, TimeSpan _splitEndTime, TimeSpan _totalTime)
         {
             soundPath = _soundPath;
             mDrawSource = _mDrawSource;
@@ -75,11 +76,11 @@ namespace SimpleAudioEditor.PeachStudio {
             return newSamplePath;
         }
 
-        
+
 
         public TimeSpan SplitStartTime
         {
-            set { splitStartTime = value;}
+            set { splitStartTime = value; }
             get { return splitStartTime; }
         }
 
@@ -99,7 +100,7 @@ namespace SimpleAudioEditor.PeachStudio {
         {
             get { return totalTime; }
         }
-
+        [XmlIgnore]
         public float[] OptimizedArray
         {
             set { optimizedArray = value; }
@@ -114,8 +115,8 @@ namespace SimpleAudioEditor.PeachStudio {
 
         public string SoundPath
         {
-            set{soundPath =value;}
-            get { return soundPath;}
+            set { soundPath = value; }
+            get { return soundPath; }
         }
     }
 }

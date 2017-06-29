@@ -11,9 +11,7 @@ namespace SimpleAudioEditor.PeachStudio {
     public class Project {
 
         public string projectPath;
-        public string title;
-
-        
+        public string title;        
         public List<Sample> samples;
 
         public static Project CreateTempProject(String path)
