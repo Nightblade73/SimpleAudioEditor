@@ -16,7 +16,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
 
         public PeachEditor(Project _project) {
             project = _project;
-            oldProject = _project;       
+            oldProject = project;       
             InitializeComponent();
               
 
@@ -97,7 +97,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
 
         private void PeachEditor_FormClosed(object sender, FormClosedEventArgs e) {
             //this.Parent.Show();
-            WorkMethods.WorkMethods.CleanRAWFiles();
+            
 
             if (!project.Equals(oldProject))
             {
@@ -105,6 +105,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
 
                 if (dialog == DialogResult.Yes)
                 {
+                    WorkMethods.WorkMethods.CleanRAWFiles();
                     WorkMethods.WorkMethods.Save(project);
                     WorkMethods.WorkerXML.Serialize(project);
                     MyMessageBox mmb = new MyMessageBox("Сохранено!", false);

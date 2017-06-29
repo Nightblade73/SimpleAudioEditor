@@ -12,7 +12,7 @@ using SimpleAudioEditor.PeachStudio.WorkMethods;
 
 namespace SimpleAudioEditor.PeachStudio
 {
-    public class Sample
+    public class Sample : ICloneable
     {
 
         private string soundPath;
@@ -195,6 +195,14 @@ namespace SimpleAudioEditor.PeachStudio
         {
             get { return totalTime.ToString(); }
             set { totalTime = TimeSpan.Parse(value); }
+        }
+
+        object ICloneable.Clone()
+        {
+            Sample s = new Sample(this.soundPath, this.optimizedArray, this.mDrawSource, this.splitStartTime, this.splitEndTime, this.totalTime);
+            s.currentTime = this.currentTime;
+            s.samplePath = this.samplePath;
+            return s;
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 
 namespace SimpleAudioEditor.PeachStudio {
     [Serializable]
-    public class Project {
+    public class Project : ICloneable {
 
         public string projectPath;
         public string title;        
@@ -51,5 +51,20 @@ namespace SimpleAudioEditor.PeachStudio {
         {
             return projectPath;
         }
+
+        object ICloneable.Clone()
+        {
+            Project p = new Project();
+            p.projectPath = this.projectPath;
+            p.title = this.title;
+            p.samples = new List<Sample>();
+            foreach (var s in samples)
+            {
+                Sample samp = s;
+                p.samples.Add(samp);
+            }
+            return p;
+        }
     }
+
 }
