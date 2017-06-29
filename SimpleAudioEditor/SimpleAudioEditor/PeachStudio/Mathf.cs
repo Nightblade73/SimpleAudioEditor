@@ -49,6 +49,7 @@ namespace SimpleAudioEditor.PeachStudio
 
 
         public static int mThresholdSample = 64;
+
         public static ISampleSource CreateDrawSource(string filePath)
         {
             ISampleSource mDrawSource = CodecFactory.Instance.GetCodec(filePath).ToSampleSource().ToMono();

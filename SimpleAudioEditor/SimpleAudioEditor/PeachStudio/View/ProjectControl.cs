@@ -158,6 +158,7 @@ namespace SimpleAudioEditor.PeachStudio
             pbWaveViewer.DragDrop += pbWaveViewer_DragDrop;
             
             UpdatePointPos();
+
             (pbWaveViewer as Control).AllowDrop = true;
             markerPoint = new Point(Mathf.TimeToPos(Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, outputFileTime), new TimeSpan(), outputFileTime), currentTime, PlayerLineWidth), startPos.Y - object_radius * 2);
             projectPlayer = new ProjectPlayer(project.GetSampleList());

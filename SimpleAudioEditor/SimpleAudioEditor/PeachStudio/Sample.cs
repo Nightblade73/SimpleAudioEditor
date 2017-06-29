@@ -11,7 +11,6 @@ using System.Runtime.Serialization;
 
 namespace SimpleAudioEditor.PeachStudio
 {
-    [Serializable]
     public class Sample
     {
 
@@ -23,7 +22,7 @@ namespace SimpleAudioEditor.PeachStudio
         private ISampleSource mDrawSource;
         private float[] optimizedArray;
         private string samplePath;
-
+        [DataMember]
         public string SamplePath
         {
             set { samplePath = value; }
@@ -46,12 +45,17 @@ namespace SimpleAudioEditor.PeachStudio
         public Sample(string _soundPath)
         {
             soundPath = _soundPath;
-            mDrawSource = Mathf.CreateDrawSource(soundPath);
-            optimizedArray = Mathf.CreateOptimizedArray(soundPath, mDrawSource);
+            CreateDrawSourceAndArray();
             AudioFileReader a = new AudioFileReader(soundPath);
             totalTime = a.TotalTime;
             splitStartTime = new TimeSpan();
             splitEndTime = totalTime;
+        }
+
+        private void CreateDrawSourceAndArray()
+        {
+            mDrawSource = Mathf.CreateDrawSource(soundPath);
+            optimizedArray = Mathf.CreateOptimizedArray(soundPath, mDrawSource);
         }
 
         public Sample(string _soundPath, float[] _optimizedArray, ISampleSource _mDrawSource, TimeSpan _splitStartTime, TimeSpan _splitEndTime, TimeSpan _totalTime)
@@ -90,29 +94,34 @@ namespace SimpleAudioEditor.PeachStudio
             set { splitStartTime = value; }
             get { return splitStartTime; }
         }
+
         [IgnoreDataMember]
         public TimeSpan SplitEndTime
         {
             set { splitEndTime = value; }
             get { return splitEndTime; }
         }
+
         [IgnoreDataMember]
         public TimeSpan CurrentTime
         {
             set { currentTime = value; }
             get { return currentTime; }
         }
+
         [IgnoreDataMember]
         public TimeSpan TotalTime
         {
             get { return totalTime; }
         }
 
+        [IgnoreDataMember]
         public float[] OptimizedArray
         {
             set { optimizedArray = value; }
             get { return optimizedArray; }
         }
+
         [IgnoreDataMember]
         public ISampleSource DrawSource
         {
@@ -120,10 +129,50 @@ namespace SimpleAudioEditor.PeachStudio
             get { return mDrawSource; }
         }
 
+        [DataMember]
         public string SoundPath
         {
-            set { soundPath = value; }
-            get { return soundPath; }
+            set
+            {
+                soundPath = value;
+                CreateDrawSourceAndArray();
+            }
+            get
+            {
+                return soundPath;
+            }
+        }
+
+        /// <summary>
+        /// для сериализатора
+        /// </summary>
+
+        [DataMember]
+        public string SplitStartTimeToString
+        {
+            set { splitStartTime = TimeSpan.Parse(value); }
+            get { return splitStartTime.ToString(); }
+        }
+
+        [DataMember]
+        public string SplitEndTimeToString
+        {
+            set { splitEndTime = TimeSpan.Parse(value); }
+            get { return splitEndTime.ToString(); }
+        }
+
+        [DataMember]
+        public string CurrentTimeToString
+        {
+            set { currentTime = TimeSpan.Parse(value); }
+            get { return currentTime.ToString(); }
+        }
+
+        [DataMember]
+        public string TotalTimeToString
+        {
+            get { return totalTime.ToString(); }
+            set { totalTime = TimeSpan.Parse(value); }
         }
     }
 }
