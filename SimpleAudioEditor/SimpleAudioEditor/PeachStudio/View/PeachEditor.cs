@@ -72,7 +72,8 @@ namespace SimpleAudioEditor.PeachStudio.View
 
         private void PeachEditor_FormClosed(object sender, FormClosedEventArgs e)
         {
-           //this.Parent.Show();
+            //this.Parent.Show();
+            WorkMethods.WorkMethods.CleanRAWFiles();
         }
     }
 }
