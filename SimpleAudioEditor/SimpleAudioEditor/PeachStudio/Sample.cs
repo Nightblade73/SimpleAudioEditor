@@ -100,7 +100,6 @@ namespace SimpleAudioEditor.PeachStudio
         {
             get { return totalTime; }
         }
-        [XmlIgnore]
         public float[] OptimizedArray
         {
             set { optimizedArray = value; }
