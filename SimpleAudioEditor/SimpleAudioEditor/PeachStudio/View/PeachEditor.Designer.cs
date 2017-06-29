@@ -98,8 +98,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.projectControl.BackColor = System.Drawing.Color.Transparent;
             this.projectControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            //this.projectControl.CurrentProject = ((SimpleAudioEditor.PeachStudio.Project)(resources.GetObject("projectControl.CurrentProject")));
-            this.projectControl.CurrentProject = new Project();
             this.projectControl.Location = new System.Drawing.Point(12, 12);
             this.projectControl.MinimumSize = new System.Drawing.Size(700, 80);
             this.projectControl.Name = "projectControl";
