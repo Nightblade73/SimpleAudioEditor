@@ -28,13 +28,7 @@ namespace SimpleAudioEditor.PeachStudio
         int OffsetX;
         TimeSpan currentTime;
 
-        TimeSpan outputFileTime = TimeSpan.FromMinutes(5);
-
-        public Project CurrentProject
-        {
-            set { project = value; }
-            get { return project; }
-        }
+        TimeSpan outputFileTime = TimeSpan.FromMinutes(5);        
 
         private int TimePerPoint(TimeSpan time)
         {
@@ -67,6 +61,10 @@ namespace SimpleAudioEditor.PeachStudio
                 Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, outputFileTime), new TimeSpan(), outputFileTime), currentTime, PlayerLineWidth), startPos.Y - object_radius * 2);
 
             pbWaveViewer.Invalidate();
+        }
+
+        public void ChangeCurrentProject(Project newProject) {
+            project = newProject;
         }
 
         private void UpdatePointPos()

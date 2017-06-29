@@ -21,7 +21,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
               
 
 
-            projectControl.CurrentProject = project;
+            projectControl.ChangeCurrentProject(project);
             panelSample.HorizontalScroll.Enabled = false;
             panelSample.HorizontalScroll.Visible = false;
             panelSample.HorizontalScroll.Visible = false;
