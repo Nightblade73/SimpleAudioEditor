@@ -8,6 +8,7 @@ using CSCore;
 using System.IO;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
+using SimpleAudioEditor.PeachStudio.WorkMethods;
 
 namespace SimpleAudioEditor.PeachStudio
 {
@@ -44,7 +45,14 @@ namespace SimpleAudioEditor.PeachStudio
 
         public Sample(string _soundPath)
         {
-            soundPath = _soundPath;
+            if (_soundPath.Contains(".wav"))
+            {
+                soundPath = SampleController.Converter(_soundPath);
+            }
+            else
+            {
+                soundPath = _soundPath;
+            }
             CreateDrawSourceAndArray();
             AudioFileReader a = new AudioFileReader(soundPath);
             totalTime = a.TotalTime;
@@ -60,7 +68,14 @@ namespace SimpleAudioEditor.PeachStudio
 
         public Sample(string _soundPath, float[] _optimizedArray, ISampleSource _mDrawSource, TimeSpan _splitStartTime, TimeSpan _splitEndTime, TimeSpan _totalTime)
         {
-            soundPath = _soundPath;
+            if (_soundPath.Contains(".wav"))
+            {
+                soundPath = SampleController.Converter(_soundPath);
+            }
+            else
+            {
+                soundPath = _soundPath;
+            }
             mDrawSource = _mDrawSource;
             optimizedArray = _optimizedArray;
             totalTime = _totalTime;

@@ -121,10 +121,10 @@ namespace SimpleAudioEditor.PeachStudio.View
                 WorkMethods.WorkerXML.Serialize(project);
                 MyMessageBox mmb = new MyMessageBox("Сохранено!", false);
                 mmb.ShowDialog();
-                Application.Exit();
+                Close();
             }
             else {
-                Application.Exit();
+                Close();
             }
         }
 
