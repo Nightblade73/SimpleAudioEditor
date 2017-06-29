@@ -27,6 +27,9 @@ namespace SimpleAudioEditor
         {
             InitializeComponent();
             tmpNew = layoutProjects.Controls.Find("btnNewProject", false)[0];
+            layoutProjects.BackColor = Color.FromArgb(0, 0, 0, 0);
+            layoutProjects.MouseWheel += LayoutProjects_MouseWheel;
+            
             if (primary.progPath != "nopath")
             {
                 panelSamples.Enabled = true;
@@ -35,7 +38,7 @@ namespace SimpleAudioEditor
                 labelProjectsPath.Text = "Путь с проектами:  " + primary.progPath;
                 DrawFolders();
             }
-        }
+        }        
 
         private void btnNewProject_Click(object sender, EventArgs e)
         {
@@ -133,6 +136,18 @@ namespace SimpleAudioEditor
         {
             Label l = sender as Label;
             labelChangeProgPath.Left = l.Width;
+        }        
+
+        private void layoutProjects_Layout(object sender, LayoutEventArgs e) {
+            Invalidate();
+        }
+
+        private void layoutProjects_Scroll(object sender, ScrollEventArgs e) {
+            Invalidate();
+        }
+
+        private void LayoutProjects_MouseWheel(object sender, MouseEventArgs e) {
+            Invalidate();
         }
     }
 }
