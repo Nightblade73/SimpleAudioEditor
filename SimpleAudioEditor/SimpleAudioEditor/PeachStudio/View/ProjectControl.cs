@@ -83,7 +83,7 @@ namespace SimpleAudioEditor.PeachStudio
 
         private void pbWaveViewer_Paint(object sender, PaintEventArgs e)
         {
-            int penSize = 3;
+            int penSize = 1;
             Pen grayPen = new Pen(Color.Gray, penSize);
             Pen drawWaveSplitPen = new Pen(Color.DarkOrange,penSize);
             Pen drawWaveBackPen = new Pen(Color.Firebrick, penSize);
