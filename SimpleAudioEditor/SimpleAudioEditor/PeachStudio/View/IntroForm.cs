@@ -106,14 +106,27 @@ namespace SimpleAudioEditor
         private void ChooseProgramPath()
         {
             FolderBrowserDialog f = new FolderBrowserDialog();
+            if (Directory.Exists(primary.progPath))
+            {
+                f.SelectedPath = primary.progPath;
+            }
             if (f.ShowDialog() == DialogResult.OK)
             {
-                primary.SetProgrammPath(f.SelectedPath);
-                DrawFolders();
-                labelProjectsPath.Text = "Путь с проектами:  " + primary.progPath;
-                panelSamples.Enabled = true;
-                panelPath.Visible = false;
-                layoutProjects.Enabled = true;
+                if (primary.SetProgrammPath(f.SelectedPath))
+                {
+                    DrawFolders();
+                    labelProjectsPath.Text = "Путь с проектами:  " + primary.progPath;
+                    panelSamples.Enabled = true;
+                    panelPath.Visible = false;
+                    layoutProjects.Enabled = true;
+                } else
+                {
+                    MessageBox.Show("Нет доступа к папке");
+                    labelProjectsPath.Text = "Путь с проектами:  none";
+                    panelSamples.Enabled = false;
+                    panelPath.Visible = true;
+                    layoutProjects.Enabled = false;
+                }
             }
         }
         private void labelProjectsPath_Resize(object sender, EventArgs e)

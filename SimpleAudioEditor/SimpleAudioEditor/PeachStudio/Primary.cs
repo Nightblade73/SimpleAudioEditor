@@ -45,13 +45,25 @@ namespace SimpleAudioEditor.Controller
         }
         /* Устанавливает путь с проектами в переменную реестра
          */
-        public void SetProgrammPath(String path)
+        public bool SetProgrammPath(String path)
         {
             RegistryKey key = Registry_GetKey();
-            key.SetValue("path", path);
+            String fpath = path + "\\PeachEditor";
+            if (!Directory.Exists(path) || !IsDirectoryWritable(path))
+            {
+                return false;
+            } else
+            {
+                if(!Directory.Exists(fpath))
+                {
+                    Directory.CreateDirectory(fpath);
+                }
+            }
+            key.SetValue("path", fpath);
             key.Close();
-            this.progPath = path;
+            this.progPath = fpath;
             LoadProjects();
+            return true;
         }
         private RegistryKey Registry_GetKey()
         {
@@ -68,6 +80,30 @@ namespace SimpleAudioEditor.Controller
                 key.SetValue("path", "nopath", RegistryValueKind.String);
             }
             return key;
+        }
+        /* Source: https://stackoverflow.com/questions/1410127/c-sharp-test-if-user-has-write-access-to-a-folder 
+           Author: priit && JonD
+        */
+        private bool IsDirectoryWritable(string dirPath, bool throwIfFails = false)
+        {
+            try
+            {
+                using (FileStream fs = File.Create(
+                    Path.Combine(
+                        dirPath,
+                        Path.GetRandomFileName()
+                    ),
+                    1,
+                    FileOptions.DeleteOnClose)
+                )
+                { }
+                return true;
+            } catch {
+                if (throwIfFails)
+                    throw;
+                else
+                    return false;
+            }
         }
     }
 }
