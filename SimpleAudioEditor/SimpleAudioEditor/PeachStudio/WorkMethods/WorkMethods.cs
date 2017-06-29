@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SimpleAudioEditor.PeachStudio.View;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SimpleAudioEditor.PeachStudio.WorkMethods
@@ -60,6 +62,28 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
             SampleController.Concatenate(list, project.GetProjectPath() + "\\" + "result.mp3");
 
             return "Сохранено";
+        }
+
+        public static void DeleteOldDirectory(Project project)
+        {
+            try {
+                Directory.Delete(project.GetProjectPath(), true);
+            }
+            catch (Exception ex)
+            {
+                MyMessageBox mmb = new MyMessageBox(ex.Message, false);
+            }
+            while (Directory.Exists(project.GetProjectPath()))
+            {
+                try
+                {
+                    Directory.CreateDirectory(project.GetProjectPath());
+                }
+                catch (Exception ex)
+                {
+                    MyMessageBox mmb = new MyMessageBox(ex.Message, false);
+                }
+            }
         }
     }
 }

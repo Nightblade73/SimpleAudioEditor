@@ -136,9 +136,8 @@ namespace SimpleAudioEditor.PeachStudio
             }
             canvas.DrawLine(grayPen, startPos, endPos);
 
-            Pen cursorPen = new Pen(Color.Black, penSize);
+            Pen cursorPen = new Pen(Color.Black, 4);
             //Рисуем маркер
-            cursorPen.Color = Color.Black;
             canvas.DrawLine(cursorPen, startPos, new Point(markerPoint.X, startPos.Y));
 
             canvas.DrawPolygon(cursorPen, new Point[] {
