@@ -33,9 +33,9 @@
             this.panelSample = new System.Windows.Forms.Panel();
             this.panelSupport = new System.Windows.Forms.Panel();
             this.buttonAddSample = new System.Windows.Forms.Button();
-            this.projectControl = new SimpleAudioEditor.PeachStudio.ProjectControl();
             this.buttonAddPause = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.projectControl = new SimpleAudioEditor.PeachStudio.ProjectControl();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panelSample.SuspendLayout();
             this.SuspendLayout();
@@ -46,7 +46,7 @@
             this.trackBar1.Location = new System.Drawing.Point(14, 133);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(165, 45);
+            this.trackBar1.Size = new System.Drawing.Size(165, 42);
             this.trackBar1.TabIndex = 2;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar1.Value = 20;
@@ -86,27 +86,15 @@
             this.buttonAddSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddSample.Location = new System.Drawing.Point(12, 98);
             this.buttonAddSample.Name = "buttonAddSample";
-            this.buttonAddSample.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddSample.Size = new System.Drawing.Size(167, 23);
             this.buttonAddSample.TabIndex = 4;
-            this.buttonAddSample.Text = "Add";
+            this.buttonAddSample.Text = "Добавить новую дорожку";
             this.buttonAddSample.UseVisualStyleBackColor = false;
             this.buttonAddSample.Click += new System.EventHandler(this.buttonAddSample_Click);
             // 
-            // projectControl
-            // 
-            this.projectControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.projectControl.BackColor = System.Drawing.Color.Transparent;
-            this.projectControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.projectControl.Location = new System.Drawing.Point(12, 12);
-            this.projectControl.MinimumSize = new System.Drawing.Size(700, 80);
-            this.projectControl.Name = "projectControl";
-            this.projectControl.Size = new System.Drawing.Size(700, 80);
-            this.projectControl.TabIndex = 5;
-            // 
             // buttonAddPause
             // 
-            this.buttonAddPause.BackColor = System.Drawing.Color.DarkGreen;
+            this.buttonAddPause.BackColor = System.Drawing.Color.DarkOrange;
             this.buttonAddPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddPause.Location = new System.Drawing.Point(577, 98);
             this.buttonAddPause.Name = "buttonAddPause";
@@ -119,11 +107,23 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(393, 100);
+            this.comboBox1.Location = new System.Drawing.Point(393, 98);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(178, 21);
             this.comboBox1.TabIndex = 7;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // projectControl
+            // 
+            this.projectControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.projectControl.BackColor = System.Drawing.Color.Transparent;
+            this.projectControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.projectControl.Location = new System.Drawing.Point(12, 12);
+            this.projectControl.MinimumSize = new System.Drawing.Size(700, 80);
+            this.projectControl.Name = "projectControl";
+            this.projectControl.Size = new System.Drawing.Size(700, 80);
+            this.projectControl.TabIndex = 5;
             // 
             // PeachEditor
             // 
