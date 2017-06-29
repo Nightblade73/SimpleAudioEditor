@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 using NAudio.Wave;
+using TagLib;
+using TagLib.Mpeg;
 
 namespace SimpleAudioEditor.PeachStudio
 {
@@ -54,7 +56,18 @@ namespace SimpleAudioEditor.PeachStudio
             UpdateMaskedTimeValue();
 
             label1.ForeColor = Color.OrangeRed;
+            //label1.BackColor = Color.DarkGray;
             label1.Text = "sdfsdfsfsfds";
+            AudioFile fileWithTags = new AudioFile(_sample.SoundPath, ReadStyle.Average);
+            if (fileWithTags.Tag.Performers != null && fileWithTags.Tag.Title != null)
+            {
+                label1.Text = fileWithTags.Tag.Performers[0] + " - " + fileWithTags.Tag.Title;
+            }
+            else
+            {
+                string[] s = _sample.SoundPath.Split('\\');
+                label1.Text = s[s.Length - 1];
+            }
         }
 
         public void UpdateMaskedTimeValue()

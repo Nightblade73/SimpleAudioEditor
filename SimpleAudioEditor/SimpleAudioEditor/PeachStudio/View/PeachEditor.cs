@@ -12,9 +12,11 @@ namespace SimpleAudioEditor.PeachStudio.View {
         int verticalDistanceBeetwenControls = 5;
         int verticalControlsPosition = 0;
         string[] pauses;
+        public Project oldProject;
 
         public PeachEditor(Project _project) {
             project = _project;
+            oldProject = _project;       
             InitializeComponent();
 
             projectControl.CurrentProject = project;
@@ -95,16 +97,23 @@ namespace SimpleAudioEditor.PeachStudio.View {
             //this.Parent.Show();
             WorkMethods.WorkMethods.CleanRAWFiles();
 
-            DialogResult dialog = MessageBox.Show("Сохранить композицию перед закрытием?", "Сохранение перед закрытием", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialog == DialogResult.Yes) {
-                WorkMethods.WorkMethods.Save(project);
-                WorkMethods.WorkerXML.Serialize(project);
-                MyMessageBox mmb = new MyMessageBox("Сохранено!", false);
-                mmb.ShowDialog();
-                Close();
+            if (!project.Equals(oldProject))
+            {
+                DialogResult dialog = MessageBox.Show("Сохранить композицию перед закрытием?", "Сохранение перед закрытием", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                if (dialog == DialogResult.Yes)
+                {
+                    WorkMethods.WorkMethods.Save(project);
+                    WorkMethods.WorkerXML.Serialize(project);
+                    MyMessageBox mmb = new MyMessageBox("Сохранено!", false);
+                    mmb.ShowDialog();
+                    Close();
+                }
             }
-            else {
+            else
+            {
                 Close();
+
             }
         }
 
@@ -148,7 +157,8 @@ namespace SimpleAudioEditor.PeachStudio.View {
 
             verticalControlsPosition += sc.MinimumSize.Height + verticalDistanceBeetwenControls;
 
-            MessageBox.Show("Пауза загружена");
+            MyMessageBox mmb = new MyMessageBox("Пауза загружена!", false);
+            mmb.ShowDialog();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
