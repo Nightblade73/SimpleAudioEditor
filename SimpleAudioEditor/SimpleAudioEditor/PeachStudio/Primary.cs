@@ -32,7 +32,7 @@ namespace SimpleAudioEditor.Controller
                     String[] files = Directory.GetFiles(folder);
                     foreach(String file in files)
                     {
-                        if(Path.GetFileName(file) == "config.xml")
+                        if(Path.GetFileName(file) == "PeachStudioConfig.xml")
                         {
                             projects.Add(Project.CreateTempProject(folder));
                             break;

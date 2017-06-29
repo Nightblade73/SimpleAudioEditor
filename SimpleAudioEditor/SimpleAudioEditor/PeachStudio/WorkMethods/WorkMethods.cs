@@ -40,6 +40,8 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
 
         public static string Save(Project project)
         {
+            //DeleteOldDirectory(project);
+
             List<string> list = new List<string>();
             int count = 0;
             foreach (var sample in project.GetSampleList())
@@ -72,6 +74,7 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
             catch (Exception ex)
             {
                 MyMessageBox mmb = new MyMessageBox(ex.Message, false);
+                mmb.ShowDialog();
             }
             while (Directory.Exists(project.GetProjectPath()))
             {
@@ -82,6 +85,8 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
                 catch (Exception ex)
                 {
                     MyMessageBox mmb = new MyMessageBox(ex.Message, false);
+                    mmb.ShowDialog();
+                    return;
                 }
             }
         }
