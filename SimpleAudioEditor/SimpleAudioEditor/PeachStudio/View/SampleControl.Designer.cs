@@ -164,19 +164,19 @@
             this.FromBeginingToPointToolStripMenuItem,
             this.FromPointToEndingToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(224, 48);
+            this.contextMenuStrip.Size = new System.Drawing.Size(231, 48);
             // 
             // FromBeginingToPointToolStripMenuItem
             // 
             this.FromBeginingToPointToolStripMenuItem.Name = "FromBeginingToPointToolStripMenuItem";
-            this.FromBeginingToPointToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.FromBeginingToPointToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.FromBeginingToPointToolStripMenuItem.Text = "От начала до точки нажатия";
             this.FromBeginingToPointToolStripMenuItem.Click += new System.EventHandler(this.FromBeginingToPointToolStripMenuItem_Click);
             // 
             // FromPointToEndingToolStripMenuItem
             // 
             this.FromPointToEndingToolStripMenuItem.Name = "FromPointToEndingToolStripMenuItem";
-            this.FromPointToEndingToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.FromPointToEndingToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.FromPointToEndingToolStripMenuItem.Text = "От точки нажатия до конца";
             this.FromPointToEndingToolStripMenuItem.Click += new System.EventHandler(this.FromPointToEndingToolStripMenuItem_Click);
             // 
@@ -200,6 +200,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.label1.Location = new System.Drawing.Point(40, 1);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(515, 15);
