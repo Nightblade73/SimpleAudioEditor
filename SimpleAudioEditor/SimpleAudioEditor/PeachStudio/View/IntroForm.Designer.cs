@@ -175,6 +175,8 @@
             this.layoutProjects.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.layoutProjects.Size = new System.Drawing.Size(458, 359);
             this.layoutProjects.TabIndex = 14;
+            this.layoutProjects.Scroll += new System.Windows.Forms.ScrollEventHandler(this.layoutProjects_Scroll);
+            this.layoutProjects.Layout += new System.Windows.Forms.LayoutEventHandler(this.layoutProjects_Layout);
             // 
             // btnNewProject
             // 
