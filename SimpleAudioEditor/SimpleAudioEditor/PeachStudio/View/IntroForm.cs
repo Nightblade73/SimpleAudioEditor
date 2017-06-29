@@ -79,7 +79,7 @@ namespace SimpleAudioEditor
         {
             if (primary.projects.Count > 0)
             {
-                //layoutProjects.Controls.Clear();
+                layoutProjects.Controls.Clear();
                 layoutProjects.Controls.Add(tmpNew);
 
                 foreach (Project p in primary.projects)
