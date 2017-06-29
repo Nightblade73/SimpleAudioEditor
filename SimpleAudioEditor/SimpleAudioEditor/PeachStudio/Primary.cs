@@ -29,7 +29,15 @@ namespace SimpleAudioEditor.Controller
                 String[] folders = Directory.GetDirectories(progPath);
                 foreach (String folder in folders)
                 {
-                    projects.Add(Project.CreateTempProject(folder));
+                    String[] files = Directory.GetFiles(folder);
+                    foreach(String file in files)
+                    {
+                        if(Path.GetFileName(file) == "config.xml")
+                        {
+                            projects.Add(Project.CreateTempProject(folder));
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -40,6 +48,10 @@ namespace SimpleAudioEditor.Controller
         {
             RegistryKey key = Registry_GetKey();
             String str = key.GetValue("path").ToString();
+            if(!Directory.Exists(str))
+            {
+                str = "nopath";
+            }
             key.Close();
             return str;
         }
@@ -48,7 +60,11 @@ namespace SimpleAudioEditor.Controller
         public bool SetProgrammPath(String path)
         {
             RegistryKey key = Registry_GetKey();
-            String fpath = path + "\\PeachEditor";
+            String fpath = path;
+            if (Path.GetFileName(path) != "PeachEditor")
+            {
+                fpath += "\\PeachEditor";
+            }
             if (!Directory.Exists(path) || !IsDirectoryWritable(path))
             {
                 return false;
