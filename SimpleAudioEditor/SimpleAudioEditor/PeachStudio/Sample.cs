@@ -86,7 +86,14 @@ namespace SimpleAudioEditor.PeachStudio
 
         public Sample(Sample _sample)
         {
-            soundPath = _sample.SoundPath;
+            if (_sample.soundPath.Contains(".wav"))
+            {
+                soundPath = SampleController.Converter(_sample.soundPath);
+            }
+            else
+            {
+                soundPath = _sample.soundPath;
+            }
             mDrawSource = _sample.DrawSource;
             optimizedArray = _sample.OptimizedArray;
             totalTime = _sample.TotalTime;
