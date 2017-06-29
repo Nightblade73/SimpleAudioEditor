@@ -388,7 +388,6 @@ namespace SimpleAudioEditor.PeachStudio
                     > sumtime)
                     return index;
                 else*/
-                return index;
             }
             else
                 return 0;

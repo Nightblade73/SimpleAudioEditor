@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SimpleAudioEditor.PeachStudio.Project project1 = new SimpleAudioEditor.PeachStudio.Project();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PeachEditor));
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.panelSample = new System.Windows.Forms.Panel();
@@ -95,7 +94,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.projectControl.BackColor = System.Drawing.Color.Transparent;
             this.projectControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.projectControl.CurrentProject = project1;
+            this.projectControl.CurrentProject = ((SimpleAudioEditor.PeachStudio.Project)(resources.GetObject("projectControl.CurrentProject")));
             this.projectControl.Location = new System.Drawing.Point(12, 12);
             this.projectControl.MinimumSize = new System.Drawing.Size(700, 80);
             this.projectControl.Name = "projectControl";
@@ -116,6 +115,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(740, 480);
             this.Name = "PeachEditor";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PeachEditor";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PeachEditor_FormClosed);
             this.Load += new System.EventHandler(this.PeachEditor_Load);
