@@ -235,9 +235,9 @@
             this.label3.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.label3.Location = new System.Drawing.Point(314, 2);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(149, 26);
+            this.label3.Size = new System.Drawing.Size(154, 26);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Peach Editor";
+            this.label3.Text = "Peach Studio";
             // 
             // pictureBox1
             // 
@@ -311,6 +311,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IntroForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Peach editor";
             this.Load += new System.EventHandler(this.IntroForm_Load);
             this.panelPath.ResumeLayout(false);

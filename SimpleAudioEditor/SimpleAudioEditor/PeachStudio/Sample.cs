@@ -19,7 +19,7 @@ namespace SimpleAudioEditor.PeachStudio {
         public TimeSpan totalTime;       
         [XmlIgnore]
         public ISampleSource mDrawSource;
-        
+        [XmlIgnore]
         public float[] optimizedArray;
 
 
