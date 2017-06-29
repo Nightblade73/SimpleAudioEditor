@@ -18,7 +18,7 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
             {
            //     XmlSerializer serializer = new XmlSerializer(typeof(Project));
                DataContractSerializer serializer = new DataContractSerializer(typeof(Project));
-                using (FileStream fs = new FileStream(project.GetProjectPath() + "\\config.xml", FileMode.Create))
+                using (FileStream fs = new FileStream(project.GetProjectPath() + "\\PeachStudioConfig.xml", FileMode.Create))
                 {
                     using (XmlWriter writer = XmlWriter.Create(fs))
                     {
@@ -41,7 +41,7 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
             {
                DataContractSerializer serializer = new DataContractSerializer(typeof(Project));
          //               XmlSerializer serializer = new XmlSerializer(typeof(Project));
-                using (FileStream fs = new FileStream(path + "\\config.xml", FileMode.Open))
+                using (FileStream fs = new FileStream(path + "\\PeachStudioConfig.xml", FileMode.Open))
                 {
                     using (XmlReader writer = XmlReader.Create(fs))
                     {
