@@ -30,6 +30,10 @@ namespace SimpleAudioEditor.PeachStudio.View
             panelSample.AutoScroll = true;
             sampleControls = new List<SampleControl>();
         }
+        public PeachEditor()
+        {
+            
+        }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {

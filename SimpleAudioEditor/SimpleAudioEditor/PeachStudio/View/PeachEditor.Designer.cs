@@ -56,8 +56,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelSample.AutoScroll = true;
-            this.panelSample.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.panelSample.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.peaches_pattern;
+            this.panelSample.BackColor = System.Drawing.Color.Transparent;
             this.panelSample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSample.Controls.Add(this.panelSupport);
             this.panelSample.Location = new System.Drawing.Point(12, 156);
@@ -94,7 +93,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.projectControl.BackColor = System.Drawing.Color.Transparent;
             this.projectControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.projectControl.CurrentProject = ((SimpleAudioEditor.PeachStudio.Project)(resources.GetObject("projectControl.CurrentProject")));
+            this.projectControl.CurrentProject = null;
             this.projectControl.Location = new System.Drawing.Point(12, 12);
             this.projectControl.MinimumSize = new System.Drawing.Size(700, 80);
             this.projectControl.Name = "projectControl";
