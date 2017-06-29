@@ -40,7 +40,8 @@
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(11, 133);
+            this.trackBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.trackBar1.Location = new System.Drawing.Point(14, 133);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(165, 45);
@@ -105,7 +106,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.peaches_pattern;
+            this.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.dark_peaches_pattern;
             this.ClientSize = new System.Drawing.Size(732, 593);
             this.Controls.Add(this.projectControl);
             this.Controls.Add(this.buttonAddSample);

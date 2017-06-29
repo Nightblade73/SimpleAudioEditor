@@ -71,7 +71,7 @@ namespace SimpleAudioEditor.PeachStudio.View
         }
 
         private void PeachEditor_Load(object sender, EventArgs e) {
-            trackBar1.BackColor = Color.FromArgb(249,245,224);
+            trackBar1.BackColor = Color.FromArgb(43,43,43);
         }
 
         private void PeachEditor_FormClosed(object sender, FormClosedEventArgs e)

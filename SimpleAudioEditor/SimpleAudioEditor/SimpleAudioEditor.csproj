@@ -250,6 +250,7 @@
     <Content Include="libmp3lame.64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\dark_peaches_pattern.jpg" />
     <Content Include="Resources\icons8-Peach-48-Delete.png" />
     <Content Include="Resources\icons8-Peach-48-OK.png" />
     <None Include="Resources\Pauses\Звук зажёваной пластинки.mp3" />
