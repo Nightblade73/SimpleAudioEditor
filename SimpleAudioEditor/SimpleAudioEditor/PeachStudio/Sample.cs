@@ -7,6 +7,7 @@ using NAudio.Wave;
 using CSCore;
 using System.IO;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace SimpleAudioEditor.PeachStudio
 {
@@ -18,10 +19,16 @@ namespace SimpleAudioEditor.PeachStudio
         private TimeSpan splitStartTime;
         private TimeSpan splitEndTime;
         private TimeSpan currentTime;
-        private TimeSpan totalTime;
-        [XmlIgnore]
+        private TimeSpan totalTime;        
         private ISampleSource mDrawSource;
         private float[] optimizedArray;
+        private string samplePath;
+
+        public string SamplePath
+        {
+            set { samplePath = value; }
+            get { return samplePath; }
+        }
 
 
         public static Sample CreateSample(String filePath)
@@ -68,7 +75,7 @@ namespace SimpleAudioEditor.PeachStudio
             splitEndTime = _sample.SplitEndTime;
         }
 
-        public String SamplePath(string projectPath, int order)
+        public String CreateSamplePath(string projectPath, int order)
         {
             String newSamplePath = projectPath + "\\" + Path.GetFileName(this.SoundPath);
             newSamplePath = newSamplePath.Replace(".wav", "_" + order + ".wav");
@@ -77,35 +84,36 @@ namespace SimpleAudioEditor.PeachStudio
         }
 
 
-
+        [IgnoreDataMember]
         public TimeSpan SplitStartTime
         {
             set { splitStartTime = value; }
             get { return splitStartTime; }
         }
-
+        [IgnoreDataMember]
         public TimeSpan SplitEndTime
         {
             set { splitEndTime = value; }
             get { return splitEndTime; }
         }
-
+        [IgnoreDataMember]
         public TimeSpan CurrentTime
         {
             set { currentTime = value; }
             get { return currentTime; }
         }
-
+        [IgnoreDataMember]
         public TimeSpan TotalTime
         {
             get { return totalTime; }
         }
+
         public float[] OptimizedArray
         {
             set { optimizedArray = value; }
             get { return optimizedArray; }
         }
-        [XmlIgnore]
+        [IgnoreDataMember]
         public ISampleSource DrawSource
         {
             set { mDrawSource = value; }

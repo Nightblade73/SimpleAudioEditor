@@ -23,16 +23,16 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
         }
 
 
-        private static void CreateSampleFile(Sample s, string cutPath)
+        private static void CreateSampleFile(Sample s)
         {
             SampleController sc = new SampleController();
             if (s.SoundPath.ToString().Contains(".wav"))
             {
-                sc.TrimWavFile(SampleController.Converter(s.SoundPath), cutPath, s.SplitStartTime, s.TotalTime - s.SplitEndTime);
+                sc.TrimWavFile(SampleController.Converter(s.SoundPath), s.SamplePath, s.SplitStartTime, s.TotalTime - s.SplitEndTime);
             }
             else
             {
-                sc.TrimWavFile(s.SoundPath, cutPath, s.SplitStartTime, s.TotalTime- s.SplitEndTime);
+                sc.TrimWavFile(s.SoundPath, s.SamplePath, s.SplitStartTime, s.TotalTime- s.SplitEndTime);
             }
         }
 
@@ -42,18 +42,18 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
             int count = 0;
             foreach (var sample in project.GetSampleList())
             {
-                string cutPath = sample.SamplePath(project.GetProjectPath(), count);
+                sample.SamplePath = sample.CreateSamplePath(project.GetProjectPath(), count);
                 try
                 {
                     
-                    CreateSampleFile(sample, cutPath);
+                    CreateSampleFile(sample);
 
                 }
                 catch (Exception ex)
                 {
                     return "Не удалось создать файл-отрезок./n" + ex.ToString();
                 }
-                list.Add(SampleController.Resemple(cutPath, project.GetProjectPath() + "\\" + "result.mp3"));
+                list.Add(SampleController.Resemple(sample.SamplePath, project.GetProjectPath() + "\\" + "result.mp3"));
                 //SampleController.Combine(sample.SamplePath, path + "\\" + "result.wav");
                 count++;
             }

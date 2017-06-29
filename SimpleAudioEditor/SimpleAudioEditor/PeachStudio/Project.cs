@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
+
 
 namespace SimpleAudioEditor.PeachStudio {
     [Serializable]
@@ -44,7 +46,7 @@ namespace SimpleAudioEditor.PeachStudio {
         {
             samples.Remove(removedSample);
         }
-
+        
         public string GetProjectPath()
         {
             return projectPath;
