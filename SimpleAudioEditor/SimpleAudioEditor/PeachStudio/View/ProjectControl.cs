@@ -439,16 +439,14 @@ namespace SimpleAudioEditor.PeachStudio
                 {
                     projectPlayer.SetListSample = project.GetSampleList();
                     bPlayPause.AccessibleName = "stop";
-                    bPlayPause.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.pause_icon;
-                //    bPlayPause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+                    bPlayPause.BackgroundImage = Properties.Resources.pause_icon;
                     projectPlayer.CurrentTime = currentTime;
                     projectPlayer.Play();
-
                 }
                 else
                 {
                     projectPlayer.Pause();
-                    bPlayPause.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.play_icon;
+                    bPlayPause.BackgroundImage = Properties.Resources.play_icon;
                     bPlayPause.AccessibleName = "started";
                 }
             }
@@ -523,14 +521,16 @@ namespace SimpleAudioEditor.PeachStudio
         {
             if (projectPlayer.CurrentTime >= GetAllTotalTime() || projectPlayer.CurrentTime == new TimeSpan())
             {
-                bPlayPause.Text = ">";
+                bPlayPause.AccessibleName = "started";
+                //       bPlayPause.Text = ">";
                 currentTime = projectPlayer.CurrentTime;
             }
             if (projectPlayer.Playing == true)
             {
                 if (projectPlayer.OutEvents.PlaybackState == NAudio.Wave.PlaybackState.Paused)
                 {
-                    bPlayPause.Text = ">";
+                    bPlayPause.AccessibleName = "started";
+                    //        bPlayPause.Text = ">";
                 }
             }
             pbWaveViewer.Invalidate();
@@ -577,7 +577,7 @@ namespace SimpleAudioEditor.PeachStudio
         private void bStop_Click(object sender, EventArgs e)
         {
             projectPlayer.Stop();
-            bPlayPause.Text = ">";
+            bPlayPause.AccessibleName = "started";
             currentTime = new TimeSpan();
             markerPoint = new Point(Mathf.TimeToPos(currentTime, outputFileTime, PlayerLineWidth), markerPoint.Y);
             pbWaveViewer.Invalidate();

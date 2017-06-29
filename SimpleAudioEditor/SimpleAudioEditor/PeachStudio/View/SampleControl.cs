@@ -112,12 +112,12 @@ namespace SimpleAudioEditor.PeachStudio
             if (samplePlayer.PlayerState == PlaybackState.Paused || samplePlayer.PlayerState == PlaybackState.Stopped)
             {
                 samplePlayer.Play();
-                buttonPlay.Text = "II";
+                buttonPlay.BackgroundImage = Properties.Resources.pause_icon;
             }
             else
             {
                 samplePlayer.Pause();
-                buttonPlay.Text = ">";
+                buttonPlay.BackgroundImage = Properties.Resources.play_icon;
             }
             UpdateMaskedTimeValue();
             UpdatePointPos();
@@ -127,7 +127,7 @@ namespace SimpleAudioEditor.PeachStudio
         {
             samplePlayer.Stop();
             samplePlayer.CurrentTime = sample.SplitStartTime;
-            buttonPlay.Text = ">";
+            buttonPlay.AccessibleName = "started";
             UpdatePointPos();
         //    markerPoint = new Point(indent + Mathf.TimeToPos(samplePlayer.CurrentTime, samplePlayer.TotalTime, PlayerLineWidth), startPos.Y - object_radius * 2);
             pictureBox.Invalidate();
@@ -142,7 +142,7 @@ namespace SimpleAudioEditor.PeachStudio
             {
                 samplePlayer.Stop();
                 samplePlayer.CurrentTime = sample.SplitStartTime;
-                buttonPlay.Text = ">";
+                buttonPlay.AccessibleName = "started";
             }
             if(!markerMoving)
             UpdatePointPos();
