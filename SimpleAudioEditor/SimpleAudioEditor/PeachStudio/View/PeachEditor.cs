@@ -44,18 +44,22 @@ namespace SimpleAudioEditor.PeachStudio.View
         private void buttonAddSample_Click(object sender, EventArgs e)
         {
             var ofd = new OpenFileDialog();
+            ofd.Multiselect = true;
             ofd.Filter = "Cursor Files|*.mp3;*.wav";
         //    ofd.Multiselect = true;
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Sample m = new Sample(ofd.FileName);
-                SampleControl sc = new SampleControl(m, panelSample, new Point(0, y), new Size(400, 93));
+                foreach (var fileName in ofd.FileNames)
+                {
+                    Sample m = new Sample(fileName);
+                    SampleControl sc = new SampleControl(m, panelSample, new Point(0, y), new Size(400, 93));
 
-                trackBar1.ValueChanged += sc.GetSamplePlayer.trackBar_ValueChanged;
-                sc.GetSamplePlayer.Volume = trackBar1.Value * 0.01f;
-                sampleControls.Add(sc);
+                    trackBar1.ValueChanged += sc.GetSamplePlayer.trackBar_ValueChanged;
+                    sc.GetSamplePlayer.Volume = trackBar1.Value * 0.01f;
+                    sampleControls.Add(sc);
 
-                y += 99;
+                    y += 99;
+                }
             }
         }
 
