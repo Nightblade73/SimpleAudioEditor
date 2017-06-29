@@ -298,6 +298,7 @@ namespace SimpleAudioEditor.PeachStudio
                     projectPlayer.Stop();
             }
             pbWaveViewer.Invalidate();
+            project.isChanged = true;
         }
 
 
@@ -497,6 +498,8 @@ namespace SimpleAudioEditor.PeachStudio
             }
             // Redraw.
             pbWaveViewer.Invalidate();
+            project.isChanged = true;
+
         }
         // Stop moving the segment.
         private void pbWaveViewer_MouseUp_MovingSegment(object sender, MouseEventArgs e)
@@ -512,6 +515,8 @@ namespace SimpleAudioEditor.PeachStudio
 
             // Redraw.
             pbWaveViewer.Invalidate();
+            project.isChanged = true;
+
         }
 
         protected void outEvents_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
@@ -612,6 +617,8 @@ namespace SimpleAudioEditor.PeachStudio
 
 
                 pbWaveViewer.Invalidate();
+                project.isChanged = true;
+
 
             }
         }

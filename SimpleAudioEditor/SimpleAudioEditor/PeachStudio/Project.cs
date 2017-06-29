@@ -9,12 +9,20 @@ using System.Runtime.Serialization;
 
 
 namespace SimpleAudioEditor.PeachStudio {
-    [Serializable]
-    public class Project : ICloneable {
 
+    public class Project
+    {
+
+        [DataMember]
         public string projectPath;
-        public string title;        
+        [DataMember]
+        public string title;
+        [DataMember]
         public List<Sample> samples;
+        [IgnoreDataMember]
+        public bool isChanged = false;
+
+
 
         public static Project CreateTempProject(String path)
         {
@@ -50,20 +58,6 @@ namespace SimpleAudioEditor.PeachStudio {
         public string GetProjectPath()
         {
             return projectPath;
-        }
-
-        object ICloneable.Clone()
-        {
-            Project p = new Project();
-            p.projectPath = this.projectPath;
-            p.title = this.title;
-            p.samples = new List<Sample>();
-            foreach (var s in samples)
-            {
-                Sample samp = s;
-                p.samples.Add(samp);
-            }
-            return p;
         }
     }
 

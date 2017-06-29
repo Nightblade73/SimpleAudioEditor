@@ -12,11 +12,11 @@ namespace SimpleAudioEditor.PeachStudio.View {
         int verticalDistanceBeetwenControls = 5;
         int verticalControlsPosition = 0;
         string[] pauses;
-        public Project oldProject;
+        
 
         public PeachEditor(Project _project) {
             project = _project;
-            oldProject = project;       
+                   
             InitializeComponent();
               
 
@@ -99,7 +99,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
             //this.Parent.Show();
             
 
-            if (!project.Equals(oldProject))
+            if (project.isChanged)
             {
                 DialogResult dialog = MessageBox.Show("Сохранить композицию перед закрытием?", "Сохранение перед закрытием", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
@@ -167,5 +167,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
             pathToPause = pauses[comboBox1.SelectedIndex];
         }
+
+
     }
 }

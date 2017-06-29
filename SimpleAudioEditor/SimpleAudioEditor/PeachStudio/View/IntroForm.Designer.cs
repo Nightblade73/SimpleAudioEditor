@@ -180,7 +180,7 @@
             // 
             // btnNewProject
             // 
-            this.btnNewProject.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.btnNewProject.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.btnNewProject.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Add_Folder_104;
             this.btnNewProject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnNewProject.FlatAppearance.BorderSize = 0;
