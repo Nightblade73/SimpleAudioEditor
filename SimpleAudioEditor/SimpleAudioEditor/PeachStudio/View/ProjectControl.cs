@@ -566,8 +566,10 @@ namespace SimpleAudioEditor.PeachStudio
             mmb.ShowDialog();
             if(mmb.DialogResult == DialogResult.OK)
             {
-                //удаляем
+                project.samples = new List<Sample>();
+                pbWaveViewer.Invalidate();
             }
+
         }
 
         private void bStop_Click(object sender, EventArgs e)
