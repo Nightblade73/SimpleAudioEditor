@@ -23,55 +23,14 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.bPlayPause = new System.Windows.Forms.Button();
-            this.bStop = new System.Windows.Forms.Button();
             this.maskedTextBoxCurrentTime = new System.Windows.Forms.MaskedTextBox();
             this.pbWaveViewer = new System.Windows.Forms.PictureBox();
             this.bDelete = new System.Windows.Forms.Button();
             this.bSave = new System.Windows.Forms.Button();
+            this.bPlayPause = new System.Windows.Forms.Button();
+            this.bStop = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbWaveViewer)).BeginInit();
             this.SuspendLayout();
-            // 
-  // pbWaveViewer
-            // 
-            this.pbWaveViewer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbWaveViewer.BackColor = System.Drawing.Color.Transparent;
-            this.pbWaveViewer.Location = new System.Drawing.Point(40, 0);
-            this.pbWaveViewer.Name = "pbWaveViewer";
-            this.pbWaveViewer.Size = new System.Drawing.Size(620, 80);
-            this.pbWaveViewer.TabIndex = 0;
-            this.pbWaveViewer.TabStop = false;
-            this.pbWaveViewer.Paint += new System.Windows.Forms.PaintEventHandler(this.pbWaveViewer_Paint);
-            this.pbWaveViewer.Layout += new System.Windows.Forms.LayoutEventHandler(this.pbWaveViewer_Layout);
-            this.pbWaveViewer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pbWaveViewer_MouseDoubleClick);
-            // 
-
-            // bPlayPause
-            // 
-            this.bPlayPause.BackColor = System.Drawing.Color.DarkOrange;
-            this.bPlayPause.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bPlayPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bPlayPause.Location = new System.Drawing.Point(0, 0);
-            this.bPlayPause.Name = "bPlayPause";
-            this.bPlayPause.Size = new System.Drawing.Size(40, 40);
-            this.bPlayPause.TabIndex = 1;
-            this.bPlayPause.Text = ">";
-            this.bPlayPause.UseVisualStyleBackColor = false;
-            this.bPlayPause.Click += new System.EventHandler(this.bPlayPause_Click);
-            // 
-            // bStop
-            // 
-            this.bStop.BackColor = System.Drawing.Color.DarkOrange;
-            this.bStop.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bStop.Location = new System.Drawing.Point(0, 40);
-            this.bStop.Name = "bStop";
-            this.bStop.Size = new System.Drawing.Size(40, 40);
-            this.bStop.TabIndex = 2;
-            this.bStop.Text = "■";
-            this.bStop.UseVisualStyleBackColor = false;
-            this.bStop.Click += new System.EventHandler(this.bStop_Click);
             // 
             // maskedTextBoxCurrentTime
             // 
@@ -95,6 +54,7 @@
             this.pbWaveViewer.TabStop = false;
             this.pbWaveViewer.Paint += new System.Windows.Forms.PaintEventHandler(this.pbWaveViewer_Paint);
             this.pbWaveViewer.Layout += new System.Windows.Forms.LayoutEventHandler(this.pbWaveViewer_Layout);
+            this.pbWaveViewer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pbWaveViewer_MouseDoubleClick);
             // 
             // bDelete
             // 
@@ -126,6 +86,37 @@
             this.bSave.TabIndex = 3;
             this.bSave.UseVisualStyleBackColor = false;
             this.bSave.Click += new System.EventHandler(this.bSave_Click);
+            // 
+            // bPlayPause
+            // 
+            this.bPlayPause.AccessibleName = "started";
+            this.bPlayPause.BackColor = System.Drawing.Color.DarkOrange;
+            this.bPlayPause.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.play_icon;
+            this.bPlayPause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bPlayPause.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bPlayPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bPlayPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bPlayPause.Location = new System.Drawing.Point(0, 0);
+            this.bPlayPause.Name = "bPlayPause";
+            this.bPlayPause.Size = new System.Drawing.Size(40, 40);
+            this.bPlayPause.TabIndex = 1;
+            this.bPlayPause.UseVisualStyleBackColor = false;
+            this.bPlayPause.Click += new System.EventHandler(this.bPlayPause_Click);
+            // 
+            // bStop
+            // 
+            this.bStop.BackColor = System.Drawing.Color.DarkOrange;
+            this.bStop.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.stop_icon;
+            this.bStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bStop.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bStop.Location = new System.Drawing.Point(0, 40);
+            this.bStop.Name = "bStop";
+            this.bStop.Size = new System.Drawing.Size(40, 40);
+            this.bStop.TabIndex = 2;
+            this.bStop.Text = "■";
+            this.bStop.UseVisualStyleBackColor = false;
+            this.bStop.Click += new System.EventHandler(this.bStop_Click);
             // 
             // ProjectControl
             // 

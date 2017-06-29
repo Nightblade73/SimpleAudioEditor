@@ -166,6 +166,7 @@
             // layoutProjects
             // 
             this.layoutProjects.AutoScroll = true;
+            this.layoutProjects.BackColor = System.Drawing.Color.Transparent;
             this.layoutProjects.Controls.Add(this.btnNewProject);
             this.layoutProjects.Enabled = false;
             this.layoutProjects.Location = new System.Drawing.Point(19, 38);
@@ -235,9 +236,7 @@
             this.label3.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.label3.Location = new System.Drawing.Point(314, 2);
             this.label3.Name = "label3";
-
             this.label3.Size = new System.Drawing.Size(154, 26);
-
             this.label3.TabIndex = 1;
             this.label3.Text = "Peach Studio";
             // 
@@ -302,6 +301,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.intro_pattern;
             this.ClientSize = new System.Drawing.Size(724, 441);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelPath);
@@ -313,13 +313,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IntroForm";
-
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Peach editor";
-
-            this.Load += new System.EventHandler(this.IntroForm_Load);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Peach Studio";
+            this.Load += new System.EventHandler(this.IntroForm_Load);
             this.panelPath.ResumeLayout(false);
             this.panelPath.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).EndInit();

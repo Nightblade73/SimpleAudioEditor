@@ -163,6 +163,16 @@ namespace SimpleAudioEditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap intro_pattern {
+            get {
+                object obj = ResourceManager.GetObject("intro_pattern", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap media_play_green {
             get {
                 object obj = ResourceManager.GetObject("media_play_green", resourceCulture);
@@ -183,9 +193,49 @@ namespace SimpleAudioEditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pause_icon {
+            get {
+                object obj = ResourceManager.GetObject("pause_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap peaches_pattern {
             get {
                 object obj = ResourceManager.GetObject("peaches_pattern", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap peaches_pattern1 {
+            get {
+                object obj = ResourceManager.GetObject("peaches_pattern1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap peaches_pattern2 {
+            get {
+                object obj = ResourceManager.GetObject("peaches_pattern2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap peaches_pattern3 {
+            get {
+                object obj = ResourceManager.GetObject("peaches_pattern3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -206,6 +256,26 @@ namespace SimpleAudioEditor.Properties {
         internal static System.Drawing.Bitmap peaches_with_green_leaves_on_light_pink_background_Stock_Vector {
             get {
                 object obj = ResourceManager.GetObject("peaches_with_green_leaves_on_light_pink_background_Stock_Vector", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap play_icon {
+            get {
+                object obj = ResourceManager.GetObject("play_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap stop_icon {
+            get {
+                object obj = ResourceManager.GetObject("stop_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

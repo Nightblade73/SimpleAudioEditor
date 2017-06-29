@@ -435,11 +435,12 @@ namespace SimpleAudioEditor.PeachStudio
         {
             if (projectPlayer.SetListSample.Count > 0)
             {
-                if (bPlayPause.Text == ">")
+                if (bPlayPause.AccessibleName == "started")
                 {
                     projectPlayer.SetListSample = project.GetSampleList();
-                    bPlayPause.Text = "II";
-
+                    bPlayPause.AccessibleName = "stop";
+                    bPlayPause.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.pause_icon;
+                //    bPlayPause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
                     projectPlayer.CurrentTime = currentTime;
                     projectPlayer.Play();
 
@@ -447,7 +448,8 @@ namespace SimpleAudioEditor.PeachStudio
                 else
                 {
                     projectPlayer.Pause();
-                    bPlayPause.Text = ">";
+                    bPlayPause.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.play_icon;
+                    bPlayPause.AccessibleName = "started";
                 }
             }
 

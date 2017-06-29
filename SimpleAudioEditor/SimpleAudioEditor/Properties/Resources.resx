@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="intro_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\intro_pattern.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-Add Folder-104" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-Add Folder-104.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,6 +145,9 @@
   </data>
   <data name="icons8-Audio Wave-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-Audio Wave-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dark_peaches_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dark_peaches_pattern.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-Play-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-Play-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -968,6 +974,9 @@
         1sqf75pzwjWrRXpn4i9qJyc9JAErr4Od1InuHT+4dYfIRQp2+r8R/QHCPvcu5HH/4gAAAABJRU5ErkJg
         gg==
 </value>
+  </data>
+  <data name="play_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\play_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="peaches_realistic_pattern" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -12529,22 +12538,34 @@
   <data name="peaches_with_green_leaves_on_light_pink_background_Stock_Vector" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\peaches-with-green-leaves-on-light-pink-background-Stock-Vector.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="stop_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stop_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-Folder-104" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-Folder-104.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-Peach-48-OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-Peach-48-OK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="peaches_pattern3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\peaches_pattern.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-Peach-48-Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-Peach-48-Delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="peaches_pattern1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\peaches_pattern.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-Pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-Pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="peaches_pattern2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\peaches_pattern.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-Error-104" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-Error-104.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dark_peaches_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dark_peaches_pattern.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pause_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pause_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

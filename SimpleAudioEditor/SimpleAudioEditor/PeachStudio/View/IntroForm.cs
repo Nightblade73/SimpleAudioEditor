@@ -42,7 +42,7 @@ namespace SimpleAudioEditor
             WriteProjectNameForm form = new WriteProjectNameForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                PeachEditor pe = new PeachEditor(Project.CreateTempProject(primary.progPath+"\\"+form.title));
+                PeachEditor pe = new PeachEditor(Project.CreateTempProject(primary.progPath + "\\" + form.title));
                 this.Hide();
                 pe.ShowDialog();
                 this.Show();

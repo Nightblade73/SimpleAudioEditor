@@ -78,7 +78,7 @@
             // 
             // buttonAddSample
             // 
-            this.buttonAddSample.BackColor = System.Drawing.Color.DarkGreen;
+            this.buttonAddSample.BackColor = System.Drawing.Color.Orange;
             this.buttonAddSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddSample.Location = new System.Drawing.Point(12, 98);
             this.buttonAddSample.Name = "buttonAddSample";
@@ -94,7 +94,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.projectControl.BackColor = System.Drawing.Color.Transparent;
             this.projectControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.projectControl.CurrentProject = null;
+            this.projectControl.CurrentProject = new Project();
             this.projectControl.Location = new System.Drawing.Point(12, 12);
             this.projectControl.MinimumSize = new System.Drawing.Size(700, 80);
             this.projectControl.Name = "projectControl";
@@ -106,7 +106,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.dark_peaches_pattern;
+            this.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.peaches_pattern3;
             this.ClientSize = new System.Drawing.Size(732, 593);
             this.Controls.Add(this.projectControl);
             this.Controls.Add(this.buttonAddSample);

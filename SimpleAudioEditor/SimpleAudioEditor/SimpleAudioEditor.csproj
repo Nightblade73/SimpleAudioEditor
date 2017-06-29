@@ -250,6 +250,10 @@
     <Content Include="libmp3lame.64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\pause_icon.png" />
+    <None Include="Resources\stop_icon.png" />
+    <None Include="Resources\play_icon.png" />
+    <None Include="Resources\intro_pattern.jpg" />
     <None Include="Resources\dark_peaches_pattern.jpg" />
     <Content Include="Resources\icons8-Peach-48-Delete.png" />
     <Content Include="Resources\icons8-Peach-48-OK.png" />
