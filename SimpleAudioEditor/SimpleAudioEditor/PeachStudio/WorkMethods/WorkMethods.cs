@@ -40,7 +40,7 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
 
         public static string Save(Project project)
         {
-            //DeleteOldDirectory(project);
+            DeleteOldDirectory(project);
 
             List<string> list = new List<string>();
             int count = 0;
@@ -76,7 +76,7 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
                 MyMessageBox mmb = new MyMessageBox(ex.Message, false);
                 mmb.ShowDialog();
             }
-            while (Directory.Exists(project.GetProjectPath()))
+            while (!Directory.Exists(project.GetProjectPath()))
             {
                 try
                 {

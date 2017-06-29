@@ -48,6 +48,8 @@ namespace SimpleAudioEditor
                 PeachEditor pe = new PeachEditor(Project.CreateTempProject(primary.progPath + "\\" + form.title));
                 this.Hide();
                 pe.ShowDialog();
+                primary = new Primary();
+                DrawFolders();              
                 this.Show();
             }
         }
@@ -58,6 +60,8 @@ namespace SimpleAudioEditor
             PeachEditor pe = new PeachEditor(needP);
             this.Hide();
             pe.ShowDialog();
+            primary = new Primary();
+            DrawFolders();
             this.Show();
         }
         private void btnChoosePath_Click(object sender, EventArgs e)
@@ -105,6 +109,8 @@ namespace SimpleAudioEditor
         private void labelChangeProgPath_Click(object sender, EventArgs e)
         {
             ChooseProgramPath();
+            primary = new Primary();
+            DrawFolders();
         }
         private void ChooseProgramPath()
         {
