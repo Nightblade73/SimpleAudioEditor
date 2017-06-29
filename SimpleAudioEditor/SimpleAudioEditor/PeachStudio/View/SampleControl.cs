@@ -30,12 +30,16 @@ namespace SimpleAudioEditor.PeachStudio
             get { return sample; }
         }
 
-        public SampleControl(Sample _sample, Control _parent, Point _location, Size _size)
+        public SampleControl(Sample _sample, Control _parent, Point _location, int _height = -1)
         {
             InitializeComponent();
 
             this.Parent = _parent;
-            this.Size = new Size(this.Parent.Width - 100, _size.Height);
+            if (_height == -1) {
+                this.Size = new Size(this.Parent.Width - indent, MinimumSize.Height);
+            } else {
+                this.Size = new Size(this.Parent.Width - indent, _height);
+            }
 
             this.Location = _location;
             this.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
@@ -64,7 +68,7 @@ namespace SimpleAudioEditor.PeachStudio
         public SamplePlayer GetSamplePlayer
         {
             get { return samplePlayer; }
-        }
+        }        
 
         // «Размер» объекта для мыши над целями.
         private const int object_radius = 6;
