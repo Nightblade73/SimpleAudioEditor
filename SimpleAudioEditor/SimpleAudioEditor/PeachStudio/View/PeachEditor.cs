@@ -106,32 +106,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void PeachEditor_FormClosed(object sender, FormClosedEventArgs e) {
-            //this.Parent.Show();
-            
-
-            if (project.isChanged)
-            {
-                DialogResult dialog = MessageBox.Show("Сохранить композицию перед закрытием?", "Сохранение перед закрытием", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-
-                if (dialog == DialogResult.Yes)
-                {
-                    WorkMethods.WorkMethods.CleanRAWFiles();
-                    WorkMethods.WorkMethods.Save(project);
-                    WorkMethods.WorkerXML.Serialize(project);
-                    MyMessageBox mmb = new MyMessageBox("Сохранено!", false);
-                    mmb.ShowDialog();
-                    Close();
-                }
-            }
-            else
-            {
-                Close();
-
-            }
-        }
+        }       
 
         private void panelSample_DragDrop(object sender, DragEventArgs e) {
             if (e.Data.GetDataPresent(DataFormats.FileDrop) && e.Effect == DragDropEffects.Move) {
@@ -181,6 +156,27 @@ namespace SimpleAudioEditor.PeachStudio.View {
             pathToPause = pauses[comboBox1.SelectedIndex];
         }
 
-
+        private void PeachEditor_FormClosing(object sender, FormClosingEventArgs e) {
+            if (project.isChanged) {
+                DialogResult dialog = MessageBox.Show("Сохранить композицию перед закрытием?", "Сохранение перед закрытием", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                switch (dialog) {
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                    case DialogResult.Yes: {
+                            WorkMethods.WorkMethods.CleanRAWFiles();
+                            WorkMethods.WorkMethods.Save(project);
+                            WorkMethods.WorkerXML.Serialize(project);
+                            MyMessageBox mmb = new MyMessageBox("Сохранено!", false);
+                            mmb.ShowDialog();
+                            Close();
+                            break;
+                        }
+                    case DialogResult.No: break;
+                }
+            } else {
+                Close();
+            }
+        }
     }
 }

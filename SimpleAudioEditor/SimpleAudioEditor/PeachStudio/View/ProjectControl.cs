@@ -79,7 +79,7 @@ namespace SimpleAudioEditor.PeachStudio
 
         public float ProjectPlayerVolume
         {
-            get { return projectPlayer.OutEvents.Volume; }
+            get { return projectPlayer != null ? projectPlayer.OutEvents.Volume : 0; }
             set { if(projectPlayer!=null) projectPlayer.OutEvents.Volume = value; }
         }
 
