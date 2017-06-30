@@ -34,7 +34,7 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
             }
             else
             {
-                sc.TrimWavFile(s.SoundPath, s.SamplePath, s.SplitStartTime, s.TotalTime- s.SplitEndTime);
+                sc.TrimWavFile(s.SoundPath, s.SamplePath, s.SplitStartTime, s.TotalTime - s.SplitEndTime);
             }
         }
 
@@ -49,26 +49,28 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
                 sample.SamplePath = sample.CreateSamplePath(project.GetProjectPath(), count);
                 try
                 {
-                    
                     CreateSampleFile(sample);
-
                 }
                 catch (Exception ex)
                 {
                     return "Не удалось создать файл-отрезок./n" + ex.ToString();
                 }
-                list.Add(SampleController.Resemple(sample.SamplePath, project.GetProjectPath() + "\\" + "result.mp3"));
-                //SampleController.Combine(sample.SamplePath, path + "\\" + "result.wav");
+                //  list.Add(SampleController.Resemple(sample.SamplePath, project.path + "\\" + "result.mp3"));
+                SampleController.Converter(sample.SamplePath);
+                list.Add(SampleController.Resemple(sample.SamplePath, "cut" + count + ".wav"));
                 count++;
             }
-            SampleController.Concatenate(list, project.GetProjectPath() + "\\" + "result.mp3");
+            SampleController.Concatenate(list, project.GetProjectPath() + "\\" + "result.wav");
+            SampleController.Converter(project.GetProjectPath() + "\\" + "result.wav");
+            File.Delete(project.GetProjectPath() + "\\" + "result.wav");
             project.isChanged = false;
             return "Сохранено";
         }
 
         public static void DeleteOldDirectory(Project project)
         {
-            try {
+            try
+            {
                 Directory.Delete(project.GetProjectPath(), true);
             }
             catch (Exception ex)

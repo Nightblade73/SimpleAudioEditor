@@ -1,4 +1,5 @@
 ﻿using SimpleAudioEditor.Controller.WaveController;
+using SimpleAudioEditor.PeachStudio.WorkMethods;
 using System;
 using System.Collections.Generic;
 using System.IO;

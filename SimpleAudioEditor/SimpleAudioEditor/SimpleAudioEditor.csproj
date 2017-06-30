@@ -109,7 +109,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="OldFiles\Controller\WaveController\RawDataReader.cs" />
-    <Compile Include="OldFiles\Controller\WaveController\SampleController.cs" />
     <Compile Include="PeachStudio\FileValidator.cs" />
     <Compile Include="PeachStudio\Mathf.cs" />
     <Compile Include="PeachStudio\View\IntroForm.cs">

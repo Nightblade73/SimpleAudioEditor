@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace SimpleAudioEditor.PeachStudio {
     public class SamplePlayer {
-        Mp3FileReader fileReader;
+        AudioFileReader fileReader;
         WaveOutEvent player;
         Timer timer;
 
@@ -31,7 +31,7 @@ namespace SimpleAudioEditor.PeachStudio {
         public SamplePlayer(string _filePath)
         {
             
-            fileReader = new Mp3FileReader(_filePath);
+            fileReader = new AudioFileReader(_filePath);
             player = new WaveOutEvent();
             player.Init(fileReader);
             timer = new Timer();

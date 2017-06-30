@@ -19,7 +19,7 @@ namespace SimpleAudioEditor.PeachStudio
         private TimeSpan splitStartTime;
         private TimeSpan splitEndTime;
         private TimeSpan currentTime;
-        private TimeSpan totalTime;        
+        private TimeSpan totalTime;
         private ISampleSource mDrawSource;
         private float[] optimizedArray;
         private string samplePath;
@@ -105,7 +105,7 @@ namespace SimpleAudioEditor.PeachStudio
         {
             String newSamplePath = projectPath + "\\" + Path.GetFileName(this.SoundPath);
             newSamplePath = newSamplePath.Replace(".wav", "_" + order + ".wav");
-            newSamplePath = newSamplePath.Replace(".mp3", "_" + order + ".mp3");
+            newSamplePath = newSamplePath.Replace(".mp3", "_" + order + ".wav");
             return newSamplePath;
         }
 
