@@ -53,7 +53,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e) {
-
+            projectControl.ProjectPlayerVolume = trackBar1.Value * 0.01f;
         }
 
         private void buttonAddSample_Click(object sender, EventArgs e) {
@@ -86,6 +86,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
 
         private void PeachEditor_Load(object sender, EventArgs e) {
             trackBar1.BackColor = Color.FromArgb(43, 43, 43);
+            projectControl.ProjectPlayerVolume = trackBar1.Value * 0.01f;
 
             try {
                 getPauses();
