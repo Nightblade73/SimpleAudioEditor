@@ -23,6 +23,8 @@ namespace SimpleAudioEditor.PeachStudio
         private ISampleSource mDrawSource;
         private float[] optimizedArray;
         private string samplePath;
+        private MemoryStream pause;
+
         [DataMember]
         public string SamplePath
         {
@@ -58,7 +60,7 @@ namespace SimpleAudioEditor.PeachStudio
             totalTime = a.TotalTime;
             splitStartTime = new TimeSpan();
             splitEndTime = totalTime;
-        }
+        }        
 
         private void CreateDrawSourceAndArray()
         {

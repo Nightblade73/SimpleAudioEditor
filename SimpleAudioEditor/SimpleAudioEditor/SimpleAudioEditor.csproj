@@ -258,7 +258,25 @@
     <Content Include="libmp3lame.64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\sec7.wav" />
+    <None Include="Resources\sec51.wav" />
+    <None Include="Resources\sec5.wav" />
+    <None Include="Resources\vinil2.wav" />
+    <None Include="Resources\vinil.wav" />
+    <None Include="Resources\wind.wav" />
     <None Include="Resources\icons8-Peach-24 - marker.png" />
+    <None Include="Resources\Pauses\Аэрофлот.wav" />
+    <None Include="Resources\Pauses\Звук бренда bmw.wav" />
+    <None Include="Resources\Pauses\Звук ветра.wav" />
+    <None Include="Resources\Pauses\Звук виниловой пластинки.wav" />
+    <None Include="Resources\Pauses\Звук зажёваной пластинки.wav" />
+    <None Include="Resources\Pauses\Звук колокольчиков.wav" />
+    <None Include="Resources\Pauses\Пауза 5 секунд %281%29.wav" />
+    <None Include="Resources\Pauses\Пауза 5 секунд.wav" />
+    <None Include="Resources\Pauses\Пауза 7 секунд.wav" />
+    <None Include="Resources\kolokol.wav" />
+    <None Include="Resources\bmw.wav" />
+    <None Include="Resources\Aero.wav" />
     <Content Include="Resources\pause_icon.png" />
     <None Include="Resources\stop_icon.png" />
     <None Include="Resources\play_icon.png" />

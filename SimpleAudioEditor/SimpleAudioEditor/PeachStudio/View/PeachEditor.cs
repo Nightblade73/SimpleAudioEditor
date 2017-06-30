@@ -8,11 +8,11 @@ namespace SimpleAudioEditor.PeachStudio.View {
     public partial class PeachEditor : Form {
         List<SampleControl> sampleControls;
         public Project project;
-        string pathToPause;
+        string pathToPause = "";
         int verticalDistanceBeetwenControls = 5;
         int verticalControlsPosition = 0;
-        string[] pauses;
-        
+        private List<string> pauses;
+
 
         public PeachEditor(Project _project) {
             project = _project;
@@ -47,17 +47,42 @@ namespace SimpleAudioEditor.PeachStudio.View {
         }
 
         private void getPauses() {
+
+            //System.Resources.ResourceManager RM = new System.Resources.ResourceManager("SimpleAudioEditor.Properties.Resources", typeof(Properties.Resources).Assembly);
+
+            //var file = (System.IO.MemoryStream)RM.GetObject("Aero");
+
             try {
-                string dir = Directory.GetCurrentDirectory();
-                dir = dir.Replace("\\bin\\Debug", "") + "\\Resources\\Pauses";
-                pauses = Directory.GetFiles(dir);
+                pauses = new List<string>();
+                List<UnmanagedMemoryStream> pausesMS = new List<UnmanagedMemoryStream>();
+                pausesMS.Add(SimpleAudioEditor.Properties.Resources.Aero);
+                pausesMS.Add(SimpleAudioEditor.Properties.Resources.bmw);
+                pausesMS.Add(SimpleAudioEditor.Properties.Resources.kolokol);
+                pausesMS.Add(SimpleAudioEditor.Properties.Resources.sec5);
+                pausesMS.Add(SimpleAudioEditor.Properties.Resources.sec51);
+                pausesMS.Add(SimpleAudioEditor.Properties.Resources.sec7);
+                pausesMS.Add(SimpleAudioEditor.Properties.Resources.vinil);
+                pausesMS.Add(SimpleAudioEditor.Properties.Resources.vinil2);
+                pausesMS.Add(SimpleAudioEditor.Properties.Resources.wind);
 
-                for (int i = 0; i < pauses.Length; i++) {
-                    string st = pauses[i];
-                    string[] temp = st.Split('\\');
+                int counter = 0;
 
-                    comboBox1.Items.Add(temp[temp.Length - 1]);
+                foreach(UnmanagedMemoryStream i in pausesMS) {
+                    string path = "pause" + counter + ".wav";
+
+                    using (FileStream file = new FileStream(path, FileMode.Create, System.IO.FileAccess.Write)) {
+                        byte[] bytes = new byte[i.Length];
+                        i.Read(bytes, 0, (int)i.Length);
+                        file.Write(bytes, 0, bytes.Length);
+                        i.Close();
+                    }
+                    
+                    counter++;
+
+                    comboBox1.Items.Add(path);
+                    pauses.Add(path);
                 }
+
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message);
             }
@@ -136,6 +161,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
         }
 
         private void buttonAddPause_Click(object sender, EventArgs e) {
+            pathToPause = pauses[comboBox1.SelectedIndex].ToString();
             AddPause(pathToPause);
         }
 
@@ -154,7 +180,8 @@ namespace SimpleAudioEditor.PeachStudio.View {
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
-            pathToPause = pauses[comboBox1.SelectedIndex];
+           pathToPause = pauses[comboBox1.SelectedIndex].ToString();
+
         }
 
         private void PeachEditor_FormClosing(object sender, FormClosingEventArgs e) {
