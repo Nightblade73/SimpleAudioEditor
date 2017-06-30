@@ -83,6 +83,10 @@ namespace SimpleAudioEditor.PeachStudio
             set { if(projectPlayer!=null) projectPlayer.OutEvents.Volume = value; }
         }
 
+        public void ProjectPlayerStop() {
+            projectPlayer.Stop();
+        }
+
         private void pbWaveViewer_Paint(object sender, PaintEventArgs e)
         {
             int penSize = 1;

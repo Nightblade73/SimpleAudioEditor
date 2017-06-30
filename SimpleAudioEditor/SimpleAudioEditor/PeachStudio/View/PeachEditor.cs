@@ -18,8 +18,6 @@ namespace SimpleAudioEditor.PeachStudio.View {
             project = _project;
                    
             InitializeComponent();
-              
-
 
             projectControl.ChangeCurrentProject(project);
             panelSample.HorizontalScroll.Enabled = false;
@@ -35,6 +33,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
             project = new Project();
 
             InitializeComponent();
+
             projectControl.ChangeCurrentProject(project);
             panelSample.HorizontalScroll.Enabled = false;
             panelSample.HorizontalScroll.Visible = false;
@@ -97,6 +96,8 @@ namespace SimpleAudioEditor.PeachStudio.View {
         }
 
         private void PeachEditor_Load(object sender, EventArgs e) {
+            this.Text = project.title;
+
             trackBar1.BackColor = Color.FromArgb(43, 43, 43);
             projectControl.ProjectPlayerVolume = trackBar1.Value * 0.01f;
 
@@ -169,13 +170,21 @@ namespace SimpleAudioEditor.PeachStudio.View {
                             WorkMethods.WorkerXML.Serialize(project);
                             MyMessageBox mmb = new MyMessageBox("Сохранено!", false);
                             mmb.ShowDialog();
+                            stopAllContolls();
                             Close();
                             break;
                         }
                     case DialogResult.No: break;
                 }
             } else {
-                Close();
+                stopAllContolls();
+            }
+        }
+
+        private void stopAllContolls() {
+            projectControl.ProjectPlayerStop();
+            foreach (var s in sampleControls) {
+                s.GetSamplePlayer.Stop();
             }
         }
     }
