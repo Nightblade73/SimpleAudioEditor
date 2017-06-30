@@ -76,7 +76,10 @@ namespace SimpleAudioEditor.PeachStudio
 
         }
 
-        public void SplitAll() { }
+        public float ProjectPlayerVolume {
+            get { return projectPlayer.OutEvents.Volume; }
+            set { projectPlayer.OutEvents.Volume = value; }
+        }
 
         private void pbWaveViewer_Paint(object sender, PaintEventArgs e)
         {
@@ -186,8 +189,7 @@ namespace SimpleAudioEditor.PeachStudio
             pbWaveViewer.MouseUp -= pbWaveViewer_MouseUp_MovingMarker;
             currentTime = Mathf.PosToTime(markerPoint.X, PlayerLineWidth, outputFileTime);
             projectPlayer.CurrentTime = currentTime;
-            projectPlayer.Pause();
-            projectPlayer.Playing = false;
+
             if (markerPoint.X >= Mathf.TimeToPos(GetAllTotalTime(), outputFileTime, PlayerLineWidth))
             {
                 projectPlayer.Stop();
@@ -522,7 +524,7 @@ namespace SimpleAudioEditor.PeachStudio
 
         protected void outEvents_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
         {
-            if (projectPlayer.CurrentTime >= GetAllTotalTime() || projectPlayer.CurrentTime == new TimeSpan())
+            if (projectPlayer.CurrentTime >= GetAllTotalTime())// || projectPlayer.CurrentTime == new TimeSpan())
             {
                 bPlayPause.AccessibleName = "started";
                 //       bPlayPause.Text = ">";
