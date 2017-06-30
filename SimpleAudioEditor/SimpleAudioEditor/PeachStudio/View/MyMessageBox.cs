@@ -37,5 +37,11 @@ namespace SimpleAudioEditor.PeachStudio.View
             DialogResult = DialogResult.Cancel;
             Close();
         }
+
+        private void MyMessageBox_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DialogResult = DialogResult.Abort;
+            Close();
+        }
     }
 }
