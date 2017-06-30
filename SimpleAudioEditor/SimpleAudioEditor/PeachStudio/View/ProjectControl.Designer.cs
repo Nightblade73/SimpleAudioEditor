@@ -46,7 +46,7 @@
             // 
             this.pbWaveViewer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbWaveViewer.BackColor = System.Drawing.Color.FromArgb(150, 150, 150, 150);
+            this.pbWaveViewer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.pbWaveViewer.Location = new System.Drawing.Point(40, 0);
             this.pbWaveViewer.Name = "pbWaveViewer";
             this.pbWaveViewer.Size = new System.Drawing.Size(618, 80);
@@ -59,12 +59,12 @@
             // bDelete
             // 
             this.bDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bDelete.BackColor = System.Drawing.Color.DarkOrange;
+            this.bDelete.BackColor = System.Drawing.Color.DarkRed;
             this.bDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.bDelete.CausesValidation = false;
             this.bDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bDelete.Image = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48_Delete;
+            this.bDelete.Image = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48;
             this.bDelete.Location = new System.Drawing.Point(658, 40);
             this.bDelete.Name = "bDelete";
             this.bDelete.Size = new System.Drawing.Size(40, 40);
@@ -75,11 +75,11 @@
             // bSave
             // 
             this.bSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bSave.BackColor = System.Drawing.Color.DarkOrange;
+            this.bSave.BackColor = System.Drawing.Color.LimeGreen;
             this.bSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.bSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bSave.Image = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48_OK;
+            this.bSave.Image = global::SimpleAudioEditor.Properties.Resources.icons8_Peach_48;
             this.bSave.Location = new System.Drawing.Point(658, 0);
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(40, 40);
