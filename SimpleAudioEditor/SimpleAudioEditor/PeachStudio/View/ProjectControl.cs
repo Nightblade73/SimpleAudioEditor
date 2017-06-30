@@ -80,7 +80,7 @@ namespace SimpleAudioEditor.PeachStudio
         public float ProjectPlayerVolume
         {
             get { return projectPlayer.OutEvents.Volume; }
-            set { projectPlayer.OutEvents.Volume = value; }
+            set { if(projectPlayer!=null) projectPlayer.OutEvents.Volume = value; }
         }
 
         private void pbWaveViewer_Paint(object sender, PaintEventArgs e)

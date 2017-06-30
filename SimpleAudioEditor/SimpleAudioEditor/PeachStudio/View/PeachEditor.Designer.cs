@@ -43,10 +43,10 @@
             // trackBar1
             // 
             this.trackBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.trackBar1.Location = new System.Drawing.Point(14, 133);
+            this.trackBar1.Location = new System.Drawing.Point(185, 98);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(165, 45);
+            this.trackBar1.Size = new System.Drawing.Size(173, 45);
             this.trackBar1.TabIndex = 2;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar1.Value = 20;
@@ -59,13 +59,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelSample.AutoScroll = true;
-            this.panelSample.BackColor = System.Drawing.Color.Transparent;
+            this.panelSample.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.panelSample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSample.Controls.Add(this.panelSupport);
-            this.panelSample.Location = new System.Drawing.Point(12, 156);
+            this.panelSample.Location = new System.Drawing.Point(12, 127);
             this.panelSample.MinimumSize = new System.Drawing.Size(700, 302);
             this.panelSample.Name = "panelSample";
-            this.panelSample.Size = new System.Drawing.Size(700, 425);
+            this.panelSample.Size = new System.Drawing.Size(700, 454);
             this.panelSample.TabIndex = 3;
             this.panelSample.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panelSample_ControlAdded);
             this.panelSample.DragDrop += new System.Windows.Forms.DragEventHandler(this.panelSample_DragDrop);
@@ -94,6 +94,7 @@
             // 
             // buttonAddPause
             // 
+            this.buttonAddPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddPause.BackColor = System.Drawing.Color.DarkOrange;
             this.buttonAddPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddPause.Location = new System.Drawing.Point(577, 98);
@@ -106,10 +107,13 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.comboBox1.ForeColor = System.Drawing.Color.DarkOrange;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(393, 98);
+            this.comboBox1.Location = new System.Drawing.Point(364, 98);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(178, 21);
+            this.comboBox1.Size = new System.Drawing.Size(207, 21);
             this.comboBox1.TabIndex = 7;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -122,6 +126,7 @@
             this.projectControl.Location = new System.Drawing.Point(12, 12);
             this.projectControl.MinimumSize = new System.Drawing.Size(700, 80);
             this.projectControl.Name = "projectControl";
+            this.projectControl.ProjectPlayerVolume = 1F;
             this.projectControl.Size = new System.Drawing.Size(700, 80);
             this.projectControl.TabIndex = 5;
             // 

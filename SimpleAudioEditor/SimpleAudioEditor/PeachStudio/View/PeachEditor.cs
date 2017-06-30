@@ -32,6 +32,18 @@ namespace SimpleAudioEditor.PeachStudio.View {
             sampleControls = new List<SampleControl>();
         }
         public PeachEditor() {
+            project = new Project();
+
+            InitializeComponent();
+            projectControl.ChangeCurrentProject(project);
+            panelSample.HorizontalScroll.Enabled = false;
+            panelSample.HorizontalScroll.Visible = false;
+            panelSample.HorizontalScroll.Visible = false;
+            panelSample.HorizontalScroll.Maximum = 0;
+            panelSample.HorizontalScroll.LargeChange = 0;
+            panelSample.HorizontalScroll.SmallChange = 0;
+            panelSample.AutoScroll = true;
+            sampleControls = new List<SampleControl>();
 
         }
 
