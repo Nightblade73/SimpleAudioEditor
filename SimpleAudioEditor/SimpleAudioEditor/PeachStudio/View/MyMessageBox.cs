@@ -22,7 +22,10 @@ namespace SimpleAudioEditor.PeachStudio.View
                 butOK.Location = new Point(90, 83);
             }
         }
-
+        public Label GetLabel()
+        {
+            return labelMes;
+        }
         private void butOK_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;

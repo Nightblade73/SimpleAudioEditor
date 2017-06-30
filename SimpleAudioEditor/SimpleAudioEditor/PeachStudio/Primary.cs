@@ -20,7 +20,7 @@ namespace SimpleAudioEditor.Controller
             projects = new List<Project>();
             LoadProjects();
         }
-        private void LoadProjects()
+        public void LoadProjects()
         {
             Console.WriteLine("[DEBUG] LoadProjects call:  progPath: "+progPath);
             if (progPath != "nopath")
@@ -29,15 +29,8 @@ namespace SimpleAudioEditor.Controller
                 String[] folders = Directory.GetDirectories(progPath);
                 foreach (String folder in folders)
                 {
-                    String[] files = Directory.GetFiles(folder);
-                    foreach(String file in files)
-                    {
-                        if(Path.GetFileName(file) == "PeachStudioConfig.xml")
-                        {
-                            projects.Add(Project.CreateTempProject(folder));
-                            break;
-                        }
-                    }
+                    projects.Add(Project.CreateTempProject(folder));
+                    
                 }
             }
         }

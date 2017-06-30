@@ -56,13 +56,40 @@ namespace SimpleAudioEditor
         private void btnExistingProject_Click(object sender, EventArgs e)
         {
             ProjectButton p = sender as ProjectButton;
-            Project needP = WorkerXML.Deserialize(p.pr.GetProjectPath());
-            PeachEditor pe = new PeachEditor(needP);
-            this.Hide();
-            pe.ShowDialog();
-            primary = new Primary();
-            DrawFolders();
-            this.Show();
+            String[] files = Directory.GetFiles(p.pr.projectPath);
+            foreach (String file in files)
+            {
+                if (Path.GetFileName(file) == "PeachStudioConfig.xml")
+                {
+                    Project needP = WorkerXML.Deserialize(p.pr.GetProjectPath());
+                    PeachEditor pe = new PeachEditor(needP);
+                    this.Hide();
+                    pe.ShowDialog();
+                    primary.LoadProjects();
+                    DrawFolders();
+                    this.Show();
+                    return;
+                }
+            }
+            MyMessageBox mb = new MyMessageBox("Выбранный проект имеет неправильный формат.\nСоздать новый или удалить папку?", true);
+            Label lab = mb.GetLabel();
+            lab.Font = new Font(lab.Font.FontFamily, (float)10.0);
+            DialogResult res = mb.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                PeachEditor pe = new PeachEditor(Project.CreateTempProject(p.pr.projectPath));
+                this.Hide();
+                pe.ShowDialog();
+                primary.LoadProjects();
+                DrawFolders();
+                this.Show();
+                return;
+            } else if(res == DialogResult.Cancel)
+            {
+                Directory.Delete(p.pr.projectPath, true);
+                primary.LoadProjects();
+                DrawFolders();
+            }
         }
         private void btnChoosePath_Click(object sender, EventArgs e)
         {
