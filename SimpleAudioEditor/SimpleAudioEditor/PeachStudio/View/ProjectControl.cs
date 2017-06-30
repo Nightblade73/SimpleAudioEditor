@@ -28,7 +28,7 @@ namespace SimpleAudioEditor.PeachStudio
         int OffsetX;
         TimeSpan currentTime;
 
-        TimeSpan outputFileTime = TimeSpan.FromMinutes(5);        
+        TimeSpan outputFileTime = TimeSpan.FromMinutes(5);
 
         private int TimePerPoint(TimeSpan time)
         {
@@ -62,7 +62,8 @@ namespace SimpleAudioEditor.PeachStudio
             pbWaveViewer.Invalidate();
         }
 
-        public void ChangeCurrentProject(Project newProject) {
+        public void ChangeCurrentProject(Project newProject)
+        {
             project = newProject;
         }
 
@@ -76,7 +77,8 @@ namespace SimpleAudioEditor.PeachStudio
 
         }
 
-        public float ProjectPlayerVolume {
+        public float ProjectPlayerVolume
+        {
             get { return projectPlayer.OutEvents.Volume; }
             set { projectPlayer.OutEvents.Volume = value; }
         }
@@ -85,7 +87,7 @@ namespace SimpleAudioEditor.PeachStudio
         {
             int penSize = 1;
             Pen grayPen = new Pen(Color.Gray, penSize);
-            Pen drawWaveSplitPen = new Pen(Color.DarkOrange,penSize);
+            Pen drawWaveSplitPen = new Pen(Color.DarkOrange, penSize);
             Pen drawWaveBackPen = new Pen(Color.Firebrick, penSize);
 
 
@@ -123,9 +125,9 @@ namespace SimpleAudioEditor.PeachStudio
                 //    new Point(Mathf.TimeToPos(timea, outputFileTime, PlayerLineWidth), startPos.Y),
                 //    new Point(Mathf.TimeToPos(timea + splitTime, outputFileTime, PlayerLineWidth), startPos.Y));
 
-               canvas.DrawLine(new Pen(Color.DarkGreen, 1),
-               new Point(Mathf.TimeToPos(timea + splitTime, outputFileTime, PlayerLineWidth), 0),
-               new Point(Mathf.TimeToPos(timea + splitTime, outputFileTime, PlayerLineWidth), pbWaveViewer.Height));
+                canvas.DrawLine(new Pen(Color.DarkGreen, 1),
+                new Point(Mathf.TimeToPos(timea + splitTime, outputFileTime, PlayerLineWidth), 0),
+                new Point(Mathf.TimeToPos(timea + splitTime, outputFileTime, PlayerLineWidth), pbWaveViewer.Height));
                 canvas.DrawLine(new Pen(Color.DarkGreen, 1),
                new Point(Mathf.TimeToPos(timea, outputFileTime, PlayerLineWidth), 0),
                new Point(Mathf.TimeToPos(timea, outputFileTime, PlayerLineWidth), pbWaveViewer.Height));
@@ -136,7 +138,7 @@ namespace SimpleAudioEditor.PeachStudio
             }
             canvas.DrawLine(grayPen, startPos, endPos);
 
-            Pen cursorPen = new Pen(Color.Black, 4);
+            Pen cursorPen = new Pen(Color.DarkGreen, 4);
             //Рисуем маркер
             canvas.DrawLine(cursorPen, startPos, new Point(markerPoint.X, startPos.Y));
 
@@ -147,7 +149,7 @@ namespace SimpleAudioEditor.PeachStudio
             //    new Point(markerPoint.X,startPos.Y)});
         }
 
-        
+
 
         private void ProjectControl_Load(object sender, EventArgs e)
         {
@@ -156,7 +158,7 @@ namespace SimpleAudioEditor.PeachStudio
             pbWaveViewer.MouseDown += pbWaveViewer_MouseDown;
             pbWaveViewer.DragEnter += pbWaveViewer_DragEnter;
             pbWaveViewer.DragDrop += pbWaveViewer_DragDrop;
-            
+
             UpdatePointPos();
 
             (pbWaveViewer as Control).AllowDrop = true;
@@ -164,7 +166,7 @@ namespace SimpleAudioEditor.PeachStudio
             projectPlayer = new ProjectPlayer(project.GetSampleList());
             projectPlayer.Timer.Tick += Timer_Tick;
             projectPlayer.OutEvents.PlaybackStopped += outEvents_PlaybackStopped;
-            maskedTextBoxCurrentTime.Text = ""+currentTime;
+            maskedTextBoxCurrentTime.Text = "" + currentTime;
             pbWaveViewer.Invalidate();
         }
 
@@ -489,7 +491,7 @@ namespace SimpleAudioEditor.PeachStudio
             int newIndex = GetNewIndex((pt1));
             if (MovingSegment != newIndex && project.GetSampleList().Count > 0)
             {
-                 //newIndex = Mathf.Clamp(newIndex, 0, project.GetSampleList().Count);
+                //newIndex = Mathf.Clamp(newIndex, 0, project.GetSampleList().Count);
                 // MessageBox.Show(""+newIndex);
                 Sample s = project.GetSampleList()[MovingSegment];
                 project.GetSampleList().Remove(s);
@@ -562,17 +564,33 @@ namespace SimpleAudioEditor.PeachStudio
 
         private void bSave_Click(object sender, EventArgs e)
         {
-            WorkMethods.WorkMethods.Save(project);
-            WorkMethods.WorkerXML.Serialize(project);
-            MyMessageBox mmb = new MyMessageBox("Сохранено!", false);
+            string s;
+            MyMessageBox mmb = new MyMessageBox("Уверены, что хотите сохранить изменения?", true);
             mmb.ShowDialog();
+            if (mmb.DialogResult == DialogResult.OK)
+            {
+                s = WorkMethods.WorkMethods.Save(project);
+                if (!s.Equals("Сохранено"))
+                {
+                    mmb = new MyMessageBox("Сохранено!", false);
+                    mmb.ShowDialog();
+                    return;
+                }
+                s = WorkMethods.WorkerXML.Serialize(project);
+                mmb = new MyMessageBox("Сохранено!", false);
+                mmb.ShowDialog();
+            }
+            
+
+
+
         }
 
         private void bDelete_Click(object sender, EventArgs e)
         {
-            MyMessageBox mmb = new MyMessageBox("Уверены, что хотите удалить наработки?", true);
+            MyMessageBox mmb = new MyMessageBox("Уверены, что хотите обнулить результат?", true);
             mmb.ShowDialog();
-            if(mmb.DialogResult == DialogResult.OK)
+            if (mmb.DialogResult == DialogResult.OK)
             {
                 project.samples = new List<Sample>();
                 pbWaveViewer.Invalidate();
@@ -603,7 +621,7 @@ namespace SimpleAudioEditor.PeachStudio
 
                 if (project.GetSampleList().Count > 0)
                 {
-                    bool plaing = projectPlayer.Playing;    
+                    bool plaing = projectPlayer.Playing;
                     projectPlayer.CurrentTime = currentTime;
                     if (plaing == false)
                         projectPlayer.Stop();

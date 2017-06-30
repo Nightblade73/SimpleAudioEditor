@@ -62,7 +62,7 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
                 count++;
             }
             SampleController.Concatenate(list, project.GetProjectPath() + "\\" + "result.mp3");
-
+            project.isChanged = false;
             return "Сохранено";
         }
 

@@ -29,9 +29,9 @@ namespace SimpleAudioEditor.PeachStudio.WorkMethods
             }
             catch (Exception ex)
             {
-                return "не сериализовал настройки./n" + ex.ToString();
+                return "не сохранил настройки в PeachStudioConfig.xml./n" + ex.ToString();
             }
-            return "Все ок";
+            return "Сохранено";
         }
 
         public static Project Deserialize(string path)
