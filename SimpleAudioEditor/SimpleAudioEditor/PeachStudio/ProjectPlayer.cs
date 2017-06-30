@@ -246,6 +246,8 @@ namespace SimpleAudioEditor.PeachStudio
 
         public void Pause()
         {
+            timer.Stop();
+            play = false;
             outEvents.Pause();
         }
         public void Stop()
