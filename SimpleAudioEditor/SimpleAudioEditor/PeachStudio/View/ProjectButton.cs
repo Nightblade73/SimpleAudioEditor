@@ -23,6 +23,7 @@ namespace SimpleAudioEditor.View
             this.Height = 100;
             this.Width = 100;
             this.FlatStyle = FlatStyle.Flat;
+            this.FlatAppearance.MouseOverBackColor = Color.FromArgb(17, 255, 255, 255);
             this.FlatAppearance.BorderSize = 0;
             this.ForeColor = Color.White;
             this.Font = new Font(this.Font, FontStyle.Bold);
