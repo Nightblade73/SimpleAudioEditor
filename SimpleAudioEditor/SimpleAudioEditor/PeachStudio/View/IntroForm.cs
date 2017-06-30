@@ -38,7 +38,7 @@ namespace SimpleAudioEditor
                 labelProjectsPath.Text = "Путь с проектами:  " + primary.progPath;
                 DrawFolders();
             }
-        }        
+        }   
 
         private void btnNewProject_Click(object sender, EventArgs e)
         {
@@ -74,7 +74,8 @@ namespace SimpleAudioEditor
             MyMessageBox mb = new MyMessageBox("Выбранный проект имеет неправильный формат.\nСоздать новый или удалить папку?", true);
             Label lab = mb.GetLabel();
             lab.Font = new Font(lab.Font.FontFamily, (float)10.0);
-            DialogResult res = mb.ShowDialog();
+            mb.ShowDialog();
+            DialogResult res = mb.reason;
             if (res == DialogResult.OK)
             {
                 PeachEditor pe = new PeachEditor(Project.CreateTempProject(p.pr.projectPath));

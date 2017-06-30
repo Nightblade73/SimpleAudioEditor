@@ -12,6 +12,7 @@ namespace SimpleAudioEditor.PeachStudio.View
 {
     public partial class MyMessageBox : Form
     {
+        public DialogResult reason = DialogResult.Abort;
         public MyMessageBox(string message, bool isQuestion)
         {
             InitializeComponent();
@@ -28,19 +29,15 @@ namespace SimpleAudioEditor.PeachStudio.View
         }
         private void butOK_Click(object sender, EventArgs e)
         {
+            reason = DialogResult.OK;
             DialogResult = DialogResult.OK;
             Close();
         }
 
         private void butCancle_Click(object sender, EventArgs e)
         {
+            reason = DialogResult.Cancel;
             DialogResult = DialogResult.Cancel;
-            Close();
-        }
-
-        private void MyMessageBox_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            DialogResult = DialogResult.Abort;
             Close();
         }
     }
