@@ -21,7 +21,7 @@ namespace SimpleAudioEditor.PeachStudio.View
         public LatestSample(String file)
         {
             this.file = file;
-            //player = new SamplePlayer(Sample.CreateSample(file).SoundPath);
+            //player = new SamplePlayer(file);
             InitializeComponent();
             String text = Path.GetFileName(file);
             //text = text.Substring(0, Math.Min(text.Length, 20));

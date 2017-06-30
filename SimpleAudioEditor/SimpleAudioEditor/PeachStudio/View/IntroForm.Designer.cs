@@ -34,10 +34,7 @@
             this.btnChoosePath = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.panelSamples = new System.Windows.Forms.Panel();
-            this.btnPlaySample = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button13 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.layoutProjects = new System.Windows.Forms.FlowLayoutPanel();
             this.btnNewProject = new System.Windows.Forms.Button();
             this.groupBox_Divider = new System.Windows.Forms.GroupBox();
@@ -51,7 +48,6 @@
             this.panelProjectPath = new System.Windows.Forms.Panel();
             this.panelPath.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).BeginInit();
-            this.panelSamples.SuspendLayout();
             this.layoutProjects.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -104,64 +100,22 @@
             // 
             // panelSamples
             // 
-            this.panelSamples.Controls.Add(this.btnPlaySample);
-            this.panelSamples.Controls.Add(this.label1);
-            this.panelSamples.Controls.Add(this.button13);
-            this.panelSamples.Controls.Add(this.label2);
             this.panelSamples.Enabled = false;
-            this.panelSamples.Location = new System.Drawing.Point(498, 38);
+            this.panelSamples.Location = new System.Drawing.Point(498, 60);
             this.panelSamples.Name = "panelSamples";
-            this.panelSamples.Size = new System.Drawing.Size(214, 75);
+            this.panelSamples.Size = new System.Drawing.Size(214, 69);
             this.panelSamples.TabIndex = 15;
-            // 
-            // btnPlaySample
-            // 
-            this.btnPlaySample.AccessibleName = "stop";
-            this.btnPlaySample.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.btnPlaySample.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Play_26;
-            this.btnPlaySample.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPlaySample.FlatAppearance.BorderSize = 0;
-            this.btnPlaySample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPlaySample.Location = new System.Drawing.Point(185, 38);
-            this.btnPlaySample.Name = "btnPlaySample";
-            this.btnPlaySample.Size = new System.Drawing.Size(24, 24);
-            this.btnPlaySample.TabIndex = 7;
-            this.btnPlaySample.UseVisualStyleBackColor = false;
-            this.btnPlaySample.Click += new System.EventHandler(this.btnPlaySample_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.Orange;
-            this.label1.Location = new System.Drawing.Point(27, 8);
+            this.label1.Location = new System.Drawing.Point(528, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(143, 17);
             this.label1.TabIndex = 5;
             this.label1.Text = "Прошлые сэмплы:";
-            // 
-            // button13
-            // 
-            this.button13.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.button13.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.icons8_Audio_Wave_26;
-            this.button13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button13.FlatAppearance.BorderSize = 0;
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.Location = new System.Drawing.Point(8, 38);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(24, 22);
-            this.button13.TabIndex = 0;
-            this.button13.UseVisualStyleBackColor = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ScrollBar;
-            this.label2.Location = new System.Drawing.Point(37, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Название сэмпла | Вечера";
             // 
             // layoutProjects
             // 
@@ -305,6 +259,7 @@
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.BackgroundImage = global::SimpleAudioEditor.Properties.Resources.intro_pattern;
             this.ClientSize = new System.Drawing.Size(724, 441);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelPath);
             this.Controls.Add(this.groupBox1);
@@ -322,8 +277,6 @@
             this.panelPath.ResumeLayout(false);
             this.panelPath.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureboxWarning)).EndInit();
-            this.panelSamples.ResumeLayout(false);
-            this.panelSamples.PerformLayout();
             this.layoutProjects.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -331,6 +284,7 @@
             this.panelProjectPath.ResumeLayout(false);
             this.panelProjectPath.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -341,10 +295,7 @@
         private System.Windows.Forms.Button btnChoosePath;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panelSamples;
-        private System.Windows.Forms.Button btnPlaySample;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FlowLayoutPanel layoutProjects;
         private System.Windows.Forms.Button btnNewProject;
         private System.Windows.Forms.GroupBox groupBox_Divider;

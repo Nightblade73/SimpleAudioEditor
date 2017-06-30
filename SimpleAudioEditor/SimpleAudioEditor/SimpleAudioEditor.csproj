@@ -147,6 +147,12 @@
     <Compile Include="PeachStudio\View\PeachEditor.Designer.cs">
       <DependentUpon>PeachEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="PeachStudio\View\LatestSample.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PeachStudio\View\LatestSample.Designer.cs">
+      <DependentUpon>LatestSample.cs</DependentUpon>
+    </Compile>
     <Compile Include="PeachStudio\WorkMethods\SampleController.cs" />
     <Compile Include="PeachStudio\WorkMethods\WorkerXML.cs" />
     <Compile Include="PeachStudio\WorkMethods\WorkMethods.cs" />
@@ -184,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PeachStudio\View\PeachEditor.resx">
       <DependentUpon>PeachEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeachStudio\View\LatestSample.resx">
+      <DependentUpon>LatestSample.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

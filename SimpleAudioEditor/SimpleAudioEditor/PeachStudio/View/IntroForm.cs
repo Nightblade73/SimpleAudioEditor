@@ -125,6 +125,36 @@ namespace SimpleAudioEditor
                     layoutProjects.Controls.Add(btn);
                     layoutProjects.Refresh();
                 }
+                LoadLatestSamples();
+            }
+            
+        }
+        private void LoadLatestSamples()
+        {
+            int padding = 0;
+            int limit = 10;
+            if(primary.projects.Count > 0)
+            {
+                foreach (Project p in primary.projects)
+                {
+                    String[] files = Directory.GetFiles(p.projectPath);
+                    foreach(String file in files)
+                    {
+                        if(file.EndsWith(".mp3") && Path.GetFileName(file) != "result.mp3")
+                        {
+                            LatestSample lamp = new LatestSample(file);
+                            Console.WriteLine(lamp.file);
+                            lamp.Location = new Point(0, padding);
+                            panelSamples.Height += 30;
+                            padding += 30;
+                            panelSamples.Controls.Add(lamp);
+                            if(limit-- < 1)
+                            {
+                                return;
+                            }
+                        }
+                    }
+                }
             }
         }
 
