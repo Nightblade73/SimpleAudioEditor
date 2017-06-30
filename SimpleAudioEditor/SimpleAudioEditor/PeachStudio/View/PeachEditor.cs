@@ -96,7 +96,7 @@ namespace SimpleAudioEditor.PeachStudio.View {
         }
 
         private void PeachEditor_Load(object sender, EventArgs e) {
-            this.Text = project.title;
+            this.Text = "PeachStudio: " + project.title;
 
             trackBar1.BackColor = Color.FromArgb(43, 43, 43);
             projectControl.ProjectPlayerVolume = trackBar1.Value * 0.01f;
