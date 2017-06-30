@@ -583,6 +583,7 @@ namespace SimpleAudioEditor.PeachStudio
         private void bStop_Click(object sender, EventArgs e)
         {
             projectPlayer.Stop();
+            bPlayPause.BackgroundImage = Properties.Resources.play_icon;
             bPlayPause.AccessibleName = "started";
             currentTime = new TimeSpan();
             markerPoint = new Point(Mathf.TimeToPos(currentTime, outputFileTime, PlayerLineWidth), markerPoint.Y);

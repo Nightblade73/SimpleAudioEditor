@@ -146,6 +146,7 @@ namespace SimpleAudioEditor.PeachStudio
         private void buttonStop_Click(object sender, EventArgs e)
         {
             samplePlayer.Stop();
+            buttonPlay.BackgroundImage = Properties.Resources.play_icon;
             samplePlayer.CurrentTime = sample.SplitStartTime;
             buttonPlay.AccessibleName = "started";
             UpdatePointPos();
