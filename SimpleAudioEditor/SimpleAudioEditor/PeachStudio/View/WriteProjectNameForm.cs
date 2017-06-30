@@ -32,6 +32,10 @@ namespace SimpleAudioEditor.View
             {
                 t.Show("Имя проекта не может быть пустым или содержать символы:\n . * / \\ : < > ? | \" @ # $ % ^ &", tBName);  //какие ещё символы?
             }
+            else if (Directory.Exists(new Primary().GetProgrammPath() + "\\" + tBName.Text))
+            {
+                t.Show("Папка с таким именем уже существует", tBName);
+            }
             else
             {
                 this.DialogResult = DialogResult.OK;
@@ -47,7 +51,7 @@ namespace SimpleAudioEditor.View
 
         private void tBName_KeyUp(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 setTitle();
             }
