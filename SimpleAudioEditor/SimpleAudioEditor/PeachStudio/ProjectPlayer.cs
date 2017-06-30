@@ -170,7 +170,7 @@ namespace SimpleAudioEditor.PeachStudio
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (setTime && outEvents.PlaybackState == PlaybackState.Playing)
+            if (setTime)
             {
                 plaingSample = TimeToSegment();
                 fileReader = new Mp3FileReader(listSample[plaingSample].SoundPath);
@@ -183,13 +183,8 @@ namespace SimpleAudioEditor.PeachStudio
             }
             else
             {
-                if (setTime && (outEvents.PlaybackState == PlaybackState.Paused || outEvents.PlaybackState == PlaybackState.Stopped)) {
-                    fileReader.CurrentTime = currentTime - SumBackToSegment(plaingSample) + listSample[plaingSample].SplitStartTime;
-                    currentTime = SumBackToSegment(plaingSample) + fileReader.CurrentTime - listSample[plaingSample].SplitStartTime;
-                    setTime = false;
-                } else {
-                    currentTime = SumBackToSegment(plaingSample) + fileReader.CurrentTime - listSample[plaingSample].SplitStartTime;
-                }
+
+                currentTime = SumBackToSegment(plaingSample) + fileReader.CurrentTime - listSample[plaingSample].SplitStartTime;
             }
             if (currentTime >= GetAllTotalTime())
             {
