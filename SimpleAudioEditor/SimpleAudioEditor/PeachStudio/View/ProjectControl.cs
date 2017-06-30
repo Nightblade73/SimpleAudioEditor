@@ -186,8 +186,7 @@ namespace SimpleAudioEditor.PeachStudio
             pbWaveViewer.MouseUp -= pbWaveViewer_MouseUp_MovingMarker;
             currentTime = Mathf.PosToTime(markerPoint.X, PlayerLineWidth, outputFileTime);
             projectPlayer.CurrentTime = currentTime;
-            projectPlayer.Pause();
-            projectPlayer.Playing = false;
+
             if (markerPoint.X >= Mathf.TimeToPos(GetAllTotalTime(), outputFileTime, PlayerLineWidth))
             {
                 projectPlayer.Stop();
