@@ -47,7 +47,7 @@ namespace SimpleAudioEditor.PeachStudio
             //markerPoint = new Point(startPos.X, startPos.Y - object_radius * 2);
             UpdatePointPos();
             markerPoint = new Point(Mathf.TimeToPos(
-                Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, outputFileTime), new TimeSpan(), outputFileTime), currentTime, PlayerLineWidth), startPos.Y - object_radius * 2);
+                Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, outputFileTime), new TimeSpan(), outputFileTime), currentTime, PlayerLineWidth), startPos.Y/* - object_radius * 2*/);
 
             pbWaveViewer.Invalidate();
         }
@@ -58,7 +58,7 @@ namespace SimpleAudioEditor.PeachStudio
             this.project = project;
             UpdatePointPos();
             markerPoint = new Point(Mathf.TimeToPos(
-                Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, outputFileTime), new TimeSpan(), outputFileTime), currentTime, PlayerLineWidth), startPos.Y - object_radius * 2);
+                Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, outputFileTime), new TimeSpan(), outputFileTime), currentTime, PlayerLineWidth), startPos.Y/* - object_radius * 2*/);
             pbWaveViewer.Invalidate();
         }
 
@@ -137,10 +137,11 @@ namespace SimpleAudioEditor.PeachStudio
             //Рисуем маркер
             canvas.DrawLine(cursorPen, startPos, new Point(markerPoint.X, startPos.Y));
 
-            canvas.DrawPolygon(cursorPen, new Point[] {
-                new Point( markerPoint.X - object_radius, markerPoint.Y - object_radius),
-                new Point( markerPoint.X + object_radius, markerPoint.Y - object_radius),
-                new Point(markerPoint.X,startPos.Y)});
+            canvas.DrawImage(Properties.Resources.icons8_Peach_24___marker, markerPoint.X - 12, startPos.Y - 12);
+            //canvas.DrawPolygon(cursorPen, new Point[] {
+            //    new Point( markerPoint.X - object_radius, markerPoint.Y - object_radius),
+            //    new Point( markerPoint.X + object_radius, markerPoint.Y - object_radius),
+            //    new Point(markerPoint.X,startPos.Y)});
         }
 
         
@@ -156,7 +157,7 @@ namespace SimpleAudioEditor.PeachStudio
             UpdatePointPos();
 
             (pbWaveViewer as Control).AllowDrop = true;
-            markerPoint = new Point(Mathf.TimeToPos(Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, outputFileTime), new TimeSpan(), outputFileTime), currentTime, PlayerLineWidth), startPos.Y - object_radius * 2);
+            markerPoint = new Point(Mathf.TimeToPos(Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, outputFileTime), new TimeSpan(), outputFileTime), currentTime, PlayerLineWidth), startPos.Y/* - object_radius * 2*/);
             projectPlayer = new ProjectPlayer(project.GetSampleList());
             projectPlayer.Timer.Tick += Timer_Tick;
             projectPlayer.OutEvents.PlaybackStopped += outEvents_PlaybackStopped;
@@ -171,7 +172,7 @@ namespace SimpleAudioEditor.PeachStudio
 
 
             markerPoint = new Point(Mathf.TimeToPos(
-                Mathf.Clamp(Mathf.PosToTime(e.X + OffsetX, PlayerLineWidth, outputFileTime), new TimeSpan(), GetAllTotalTime()), outputFileTime, PlayerLineWidth), startPos.Y - object_radius * 2);
+                Mathf.Clamp(Mathf.PosToTime(e.X + OffsetX, PlayerLineWidth, outputFileTime), new TimeSpan(), GetAllTotalTime()), outputFileTime, PlayerLineWidth), startPos.Y/* - object_radius * 2*/);
             //UpdateMaskedTimeValue();
             // Перерисовать.
             pbWaveViewer.Invalidate();

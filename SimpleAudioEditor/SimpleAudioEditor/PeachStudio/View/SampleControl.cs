@@ -46,7 +46,7 @@ namespace SimpleAudioEditor.PeachStudio
             this.Location = _location;
             this.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
             sample = _sample;
-            markerPoint = new Point(startPos.X, startPos.Y - object_radius * 2);
+            markerPoint = new Point(startPos.X, startPos.Y/* - object_radius * 2*/);
             pictureBox.MouseMove += pictureBox_MouseMove_NotDown;
             pictureBox.MouseDown += pictureBox_MouseDown;
             samplePlayer = new SamplePlayer(sample.SoundPath);
@@ -113,7 +113,7 @@ namespace SimpleAudioEditor.PeachStudio
         public SampleControl()
         {
             InitializeComponent();
-            markerPoint = new Point(startPos.X, startPos.Y - object_radius * 2);
+            markerPoint = new Point(startPos.X, startPos.Y/* - object_radius * 2*/);
             markerMoving = false;
             UpdatePointPos();
         }
@@ -123,7 +123,7 @@ namespace SimpleAudioEditor.PeachStudio
             startPos = new Point(indent, pictureBox.Height / 2);
             endPos = new Point(pictureBox.Width - indent, pictureBox.Height / 2);
             if (samplePlayer != null)
-                markerPoint = new Point(indent + Mathf.TimeToPos(Mathf.Clamp(samplePlayer.CurrentTime, sample.SplitStartTime, sample.SplitEndTime), samplePlayer.TotalTime, PlayerLineWidth), startPos.Y - object_radius * 2);
+                markerPoint = new Point(indent + Mathf.TimeToPos(Mathf.Clamp(samplePlayer.CurrentTime, sample.SplitStartTime, sample.SplitEndTime), samplePlayer.TotalTime, PlayerLineWidth), startPos.Y/* - object_radius * 2*/);
         }
 
         private void buttonPlay_Click(object sender, EventArgs e)
@@ -156,7 +156,7 @@ namespace SimpleAudioEditor.PeachStudio
         private void samplePlayerTimer_Tick(object sender, EventArgs e)
         {
             if (!markerMoving)
-                markerPoint = new Point(Mathf.Clamp(indent + Mathf.TimeToPos(samplePlayer.CurrentTime, samplePlayer.TotalTime, PlayerLineWidth), startPos.X, endPos.X), startPos.Y - object_radius * 2);
+                markerPoint = new Point(Mathf.Clamp(indent + Mathf.TimeToPos(samplePlayer.CurrentTime, samplePlayer.TotalTime, PlayerLineWidth), startPos.X, endPos.X), startPos.Y/* - object_radius * 2*/);
             maskedTextBoxCurrentTime.Text = samplePlayer.CurrentTime.ToString(@"hh\:mm\:ss\.FF");
             if (samplePlayer.CurrentTime >= sample.SplitEndTime)
             {
@@ -579,10 +579,12 @@ namespace SimpleAudioEditor.PeachStudio
 
             //Pen cursorPen = new Pen(Color.ForestGreen, 4);
 
-            canvas.DrawPolygon(new Pen(Color.Black, 4), new Point[] {
-                new Point( markerPoint.X - object_radius, markerPoint.Y - object_radius),
-                new Point( markerPoint.X + object_radius, markerPoint.Y - object_radius),
-                new Point(markerPoint.X,startPos.Y)});
+            //canvas.DrawPolygon(new Pen(Color.Black, 4), new Point[] {
+            //    new Point( markerPoint.X - object_radius, markerPoint.Y - object_radius),
+            //    new Point( markerPoint.X + object_radius, markerPoint.Y - object_radius),
+            //    new Point(markerPoint.X,startPos.Y)});
+
+            canvas.DrawImage(Properties.Resources.icons8_Peach_24___marker, markerPoint.X-12, startPos.Y-12);
 
             //canvas.DrawPolygon(new Pen(Color.OrangeRed, 0.5f), new Point[] {
             //    new Point( markerPoint.X - object_radius, markerPoint.Y - object_radius),
