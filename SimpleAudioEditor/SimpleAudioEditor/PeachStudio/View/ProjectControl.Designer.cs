@@ -46,7 +46,7 @@
             // 
             this.pbWaveViewer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbWaveViewer.BackColor = System.Drawing.Color.Transparent;
+            this.pbWaveViewer.BackColor = System.Drawing.Color.FromArgb(150, 150, 150, 150);
             this.pbWaveViewer.Location = new System.Drawing.Point(40, 0);
             this.pbWaveViewer.Name = "pbWaveViewer";
             this.pbWaveViewer.Size = new System.Drawing.Size(618, 80);

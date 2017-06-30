@@ -59,7 +59,6 @@ namespace SimpleAudioEditor.PeachStudio
             UpdatePointPos();
             markerPoint = new Point(Mathf.TimeToPos(
                 Mathf.Clamp(Mathf.PosToTime(startPos.X, PlayerLineWidth, outputFileTime), new TimeSpan(), outputFileTime), currentTime, PlayerLineWidth), startPos.Y - object_radius * 2);
-
             pbWaveViewer.Invalidate();
         }
 

@@ -55,9 +55,9 @@ namespace SimpleAudioEditor.PeachStudio
             UpdatePointPos();
             UpdateMaskedTimeValue();
 
-            label1.ForeColor = Color.OrangeRed;
+            
             //label1.BackColor = Color.DarkGray;
-            label1.Text = "sdfsdfsfsfds";
+            //label1.Text = "sdfsdfsfsfds";
             AudioFile fileWithTags = new AudioFile(_sample.SoundPath, ReadStyle.Average);
             if (fileWithTags.Tag.Performers != null && fileWithTags.Tag.Title != null)
             {
@@ -577,18 +577,20 @@ namespace SimpleAudioEditor.PeachStudio
                 new Point(Mathf.TimeToPos(sample.SplitEndTime, sample.TotalTime, PlayerLineWidth) + indent + penSize / 2, pictureBox.Height - penSize / 2));
 
 
-            Pen cursorPen = new Pen(Color.ForestGreen, 1);
+            //Pen cursorPen = new Pen(Color.ForestGreen, 4);
 
-            canvas.DrawPolygon(new Pen(Color.ForestGreen,3), new Point[] {
+            canvas.DrawPolygon(new Pen(Color.Black, 4), new Point[] {
                 new Point( markerPoint.X - object_radius, markerPoint.Y - object_radius),
                 new Point( markerPoint.X + object_radius, markerPoint.Y - object_radius),
                 new Point(markerPoint.X,startPos.Y)});
+
+            //canvas.DrawPolygon(new Pen(Color.OrangeRed, 0.5f), new Point[] {
+            //    new Point( markerPoint.X - object_radius, markerPoint.Y - object_radius),
+            //    new Point( markerPoint.X + object_radius, markerPoint.Y - object_radius),
+            //    new Point(markerPoint.X,startPos.Y)});
+
             
-            canvas.DrawPolygon(new Pen(Color.OrangeRed,0.5f), new Point[] {
-                new Point( markerPoint.X - object_radius, markerPoint.Y - object_radius),
-                new Point( markerPoint.X + object_radius, markerPoint.Y - object_radius),
-                new Point(markerPoint.X,startPos.Y)});
-                
+
         }
 
         private void pictureBox_Layout(object sender, LayoutEventArgs e)
